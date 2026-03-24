@@ -1,6 +1,6 @@
 import "package:flutter/material.dart";
 import "package:karotator/http.dart";
-import "package:karotator/objects/response.dart";
+import "package:karotator/objects/post.dart";
 import "package:karotator/utils.dart";
 
 class TimeLine extends StatefulWidget {
@@ -12,17 +12,34 @@ class TimeLine extends StatefulWidget {
 
 class _TimeLineState extends State<TimeLine> {
   final pageKey = GlobalKey<ScaffoldState>();
+  GlobalKey<RefreshIndicatorState> refreshIndicatorKey =
+      GlobalKey<RefreshIndicatorState>();
+  late List<Post> posts;
+  late Future<void> initPostsData;
 
   @override
   void initState() {
     super.initState();
+    initPostsData = initPosts();
+  }
+
+  Future<void> initPosts() async {
+    final response = await HTTPClient().getRecommended(page: 1, limit: 12);
+    posts = response.posts;
+  }
+
+  Future<void> refreshPosts() async {
+    final response = await HTTPClient().getRecommended(page: 1, limit: 12);
+    setState(() {
+      posts = response.posts;
+    });
   }
 
   @override
   Widget build(BuildContext context) {
     return FutureBuilder(
-      future: HTTPClient().getRecommended(page: 1, limit: 12),
-      builder: (BuildContext context, AsyncSnapshot<RecommendedResponse> snapshot) {
+      future: initPostsData,
+      builder: (BuildContext context, AsyncSnapshot<void> snapshot) {
         if (snapshot.connectionState == ConnectionState.waiting) {
           return Center(child: CircularProgressIndicator());
         }
@@ -31,19 +48,13 @@ class _TimeLineState extends State<TimeLine> {
           return Center(child: Text('I got the error! ${snapshot.error}'));
         }
 
-        final response = snapshot.data;
-
-        if (response == null) {
-          return Center(child: Text('Request successful but response is null'));
-        }
-
         return RefreshIndicator(
           onRefresh: () async => {},
           child: ListView.builder(
             physics: const AlwaysScrollableScrollPhysics(),
-            itemCount: response.posts.length,
+            itemCount: posts.length,
             itemBuilder: (context, index) {
-              final post = response.posts[index];
+              final post = posts[index];
               return ListTile(
                 titleAlignment: ListTileTitleAlignment.top,
                 leading: Wrap(

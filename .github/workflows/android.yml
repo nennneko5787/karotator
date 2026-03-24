@@ -2,29 +2,34 @@ name: Build the app for Android
 
 on:
   push:
-    branches: [ main ]
+    branches: [main]
 
 jobs:
   build_android:
     runs-on: ubuntu-latest
-  
+
     steps:
       - uses: actions/checkout@v2
-  
+
       - name: Install Flutter
         run: git clone https://github.com/flutter/flutter.git
-  
+
       - name: Add path
         run: echo "$(pwd)/flutter/bin" >> $GITHUB_PATH
-  
+
       - name: Flutter pub get
         run: flutter pub get
-  
+
       - name: Build APK
         run: flutter build apk --release
-  
-      - name: Upload APK artifact
+
+      - name: Rename APK
+        run: |
+          cd build/app/outputs/flutter-apk/
+          mv app-release.apk karotator.apk
+
+      - name: Upload APK
         uses: actions/upload-artifact@v4
         with:
           name: android-apk
-          path: build/app/outputs/flutter-apk/app-release.apk
+          path: build/app/outputs/flutter-apk/karotator.apk

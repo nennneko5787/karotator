@@ -2,7 +2,7 @@ name: Build the app for iOS
 
 on:
   push:
-    branches: [ main ]
+    branches: [main]
 
 jobs:
   build_iOS:
@@ -23,13 +23,15 @@ jobs:
       - name: Build .app (no codesign)
         run: flutter build ios --release --no-codesign
 
-      - name: Zip .app
+      - name: Convert .app to .ipa
         run: |
           cd build/ios/iphoneos
-          zip -r Runner.app.zip Runner.app
-      
-      - name: Upload artifact
+          mkdir Payload
+          mv Runner.app Payload/Runner.app
+          zip -r karotator.ipa Payload
+
+      - name: Upload IPA
         uses: actions/upload-artifact@v4
         with:
           name: ios-app
-          path: build/ios/iphoneos/Runner.app.zip
+          path: build/ios/iphoneos/karotator.ipa
