@@ -1,6 +1,7 @@
 import "package:flutter/material.dart";
 import "package:karotator/http.dart";
 import "package:karotator/objects/response.dart";
+import "package:karotator/utils.dart";
 
 class TimeLine extends StatefulWidget {
   const TimeLine({super.key});
@@ -81,45 +82,61 @@ class _TimeLineState extends State<TimeLine> {
                       ),
                     ),
                     Text(
-                      post.createdAt.toString(),
+                      getLocalizedDateTime(post.createdAt),
                       style: TextStyle(
                         color: Color.fromARGB(255, 107, 114, 128),
                       ),
                     ),
                   ],
                 ),
-                subtitle: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Text(post.content),
-                    Row(
-                      children: [
-                        IconButton(
-                          icon: const Icon(Icons.comment_outlined),
-                          onPressed: () {},
-                        ),
-                        Text("${post.repliesCount}"),
-                        const SizedBox(width: 16),
-                        IconButton(
-                          icon: const Icon(Icons.repeat),
-                          onPressed: () {},
-                        ),
-                        Text("${post.rekarotsCount}"),
-                        const SizedBox(width: 16),
-                        IconButton(
-                          icon: const Icon(Icons.favorite_outline),
-                          onPressed: () {},
-                        ),
-                        Text("${post.likesCount}"),
-                        const SizedBox(width: 16),
-                        IconButton(
-                          icon: const Icon(Icons.bookmark_outline),
-                          onPressed: () {},
-                        ),
-                        Text("${post.bookmarksCount}"),
-                      ],
-                    ),
-                  ],
+                subtitle: Expanded(
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text(post.content),
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                        children: [
+                          Row(
+                            children: [
+                              IconButton(
+                                icon: const Icon(Icons.comment_outlined),
+                                onPressed: () {},
+                              ),
+                              Text("${post.repliesCount}"),
+                            ],
+                          ),
+                          Row(
+                            children: [
+                              IconButton(
+                                icon: const Icon(Icons.repeat),
+                                onPressed: () {},
+                              ),
+                              Text("${post.rekarotsCount}"),
+                            ],
+                          ),
+                          Row(
+                            children: [
+                              IconButton(
+                                icon: const Icon(Icons.favorite_outline),
+                                onPressed: () {},
+                              ),
+                              Text("${post.likesCount}"),
+                            ],
+                          ),
+                          Row(
+                            children: [
+                              IconButton(
+                                icon: const Icon(Icons.bookmark_outline),
+                                onPressed: () {},
+                              ),
+                              Text("${post.bookmarksCount}"),
+                            ],
+                          ),
+                        ],
+                      ),
+                    ],
+                  ),
                 ),
               );
             },
