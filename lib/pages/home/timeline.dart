@@ -18,12 +18,7 @@ class _TimeLineState extends State<TimeLine> {
   @override
   void initState() {
     super.initState();
-    initPostsData = initPosts();
-  }
-
-  Future<void> initPosts() async {
-    final response = await HTTPClient().getRecommended(page: 1, limit: 12);
-    posts = response.posts;
+    initPostsData = refreshPosts();
   }
 
   Future<void> refreshPosts() async {
