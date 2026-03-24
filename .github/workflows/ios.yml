@@ -1,0 +1,35 @@
+name: Build the app for iOS
+
+on:
+  push:
+    branches: [ main ]
+
+jobs:
+  build_iOS:
+    runs-on: macos-latest
+
+    steps:
+      - uses: actions/checkout@v2
+
+      - name: Install Flutter
+        run: git clone https://github.com/flutter/flutter.git
+
+      - name: Add path
+        run: echo "$(pwd)/flutter/bin" >> $GITHUB_PATH
+
+      - name: Flutter pub get
+        run: flutter pub get
+
+      - name: Build .app (no codesign)
+        run: flutter build ios --release --no-codesign
+
+      - name: Zip .app
+        run: |
+          cd build/ios/iphoneos
+          zip -r Runner.app.zip Runner.app
+      
+      - name: Upload artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: ios-app
+          path: build/ios/iphoneos/Runner.app.zip
