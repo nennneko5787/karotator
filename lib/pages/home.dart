@@ -23,8 +23,8 @@ class _HomePageState extends State<HomePage> {
       key: pageKey,
       appBar: AppBar(
         title: Container(
-          width: 48,
-          height: 48,
+          width: 40,
+          height: 40,
           decoration: BoxDecoration(
             shape: BoxShape.circle,
             image: DecorationImage(
@@ -51,6 +51,25 @@ class _HomePageState extends State<HomePage> {
       ),
       drawer: DrawerMenu(),
       body: TimeLine(),
+      bottomNavigationBar: BottomNavigationBar(
+        type: BottomNavigationBarType.fixed,
+        items: [
+          const BottomNavigationBarItem(icon: Icon(Icons.home), label: 'ホーム'),
+          const BottomNavigationBarItem(icon: Icon(Icons.search), label: '検索'),
+          const BottomNavigationBarItem(
+            icon: Icon(Icons.notifications),
+            label: '通知',
+          ),
+          const BottomNavigationBarItem(
+            icon: Icon(Icons.message),
+            label: 'メッセージ',
+          ),
+          const BottomNavigationBarItem(
+            icon: Icon(Icons.pending),
+            label: 'もっと見る',
+          ),
+        ],
+      ),
     );
   }
 }

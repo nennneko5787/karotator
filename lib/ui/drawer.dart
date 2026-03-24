@@ -1,10 +1,11 @@
 import "package:flutter/material.dart";
+import "package:karotator/pages/login.dart";
 
 class DrawerMenu extends StatefulWidget {
   const DrawerMenu({super.key});
 
   @override
-  _DrawerMenuState createState() => _DrawerMenuState();
+  State<DrawerMenu> createState() => _DrawerMenuState();
 }
 
 class _DrawerMenuState extends State<DrawerMenu> {
@@ -12,23 +13,21 @@ class _DrawerMenuState extends State<DrawerMenu> {
   Widget build(BuildContext context) {
     return Drawer(
       child: ListView(
+        padding: EdgeInsets.zero,
         children: [
-          ListTile(
-            leading: const Icon(Icons.add),
-            title: const Text("メニュー1"),
-            onTap: () {
-              // ここにメニュータップ時の処理を記述
-            },
+          UserAccountsDrawerHeader(
+            accountName: Text("ログインしていません"),
+            accountEmail: Text("Karotterにログインして投稿を楽しみましょう"),
           ),
           ListTile(
             leading: const Icon(Icons.login),
-            title: const Text("メニュー2"),
-            onTap: () {},
-          ),
-          ListTile(
-            leading: const Icon(Icons.favorite),
-            title: const Text("メニュー3"),
-            onTap: () {},
+            title: const Text("ログイン"),
+            onTap: () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(builder: (context) => LoginPage()),
+              );
+            },
           ),
         ],
       ),

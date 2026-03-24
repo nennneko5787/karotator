@@ -1,7 +1,7 @@
 import "package:flutter/material.dart";
+import "package:karotator/factory/post.dart";
 import "package:karotator/http.dart";
 import "package:karotator/objects/post.dart";
-import "package:karotator/utils.dart";
 
 class TimeLine extends StatefulWidget {
   const TimeLine({super.key});
@@ -50,96 +50,9 @@ class _TimeLineState extends State<TimeLine> {
               final post = posts[index];
               return ListTile(
                 titleAlignment: ListTileTitleAlignment.top,
-                leading: Wrap(
-                  children: [
-                    Container(
-                      width: 64,
-                      height: 64,
-                      decoration: BoxDecoration(
-                        shape: BoxShape.circle,
-                        image: DecorationImage(
-                          fit: BoxFit.fill,
-                          image: NetworkImage(
-                            post.author.avatarUrl != null
-                                ? "https://karotter.com${post.author.avatarUrl}"
-                                : "https://karotter.com/default-avatar.png",
-                          ),
-                        ),
-                      ),
-                    ),
-                  ],
-                ),
-                title: Row(
-                  children: [
-                    Text(post.author.displayName),
-                    const SizedBox(width: 8),
-                    Text(
-                      "@${post.author.username}",
-                      style: TextStyle(
-                        color: Color.fromARGB(255, 107, 114, 128),
-                      ),
-                    ),
-                    Text(
-                      " · ",
-                      style: TextStyle(
-                        color: Color.fromARGB(255, 107, 114, 128),
-                      ),
-                    ),
-                    Text(
-                      getLocalizedDateTime(post.createdAt),
-                      style: TextStyle(
-                        color: Color.fromARGB(255, 107, 114, 128),
-                      ),
-                    ),
-                  ],
-                ),
-                subtitle: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Text(post.content),
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                      children: [
-                        Row(
-                          children: [
-                            IconButton(
-                              icon: const Icon(Icons.comment_outlined),
-                              onPressed: () {},
-                            ),
-                            Text("${post.repliesCount}"),
-                          ],
-                        ),
-                        Row(
-                          children: [
-                            IconButton(
-                              icon: const Icon(Icons.repeat),
-                              onPressed: () {},
-                            ),
-                            Text("${post.rekarotsCount}"),
-                          ],
-                        ),
-                        Row(
-                          children: [
-                            IconButton(
-                              icon: const Icon(Icons.favorite_outline),
-                              onPressed: () {},
-                            ),
-                            Text("${post.likesCount}"),
-                          ],
-                        ),
-                        Row(
-                          children: [
-                            IconButton(
-                              icon: const Icon(Icons.bookmark_outline),
-                              onPressed: () {},
-                            ),
-                            Text("${post.bookmarksCount}"),
-                          ],
-                        ),
-                      ],
-                    ),
-                  ],
-                ),
+                leading: postUserAvatarFactory(post.author.avatarUrl),
+                title: postUserDetailFactory(post),
+                subtitle: postContentFactory(post),
               );
             },
           ),

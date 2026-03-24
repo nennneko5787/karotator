@@ -25,3 +25,21 @@ Map<String, dynamic> _$AuthorToJson(_Author instance) => <String, dynamic>{
   'officialMark': instance.officialMark,
   'username': instance.username,
 };
+
+_AuthUser _$AuthUserFromJson(Map<String, dynamic> json) => _AuthUser(
+  avatarUrl: json['avatarUrl'] as String?,
+  displayName: json['displayName'] as String,
+  id: (json['id'] as num).toInt(),
+  email: json['email'] as String?,
+  emailVerified: json['emailVerified'] as bool,
+  username: json['username'] as String,
+);
+
+Map<String, dynamic> _$AuthUserToJson(_AuthUser instance) => <String, dynamic>{
+  'avatarUrl': instance.avatarUrl,
+  'displayName': instance.displayName,
+  'id': instance.id,
+  'email': instance.email,
+  'emailVerified': instance.emailVerified,
+  'username': instance.username,
+};

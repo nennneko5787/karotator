@@ -17,3 +17,18 @@ abstract class Author with _$Author {
 
   factory Author.fromJson(Map<String, Object?> json) => _$AuthorFromJson(json);
 }
+
+@freezed
+abstract class AuthUser with _$AuthUser {
+  const factory AuthUser({
+    String? avatarUrl,
+    required String displayName,
+    required int id,
+    String? email,
+    required bool emailVerified,
+    required String username,
+  }) = _AuthUser;
+
+  factory AuthUser.fromJson(Map<String, Object?> json) =>
+      _$AuthUserFromJson(json);
+}

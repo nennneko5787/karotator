@@ -567,4 +567,294 @@ $RecommendedPaginationCopyWith<$Res> get pagination {
 }
 }
 
+
+/// @nodoc
+mixin _$LoginResponse {
+
+ String get accessToken; String get deviceId; String get sessionId; AuthUser get gender;
+/// Create a copy of LoginResponse
+/// with the given fields replaced by the non-null parameter values.
+@JsonKey(includeFromJson: false, includeToJson: false)
+@pragma('vm:prefer-inline')
+$LoginResponseCopyWith<LoginResponse> get copyWith => _$LoginResponseCopyWithImpl<LoginResponse>(this as LoginResponse, _$identity);
+
+  /// Serializes this LoginResponse to a JSON map.
+  Map<String, dynamic> toJson();
+
+
+@override
+bool operator ==(Object other) {
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is LoginResponse&&(identical(other.accessToken, accessToken) || other.accessToken == accessToken)&&(identical(other.deviceId, deviceId) || other.deviceId == deviceId)&&(identical(other.sessionId, sessionId) || other.sessionId == sessionId)&&(identical(other.gender, gender) || other.gender == gender));
+}
+
+@JsonKey(includeFromJson: false, includeToJson: false)
+@override
+int get hashCode => Object.hash(runtimeType,accessToken,deviceId,sessionId,gender);
+
+@override
+String toString() {
+  return 'LoginResponse(accessToken: $accessToken, deviceId: $deviceId, sessionId: $sessionId, gender: $gender)';
+}
+
+
+}
+
+/// @nodoc
+abstract mixin class $LoginResponseCopyWith<$Res>  {
+  factory $LoginResponseCopyWith(LoginResponse value, $Res Function(LoginResponse) _then) = _$LoginResponseCopyWithImpl;
+@useResult
+$Res call({
+ String accessToken, String deviceId, String sessionId, AuthUser gender
+});
+
+
+$AuthUserCopyWith<$Res> get gender;
+
+}
+/// @nodoc
+class _$LoginResponseCopyWithImpl<$Res>
+    implements $LoginResponseCopyWith<$Res> {
+  _$LoginResponseCopyWithImpl(this._self, this._then);
+
+  final LoginResponse _self;
+  final $Res Function(LoginResponse) _then;
+
+/// Create a copy of LoginResponse
+/// with the given fields replaced by the non-null parameter values.
+@pragma('vm:prefer-inline') @override $Res call({Object? accessToken = null,Object? deviceId = null,Object? sessionId = null,Object? gender = null,}) {
+  return _then(_self.copyWith(
+accessToken: null == accessToken ? _self.accessToken : accessToken // ignore: cast_nullable_to_non_nullable
+as String,deviceId: null == deviceId ? _self.deviceId : deviceId // ignore: cast_nullable_to_non_nullable
+as String,sessionId: null == sessionId ? _self.sessionId : sessionId // ignore: cast_nullable_to_non_nullable
+as String,gender: null == gender ? _self.gender : gender // ignore: cast_nullable_to_non_nullable
+as AuthUser,
+  ));
+}
+/// Create a copy of LoginResponse
+/// with the given fields replaced by the non-null parameter values.
+@override
+@pragma('vm:prefer-inline')
+$AuthUserCopyWith<$Res> get gender {
+  
+  return $AuthUserCopyWith<$Res>(_self.gender, (value) {
+    return _then(_self.copyWith(gender: value));
+  });
+}
+}
+
+
+/// Adds pattern-matching-related methods to [LoginResponse].
+extension LoginResponsePatterns on LoginResponse {
+/// A variant of `map` that fallback to returning `orElse`.
+///
+/// It is equivalent to doing:
+/// ```dart
+/// switch (sealedClass) {
+///   case final Subclass value:
+///     return ...;
+///   case _:
+///     return orElse();
+/// }
+/// ```
+
+@optionalTypeArgs TResult maybeMap<TResult extends Object?>(TResult Function( _LoginResponse value)?  $default,{required TResult orElse(),}){
+final _that = this;
+switch (_that) {
+case _LoginResponse() when $default != null:
+return $default(_that);case _:
+  return orElse();
+
+}
+}
+/// A `switch`-like method, using callbacks.
+///
+/// Callbacks receives the raw object, upcasted.
+/// It is equivalent to doing:
+/// ```dart
+/// switch (sealedClass) {
+///   case final Subclass value:
+///     return ...;
+///   case final Subclass2 value:
+///     return ...;
+/// }
+/// ```
+
+@optionalTypeArgs TResult map<TResult extends Object?>(TResult Function( _LoginResponse value)  $default,){
+final _that = this;
+switch (_that) {
+case _LoginResponse():
+return $default(_that);case _:
+  throw StateError('Unexpected subclass');
+
+}
+}
+/// A variant of `map` that fallback to returning `null`.
+///
+/// It is equivalent to doing:
+/// ```dart
+/// switch (sealedClass) {
+///   case final Subclass value:
+///     return ...;
+///   case _:
+///     return null;
+/// }
+/// ```
+
+@optionalTypeArgs TResult? mapOrNull<TResult extends Object?>(TResult? Function( _LoginResponse value)?  $default,){
+final _that = this;
+switch (_that) {
+case _LoginResponse() when $default != null:
+return $default(_that);case _:
+  return null;
+
+}
+}
+/// A variant of `when` that fallback to an `orElse` callback.
+///
+/// It is equivalent to doing:
+/// ```dart
+/// switch (sealedClass) {
+///   case Subclass(:final field):
+///     return ...;
+///   case _:
+///     return orElse();
+/// }
+/// ```
+
+@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( String accessToken,  String deviceId,  String sessionId,  AuthUser gender)?  $default,{required TResult orElse(),}) {final _that = this;
+switch (_that) {
+case _LoginResponse() when $default != null:
+return $default(_that.accessToken,_that.deviceId,_that.sessionId,_that.gender);case _:
+  return orElse();
+
+}
+}
+/// A `switch`-like method, using callbacks.
+///
+/// As opposed to `map`, this offers destructuring.
+/// It is equivalent to doing:
+/// ```dart
+/// switch (sealedClass) {
+///   case Subclass(:final field):
+///     return ...;
+///   case Subclass2(:final field2):
+///     return ...;
+/// }
+/// ```
+
+@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( String accessToken,  String deviceId,  String sessionId,  AuthUser gender)  $default,) {final _that = this;
+switch (_that) {
+case _LoginResponse():
+return $default(_that.accessToken,_that.deviceId,_that.sessionId,_that.gender);case _:
+  throw StateError('Unexpected subclass');
+
+}
+}
+/// A variant of `when` that fallback to returning `null`
+///
+/// It is equivalent to doing:
+/// ```dart
+/// switch (sealedClass) {
+///   case Subclass(:final field):
+///     return ...;
+///   case _:
+///     return null;
+/// }
+/// ```
+
+@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( String accessToken,  String deviceId,  String sessionId,  AuthUser gender)?  $default,) {final _that = this;
+switch (_that) {
+case _LoginResponse() when $default != null:
+return $default(_that.accessToken,_that.deviceId,_that.sessionId,_that.gender);case _:
+  return null;
+
+}
+}
+
+}
+
+/// @nodoc
+@JsonSerializable()
+
+class _LoginResponse implements LoginResponse {
+  const _LoginResponse({required this.accessToken, required this.deviceId, required this.sessionId, required this.gender});
+  factory _LoginResponse.fromJson(Map<String, dynamic> json) => _$LoginResponseFromJson(json);
+
+@override final  String accessToken;
+@override final  String deviceId;
+@override final  String sessionId;
+@override final  AuthUser gender;
+
+/// Create a copy of LoginResponse
+/// with the given fields replaced by the non-null parameter values.
+@override @JsonKey(includeFromJson: false, includeToJson: false)
+@pragma('vm:prefer-inline')
+_$LoginResponseCopyWith<_LoginResponse> get copyWith => __$LoginResponseCopyWithImpl<_LoginResponse>(this, _$identity);
+
+@override
+Map<String, dynamic> toJson() {
+  return _$LoginResponseToJson(this, );
+}
+
+@override
+bool operator ==(Object other) {
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is _LoginResponse&&(identical(other.accessToken, accessToken) || other.accessToken == accessToken)&&(identical(other.deviceId, deviceId) || other.deviceId == deviceId)&&(identical(other.sessionId, sessionId) || other.sessionId == sessionId)&&(identical(other.gender, gender) || other.gender == gender));
+}
+
+@JsonKey(includeFromJson: false, includeToJson: false)
+@override
+int get hashCode => Object.hash(runtimeType,accessToken,deviceId,sessionId,gender);
+
+@override
+String toString() {
+  return 'LoginResponse(accessToken: $accessToken, deviceId: $deviceId, sessionId: $sessionId, gender: $gender)';
+}
+
+
+}
+
+/// @nodoc
+abstract mixin class _$LoginResponseCopyWith<$Res> implements $LoginResponseCopyWith<$Res> {
+  factory _$LoginResponseCopyWith(_LoginResponse value, $Res Function(_LoginResponse) _then) = __$LoginResponseCopyWithImpl;
+@override @useResult
+$Res call({
+ String accessToken, String deviceId, String sessionId, AuthUser gender
+});
+
+
+@override $AuthUserCopyWith<$Res> get gender;
+
+}
+/// @nodoc
+class __$LoginResponseCopyWithImpl<$Res>
+    implements _$LoginResponseCopyWith<$Res> {
+  __$LoginResponseCopyWithImpl(this._self, this._then);
+
+  final _LoginResponse _self;
+  final $Res Function(_LoginResponse) _then;
+
+/// Create a copy of LoginResponse
+/// with the given fields replaced by the non-null parameter values.
+@override @pragma('vm:prefer-inline') $Res call({Object? accessToken = null,Object? deviceId = null,Object? sessionId = null,Object? gender = null,}) {
+  return _then(_LoginResponse(
+accessToken: null == accessToken ? _self.accessToken : accessToken // ignore: cast_nullable_to_non_nullable
+as String,deviceId: null == deviceId ? _self.deviceId : deviceId // ignore: cast_nullable_to_non_nullable
+as String,sessionId: null == sessionId ? _self.sessionId : sessionId // ignore: cast_nullable_to_non_nullable
+as String,gender: null == gender ? _self.gender : gender // ignore: cast_nullable_to_non_nullable
+as AuthUser,
+  ));
+}
+
+/// Create a copy of LoginResponse
+/// with the given fields replaced by the non-null parameter values.
+@override
+@pragma('vm:prefer-inline')
+$AuthUserCopyWith<$Res> get gender {
+  
+  return $AuthUserCopyWith<$Res>(_self.gender, (value) {
+    return _then(_self.copyWith(gender: value));
+  });
+}
+}
+
 // dart format on
