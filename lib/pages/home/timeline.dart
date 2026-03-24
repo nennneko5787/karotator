@@ -98,54 +98,52 @@ class _TimeLineState extends State<TimeLine> {
                     ),
                   ],
                 ),
-                subtitle: Expanded(
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Text(post.content),
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                        children: [
-                          Row(
-                            children: [
-                              IconButton(
-                                icon: const Icon(Icons.comment_outlined),
-                                onPressed: () {},
-                              ),
-                              Text("${post.repliesCount}"),
-                            ],
-                          ),
-                          Row(
-                            children: [
-                              IconButton(
-                                icon: const Icon(Icons.repeat),
-                                onPressed: () {},
-                              ),
-                              Text("${post.rekarotsCount}"),
-                            ],
-                          ),
-                          Row(
-                            children: [
-                              IconButton(
-                                icon: const Icon(Icons.favorite_outline),
-                                onPressed: () {},
-                              ),
-                              Text("${post.likesCount}"),
-                            ],
-                          ),
-                          Row(
-                            children: [
-                              IconButton(
-                                icon: const Icon(Icons.bookmark_outline),
-                                onPressed: () {},
-                              ),
-                              Text("${post.bookmarksCount}"),
-                            ],
-                          ),
-                        ],
-                      ),
-                    ],
-                  ),
+                subtitle: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(post.content),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                      children: [
+                        Row(
+                          children: [
+                            IconButton(
+                              icon: const Icon(Icons.comment_outlined),
+                              onPressed: () {},
+                            ),
+                            Text("${post.repliesCount}"),
+                          ],
+                        ),
+                        Row(
+                          children: [
+                            IconButton(
+                              icon: const Icon(Icons.repeat),
+                              onPressed: () {},
+                            ),
+                            Text("${post.rekarotsCount}"),
+                          ],
+                        ),
+                        Row(
+                          children: [
+                            IconButton(
+                              icon: const Icon(Icons.favorite_outline),
+                              onPressed: () {},
+                            ),
+                            Text("${post.likesCount}"),
+                          ],
+                        ),
+                        Row(
+                          children: [
+                            IconButton(
+                              icon: const Icon(Icons.bookmark_outline),
+                              onPressed: () {},
+                            ),
+                            Text("${post.bookmarksCount}"),
+                          ],
+                        ),
+                      ],
+                    ),
+                  ],
                 ),
               );
             },
