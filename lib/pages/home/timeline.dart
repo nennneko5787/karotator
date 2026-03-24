@@ -12,8 +12,6 @@ class TimeLine extends StatefulWidget {
 
 class _TimeLineState extends State<TimeLine> {
   final pageKey = GlobalKey<ScaffoldState>();
-  GlobalKey<RefreshIndicatorState> refreshIndicatorKey =
-      GlobalKey<RefreshIndicatorState>();
   late List<Post> posts;
   late Future<void> initPostsData;
 
@@ -49,7 +47,7 @@ class _TimeLineState extends State<TimeLine> {
         }
 
         return RefreshIndicator(
-          onRefresh: () async => {},
+          onRefresh: refreshPosts,
           child: ListView.builder(
             physics: const AlwaysScrollableScrollPhysics(),
             itemCount: posts.length,
