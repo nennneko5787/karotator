@@ -7,7 +7,9 @@ const List<List<String>> choices = [
 ];
 
 class GenderSelectMenu extends StatefulWidget {
-  const GenderSelectMenu({super.key});
+  const GenderSelectMenu({super.key, this.onChanged});
+
+  final ValueChanged<String>? onChanged;
 
   @override
   State<GenderSelectMenu> createState() => _GenderSelectMenuState();
@@ -31,6 +33,7 @@ class _GenderSelectMenuState extends State<GenderSelectMenu> {
             setState(() {
               selected = value!;
             });
+            widget.onChanged?.call(value!);
           },
           isExpanded: true,
           hint: const Text(

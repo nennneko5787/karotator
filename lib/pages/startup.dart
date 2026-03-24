@@ -1,4 +1,5 @@
 import "package:flutter/material.dart";
+import "package:karotator/http.dart";
 import "package:karotator/pages/home.dart";
 
 class StartUpPage extends StatefulWidget {
@@ -12,8 +13,10 @@ class _StartUpPageState extends State<StartUpPage> {
   @override
   void initState() {
     super.initState();
-    Future(() {
-      if (!context.mounted) return;
+    Future(() async {
+      await HTTPClient().initialize();
+
+      if (!context.mounted) return; // ここでアプリが起動しない可能性がある
 
       Navigator.pushReplacement(
         context,

@@ -1,5 +1,7 @@
 import "package:flutter/gestures.dart";
 import "package:flutter/material.dart";
+import "package:karotator/http.dart";
+import "package:karotator/pages/home.dart";
 import "package:karotator/ui/gender_select.dart";
 import "package:karotator/utils.dart";
 
@@ -13,6 +15,7 @@ class LoginPage extends StatefulWidget {
 class _LoginPageState extends State<LoginPage> {
   final TextEditingController _usernameController = TextEditingController();
   final TextEditingController _passwordController = TextEditingController();
+  String gender = "OTHER";
 
   Future<void> failedOpenLink(BuildContext context) async {
     ScaffoldMessenger.of(context).showSnackBar(
@@ -20,6 +23,24 @@ class _LoginPageState extends State<LoginPage> {
         content: const Text('このURLは開けませんでした'),
         action: SnackBarAction(label: '戻る', onPressed: () {}),
       ),
+    );
+  }
+
+  Future<void> login() async {
+    final identifier = _usernameController.text;
+    final password = _passwordController.text;
+
+    final _ = await HTTPClient().login(
+      identifier: identifier,
+      password: password,
+      gender: gender,
+    );
+
+    if (!context.mounted) return;
+
+    Navigator.pushReplacement(
+      context,
+      MaterialPageRoute(builder: (context) => HomePage()),
     );
   }
 
@@ -135,12 +156,16 @@ class _LoginPageState extends State<LoginPage> {
                     obscureText: true,
                   ),
                   const SizedBox(height: 16.0),
-                  SizedBox(child: GenderSelectMenu()),
+                  SizedBox(
+                    child: GenderSelectMenu(
+                      onChanged: (value) => setState(() => gender = value),
+                    ),
+                  ),
                   const SizedBox(height: 16.0),
                   SizedBox(
                     width: double.infinity,
                     child: ElevatedButton(
-                      onPressed: () => {},
+                      onPressed: () async => {await login()},
                       style: ElevatedButton.styleFrom(
                         foregroundColor: Colors.white,
                         backgroundColor: Color.fromARGB(255, 37, 99, 235),

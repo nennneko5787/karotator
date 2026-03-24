@@ -571,7 +571,7 @@ $RecommendedPaginationCopyWith<$Res> get pagination {
 /// @nodoc
 mixin _$LoginResponse {
 
- String get accessToken; String get deviceId; String get sessionId; AuthUser get gender;
+ String get accessToken; String get deviceId; String get sessionId; AuthUser get user;
 /// Create a copy of LoginResponse
 /// with the given fields replaced by the non-null parameter values.
 @JsonKey(includeFromJson: false, includeToJson: false)
@@ -584,16 +584,16 @@ $LoginResponseCopyWith<LoginResponse> get copyWith => _$LoginResponseCopyWithImp
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is LoginResponse&&(identical(other.accessToken, accessToken) || other.accessToken == accessToken)&&(identical(other.deviceId, deviceId) || other.deviceId == deviceId)&&(identical(other.sessionId, sessionId) || other.sessionId == sessionId)&&(identical(other.gender, gender) || other.gender == gender));
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is LoginResponse&&(identical(other.accessToken, accessToken) || other.accessToken == accessToken)&&(identical(other.deviceId, deviceId) || other.deviceId == deviceId)&&(identical(other.sessionId, sessionId) || other.sessionId == sessionId)&&(identical(other.user, user) || other.user == user));
 }
 
 @JsonKey(includeFromJson: false, includeToJson: false)
 @override
-int get hashCode => Object.hash(runtimeType,accessToken,deviceId,sessionId,gender);
+int get hashCode => Object.hash(runtimeType,accessToken,deviceId,sessionId,user);
 
 @override
 String toString() {
-  return 'LoginResponse(accessToken: $accessToken, deviceId: $deviceId, sessionId: $sessionId, gender: $gender)';
+  return 'LoginResponse(accessToken: $accessToken, deviceId: $deviceId, sessionId: $sessionId, user: $user)';
 }
 
 
@@ -604,11 +604,11 @@ abstract mixin class $LoginResponseCopyWith<$Res>  {
   factory $LoginResponseCopyWith(LoginResponse value, $Res Function(LoginResponse) _then) = _$LoginResponseCopyWithImpl;
 @useResult
 $Res call({
- String accessToken, String deviceId, String sessionId, AuthUser gender
+ String accessToken, String deviceId, String sessionId, AuthUser user
 });
 
 
-$AuthUserCopyWith<$Res> get gender;
+$AuthUserCopyWith<$Res> get user;
 
 }
 /// @nodoc
@@ -621,12 +621,12 @@ class _$LoginResponseCopyWithImpl<$Res>
 
 /// Create a copy of LoginResponse
 /// with the given fields replaced by the non-null parameter values.
-@pragma('vm:prefer-inline') @override $Res call({Object? accessToken = null,Object? deviceId = null,Object? sessionId = null,Object? gender = null,}) {
+@pragma('vm:prefer-inline') @override $Res call({Object? accessToken = null,Object? deviceId = null,Object? sessionId = null,Object? user = null,}) {
   return _then(_self.copyWith(
 accessToken: null == accessToken ? _self.accessToken : accessToken // ignore: cast_nullable_to_non_nullable
 as String,deviceId: null == deviceId ? _self.deviceId : deviceId // ignore: cast_nullable_to_non_nullable
 as String,sessionId: null == sessionId ? _self.sessionId : sessionId // ignore: cast_nullable_to_non_nullable
-as String,gender: null == gender ? _self.gender : gender // ignore: cast_nullable_to_non_nullable
+as String,user: null == user ? _self.user : user // ignore: cast_nullable_to_non_nullable
 as AuthUser,
   ));
 }
@@ -634,10 +634,10 @@ as AuthUser,
 /// with the given fields replaced by the non-null parameter values.
 @override
 @pragma('vm:prefer-inline')
-$AuthUserCopyWith<$Res> get gender {
+$AuthUserCopyWith<$Res> get user {
   
-  return $AuthUserCopyWith<$Res>(_self.gender, (value) {
-    return _then(_self.copyWith(gender: value));
+  return $AuthUserCopyWith<$Res>(_self.user, (value) {
+    return _then(_self.copyWith(user: value));
   });
 }
 }
@@ -721,10 +721,10 @@ return $default(_that);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( String accessToken,  String deviceId,  String sessionId,  AuthUser gender)?  $default,{required TResult orElse(),}) {final _that = this;
+@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( String accessToken,  String deviceId,  String sessionId,  AuthUser user)?  $default,{required TResult orElse(),}) {final _that = this;
 switch (_that) {
 case _LoginResponse() when $default != null:
-return $default(_that.accessToken,_that.deviceId,_that.sessionId,_that.gender);case _:
+return $default(_that.accessToken,_that.deviceId,_that.sessionId,_that.user);case _:
   return orElse();
 
 }
@@ -742,10 +742,10 @@ return $default(_that.accessToken,_that.deviceId,_that.sessionId,_that.gender);c
 /// }
 /// ```
 
-@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( String accessToken,  String deviceId,  String sessionId,  AuthUser gender)  $default,) {final _that = this;
+@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( String accessToken,  String deviceId,  String sessionId,  AuthUser user)  $default,) {final _that = this;
 switch (_that) {
 case _LoginResponse():
-return $default(_that.accessToken,_that.deviceId,_that.sessionId,_that.gender);case _:
+return $default(_that.accessToken,_that.deviceId,_that.sessionId,_that.user);case _:
   throw StateError('Unexpected subclass');
 
 }
@@ -762,10 +762,10 @@ return $default(_that.accessToken,_that.deviceId,_that.sessionId,_that.gender);c
 /// }
 /// ```
 
-@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( String accessToken,  String deviceId,  String sessionId,  AuthUser gender)?  $default,) {final _that = this;
+@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( String accessToken,  String deviceId,  String sessionId,  AuthUser user)?  $default,) {final _that = this;
 switch (_that) {
 case _LoginResponse() when $default != null:
-return $default(_that.accessToken,_that.deviceId,_that.sessionId,_that.gender);case _:
+return $default(_that.accessToken,_that.deviceId,_that.sessionId,_that.user);case _:
   return null;
 
 }
@@ -777,13 +777,13 @@ return $default(_that.accessToken,_that.deviceId,_that.sessionId,_that.gender);c
 @JsonSerializable()
 
 class _LoginResponse implements LoginResponse {
-  const _LoginResponse({required this.accessToken, required this.deviceId, required this.sessionId, required this.gender});
+  const _LoginResponse({required this.accessToken, required this.deviceId, required this.sessionId, required this.user});
   factory _LoginResponse.fromJson(Map<String, dynamic> json) => _$LoginResponseFromJson(json);
 
 @override final  String accessToken;
 @override final  String deviceId;
 @override final  String sessionId;
-@override final  AuthUser gender;
+@override final  AuthUser user;
 
 /// Create a copy of LoginResponse
 /// with the given fields replaced by the non-null parameter values.
@@ -798,16 +798,16 @@ Map<String, dynamic> toJson() {
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is _LoginResponse&&(identical(other.accessToken, accessToken) || other.accessToken == accessToken)&&(identical(other.deviceId, deviceId) || other.deviceId == deviceId)&&(identical(other.sessionId, sessionId) || other.sessionId == sessionId)&&(identical(other.gender, gender) || other.gender == gender));
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is _LoginResponse&&(identical(other.accessToken, accessToken) || other.accessToken == accessToken)&&(identical(other.deviceId, deviceId) || other.deviceId == deviceId)&&(identical(other.sessionId, sessionId) || other.sessionId == sessionId)&&(identical(other.user, user) || other.user == user));
 }
 
 @JsonKey(includeFromJson: false, includeToJson: false)
 @override
-int get hashCode => Object.hash(runtimeType,accessToken,deviceId,sessionId,gender);
+int get hashCode => Object.hash(runtimeType,accessToken,deviceId,sessionId,user);
 
 @override
 String toString() {
-  return 'LoginResponse(accessToken: $accessToken, deviceId: $deviceId, sessionId: $sessionId, gender: $gender)';
+  return 'LoginResponse(accessToken: $accessToken, deviceId: $deviceId, sessionId: $sessionId, user: $user)';
 }
 
 
@@ -818,11 +818,11 @@ abstract mixin class _$LoginResponseCopyWith<$Res> implements $LoginResponseCopy
   factory _$LoginResponseCopyWith(_LoginResponse value, $Res Function(_LoginResponse) _then) = __$LoginResponseCopyWithImpl;
 @override @useResult
 $Res call({
- String accessToken, String deviceId, String sessionId, AuthUser gender
+ String accessToken, String deviceId, String sessionId, AuthUser user
 });
 
 
-@override $AuthUserCopyWith<$Res> get gender;
+@override $AuthUserCopyWith<$Res> get user;
 
 }
 /// @nodoc
@@ -835,12 +835,12 @@ class __$LoginResponseCopyWithImpl<$Res>
 
 /// Create a copy of LoginResponse
 /// with the given fields replaced by the non-null parameter values.
-@override @pragma('vm:prefer-inline') $Res call({Object? accessToken = null,Object? deviceId = null,Object? sessionId = null,Object? gender = null,}) {
+@override @pragma('vm:prefer-inline') $Res call({Object? accessToken = null,Object? deviceId = null,Object? sessionId = null,Object? user = null,}) {
   return _then(_LoginResponse(
 accessToken: null == accessToken ? _self.accessToken : accessToken // ignore: cast_nullable_to_non_nullable
 as String,deviceId: null == deviceId ? _self.deviceId : deviceId // ignore: cast_nullable_to_non_nullable
 as String,sessionId: null == sessionId ? _self.sessionId : sessionId // ignore: cast_nullable_to_non_nullable
-as String,gender: null == gender ? _self.gender : gender // ignore: cast_nullable_to_non_nullable
+as String,user: null == user ? _self.user : user // ignore: cast_nullable_to_non_nullable
 as AuthUser,
   ));
 }
@@ -849,10 +849,10 @@ as AuthUser,
 /// with the given fields replaced by the non-null parameter values.
 @override
 @pragma('vm:prefer-inline')
-$AuthUserCopyWith<$Res> get gender {
+$AuthUserCopyWith<$Res> get user {
   
-  return $AuthUserCopyWith<$Res>(_self.gender, (value) {
-    return _then(_self.copyWith(gender: value));
+  return $AuthUserCopyWith<$Res>(_self.user, (value) {
+    return _then(_self.copyWith(user: value));
   });
 }
 }

@@ -1,4 +1,5 @@
 import "package:flutter/material.dart";
+import "package:karotator/http.dart";
 import "package:karotator/pages/home/timeline.dart";
 import "package:karotator/ui/drawer.dart";
 
@@ -11,10 +12,18 @@ class HomePage extends StatefulWidget {
 
 class _HomePageState extends State<HomePage> {
   final pageKey = GlobalKey<ScaffoldState>();
+  String? avatarUrl;
 
   @override
   void initState() {
     super.initState();
+    HTTPClient().loadLoginResponse().then(
+      (response) => {
+        setState(() {
+          avatarUrl = response?.user.avatarUrl;
+        }),
+      },
+    );
   }
 
   @override
@@ -43,7 +52,11 @@ class _HomePageState extends State<HomePage> {
               shape: BoxShape.circle,
               image: DecorationImage(
                 fit: BoxFit.fill,
-                image: AssetImage('assets/images/default-avatar.png'),
+                image: NetworkImage(
+                  avatarUrl != null
+                      ? "https://karotter.com$avatarUrl"
+                      : "https://karotter.com/default-avatar.png",
+                ),
               ),
             ),
           ),
@@ -51,6 +64,11 @@ class _HomePageState extends State<HomePage> {
       ),
       drawer: DrawerMenu(),
       body: TimeLine(),
+      floatingActionButton: FloatingActionButton(
+        onPressed: () => {},
+        shape: const CircleBorder(),
+        child: const Icon(Icons.add),
+      ),
       bottomNavigationBar: BottomNavigationBar(
         type: BottomNavigationBarType.fixed,
         items: [
@@ -63,10 +81,6 @@ class _HomePageState extends State<HomePage> {
           const BottomNavigationBarItem(
             icon: Icon(Icons.message),
             label: 'メッセージ',
-          ),
-          const BottomNavigationBarItem(
-            icon: Icon(Icons.pending),
-            label: 'もっと見る',
           ),
         ],
       ),

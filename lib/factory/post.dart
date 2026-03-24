@@ -56,7 +56,7 @@ Widget postContentFactory(Post post) {
 
 Widget postActionsFactory(Post post) {
   return Row(
-    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+    mainAxisAlignment: MainAxisAlignment.spaceBetween,
     children: [
       Row(
         children: [

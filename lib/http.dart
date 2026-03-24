@@ -1,6 +1,7 @@
 import 'dart:convert';
 import 'dart:io';
 
+import 'package:flutter/rendering.dart';
 import 'package:http/http.dart' as httpx;
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -114,6 +115,7 @@ class HTTPClient {
     accountIds.remove(id);
     await prefs.setStringList("accountIds", accountIds);
     await storage.delete(key: "${id}_cookies");
+    await storage.delete(key: "${id}_login");
 
     if (nowAccountId == id) {
       nowAccountId = accountIds.firstOrNull;
@@ -123,6 +125,22 @@ class HTTPClient {
         await prefs.remove("nowAccountId");
       }
     }
+  }
+
+  Future<void> saveLoginResponse(LoginResponse res) async {
+    if (nowAccountId == null) return;
+    final jsonStr = jsonEncode(res.toJson());
+    await storage.write(key: "${nowAccountId}_login", value: jsonStr);
+  }
+
+  Future<LoginResponse?> loadLoginResponse() async {
+    if (nowAccountId == null) return null;
+    final jsonStr = await storage.read(key: "${nowAccountId}_login");
+    if (jsonStr == null) return null;
+
+    final decoded = jsonDecode(jsonStr);
+    if (decoded is! Map<String, dynamic>) return null;
+    return LoginResponse.fromJson(decoded);
   }
 
   Future<Map<String, String>> getDeviceIdHeader() async {
@@ -149,6 +167,8 @@ class HTTPClient {
         "x-client-type": "unofficial_app",
       },
     );
+    debugPrint("status: ${response.statusCode}");
+    debugPrint("body: ${utf8.decode(response.bodyBytes)}");
     await afterRequest(response);
     return jsonDecode(utf8.decode(response.bodyBytes)) as Map<String, Object?>;
   }
@@ -171,6 +191,8 @@ class HTTPClient {
       },
       body: body,
     );
+    debugPrint("status: ${response.statusCode}");
+    debugPrint("body: ${utf8.decode(response.bodyBytes)}");
     await afterRequest(response);
     return jsonDecode(utf8.decode(response.bodyBytes)) as Map<String, Object?>;
   }
@@ -193,16 +215,19 @@ class HTTPClient {
     try {
       final jsonData = await post(
         "auth/login",
+        headers: {"content-type": "application/json"},
         body: jsonEncode({
           "identifier": identifier,
           "password": password,
           "gender": gender,
-          "deviceId": getDeviceIdHeader(),
+          "deviceId": (await getDeviceIdHeader())["x-device-id"],
           "clientType": "unofficial_app",
           "deviceName": "Karotator on ${Platform.operatingSystem}",
         }),
       );
-      return LoginResponse.fromJson(jsonData);
+      final response = LoginResponse.fromJson(jsonData);
+      await saveLoginResponse(response);
+      return response;
     } catch (e) {
       await removeAccountId(id);
       rethrow;

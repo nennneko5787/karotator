@@ -31,7 +31,7 @@ abstract class LoginResponse with _$LoginResponse {
     required String accessToken,
     required String deviceId,
     required String sessionId,
-    required AuthUser gender,
+    required AuthUser user,
   }) = _LoginResponse;
 
   factory LoginResponse.fromJson(Map<String, Object?> json) =>

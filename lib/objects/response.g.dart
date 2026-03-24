@@ -39,7 +39,7 @@ _LoginResponse _$LoginResponseFromJson(Map<String, dynamic> json) =>
       accessToken: json['accessToken'] as String,
       deviceId: json['deviceId'] as String,
       sessionId: json['sessionId'] as String,
-      gender: AuthUser.fromJson(json['gender'] as Map<String, dynamic>),
+      user: AuthUser.fromJson(json['user'] as Map<String, dynamic>),
     );
 
 Map<String, dynamic> _$LoginResponseToJson(_LoginResponse instance) =>
@@ -47,5 +47,5 @@ Map<String, dynamic> _$LoginResponseToJson(_LoginResponse instance) =>
       'accessToken': instance.accessToken,
       'deviceId': instance.deviceId,
       'sessionId': instance.sessionId,
-      'gender': instance.gender,
+      'user': instance.user,
     };
