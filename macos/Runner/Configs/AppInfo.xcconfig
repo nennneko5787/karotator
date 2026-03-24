@@ -8,7 +8,7 @@
 PRODUCT_NAME = karotator
 
 // The application's bundle identifier
-PRODUCT_BUNDLE_IDENTIFIER = com.example.karotator
+PRODUCT_BUNDLE_IDENTIFIER = net.nennneko5787.karotator
 
 // The copyright displayed in application information
-PRODUCT_COPYRIGHT = Copyright © 2026 com.example. All rights reserved.
+PRODUCT_COPYRIGHT = Copyright © 2026 net.nennneko5787. All rights reserved.
