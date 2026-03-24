@@ -33,4 +33,3 @@ jobs:
         with:
           name: ios-app
           path: build/ios/iphoneos/Runner.app.zip
-          path: build/ios/iphoneos/Runner.app
