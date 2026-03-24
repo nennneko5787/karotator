@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import "package:karotator/pages/login.dart";
+import 'package:karotator/pages/startup.dart';
 
 void main() {
   runApp(const MyApp());
@@ -15,7 +15,7 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       title: 'Karotator',
       theme: ThemeData(colorScheme: .fromSeed(seedColor: Colors.blue)),
-      home: const LoginPage(title: 'Karotator'),
+      home: const StartUpPage(),
     );
   }
 }
