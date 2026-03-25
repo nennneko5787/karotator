@@ -15,24 +15,24 @@ jobs:
     steps:
       - uses: actions/checkout@v2
 
-      - name: Install Flutter
-        run: git clone https://github.com/flutter/flutter.git
-
-      - name: Add path
-        run: echo "$(pwd)/flutter/bin" >> $GITHUB_PATH
+      - uses: subosito/flutter-action@v2
+        with:
+          flutter-version: "3.29.3"
+          channel: "stable"
 
       - name: Flutter pub get
         run: flutter pub get
 
       # iOS build
-      - name: Build .ipa (no codesign)
-        run: flutter build ipa --release --no-codesign
+      - name: Build .app (no codesign)
+        run: flutter build ios --release --no-codesign
 
-      - name: Move .ipa
+      - name: Convert .app to .ipa
         run: |
-          cp build/ios/ipa/*.ipa build/ios/iphoneos/karotator.ipa || \
-          cp build/ios/archive/Runner.xcarchive/Products/Applications/../../../Products/Applications/../karotator.ipa build/ios/iphoneos/karotator.ipa || true
-          find build -name "*.ipa" | head -5
+          cd build/ios/iphoneos
+          mkdir Payload
+          mv Runner.app Payload/Runner.app
+          zip -r karotator.ipa Payload
 
       # Android build
       - name: Build APK
@@ -43,12 +43,10 @@ jobs:
           cd build/app/outputs/flutter-apk/
           mv app-release.apk karotator.apk
 
-      # タグ作成（日時ベース）
       - name: Generate tag
         id: tag
-        run: echo "tag=pre-$(date +'%Y-%m-%d_%H-%M-%S')" >> $GITHUB_OUTPUT
+        run: echo "tag=pre-$(date +'%Y%m%d-%H%M%S')" >> $GITHUB_OUTPUT
 
-      # Release作成
       - name: Create Release
         uses: softprops/action-gh-release@v2
         with:
