@@ -47,14 +47,14 @@ jobs:
       # タグ作成（日時ベース）
       - name: Generate tag
         id: tag
-        run: echo "tag=pre-$(date +'%Y%m%d-%H%M%S')" >> $GITHUB_OUTPUT
+        run: echo "tag=pre-$(date +'%Y-%m-%d_%H%-M-%S')" >> $GITHUB_OUTPUT
 
       # Release作成
       - name: Create Release
         uses: softprops/action-gh-release@v2
         with:
           tag_name: ${{ steps.tag.outputs.tag }}
-          name: Pre-release ${{ steps.tag.outputs.tag }}
+          name: Build ${{ steps.tag.outputs.tag }}
           prerelease: true
           files: |
             build/ios/iphoneos/karotator.ipa
