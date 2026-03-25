@@ -2,6 +2,8 @@ import "package:flutter/gestures.dart";
 import "package:flutter/material.dart";
 import "package:karotator/http.dart";
 import "package:karotator/pages/home.dart";
+import "package:karotator/pages/home/timeline.dart";
+import "package:karotator/ui/dialog.dart";
 import "package:karotator/ui/gender_select.dart";
 import "package:karotator/utils.dart";
 
@@ -30,31 +32,33 @@ class _LoginPageState extends State<LoginPage> {
     final identifier = _usernameController.text;
     final password = _passwordController.text;
 
-    final _ = await HTTPClient().login(
-      identifier: identifier,
-      password: password,
-      gender: gender,
-    );
+    try {
+      final _ = await HTTPClient().login(
+        identifier: identifier,
+        password: password,
+        gender: gender,
+      );
 
-    if (!context.mounted) return;
-
-    Navigator.pushReplacement(
-      context,
-      MaterialPageRoute(builder: (context) => HomePage()),
-    );
+      Navigator.pushReplacement(
+        context,
+        MaterialPageRoute(builder: (context) => HomePage(body: TimeLine())),
+      );
+    } catch (e, stackTrace) {
+      debugPrint(stackTrace.toString());
+      showAlert(context, e: e);
+    }
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Color.fromARGB(255, 238, 243, 248),
       body: Padding(
         padding: const EdgeInsets.all(16.0),
         child: Container(
           decoration: BoxDecoration(
             border: Border.all(color: Color.fromARGB(71, 152, 168, 187)),
             borderRadius: BorderRadius.circular(50),
-            color: Colors.white,
+            color: Theme.of(context).bottomNavigationBarTheme.backgroundColor,
           ),
           child: AutofillGroup(
             child: Padding(
@@ -82,10 +86,7 @@ class _LoginPageState extends State<LoginPage> {
                   RichText(
                     text: TextSpan(
                       children: [
-                        TextSpan(
-                          text: "または ",
-                          style: TextStyle(color: Colors.black),
-                        ),
+                        TextSpan(text: "または "),
                         TextSpan(
                           text: "新しいアカウントを作成",
                           style: TextStyle(color: Colors.blue),
@@ -93,7 +94,6 @@ class _LoginPageState extends State<LoginPage> {
                             ..onTap = () async {
                               final url = "https://karotter.com/register";
                               if (!await openURL(url)) {
-                                if (!context.mounted) return;
                                 await failedOpenLink(context);
                               }
                             },
@@ -107,28 +107,21 @@ class _LoginPageState extends State<LoginPage> {
                       children: [
                         TextSpan(
                           text: "利用規約",
-                          style: TextStyle(color: Colors.black),
                           recognizer: TapGestureRecognizer()
                             ..onTap = () async {
                               final url = "https://karotter.com/terms";
                               if (!await openURL(url)) {
-                                if (!context.mounted) return;
                                 await failedOpenLink(context);
                               }
                             },
                         ),
-                        TextSpan(
-                          text: " · ",
-                          style: TextStyle(color: Colors.black),
-                        ),
+                        TextSpan(text: " · "),
                         TextSpan(
                           text: "プライバシーポリシー",
-                          style: TextStyle(color: Colors.black),
                           recognizer: TapGestureRecognizer()
                             ..onTap = () async {
                               final url = "https://karotter.com/privacy";
                               if (!await openURL(url)) {
-                                if (!context.mounted) return;
                                 await failedOpenLink(context);
                               }
                             },
@@ -166,10 +159,6 @@ class _LoginPageState extends State<LoginPage> {
                     width: double.infinity,
                     child: ElevatedButton(
                       onPressed: () async => {await login()},
-                      style: ElevatedButton.styleFrom(
-                        foregroundColor: Colors.white,
-                        backgroundColor: Color.fromARGB(255, 37, 99, 235),
-                      ),
                       child: const Text('ログイン'),
                     ),
                   ),

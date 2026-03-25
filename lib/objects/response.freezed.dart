@@ -569,6 +569,296 @@ $RecommendedPaginationCopyWith<$Res> get pagination {
 
 
 /// @nodoc
+mixin _$TimeLineResponse {
+
+ RecommendedPagination get pagination; List<Post> get posts;
+/// Create a copy of TimeLineResponse
+/// with the given fields replaced by the non-null parameter values.
+@JsonKey(includeFromJson: false, includeToJson: false)
+@pragma('vm:prefer-inline')
+$TimeLineResponseCopyWith<TimeLineResponse> get copyWith => _$TimeLineResponseCopyWithImpl<TimeLineResponse>(this as TimeLineResponse, _$identity);
+
+  /// Serializes this TimeLineResponse to a JSON map.
+  Map<String, dynamic> toJson();
+
+
+@override
+bool operator ==(Object other) {
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is TimeLineResponse&&(identical(other.pagination, pagination) || other.pagination == pagination)&&const DeepCollectionEquality().equals(other.posts, posts));
+}
+
+@JsonKey(includeFromJson: false, includeToJson: false)
+@override
+int get hashCode => Object.hash(runtimeType,pagination,const DeepCollectionEquality().hash(posts));
+
+@override
+String toString() {
+  return 'TimeLineResponse(pagination: $pagination, posts: $posts)';
+}
+
+
+}
+
+/// @nodoc
+abstract mixin class $TimeLineResponseCopyWith<$Res>  {
+  factory $TimeLineResponseCopyWith(TimeLineResponse value, $Res Function(TimeLineResponse) _then) = _$TimeLineResponseCopyWithImpl;
+@useResult
+$Res call({
+ RecommendedPagination pagination, List<Post> posts
+});
+
+
+$RecommendedPaginationCopyWith<$Res> get pagination;
+
+}
+/// @nodoc
+class _$TimeLineResponseCopyWithImpl<$Res>
+    implements $TimeLineResponseCopyWith<$Res> {
+  _$TimeLineResponseCopyWithImpl(this._self, this._then);
+
+  final TimeLineResponse _self;
+  final $Res Function(TimeLineResponse) _then;
+
+/// Create a copy of TimeLineResponse
+/// with the given fields replaced by the non-null parameter values.
+@pragma('vm:prefer-inline') @override $Res call({Object? pagination = null,Object? posts = null,}) {
+  return _then(_self.copyWith(
+pagination: null == pagination ? _self.pagination : pagination // ignore: cast_nullable_to_non_nullable
+as RecommendedPagination,posts: null == posts ? _self.posts : posts // ignore: cast_nullable_to_non_nullable
+as List<Post>,
+  ));
+}
+/// Create a copy of TimeLineResponse
+/// with the given fields replaced by the non-null parameter values.
+@override
+@pragma('vm:prefer-inline')
+$RecommendedPaginationCopyWith<$Res> get pagination {
+  
+  return $RecommendedPaginationCopyWith<$Res>(_self.pagination, (value) {
+    return _then(_self.copyWith(pagination: value));
+  });
+}
+}
+
+
+/// Adds pattern-matching-related methods to [TimeLineResponse].
+extension TimeLineResponsePatterns on TimeLineResponse {
+/// A variant of `map` that fallback to returning `orElse`.
+///
+/// It is equivalent to doing:
+/// ```dart
+/// switch (sealedClass) {
+///   case final Subclass value:
+///     return ...;
+///   case _:
+///     return orElse();
+/// }
+/// ```
+
+@optionalTypeArgs TResult maybeMap<TResult extends Object?>(TResult Function( _TimeLineResponse value)?  $default,{required TResult orElse(),}){
+final _that = this;
+switch (_that) {
+case _TimeLineResponse() when $default != null:
+return $default(_that);case _:
+  return orElse();
+
+}
+}
+/// A `switch`-like method, using callbacks.
+///
+/// Callbacks receives the raw object, upcasted.
+/// It is equivalent to doing:
+/// ```dart
+/// switch (sealedClass) {
+///   case final Subclass value:
+///     return ...;
+///   case final Subclass2 value:
+///     return ...;
+/// }
+/// ```
+
+@optionalTypeArgs TResult map<TResult extends Object?>(TResult Function( _TimeLineResponse value)  $default,){
+final _that = this;
+switch (_that) {
+case _TimeLineResponse():
+return $default(_that);case _:
+  throw StateError('Unexpected subclass');
+
+}
+}
+/// A variant of `map` that fallback to returning `null`.
+///
+/// It is equivalent to doing:
+/// ```dart
+/// switch (sealedClass) {
+///   case final Subclass value:
+///     return ...;
+///   case _:
+///     return null;
+/// }
+/// ```
+
+@optionalTypeArgs TResult? mapOrNull<TResult extends Object?>(TResult? Function( _TimeLineResponse value)?  $default,){
+final _that = this;
+switch (_that) {
+case _TimeLineResponse() when $default != null:
+return $default(_that);case _:
+  return null;
+
+}
+}
+/// A variant of `when` that fallback to an `orElse` callback.
+///
+/// It is equivalent to doing:
+/// ```dart
+/// switch (sealedClass) {
+///   case Subclass(:final field):
+///     return ...;
+///   case _:
+///     return orElse();
+/// }
+/// ```
+
+@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( RecommendedPagination pagination,  List<Post> posts)?  $default,{required TResult orElse(),}) {final _that = this;
+switch (_that) {
+case _TimeLineResponse() when $default != null:
+return $default(_that.pagination,_that.posts);case _:
+  return orElse();
+
+}
+}
+/// A `switch`-like method, using callbacks.
+///
+/// As opposed to `map`, this offers destructuring.
+/// It is equivalent to doing:
+/// ```dart
+/// switch (sealedClass) {
+///   case Subclass(:final field):
+///     return ...;
+///   case Subclass2(:final field2):
+///     return ...;
+/// }
+/// ```
+
+@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( RecommendedPagination pagination,  List<Post> posts)  $default,) {final _that = this;
+switch (_that) {
+case _TimeLineResponse():
+return $default(_that.pagination,_that.posts);case _:
+  throw StateError('Unexpected subclass');
+
+}
+}
+/// A variant of `when` that fallback to returning `null`
+///
+/// It is equivalent to doing:
+/// ```dart
+/// switch (sealedClass) {
+///   case Subclass(:final field):
+///     return ...;
+///   case _:
+///     return null;
+/// }
+/// ```
+
+@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( RecommendedPagination pagination,  List<Post> posts)?  $default,) {final _that = this;
+switch (_that) {
+case _TimeLineResponse() when $default != null:
+return $default(_that.pagination,_that.posts);case _:
+  return null;
+
+}
+}
+
+}
+
+/// @nodoc
+@JsonSerializable()
+
+class _TimeLineResponse implements TimeLineResponse {
+  const _TimeLineResponse({required this.pagination, required final  List<Post> posts}): _posts = posts;
+  factory _TimeLineResponse.fromJson(Map<String, dynamic> json) => _$TimeLineResponseFromJson(json);
+
+@override final  RecommendedPagination pagination;
+ final  List<Post> _posts;
+@override List<Post> get posts {
+  if (_posts is EqualUnmodifiableListView) return _posts;
+  // ignore: implicit_dynamic_type
+  return EqualUnmodifiableListView(_posts);
+}
+
+
+/// Create a copy of TimeLineResponse
+/// with the given fields replaced by the non-null parameter values.
+@override @JsonKey(includeFromJson: false, includeToJson: false)
+@pragma('vm:prefer-inline')
+_$TimeLineResponseCopyWith<_TimeLineResponse> get copyWith => __$TimeLineResponseCopyWithImpl<_TimeLineResponse>(this, _$identity);
+
+@override
+Map<String, dynamic> toJson() {
+  return _$TimeLineResponseToJson(this, );
+}
+
+@override
+bool operator ==(Object other) {
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is _TimeLineResponse&&(identical(other.pagination, pagination) || other.pagination == pagination)&&const DeepCollectionEquality().equals(other._posts, _posts));
+}
+
+@JsonKey(includeFromJson: false, includeToJson: false)
+@override
+int get hashCode => Object.hash(runtimeType,pagination,const DeepCollectionEquality().hash(_posts));
+
+@override
+String toString() {
+  return 'TimeLineResponse(pagination: $pagination, posts: $posts)';
+}
+
+
+}
+
+/// @nodoc
+abstract mixin class _$TimeLineResponseCopyWith<$Res> implements $TimeLineResponseCopyWith<$Res> {
+  factory _$TimeLineResponseCopyWith(_TimeLineResponse value, $Res Function(_TimeLineResponse) _then) = __$TimeLineResponseCopyWithImpl;
+@override @useResult
+$Res call({
+ RecommendedPagination pagination, List<Post> posts
+});
+
+
+@override $RecommendedPaginationCopyWith<$Res> get pagination;
+
+}
+/// @nodoc
+class __$TimeLineResponseCopyWithImpl<$Res>
+    implements _$TimeLineResponseCopyWith<$Res> {
+  __$TimeLineResponseCopyWithImpl(this._self, this._then);
+
+  final _TimeLineResponse _self;
+  final $Res Function(_TimeLineResponse) _then;
+
+/// Create a copy of TimeLineResponse
+/// with the given fields replaced by the non-null parameter values.
+@override @pragma('vm:prefer-inline') $Res call({Object? pagination = null,Object? posts = null,}) {
+  return _then(_TimeLineResponse(
+pagination: null == pagination ? _self.pagination : pagination // ignore: cast_nullable_to_non_nullable
+as RecommendedPagination,posts: null == posts ? _self._posts : posts // ignore: cast_nullable_to_non_nullable
+as List<Post>,
+  ));
+}
+
+/// Create a copy of TimeLineResponse
+/// with the given fields replaced by the non-null parameter values.
+@override
+@pragma('vm:prefer-inline')
+$RecommendedPaginationCopyWith<$Res> get pagination {
+  
+  return $RecommendedPaginationCopyWith<$Res>(_self.pagination, (value) {
+    return _then(_self.copyWith(pagination: value));
+  });
+}
+}
+
+
+/// @nodoc
 mixin _$LoginResponse {
 
  String get accessToken; String get deviceId; String get sessionId; AuthUser get user;
@@ -855,6 +1145,272 @@ $AuthUserCopyWith<$Res> get user {
     return _then(_self.copyWith(user: value));
   });
 }
+}
+
+
+/// @nodoc
+mixin _$RefreshResponse {
+
+ String get accessToken; String get sessionId;
+/// Create a copy of RefreshResponse
+/// with the given fields replaced by the non-null parameter values.
+@JsonKey(includeFromJson: false, includeToJson: false)
+@pragma('vm:prefer-inline')
+$RefreshResponseCopyWith<RefreshResponse> get copyWith => _$RefreshResponseCopyWithImpl<RefreshResponse>(this as RefreshResponse, _$identity);
+
+  /// Serializes this RefreshResponse to a JSON map.
+  Map<String, dynamic> toJson();
+
+
+@override
+bool operator ==(Object other) {
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is RefreshResponse&&(identical(other.accessToken, accessToken) || other.accessToken == accessToken)&&(identical(other.sessionId, sessionId) || other.sessionId == sessionId));
+}
+
+@JsonKey(includeFromJson: false, includeToJson: false)
+@override
+int get hashCode => Object.hash(runtimeType,accessToken,sessionId);
+
+@override
+String toString() {
+  return 'RefreshResponse(accessToken: $accessToken, sessionId: $sessionId)';
+}
+
+
+}
+
+/// @nodoc
+abstract mixin class $RefreshResponseCopyWith<$Res>  {
+  factory $RefreshResponseCopyWith(RefreshResponse value, $Res Function(RefreshResponse) _then) = _$RefreshResponseCopyWithImpl;
+@useResult
+$Res call({
+ String accessToken, String sessionId
+});
+
+
+
+
+}
+/// @nodoc
+class _$RefreshResponseCopyWithImpl<$Res>
+    implements $RefreshResponseCopyWith<$Res> {
+  _$RefreshResponseCopyWithImpl(this._self, this._then);
+
+  final RefreshResponse _self;
+  final $Res Function(RefreshResponse) _then;
+
+/// Create a copy of RefreshResponse
+/// with the given fields replaced by the non-null parameter values.
+@pragma('vm:prefer-inline') @override $Res call({Object? accessToken = null,Object? sessionId = null,}) {
+  return _then(_self.copyWith(
+accessToken: null == accessToken ? _self.accessToken : accessToken // ignore: cast_nullable_to_non_nullable
+as String,sessionId: null == sessionId ? _self.sessionId : sessionId // ignore: cast_nullable_to_non_nullable
+as String,
+  ));
+}
+
+}
+
+
+/// Adds pattern-matching-related methods to [RefreshResponse].
+extension RefreshResponsePatterns on RefreshResponse {
+/// A variant of `map` that fallback to returning `orElse`.
+///
+/// It is equivalent to doing:
+/// ```dart
+/// switch (sealedClass) {
+///   case final Subclass value:
+///     return ...;
+///   case _:
+///     return orElse();
+/// }
+/// ```
+
+@optionalTypeArgs TResult maybeMap<TResult extends Object?>(TResult Function( _RefreshResponse value)?  $default,{required TResult orElse(),}){
+final _that = this;
+switch (_that) {
+case _RefreshResponse() when $default != null:
+return $default(_that);case _:
+  return orElse();
+
+}
+}
+/// A `switch`-like method, using callbacks.
+///
+/// Callbacks receives the raw object, upcasted.
+/// It is equivalent to doing:
+/// ```dart
+/// switch (sealedClass) {
+///   case final Subclass value:
+///     return ...;
+///   case final Subclass2 value:
+///     return ...;
+/// }
+/// ```
+
+@optionalTypeArgs TResult map<TResult extends Object?>(TResult Function( _RefreshResponse value)  $default,){
+final _that = this;
+switch (_that) {
+case _RefreshResponse():
+return $default(_that);case _:
+  throw StateError('Unexpected subclass');
+
+}
+}
+/// A variant of `map` that fallback to returning `null`.
+///
+/// It is equivalent to doing:
+/// ```dart
+/// switch (sealedClass) {
+///   case final Subclass value:
+///     return ...;
+///   case _:
+///     return null;
+/// }
+/// ```
+
+@optionalTypeArgs TResult? mapOrNull<TResult extends Object?>(TResult? Function( _RefreshResponse value)?  $default,){
+final _that = this;
+switch (_that) {
+case _RefreshResponse() when $default != null:
+return $default(_that);case _:
+  return null;
+
+}
+}
+/// A variant of `when` that fallback to an `orElse` callback.
+///
+/// It is equivalent to doing:
+/// ```dart
+/// switch (sealedClass) {
+///   case Subclass(:final field):
+///     return ...;
+///   case _:
+///     return orElse();
+/// }
+/// ```
+
+@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( String accessToken,  String sessionId)?  $default,{required TResult orElse(),}) {final _that = this;
+switch (_that) {
+case _RefreshResponse() when $default != null:
+return $default(_that.accessToken,_that.sessionId);case _:
+  return orElse();
+
+}
+}
+/// A `switch`-like method, using callbacks.
+///
+/// As opposed to `map`, this offers destructuring.
+/// It is equivalent to doing:
+/// ```dart
+/// switch (sealedClass) {
+///   case Subclass(:final field):
+///     return ...;
+///   case Subclass2(:final field2):
+///     return ...;
+/// }
+/// ```
+
+@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( String accessToken,  String sessionId)  $default,) {final _that = this;
+switch (_that) {
+case _RefreshResponse():
+return $default(_that.accessToken,_that.sessionId);case _:
+  throw StateError('Unexpected subclass');
+
+}
+}
+/// A variant of `when` that fallback to returning `null`
+///
+/// It is equivalent to doing:
+/// ```dart
+/// switch (sealedClass) {
+///   case Subclass(:final field):
+///     return ...;
+///   case _:
+///     return null;
+/// }
+/// ```
+
+@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( String accessToken,  String sessionId)?  $default,) {final _that = this;
+switch (_that) {
+case _RefreshResponse() when $default != null:
+return $default(_that.accessToken,_that.sessionId);case _:
+  return null;
+
+}
+}
+
+}
+
+/// @nodoc
+@JsonSerializable()
+
+class _RefreshResponse implements RefreshResponse {
+  const _RefreshResponse({required this.accessToken, required this.sessionId});
+  factory _RefreshResponse.fromJson(Map<String, dynamic> json) => _$RefreshResponseFromJson(json);
+
+@override final  String accessToken;
+@override final  String sessionId;
+
+/// Create a copy of RefreshResponse
+/// with the given fields replaced by the non-null parameter values.
+@override @JsonKey(includeFromJson: false, includeToJson: false)
+@pragma('vm:prefer-inline')
+_$RefreshResponseCopyWith<_RefreshResponse> get copyWith => __$RefreshResponseCopyWithImpl<_RefreshResponse>(this, _$identity);
+
+@override
+Map<String, dynamic> toJson() {
+  return _$RefreshResponseToJson(this, );
+}
+
+@override
+bool operator ==(Object other) {
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is _RefreshResponse&&(identical(other.accessToken, accessToken) || other.accessToken == accessToken)&&(identical(other.sessionId, sessionId) || other.sessionId == sessionId));
+}
+
+@JsonKey(includeFromJson: false, includeToJson: false)
+@override
+int get hashCode => Object.hash(runtimeType,accessToken,sessionId);
+
+@override
+String toString() {
+  return 'RefreshResponse(accessToken: $accessToken, sessionId: $sessionId)';
+}
+
+
+}
+
+/// @nodoc
+abstract mixin class _$RefreshResponseCopyWith<$Res> implements $RefreshResponseCopyWith<$Res> {
+  factory _$RefreshResponseCopyWith(_RefreshResponse value, $Res Function(_RefreshResponse) _then) = __$RefreshResponseCopyWithImpl;
+@override @useResult
+$Res call({
+ String accessToken, String sessionId
+});
+
+
+
+
+}
+/// @nodoc
+class __$RefreshResponseCopyWithImpl<$Res>
+    implements _$RefreshResponseCopyWith<$Res> {
+  __$RefreshResponseCopyWithImpl(this._self, this._then);
+
+  final _RefreshResponse _self;
+  final $Res Function(_RefreshResponse) _then;
+
+/// Create a copy of RefreshResponse
+/// with the given fields replaced by the non-null parameter values.
+@override @pragma('vm:prefer-inline') $Res call({Object? accessToken = null,Object? sessionId = null,}) {
+  return _then(_RefreshResponse(
+accessToken: null == accessToken ? _self.accessToken : accessToken // ignore: cast_nullable_to_non_nullable
+as String,sessionId: null == sessionId ? _self.sessionId : sessionId // ignore: cast_nullable_to_non_nullable
+as String,
+  ));
+}
+
+
 }
 
 // dart format on

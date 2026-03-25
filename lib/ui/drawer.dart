@@ -1,7 +1,9 @@
 import "package:flutter/material.dart";
 import "package:karotator/http.dart";
+import "package:karotator/objects/response.dart";
 import "package:karotator/objects/user.dart";
 import "package:karotator/pages/login.dart";
+import "package:karotator/pages/startup.dart";
 
 class DrawerMenu extends StatefulWidget {
   const DrawerMenu({super.key});
@@ -10,8 +12,16 @@ class DrawerMenu extends StatefulWidget {
   State<DrawerMenu> createState() => _DrawerMenuState();
 }
 
+class UserMeta {
+  String accountId;
+  LoginResponse response;
+
+  UserMeta({required this.accountId, required this.response});
+}
+
 class _DrawerMenuState extends State<DrawerMenu> {
   AuthUser? user;
+  List<UserMeta> otherAccounts = [];
 
   @override
   void initState() {
@@ -22,6 +32,96 @@ class _DrawerMenuState extends State<DrawerMenu> {
         setState(() {
           user = response?.user;
         }),
+      },
+    );
+
+    HTTPClient().getAccountIds().then((accountIds) async {
+      final newAccounts = <UserMeta>[];
+      for (var accountId in accountIds) {
+        if (accountId == HTTPClient().nowAccountId) continue;
+        final response = await HTTPClient().loadLoginResponse(id: accountId);
+        if (response == null) continue;
+
+        newAccounts.add(UserMeta(accountId: accountId, response: response));
+      }
+      setState(() {
+        otherAccounts = newAccounts;
+      });
+    });
+  }
+
+  void showAccountMenu() {
+    showModalBottomSheet(
+      context: context,
+      builder: (context) {
+        return SafeArea(
+          child: Column(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              // 現在のアカウント
+              if (user != null)
+                ListTile(
+                  leading: CircleAvatar(
+                    backgroundImage: NetworkImage(
+                      user!.avatarUrl != null
+                          ? "https://karotter.com${user!.avatarUrl}"
+                          : "https://karotter.com/default-avatar.png",
+                    ),
+                  ),
+                  title: Text(user!.displayName),
+                  subtitle: Text("@${user!.username}"),
+                  trailing: const Icon(Icons.check),
+                ),
+              const Divider(),
+              for (final account in otherAccounts)
+                ListTile(
+                  leading: CircleAvatar(
+                    backgroundImage: NetworkImage(
+                      account.response.user.avatarUrl != null
+                          ? "https://karotter.com${account.response.user.avatarUrl}"
+                          : "https://karotter.com/default-avatar.png",
+                    ),
+                  ),
+                  title: Text(account.response.user.displayName),
+                  subtitle: Text("@${account.response.user.username}"),
+                  onTap: () {
+                    HTTPClient().setAccountId(account.accountId);
+                    Navigator.pop(context);
+                    Navigator.pushReplacement(
+                      context,
+                      MaterialPageRoute(builder: (context) => StartUpPage()),
+                    );
+                  },
+                ),
+              ListTile(
+                leading: const Icon(Icons.add),
+                title: const Text("アカウントを追加"),
+                onTap: () {
+                  Navigator.pop(context);
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(builder: (context) => LoginPage()),
+                  );
+                },
+              ),
+              if (user != null)
+                ListTile(
+                  leading: const Icon(Icons.logout),
+                  title: Text("@${user!.username} からログアウト"),
+                  onTap: () async {
+                    Navigator.pop(context);
+                    await HTTPClient().removeAccountId(
+                      HTTPClient().nowAccountId!,
+                    );
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(builder: (context) => StartUpPage()),
+                    );
+                  },
+                ),
+            ],
+          ),
+        );
       },
     );
   }
@@ -79,6 +179,9 @@ class _DrawerMenuState extends State<DrawerMenu> {
         padding: EdgeInsets.zero,
         children: [
           UserAccountsDrawerHeader(
+            decoration: BoxDecoration(
+              color: Theme.of(context).scaffoldBackgroundColor,
+            ),
             accountName: user != null
                 ? Text(user!.displayName)
                 : const Text("ログインしていません"),
@@ -92,6 +195,40 @@ class _DrawerMenuState extends State<DrawerMenu> {
                     : "https://karotter.com/default-avatar.png",
               ),
             ),
+            otherAccountsPictures: [
+              for (final account in otherAccounts.sublist(
+                0,
+                otherAccounts.length >= 3 ? 3 : otherAccounts.length,
+              ))
+                IconButton(
+                  onPressed: () {
+                    HTTPClient().setAccountId(account.accountId);
+                    Navigator.pushReplacement(
+                      context,
+                      MaterialPageRoute(builder: (context) => StartUpPage()),
+                    );
+                  },
+                  icon: Container(
+                    width: 48,
+                    height: 48,
+                    decoration: BoxDecoration(
+                      shape: BoxShape.circle,
+                      image: DecorationImage(
+                        fit: BoxFit.fill,
+                        image: NetworkImage(
+                          account.response.user.avatarUrl != null
+                              ? "https://karotter.com${account.response.user.avatarUrl}"
+                              : "https://karotter.com/default-avatar.png",
+                        ),
+                      ),
+                    ),
+                  ),
+                ),
+              IconButton(
+                onPressed: showAccountMenu,
+                icon: const Icon(Icons.pending),
+              ),
+            ],
           ),
           ...actions,
         ],

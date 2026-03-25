@@ -1,6 +1,8 @@
 import "package:flutter/material.dart";
 import "package:karotator/http.dart";
 import "package:karotator/pages/home.dart";
+import "package:karotator/pages/home/timeline.dart";
+import "package:karotator/ui/dialog.dart";
 
 class StartUpPage extends StatefulWidget {
   const StartUpPage({super.key});
@@ -14,14 +16,21 @@ class _StartUpPageState extends State<StartUpPage> {
   void initState() {
     super.initState();
     Future(() async {
-      await HTTPClient().initialize();
+      if (!HTTPClient().initialized) {
+        await HTTPClient().initialize();
+      }
 
-      if (!context.mounted) return; // ここでアプリが起動しない可能性がある
+      if (HTTPClient().nowAccountId != null) {
+        await HTTPClient().refresh();
+      }
 
       Navigator.pushReplacement(
         context,
-        MaterialPageRoute(builder: (context) => HomePage()),
+        MaterialPageRoute(builder: (context) => HomePage(body: TimeLine())),
       );
+    }).catchError((e, stackTrace) {
+      showAlert(context, e: e);
+      debugPrint(stackTrace);
     });
   }
 

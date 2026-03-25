@@ -1,10 +1,12 @@
 import "package:flutter/material.dart";
 import "package:karotator/http.dart";
-import "package:karotator/pages/home/timeline.dart";
+import "package:karotator/pages/post.dart";
 import "package:karotator/ui/drawer.dart";
 
 class HomePage extends StatefulWidget {
-  const HomePage({super.key});
+  final Widget body;
+
+  const HomePage({super.key, required this.body});
 
   @override
   State<HomePage> createState() => _HomePageState();
@@ -63,9 +65,15 @@ class _HomePageState extends State<HomePage> {
         ),
       ),
       drawer: DrawerMenu(),
-      body: TimeLine(),
+      drawerEnableOpenDragGesture: true,
+      body: widget.body,
       floatingActionButton: FloatingActionButton(
-        onPressed: () => {},
+        onPressed: () => {
+          Navigator.push(
+            context,
+            MaterialPageRoute(builder: (context) => PostPage()),
+          ),
+        },
         shape: const CircleBorder(),
         child: const Icon(Icons.add),
       ),

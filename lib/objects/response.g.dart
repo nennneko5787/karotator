@@ -34,6 +34,22 @@ Map<String, dynamic> _$RecommendedResponseToJson(
   'posts': instance.posts,
 };
 
+_TimeLineResponse _$TimeLineResponseFromJson(Map<String, dynamic> json) =>
+    _TimeLineResponse(
+      pagination: RecommendedPagination.fromJson(
+        json['pagination'] as Map<String, dynamic>,
+      ),
+      posts: (json['posts'] as List<dynamic>)
+          .map((e) => Post.fromJson(e as Map<String, dynamic>))
+          .toList(),
+    );
+
+Map<String, dynamic> _$TimeLineResponseToJson(_TimeLineResponse instance) =>
+    <String, dynamic>{
+      'pagination': instance.pagination,
+      'posts': instance.posts,
+    };
+
 _LoginResponse _$LoginResponseFromJson(Map<String, dynamic> json) =>
     _LoginResponse(
       accessToken: json['accessToken'] as String,
@@ -48,4 +64,16 @@ Map<String, dynamic> _$LoginResponseToJson(_LoginResponse instance) =>
       'deviceId': instance.deviceId,
       'sessionId': instance.sessionId,
       'user': instance.user,
+    };
+
+_RefreshResponse _$RefreshResponseFromJson(Map<String, dynamic> json) =>
+    _RefreshResponse(
+      accessToken: json['accessToken'] as String,
+      sessionId: json['sessionId'] as String,
+    );
+
+Map<String, dynamic> _$RefreshResponseToJson(_RefreshResponse instance) =>
+    <String, dynamic>{
+      'accessToken': instance.accessToken,
+      'sessionId': instance.sessionId,
     };

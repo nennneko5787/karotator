@@ -16,6 +16,10 @@ abstract class Author with _$Author {
   }) = _Author;
 
   factory Author.fromJson(Map<String, Object?> json) => _$AuthorFromJson(json);
+
+  factory Author.empty(int id) {
+    return Author(displayName: "", id: id, username: "");
+  }
 }
 
 @freezed

@@ -28,7 +28,7 @@ abstract class PollOption with _$PollOption {
     required int position,
     required int votesCount,
     required int percentage,
-    required int votedByMe,
+    required bool votedByMe,
   }) = _PollOption;
 
   factory PollOption.fromJson(Map<String, Object?> json) =>
@@ -99,6 +99,56 @@ abstract class HashTags with _$HashTags {
 }
 
 @freezed
+abstract class QuotedPost with _$QuotedPost {
+  const factory QuotedPost({
+    required int id,
+    required String content,
+    required int authorId,
+    required Author author,
+
+    DateTime? createdAt,
+    DateTime? updatedAt,
+
+    int? parentId,
+    int? quotedPostId,
+
+    @Default([]) List<String> mediaUrls,
+    @Default([]) List<String> mediaTypes,
+    @Default([]) List<String> mediaAlts,
+    @Default([]) List<bool> mediaSpoilerFlags,
+    @Default([]) List<bool> mediaR18Flags,
+
+    String? embedUrl,
+    String? embedTitle,
+    String? embedDescription,
+    String? embedImage,
+
+    int? likesCount,
+    int? rekarotsCount,
+    int? repliesCount,
+    int? viewsCount,
+
+    String? replyRestriction,
+    String? visibility,
+
+    bool? isAiGenerated,
+    bool? isPromotional,
+    bool? liked,
+    bool? rekaroted,
+    bool? bookmarked,
+
+    bool? canInteract,
+    bool? canQuote,
+
+    // 再帰対応（ネストされた引用）
+    QuotedPost? quotedPost,
+  }) = _QuotedPost;
+
+  factory QuotedPost.fromJson(Map<String, Object?> json) =>
+      _$QuotedPostFromJson(json);
+}
+
+@freezed
 abstract class Post with _$Post {
   const factory Post({
     required Author author,
@@ -137,7 +187,7 @@ abstract class Post with _$Post {
     int? parentId,
     Poll? poll,
     required int quoteUsersCount,
-    Post? quotedPost,
+    QuotedPost? quotedPost,
     int? quotedPostId,
     required List<ReactionSummary> reactionSummary,
     required List<Reaction> reactions,
@@ -161,4 +211,45 @@ abstract class Post with _$Post {
   }) = _Post;
 
   factory Post.fromJson(Map<String, Object?> json) => _$PostFromJson(json);
+
+  factory Post.empty(int id) {
+    return Post(
+      id: id,
+      content: '',
+      liked: false,
+      likesCount: 0,
+      rekaroted: false,
+      rekarotsCount: 0,
+      bookmarked: false,
+      bookmarksCount: 0,
+      repliesCount: 0,
+      viewsCount: 0,
+      mediaUrls: [],
+      author: Author.empty(-1),
+      authorId: -1,
+      createdAt: DateTime.now(),
+      canInteract: false,
+      canQuote: false,
+      excludedMentions: [],
+      hasBlockedAuthor: true,
+      hashtags: [],
+      isAiGenerated: false,
+      isBlockedByAuthor: false,
+      isMutedByViewer: false,
+      isPromotional: false,
+      mediaAlts: [],
+      mediaR18Flags: [],
+      mediaSpoilerFlags: [],
+      mediaTypes: [],
+      mentions: [],
+      quoteUsersCount: -1,
+      reactionSummary: [],
+      reactions: [],
+      replyRestriction: "EVERYONE",
+      replyTargets: [],
+      replyToUsers: [],
+      updatedAt: DateTime.now(),
+      visibility: "PUBLIC",
+    );
+  }
 }

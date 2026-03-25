@@ -1,16 +1,16 @@
-abstract class KarotatorException implements Exception {
-  const KarotatorException(this.statusCode, this.message);
+abstract class KarotterException implements Exception {
+  const KarotterException(this.statusCode, this.message);
 
   final int statusCode;
   final String? message;
 
   @override
   String toString() {
-    return 'KarotatorException{statusCode: $statusCode, message: $message}';
+    return 'KarotterException{statusCode: $statusCode, message: $message}';
   }
 }
 
-class KarotterServerException extends KarotatorException {
+class KarotterServerException extends KarotterException {
   const KarotterServerException(super.statusCode, String super.message);
 
   @override
@@ -19,7 +19,7 @@ class KarotterServerException extends KarotatorException {
   }
 }
 
-class KarotterClientException extends KarotatorException {
+class KarotterClientException extends KarotterException {
   const KarotterClientException(super.statusCode, String super.message);
 
   @override

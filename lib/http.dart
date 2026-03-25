@@ -20,11 +20,14 @@ class HTTPClient {
 
   final http = httpx.Client();
   final storage = const FlutterSecureStorage();
+  bool initialized = false;
   String? nowAccountId;
 
   Future<void> initialize() async {
     final prefs = await SharedPreferences.getInstance();
     nowAccountId = prefs.getString("nowAccountId");
+
+    initialized = true;
   }
 
   Map<String, String> parseCookies(String raw) {
@@ -63,13 +66,16 @@ class HTTPClient {
 
     if (nowAccountId == null) return;
 
-    final setCookie = response.headers['set-cookie'];
-    if (setCookie == null) return;
+    final setCookies = response.headersSplitValues['set-cookie'];
+    if (setCookies == null) return;
 
     final existing = parseCookies(
       await storage.read(key: "${nowAccountId}_cookies") ?? '',
     );
-    existing.addAll(parseCookies(setCookie));
+    for (var cookie in setCookies) {
+      existing.addAll(parseCookies(cookie));
+    }
+
     await storage.write(
       key: "${nowAccountId}_cookies",
       value: existing.entries.map((e) => '${e.key}=${e.value}').join('; '),
@@ -133,9 +139,27 @@ class HTTPClient {
     await storage.write(key: "${nowAccountId}_login", value: jsonStr);
   }
 
-  Future<LoginResponse?> loadLoginResponse() async {
-    if (nowAccountId == null) return null;
+  Future<void> modifyLoginResponse(RefreshResponse res) async {
+    if (nowAccountId == null) return;
     final jsonStr = await storage.read(key: "${nowAccountId}_login");
+    if (jsonStr == null) return;
+
+    final decoded = jsonDecode(jsonStr);
+    if (decoded is! Map<String, dynamic>) return;
+
+    decoded["accessToken"] = res.accessToken;
+    decoded["sessionId"] = res.sessionId;
+
+    await storage.write(
+      key: "${nowAccountId}_login",
+      value: jsonEncode(decoded),
+    );
+  }
+
+  Future<LoginResponse?> loadLoginResponse({String? id}) async {
+    id ??= nowAccountId;
+    if (id == null) return null;
+    final jsonStr = await storage.read(key: "${id}_login");
     if (jsonStr == null) return null;
 
     final decoded = jsonDecode(jsonStr);
@@ -151,24 +175,59 @@ class HTTPClient {
     return {"x-device-id": prefs.getString("deviceId")!};
   }
 
+  Future<String> fetchCsrfToken() async {
+    final csrfToken = (await get("auth/csrf-token"))["csrfToken"] as String;
+
+    final existing = parseCookies(
+      await storage.read(key: "${nowAccountId}_cookies") ?? '',
+    );
+    existing["karotter_csrf"] = csrfToken;
+    await storage.write(
+      key: "${nowAccountId}_cookies",
+      value: existing.entries.map((e) => '${e.key}=${e.value}').join('; '),
+    );
+
+    return csrfToken;
+  }
+
   Future<Map<String, Object?>> get(
     String url, {
     Map<String, String>? headers,
+    bool csrf = false,
   }) async {
-    final cookies = await cookieHeaders();
     final deviceId = await getDeviceIdHeader();
+
+    final login = await loadLoginResponse();
+    Map authorization = {};
+    if (login != null) {
+      authorization = {"Authorization": "Bearer ${login.accessToken}"};
+    }
+
+    Map csrfHeader = {};
+    if (csrf) {
+      csrfHeader = {"x-csrf-token": await fetchCsrfToken()};
+    }
+
+    final cookies = await cookieHeaders();
 
     final response = await http.get(
       Uri.parse("https://karotter.com/api/$url"),
       headers: {
         ...cookies,
         ...deviceId,
+        ...authorization,
+        ...csrfHeader,
         ...?headers,
         "x-client-type": "unofficial_app",
       },
     );
+
+    debugPrint(
+      "req-headers: ${{...cookies, ...deviceId, ...authorization, ...csrfHeader, ...?headers, "x-client-type": "unofficial_app"}}",
+    );
     debugPrint("status: ${response.statusCode}");
     debugPrint("body: ${utf8.decode(response.bodyBytes)}");
+
     await afterRequest(response);
     return jsonDecode(utf8.decode(response.bodyBytes)) as Map<String, Object?>;
   }
@@ -177,22 +236,86 @@ class HTTPClient {
     String url, {
     Map<String, String>? headers,
     Object? body,
+    bool csrf = false,
   }) async {
-    final cookies = await cookieHeaders();
     final deviceId = await getDeviceIdHeader();
+
+    final login = await loadLoginResponse();
+    Map authorization = {};
+    if (login != null) {
+      authorization = {"Authorization": "Bearer ${login.accessToken}"};
+    }
+
+    Map csrfHeader = {};
+    if (csrf) {
+      csrfHeader = {"x-csrf-token": await fetchCsrfToken()};
+    }
+
+    final cookies = await cookieHeaders();
 
     final response = await http.post(
       Uri.parse("https://karotter.com/api/$url"),
       headers: {
         ...cookies,
         ...deviceId,
+        ...authorization,
+        ...csrfHeader,
         ...?headers,
         "x-client-type": "unofficial_app",
       },
       body: body,
     );
+
+    debugPrint(
+      "req-headers: ${{...cookies, ...deviceId, ...authorization, ...csrfHeader, ...?headers, "x-client-type": "unofficial_app"}}",
+    );
     debugPrint("status: ${response.statusCode}");
-    debugPrint("body: ${utf8.decode(response.bodyBytes)}");
+    // debugPrint("body: ${utf8.decode(response.bodyBytes)}");
+
+    await afterRequest(response);
+    return jsonDecode(utf8.decode(response.bodyBytes)) as Map<String, Object?>;
+  }
+
+  Future<Map<String, Object?>> delete(
+    String url, {
+    Map<String, String>? headers,
+    Object? body,
+    bool csrf = false,
+  }) async {
+    final deviceId = await getDeviceIdHeader();
+
+    final login = await loadLoginResponse();
+    Map authorization = {};
+    if (login != null) {
+      authorization = {"Authorization": "Bearer ${login.accessToken}"};
+    }
+
+    Map csrfHeader = {};
+    if (csrf) {
+      csrfHeader = {"x-csrf-token": await fetchCsrfToken()};
+    }
+
+    final cookies = await cookieHeaders();
+
+    final response = await http.delete(
+      Uri.parse("https://karotter.com/api/$url"),
+      headers: {
+        ...cookies,
+        ...deviceId,
+        ...authorization,
+        ...csrfHeader,
+        ...?headers,
+        "x-client-type": "unofficial_app",
+      },
+      body: body,
+    );
+
+    debugPrint(
+      "req-headers: ${{...cookies, ...deviceId, ...authorization, ...csrfHeader, ...?headers, "x-client-type": "unofficial_app"}}",
+    );
+    debugPrint("status: ${response.statusCode}");
+    // debugPrint("body: ${utf8.decode(response.bodyBytes)}");
+
     await afterRequest(response);
     return jsonDecode(utf8.decode(response.bodyBytes)) as Map<String, Object?>;
   }
@@ -203,6 +326,18 @@ class HTTPClient {
   }) async {
     final jsonData = await get("posts/recommended?page=$page&limit=$limit");
     return RecommendedResponse.fromJson(jsonData);
+  }
+
+  Future<TimeLineResponse> getTimeLine({
+    required int page,
+    required int limit,
+    required String mode,
+  }) async {
+    final jsonData = await get(
+      "posts/timeline?page=$page&limit=$limit&mode=$mode",
+      csrf: true,
+    );
+    return TimeLineResponse.fromJson(jsonData);
   }
 
   Future<LoginResponse> login({
@@ -228,9 +363,45 @@ class HTTPClient {
       final response = LoginResponse.fromJson(jsonData);
       await saveLoginResponse(response);
       return response;
-    } catch (e) {
+    } catch (e, stackTrace) {
+      debugPrint(stackTrace.toString());
       await removeAccountId(id);
       rethrow;
     }
+  }
+
+  Future<RefreshResponse> refresh() async {
+    final jsonData = await post(
+      "auth/refresh",
+      headers: {"content-type": "application/json"},
+      csrf: true,
+    );
+    final response = RefreshResponse.fromJson(jsonData);
+    await modifyLoginResponse(response);
+    return response;
+  }
+
+  Future<void> like(int postId) async {
+    final _ = await post("posts/$postId/like");
+  }
+
+  Future<void> dislike(int postId) async {
+    final _ = await delete("posts/$postId/like");
+  }
+
+  Future<void> rekarot(int postId) async {
+    final _ = await post("posts/$postId/rekarot");
+  }
+
+  Future<void> unrekarot(int postId) async {
+    final _ = await delete("posts/$postId/rekarot");
+  }
+
+  Future<void> bookmark(int postId) async {
+    final _ = await post("posts/$postId/bookmark");
+  }
+
+  Future<void> unbookmark(int postId) async {
+    final _ = await delete("posts/$postId/bookmark");
   }
 }

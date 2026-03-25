@@ -25,7 +25,7 @@ _PollOption _$PollOptionFromJson(Map<String, dynamic> json) => _PollOption(
   position: (json['position'] as num).toInt(),
   votesCount: (json['votesCount'] as num).toInt(),
   percentage: (json['percentage'] as num).toInt(),
-  votedByMe: (json['votedByMe'] as num).toInt(),
+  votedByMe: json['votedByMe'] as bool,
 );
 
 Map<String, dynamic> _$PollOptionToJson(_PollOption instance) =>
@@ -115,6 +115,97 @@ Map<String, dynamic> _$HashTagsToJson(_HashTags instance) => <String, dynamic>{
   'trendScore': instance.trendScore,
 };
 
+_QuotedPost _$QuotedPostFromJson(Map<String, dynamic> json) => _QuotedPost(
+  id: (json['id'] as num).toInt(),
+  content: json['content'] as String,
+  authorId: (json['authorId'] as num).toInt(),
+  author: Author.fromJson(json['author'] as Map<String, dynamic>),
+  createdAt: json['createdAt'] == null
+      ? null
+      : DateTime.parse(json['createdAt'] as String),
+  updatedAt: json['updatedAt'] == null
+      ? null
+      : DateTime.parse(json['updatedAt'] as String),
+  parentId: (json['parentId'] as num?)?.toInt(),
+  quotedPostId: (json['quotedPostId'] as num?)?.toInt(),
+  mediaUrls:
+      (json['mediaUrls'] as List<dynamic>?)?.map((e) => e as String).toList() ??
+      const [],
+  mediaTypes:
+      (json['mediaTypes'] as List<dynamic>?)
+          ?.map((e) => e as String)
+          .toList() ??
+      const [],
+  mediaAlts:
+      (json['mediaAlts'] as List<dynamic>?)?.map((e) => e as String).toList() ??
+      const [],
+  mediaSpoilerFlags:
+      (json['mediaSpoilerFlags'] as List<dynamic>?)
+          ?.map((e) => e as bool)
+          .toList() ??
+      const [],
+  mediaR18Flags:
+      (json['mediaR18Flags'] as List<dynamic>?)
+          ?.map((e) => e as bool)
+          .toList() ??
+      const [],
+  embedUrl: json['embedUrl'] as String?,
+  embedTitle: json['embedTitle'] as String?,
+  embedDescription: json['embedDescription'] as String?,
+  embedImage: json['embedImage'] as String?,
+  likesCount: (json['likesCount'] as num?)?.toInt(),
+  rekarotsCount: (json['rekarotsCount'] as num?)?.toInt(),
+  repliesCount: (json['repliesCount'] as num?)?.toInt(),
+  viewsCount: (json['viewsCount'] as num?)?.toInt(),
+  replyRestriction: json['replyRestriction'] as String?,
+  visibility: json['visibility'] as String?,
+  isAiGenerated: json['isAiGenerated'] as bool?,
+  isPromotional: json['isPromotional'] as bool?,
+  liked: json['liked'] as bool?,
+  rekaroted: json['rekaroted'] as bool?,
+  bookmarked: json['bookmarked'] as bool?,
+  canInteract: json['canInteract'] as bool?,
+  canQuote: json['canQuote'] as bool?,
+  quotedPost: json['quotedPost'] == null
+      ? null
+      : QuotedPost.fromJson(json['quotedPost'] as Map<String, dynamic>),
+);
+
+Map<String, dynamic> _$QuotedPostToJson(_QuotedPost instance) =>
+    <String, dynamic>{
+      'id': instance.id,
+      'content': instance.content,
+      'authorId': instance.authorId,
+      'author': instance.author,
+      'createdAt': instance.createdAt?.toIso8601String(),
+      'updatedAt': instance.updatedAt?.toIso8601String(),
+      'parentId': instance.parentId,
+      'quotedPostId': instance.quotedPostId,
+      'mediaUrls': instance.mediaUrls,
+      'mediaTypes': instance.mediaTypes,
+      'mediaAlts': instance.mediaAlts,
+      'mediaSpoilerFlags': instance.mediaSpoilerFlags,
+      'mediaR18Flags': instance.mediaR18Flags,
+      'embedUrl': instance.embedUrl,
+      'embedTitle': instance.embedTitle,
+      'embedDescription': instance.embedDescription,
+      'embedImage': instance.embedImage,
+      'likesCount': instance.likesCount,
+      'rekarotsCount': instance.rekarotsCount,
+      'repliesCount': instance.repliesCount,
+      'viewsCount': instance.viewsCount,
+      'replyRestriction': instance.replyRestriction,
+      'visibility': instance.visibility,
+      'isAiGenerated': instance.isAiGenerated,
+      'isPromotional': instance.isPromotional,
+      'liked': instance.liked,
+      'rekaroted': instance.rekaroted,
+      'bookmarked': instance.bookmarked,
+      'canInteract': instance.canInteract,
+      'canQuote': instance.canQuote,
+      'quotedPost': instance.quotedPost,
+    };
+
 _Post _$PostFromJson(Map<String, dynamic> json) => _Post(
   author: Author.fromJson(json['author'] as Map<String, dynamic>),
   authorId: (json['authorId'] as num).toInt(),
@@ -171,7 +262,7 @@ _Post _$PostFromJson(Map<String, dynamic> json) => _Post(
   quoteUsersCount: (json['quoteUsersCount'] as num).toInt(),
   quotedPost: json['quotedPost'] == null
       ? null
-      : Post.fromJson(json['quotedPost'] as Map<String, dynamic>),
+      : QuotedPost.fromJson(json['quotedPost'] as Map<String, dynamic>),
   quotedPostId: (json['quotedPostId'] as num?)?.toInt(),
   reactionSummary: (json['reactionSummary'] as List<dynamic>)
       .map((e) => ReactionSummary.fromJson(e as Map<String, dynamic>))

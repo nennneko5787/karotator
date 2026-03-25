@@ -1,7 +1,6 @@
 import "package:flutter/material.dart";
-import "package:karotator/factory/post.dart";
 import "package:karotator/http.dart";
-import "package:karotator/objects/post.dart";
+import "package:karotator/ui/timeline_tab.dart";
 
 class TimeLine extends StatefulWidget {
   const TimeLine({super.key});
@@ -11,53 +10,94 @@ class TimeLine extends StatefulWidget {
 }
 
 class _TimeLineState extends State<TimeLine> {
-  final pageKey = GlobalKey<ScaffoldState>();
-  late List<Post> posts;
-  late Future<void> initPostsData;
+  String _followingMode = "latest";
 
-  @override
-  void initState() {
-    super.initState();
-    initPostsData = refreshPosts();
-  }
-
-  Future<void> refreshPosts() async {
-    final response = await HTTPClient().getRecommended(page: 1, limit: 12);
-    setState(() {
-      posts = response.posts;
-    });
+  void showModeMenu(BuildContext context) {
+    showModalBottomSheet(
+      context: context,
+      builder: (context) {
+        return SafeArea(
+          child: Column(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              ListTile(
+                leading: const Icon(Icons.schedule),
+                title: const Text("時系列"),
+                trailing: _followingMode == "latest"
+                    ? const Icon(Icons.check)
+                    : null,
+                onTap: () {
+                  setState(() => _followingMode = "latest");
+                  Navigator.pop(context);
+                },
+              ),
+              ListTile(
+                leading: const Icon(Icons.star),
+                title: const Text("おすすめ順"),
+                trailing: _followingMode == "ranked"
+                    ? const Icon(Icons.check)
+                    : null,
+                onTap: () {
+                  setState(() => _followingMode = "ranked");
+                  Navigator.pop(context);
+                },
+              ),
+            ],
+          ),
+        );
+      },
+    );
   }
 
   @override
   Widget build(BuildContext context) {
-    return FutureBuilder(
-      future: initPostsData,
-      builder: (BuildContext context, AsyncSnapshot<void> snapshot) {
-        if (snapshot.connectionState == ConnectionState.waiting) {
-          return Center(child: CircularProgressIndicator());
-        }
-
-        if (snapshot.error != null) {
-          return Center(child: Text('I got the error! ${snapshot.error}'));
-        }
-
-        return RefreshIndicator(
-          onRefresh: refreshPosts,
-          child: ListView.builder(
-            physics: const AlwaysScrollableScrollPhysics(),
-            itemCount: posts.length,
-            itemBuilder: (context, index) {
-              final post = posts[index];
-              return ListTile(
-                titleAlignment: ListTileTitleAlignment.top,
-                leading: postUserAvatarFactory(post.author.avatarUrl),
-                title: postUserDetailFactory(post),
-                subtitle: postContentFactory(post),
-              );
-            },
+    return DefaultTabController(
+      length: 2,
+      child: Column(
+        children: [
+          TabBar(
+            tabs: [
+              GestureDetector(
+                onLongPress: () => showModeMenu(context),
+                child: Tab(
+                  child: Row(
+                    mainAxisSize: MainAxisSize.min,
+                    spacing: 4,
+                    children: [
+                      const Text("フォロー中"),
+                      Icon(
+                        _followingMode == "latest"
+                            ? Icons.schedule
+                            : Icons.star,
+                        size: 14,
+                      ),
+                    ],
+                  ),
+                ),
+              ),
+              const Tab(text: 'おすすめ'),
+            ],
           ),
-        );
-      },
+          Expanded(
+            child: TabBarView(
+              children: [
+                TimeLineTab(
+                  key: ValueKey(_followingMode),
+                  fetcher: (page, limit) => HTTPClient().getTimeLine(
+                    page: page,
+                    limit: limit,
+                    mode: _followingMode,
+                  ),
+                ),
+                TimeLineTab(
+                  fetcher: (page, limit) =>
+                      HTTPClient().getRecommended(page: page, limit: limit),
+                ),
+              ],
+            ),
+          ),
+        ],
+      ),
     );
   }
 }

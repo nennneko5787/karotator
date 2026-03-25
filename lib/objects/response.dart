@@ -26,6 +26,17 @@ abstract class RecommendedResponse with _$RecommendedResponse {
 }
 
 @freezed
+abstract class TimeLineResponse with _$TimeLineResponse {
+  const factory TimeLineResponse({
+    required RecommendedPagination pagination,
+    required List<Post> posts,
+  }) = _TimeLineResponse;
+
+  factory TimeLineResponse.fromJson(Map<String, Object?> json) =>
+      _$TimeLineResponseFromJson(json);
+}
+
+@freezed
 abstract class LoginResponse with _$LoginResponse {
   const factory LoginResponse({
     required String accessToken,
@@ -36,4 +47,15 @@ abstract class LoginResponse with _$LoginResponse {
 
   factory LoginResponse.fromJson(Map<String, Object?> json) =>
       _$LoginResponseFromJson(json);
+}
+
+@freezed
+abstract class RefreshResponse with _$RefreshResponse {
+  const factory RefreshResponse({
+    required String accessToken,
+    required String sessionId,
+  }) = _RefreshResponse;
+
+  factory RefreshResponse.fromJson(Map<String, Object?> json) =>
+      _$RefreshResponseFromJson(json);
 }
