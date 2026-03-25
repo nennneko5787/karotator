@@ -28,15 +28,28 @@ jobs:
         run: flutter pub get
 
       # iOS build
-      - name: Build .app (no codesign)
-        run: flutter build ios --release --no-codesign
+      - name: Build iOS (config only)
+        run: flutter build ios --release --config-only
+
+      - name: Build .app with xcodebuild (no codesign)
+        run: |
+          xcodebuild \
+            -workspace ios/Runner.xcworkspace \
+            -scheme Runner \
+            -configuration Release \
+            -derivedDataPath build/ios_build \
+            CODE_SIGNING_ALLOWED=NO \
+            CODE_SIGNING_REQUIRED=NO \
+            CODE_SIGN_IDENTITY="" \
+            ARCHS=arm64 \
+            build
 
       - name: Convert .app to .ipa
         run: |
-          cd build/ios/iphoneos
-          mkdir Payload
-          mv Runner.app Payload/Runner.app
-          zip -r karotator.ipa Payload
+          APP_PATH=$(find build/ios_build -name "Runner.app" | head -1)
+          mkdir -p Payload
+          cp -r "$APP_PATH" Payload/Runner.app
+          zip -r build/ios/iphoneos/karotator.ipa Payload
 
       # Android build
       - name: Build APK
