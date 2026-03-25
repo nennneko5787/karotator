@@ -4,9 +4,12 @@ on:
   push:
     branches: [main]
 
+permissions:
+  contents: write
+
 jobs:
-  build_iOS:
-    name: iOSアプリを作成
+  build:
+    name: Build & Release
     runs-on: macos-latest
 
     steps:
@@ -21,6 +24,7 @@ jobs:
       - name: Flutter pub get
         run: flutter pub get
 
+      # iOS build
       - name: Build .app (no codesign)
         run: flutter build ios --release --no-codesign
 
@@ -31,28 +35,7 @@ jobs:
           mv Runner.app Payload/Runner.app
           zip -r karotator.ipa Payload
 
-      - name: Upload IPA
-        uses: actions/upload-artifact@v4
-        with:
-          name: ios-app
-          path: build/ios/iphoneos/karotator.ipa
-
-  build_android:
-    name: Androidアプリを作成
-    runs-on: ubuntu-latest
-
-    steps:
-      - uses: actions/checkout@v2
-
-      - name: Install Flutter
-        run: git clone https://github.com/flutter/flutter.git
-
-      - name: Add path
-        run: echo "$(pwd)/flutter/bin" >> $GITHUB_PATH
-
-      - name: Flutter pub get
-        run: flutter pub get
-
+      # Android build
       - name: Build APK
         run: flutter build apk --release
 
@@ -61,8 +44,20 @@ jobs:
           cd build/app/outputs/flutter-apk/
           mv app-release.apk karotator.apk
 
-      - name: Upload APK
-        uses: actions/upload-artifact@v4
+      # タグ作成（日時ベース）
+      - name: Generate tag
+        id: tag
+        run: echo "tag=pre-$(date +'%Y-%m-%d_%H%-M-%S')" >> $GITHUB_OUTPUT
+
+      # Release作成
+      - name: Create Release
+        uses: softprops/action-gh-release@v2
         with:
-          name: android-apk
-          path: build/app/outputs/flutter-apk/karotator.apk
+          tag_name: ${{ steps.tag.outputs.tag }}
+          name: Build ${{ steps.tag.outputs.tag }}
+          prerelease: true
+          files: |
+            build/ios/iphoneos/karotator.ipa
+            build/app/outputs/flutter-apk/karotator.apk
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
