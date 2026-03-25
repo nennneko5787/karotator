@@ -130,16 +130,9 @@ class _PostPageState extends State<PostPage> {
           ],
         ),
       ),
+			resizeToAvoidBottomInset: true,
       bottomNavigationBar: Container(
         color: Theme.of(context).scaffoldBackgroundColor,
-        padding: EdgeInsets.only(
-          left: 12,
-          right: 12,
-          top: 8,
-          bottom: MediaQuery.of(context).viewInsets.bottom > 0
-              ? 8
-              : 8 + MediaQuery.of(context).padding.bottom,
-        ),
         child: Row(
           children: [
             TextButton(onPressed: () {}, child: Text("公開: 全体")),
