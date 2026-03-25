@@ -30,7 +30,7 @@ class _StartUpPageState extends State<StartUpPage> {
       );
     }).catchError((e, stackTrace) {
       showAlert(context, e: e);
-      debugPrint(stackTrace);
+      debugPrint("$e\n$stackTrace");
     });
   }
 

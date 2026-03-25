@@ -28,7 +28,7 @@ class PostNotifier extends _$PostNotifier {
         await HTTPClient().dislike(current.id);
       }
     } catch (e, stackTrace) {
-      debugPrint(stackTrace.toString());
+      debugPrint("$e\n$stackTrace");
       if ((e is! KarotterClientException) || (e.statusCode != 400)) {
         state = current.copyWith(
           liked: !current.liked,
@@ -58,7 +58,7 @@ class PostNotifier extends _$PostNotifier {
         await HTTPClient().unrekarot(current.id);
       }
     } catch (e, stackTrace) {
-      debugPrint(stackTrace.toString());
+      debugPrint("$e\n$stackTrace");
       if ((e is! KarotterClientException) || (e.statusCode != 400)) {
         state = current.copyWith(
           rekaroted: !current.rekaroted,
@@ -88,7 +88,7 @@ class PostNotifier extends _$PostNotifier {
         await HTTPClient().unbookmark(current.id);
       }
     } catch (e, stackTrace) {
-      debugPrint(stackTrace.toString());
+      debugPrint("$e\n$stackTrace");
       if ((e is! KarotterClientException) || (e.statusCode != 400)) {
         state = current.copyWith(
           bookmarked: !current.bookmarked,

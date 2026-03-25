@@ -211,8 +211,8 @@ _Post _$PostFromJson(Map<String, dynamic> json) => _Post(
   authorId: (json['authorId'] as num).toInt(),
   bookmarked: json['bookmarked'] as bool,
   bookmarksCount: (json['bookmarksCount'] as num).toInt(),
-  canInteract: json['canInteract'] as bool,
-  canQuote: json['canQuote'] as bool,
+  canInteract: json['canInteract'] as bool? ?? true,
+  canQuote: json['canQuote'] as bool? ?? true,
   comment: json['comment'] as String?,
   content: json['content'] as String,
   createdAt: DateTime.parse(json['createdAt'] as String),
@@ -226,16 +226,18 @@ _Post _$PostFromJson(Map<String, dynamic> json) => _Post(
   excludedMentions: (json['excludedMentions'] as List<dynamic>)
       .map((e) => (e as num).toInt())
       .toList(),
-  hasBlockedAuthor: json['hasBlockedAuthor'] as bool,
-  hashtags: (json['hashtags'] as List<dynamic>)
-      .map((e) => HashTags.fromJson(e as Map<String, dynamic>))
-      .toList(),
+  hasBlockedAuthor: json['hasBlockedAuthor'] as bool? ?? true,
+  hashtags:
+      (json['hashtags'] as List<dynamic>?)
+          ?.map((e) => HashTags.fromJson(e as Map<String, dynamic>))
+          .toList() ??
+      const [],
   id: (json['id'] as num).toInt(),
   isAiGenerated: json['isAiGenerated'] as bool,
-  isBlockedByAuthor: json['isBlockedByAuthor'] as bool,
-  isMutedByViewer: json['isMutedByViewer'] as bool,
+  isBlockedByAuthor: json['isBlockedByAuthor'] as bool? ?? false,
+  isMutedByViewer: json['isMutedByViewer'] as bool? ?? false,
   isPromotional: json['isPromotional'] as bool,
-  liked: json['liked'] as bool,
+  liked: json['liked'] as bool? ?? false,
   likesCount: (json['likesCount'] as num).toInt(),
   mediaAlts: (json['mediaAlts'] as List<dynamic>)
       .map((e) => e as String)
@@ -252,41 +254,51 @@ _Post _$PostFromJson(Map<String, dynamic> json) => _Post(
   mediaUrls: (json['mediaUrls'] as List<dynamic>)
       .map((e) => e as String)
       .toList(),
-  mentions: (json['mentions'] as List<dynamic>)
-      .map((e) => MentionId.fromJson(e as Map<String, dynamic>))
-      .toList(),
+  mentions:
+      (json['mentions'] as List<dynamic>?)
+          ?.map((e) => MentionId.fromJson(e as Map<String, dynamic>))
+          .toList() ??
+      const [],
   parentId: (json['parentId'] as num?)?.toInt(),
   poll: json['poll'] == null
       ? null
       : Poll.fromJson(json['poll'] as Map<String, dynamic>),
-  quoteUsersCount: (json['quoteUsersCount'] as num).toInt(),
+  quoteUsersCount: (json['quoteUsersCount'] as num?)?.toInt() ?? 0,
   quotedPost: json['quotedPost'] == null
       ? null
       : QuotedPost.fromJson(json['quotedPost'] as Map<String, dynamic>),
   quotedPostId: (json['quotedPostId'] as num?)?.toInt(),
-  reactionSummary: (json['reactionSummary'] as List<dynamic>)
-      .map((e) => ReactionSummary.fromJson(e as Map<String, dynamic>))
-      .toList(),
-  reactions: (json['reactions'] as List<dynamic>)
-      .map((e) => Reaction.fromJson(e as Map<String, dynamic>))
-      .toList(),
-  rekaroted: json['rekaroted'] as bool,
+  reactionSummary:
+      (json['reactionSummary'] as List<dynamic>?)
+          ?.map((e) => ReactionSummary.fromJson(e as Map<String, dynamic>))
+          .toList() ??
+      const [],
+  reactions:
+      (json['reactions'] as List<dynamic>?)
+          ?.map((e) => Reaction.fromJson(e as Map<String, dynamic>))
+          .toList() ??
+      const [],
+  rekaroted: json['rekaroted'] as bool? ?? false,
   rekarotedBy: json['rekarotedBy'] == null
       ? null
       : Author.fromJson(json['rekarotedBy'] as Map<String, dynamic>),
-  rekarotsCount: (json['rekarotsCount'] as num).toInt(),
+  rekarotsCount: (json['rekarotsCount'] as num?)?.toInt() ?? 0,
   repliesCount: (json['repliesCount'] as num).toInt(),
   replyCircle: json['replyCircle'] == null
       ? null
       : Circle.fromJson(json['replyCircle'] as Map<String, dynamic>),
   replyCircleId: (json['replyCircleId'] as num?)?.toInt(),
   replyRestriction: json['replyRestriction'] as String,
-  replyTargets: (json['replyTargets'] as List<dynamic>)
-      .map((e) => ReplyTarget.fromJson(e as Map<String, dynamic>))
-      .toList(),
-  replyToUsers: (json['replyToUsers'] as List<dynamic>)
-      .map((e) => Author.fromJson(e as Map<String, dynamic>))
-      .toList(),
+  replyTargets:
+      (json['replyTargets'] as List<dynamic>?)
+          ?.map((e) => ReplyTarget.fromJson(e as Map<String, dynamic>))
+          .toList() ??
+      const [],
+  replyToUsers:
+      (json['replyToUsers'] as List<dynamic>?)
+          ?.map((e) => Author.fromJson(e as Map<String, dynamic>))
+          .toList() ??
+      const [],
   updatedAt: DateTime.parse(json['updatedAt'] as String),
   viewerCircle: json['viewerCircle'] == null
       ? null

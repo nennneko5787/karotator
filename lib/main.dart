@@ -1,14 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:karotator/const.dart';
 
 import 'package:karotator/pages/startup.dart';
 
 void main() {
-  runApp(const MyApp());
+  runApp(const Karotator());
 }
 
-class MyApp extends StatelessWidget {
-  const MyApp({super.key});
+class Karotator extends StatelessWidget {
+  const Karotator({super.key});
 
   // This widget is the root of your application.
   @override
@@ -16,6 +17,7 @@ class MyApp extends StatelessWidget {
     return ProviderScope(
       child: MaterialApp(
         title: 'Karotator',
+        scaffoldMessengerKey: messengerKey,
         theme: ThemeData(
           brightness: Brightness.light,
           secondaryHeaderColor: Color.fromARGB(255, 120, 153, 181),

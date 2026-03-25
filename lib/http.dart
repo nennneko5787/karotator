@@ -4,6 +4,8 @@ import 'dart:io';
 import 'package:flutter/rendering.dart';
 import 'package:http/http.dart' as httpx;
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
+import 'package:karotator/enum.dart';
+import 'package:karotator/objects/post.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:uuid/v4.dart';
 
@@ -22,6 +24,7 @@ class HTTPClient {
   final storage = const FlutterSecureStorage();
   bool initialized = false;
   String? nowAccountId;
+  final baseUrl = "https://karotter.com/api/";
 
   Future<void> initialize() async {
     final prefs = await SharedPreferences.getInstance();
@@ -51,19 +54,7 @@ class HTTPClient {
     return cookies;
   }
 
-  Future<void> afterRequest(httpx.Response response) async {
-    if ((response.statusCode >= 400) && (response.statusCode <= 499)) {
-      throw KarotterClientException(
-        response.statusCode,
-        utf8.decode(response.bodyBytes),
-      );
-    } else if ((response.statusCode >= 500) && (response.statusCode <= 599)) {
-      throw KarotterServerException(
-        response.statusCode,
-        utf8.decode(response.bodyBytes),
-      );
-    }
-
+  Future<void> commonOperaion(httpx.BaseResponse response) async {
     if (nowAccountId == null) return;
 
     final setCookies = response.headersSplitValues['set-cookie'];
@@ -80,6 +71,35 @@ class HTTPClient {
       key: "${nowAccountId}_cookies",
       value: existing.entries.map((e) => '${e.key}=${e.value}').join('; '),
     );
+  }
+
+  Future<void> afterRequest(httpx.Response response) async {
+    if ((response.statusCode >= 400) && (response.statusCode <= 499)) {
+      throw KarotterClientException(
+        response.statusCode,
+        utf8.decode(response.bodyBytes),
+      );
+    } else if ((response.statusCode >= 500) && (response.statusCode <= 599)) {
+      throw KarotterServerException(
+        response.statusCode,
+        utf8.decode(response.bodyBytes),
+      );
+    }
+
+    await commonOperaion(response);
+  }
+
+  Future<void> afterRequestStreamed(
+    httpx.StreamedResponse response,
+    String? bodyString,
+  ) async {
+    if ((response.statusCode >= 400) && (response.statusCode <= 499)) {
+      throw KarotterClientException(response.statusCode, bodyString ?? "");
+    } else if ((response.statusCode >= 500) && (response.statusCode <= 599)) {
+      throw KarotterServerException(response.statusCode, bodyString ?? "");
+    }
+
+    await commonOperaion(response);
   }
 
   Future<Map<String, String>> cookieHeaders() async {
@@ -211,7 +231,7 @@ class HTTPClient {
     final cookies = await cookieHeaders();
 
     final response = await http.get(
-      Uri.parse("https://karotter.com/api/$url"),
+      Uri.parse("$baseUrl$url"),
       headers: {
         ...cookies,
         ...deviceId,
@@ -254,7 +274,7 @@ class HTTPClient {
     final cookies = await cookieHeaders();
 
     final response = await http.post(
-      Uri.parse("https://karotter.com/api/$url"),
+      Uri.parse("$baseUrl$url"),
       headers: {
         ...cookies,
         ...deviceId,
@@ -298,7 +318,7 @@ class HTTPClient {
     final cookies = await cookieHeaders();
 
     final response = await http.delete(
-      Uri.parse("https://karotter.com/api/$url"),
+      Uri.parse("$baseUrl$url"),
       headers: {
         ...cookies,
         ...deviceId,
@@ -364,7 +384,7 @@ class HTTPClient {
       await saveLoginResponse(response);
       return response;
     } catch (e, stackTrace) {
-      debugPrint(stackTrace.toString());
+      debugPrint("$e\n$stackTrace");
       await removeAccountId(id);
       rethrow;
     }
@@ -403,5 +423,90 @@ class HTTPClient {
 
   Future<void> unbookmark(int postId) async {
     final _ = await delete("posts/$postId/bookmark");
+  }
+
+  Future<Post> createPost(
+    String content, {
+    bool isAiGenerated = false,
+    bool isPromotional = false,
+    PostVisibility visibility = PostVisibility.PUBLIC,
+    int? viewerCircleId,
+    ReplyRestriction replyRestriction = ReplyRestriction.EVERYONE,
+    int? replyCircleId,
+    List<String>? mediaAlts,
+    List<bool>? mediaSpoilerFlags,
+    List<bool>? mediaR18Flags,
+    List<String>? pollOptions,
+    int? pollDurationHours,
+    DateTime? scheduledFor,
+    File? media,
+    int? parentId,
+  }) async {
+    // setting up my attr
+    mediaAlts ??= [];
+    mediaSpoilerFlags ??= [];
+    mediaR18Flags ??= [];
+
+    final request = httpx.MultipartRequest(
+      'POST',
+      Uri.parse("${baseUrl}posts"),
+    );
+
+    final deviceId = await getDeviceIdHeader();
+
+    final login = await loadLoginResponse();
+    final cookies = await cookieHeaders();
+
+    final headers = <String, String>{
+      ...cookies,
+      ...deviceId,
+      "Authorization": "Bearer ${login!.accessToken}",
+      "x-csrf-token": await fetchCsrfToken(),
+      "x-client-type": "unofficial_app",
+    };
+    request.headers.addAll(headers);
+
+    Map<String, String> data = {
+      "content": content,
+      "isAiGenerated": isAiGenerated.toString(),
+      "isPromotional": isPromotional.toString(),
+      "visibility": visibility.name,
+      "replyRestriction": replyRestriction.name,
+      "mediaAlts": jsonEncode(mediaAlts),
+      "mediaSpoilerFlags": jsonEncode(mediaSpoilerFlags),
+      "mediaR18Flags": jsonEncode(mediaR18Flags),
+    };
+
+    if (visibility == PostVisibility.CIRCLE) {
+      data.addAll({"viewerCircleId": viewerCircleId.toString()});
+    }
+    if (replyRestriction == ReplyRestriction.CIRCLE) {
+      data.addAll({"replyCircleId": replyCircleId.toString()});
+    }
+    if (pollOptions != null) {
+      data.addAll({"pollOptions": jsonEncode(pollOptions)});
+    }
+    if (pollDurationHours != null) {
+      data.addAll({"pollDurationHours": pollDurationHours.toString()});
+    }
+    if (scheduledFor != null) {
+      data.addAll({"scheduledFor": scheduledFor.toIso8601String()});
+    }
+    if (parentId != null) data.addAll({"parentId": parentId.toString()});
+
+    request.fields.addAll(data);
+
+    if (media != null) {
+      request.files.add(
+        httpx.MultipartFile.fromBytes("media", await media.readAsBytes()),
+      );
+    }
+
+    final response = await request.send();
+    final bodyString = await response.stream.bytesToString();
+    afterRequestStreamed(response, bodyString);
+
+    final jsonData = jsonDecode(bodyString) as Map<String, dynamic>;
+    return Post.fromJson(jsonData["post"] as Map<String, dynamic>);
   }
 }

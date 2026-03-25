@@ -2,6 +2,7 @@ import "package:flutter/material.dart";
 import "package:karotator/http.dart";
 import "package:karotator/ui/highlight_text_editing_controller.dart";
 import "package:material_symbols_icons/symbols.dart";
+import 'package:karotator/const.dart';
 
 class PostPage extends StatefulWidget {
   const PostPage({super.key});
@@ -44,6 +45,26 @@ class _PostPageState extends State<PostPage> {
     setState(() {});
   }
 
+  Future<void> createPost() async {
+    final content = _postController.text;
+
+    messengerKey.currentState?.showSnackBar(
+      SnackBar(content: Text("投稿しています...")),
+    );
+
+    try {
+      final post = await HTTPClient().createPost(content);
+      messengerKey.currentState?.showSnackBar(
+        SnackBar(content: Text("投稿しました。 ID:${post.id}")),
+      );
+    } catch (e, stackTrace) {
+      debugPrint("$e\n$stackTrace");
+      messengerKey.currentState?.showSnackBar(
+        SnackBar(content: Text("Error: $e")),
+      );
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -62,7 +83,12 @@ class _PostPageState extends State<PostPage> {
             valueListenable: _isPostButtonEnabled,
             builder: (context, isEnabled, child) {
               return ElevatedButton(
-                onPressed: isEnabled ? () async => {} : null,
+                onPressed: isEnabled
+                    ? () async {
+                        Navigator.pop(context);
+                        await createPost();
+                      }
+                    : null,
                 child: const Text('カロート'),
               );
             },

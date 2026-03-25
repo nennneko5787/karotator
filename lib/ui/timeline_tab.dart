@@ -56,7 +56,7 @@ class _TimeLineTabState extends State<TimeLineTab> {
 
       isLoadingMore = false;
     } catch (e, stackTrace) {
-      debugPrint(stackTrace.toString());
+      debugPrint("$e\n$stackTrace");
       showAlert(context, e: e);
     }
   }
@@ -70,7 +70,7 @@ class _TimeLineTabState extends State<TimeLineTab> {
       });
       isLoadingMore = false;
     } catch (e, stackTrace) {
-      debugPrint(stackTrace.toString());
+      debugPrint("$e\n$stackTrace");
       showAlert(context, e: e);
     }
   }

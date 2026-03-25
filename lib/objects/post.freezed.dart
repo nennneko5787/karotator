@@ -2952,7 +2952,7 @@ return $default(_that.author,_that.authorId,_that.bookmarked,_that.bookmarksCoun
 @JsonSerializable()
 
 class _Post implements Post {
-  const _Post({required this.author, required this.authorId, required this.bookmarked, required this.bookmarksCount, required this.canInteract, required this.canQuote, this.comment, required this.content, required this.createdAt, this.editedAt, this.embedDescription, this.embedImage, this.embedTitle, this.embedUrl, required final  List<int> excludedMentions, required this.hasBlockedAuthor, required final  List<HashTags> hashtags, required this.id, required this.isAiGenerated, required this.isBlockedByAuthor, required this.isMutedByViewer, required this.isPromotional, required this.liked, required this.likesCount, required final  List<String> mediaAlts, required final  List<bool> mediaR18Flags, required final  List<bool> mediaSpoilerFlags, required final  List<String> mediaTypes, required final  List<String> mediaUrls, required final  List<MentionId> mentions, this.parentId, this.poll, required this.quoteUsersCount, this.quotedPost, this.quotedPostId, required final  List<ReactionSummary> reactionSummary, required final  List<Reaction> reactions, required this.rekaroted, this.rekarotedBy, required this.rekarotsCount, required this.repliesCount, this.replyCircle, this.replyCircleId, required this.replyRestriction, required final  List<ReplyTarget> replyTargets, required final  List<Author> replyToUsers, required this.updatedAt, this.viewerCircle, this.viewerCircleId, required this.viewsCount, required this.visibility}): _excludedMentions = excludedMentions,_hashtags = hashtags,_mediaAlts = mediaAlts,_mediaR18Flags = mediaR18Flags,_mediaSpoilerFlags = mediaSpoilerFlags,_mediaTypes = mediaTypes,_mediaUrls = mediaUrls,_mentions = mentions,_reactionSummary = reactionSummary,_reactions = reactions,_replyTargets = replyTargets,_replyToUsers = replyToUsers;
+  const _Post({required this.author, required this.authorId, required this.bookmarked, required this.bookmarksCount, this.canInteract = true, this.canQuote = true, this.comment, required this.content, required this.createdAt, this.editedAt, this.embedDescription, this.embedImage, this.embedTitle, this.embedUrl, required final  List<int> excludedMentions, this.hasBlockedAuthor = true, final  List<HashTags> hashtags = const [], required this.id, required this.isAiGenerated, this.isBlockedByAuthor = false, this.isMutedByViewer = false, required this.isPromotional, this.liked = false, required this.likesCount, required final  List<String> mediaAlts, required final  List<bool> mediaR18Flags, required final  List<bool> mediaSpoilerFlags, required final  List<String> mediaTypes, required final  List<String> mediaUrls, final  List<MentionId> mentions = const [], this.parentId, this.poll, this.quoteUsersCount = 0, this.quotedPost, this.quotedPostId, final  List<ReactionSummary> reactionSummary = const [], final  List<Reaction> reactions = const [], this.rekaroted = false, this.rekarotedBy, this.rekarotsCount = 0, required this.repliesCount, this.replyCircle, this.replyCircleId, required this.replyRestriction, final  List<ReplyTarget> replyTargets = const [], final  List<Author> replyToUsers = const [], required this.updatedAt, this.viewerCircle, this.viewerCircleId, required this.viewsCount, required this.visibility}): _excludedMentions = excludedMentions,_hashtags = hashtags,_mediaAlts = mediaAlts,_mediaR18Flags = mediaR18Flags,_mediaSpoilerFlags = mediaSpoilerFlags,_mediaTypes = mediaTypes,_mediaUrls = mediaUrls,_mentions = mentions,_reactionSummary = reactionSummary,_reactions = reactions,_replyTargets = replyTargets,_replyToUsers = replyToUsers;
   factory _Post.fromJson(Map<String, dynamic> json) => _$PostFromJson(json);
 
 @override final  Author author;
@@ -2960,8 +2960,8 @@ class _Post implements Post {
 @override final  bool bookmarked;
 //required List<Id> bookmarks,
 @override final  int bookmarksCount;
-@override final  bool canInteract;
-@override final  bool canQuote;
+@override@JsonKey() final  bool canInteract;
+@override@JsonKey() final  bool canQuote;
 @override final  String? comment;
 @override final  String content;
 @override final  DateTime createdAt;
@@ -2977,9 +2977,9 @@ class _Post implements Post {
   return EqualUnmodifiableListView(_excludedMentions);
 }
 
-@override final  bool hasBlockedAuthor;
+@override@JsonKey() final  bool hasBlockedAuthor;
  final  List<HashTags> _hashtags;
-@override List<HashTags> get hashtags {
+@override@JsonKey() List<HashTags> get hashtags {
   if (_hashtags is EqualUnmodifiableListView) return _hashtags;
   // ignore: implicit_dynamic_type
   return EqualUnmodifiableListView(_hashtags);
@@ -2987,11 +2987,11 @@ class _Post implements Post {
 
 @override final  int id;
 @override final  bool isAiGenerated;
-@override final  bool isBlockedByAuthor;
-@override final  bool isMutedByViewer;
+@override@JsonKey() final  bool isBlockedByAuthor;
+@override@JsonKey() final  bool isMutedByViewer;
 @override final  bool isPromotional;
 // required String itemId,
-@override final  bool liked;
+@override@JsonKey() final  bool liked;
 // required List<Id> likes,
 @override final  int likesCount;
  final  List<String> _mediaAlts;
@@ -3030,7 +3030,7 @@ class _Post implements Post {
 }
 
  final  List<MentionId> _mentions;
-@override List<MentionId> get mentions {
+@override@JsonKey() List<MentionId> get mentions {
   if (_mentions is EqualUnmodifiableListView) return _mentions;
   // ignore: implicit_dynamic_type
   return EqualUnmodifiableListView(_mentions);
@@ -3038,40 +3038,40 @@ class _Post implements Post {
 
 @override final  int? parentId;
 @override final  Poll? poll;
-@override final  int quoteUsersCount;
+@override@JsonKey() final  int quoteUsersCount;
 @override final  QuotedPost? quotedPost;
 @override final  int? quotedPostId;
  final  List<ReactionSummary> _reactionSummary;
-@override List<ReactionSummary> get reactionSummary {
+@override@JsonKey() List<ReactionSummary> get reactionSummary {
   if (_reactionSummary is EqualUnmodifiableListView) return _reactionSummary;
   // ignore: implicit_dynamic_type
   return EqualUnmodifiableListView(_reactionSummary);
 }
 
  final  List<Reaction> _reactions;
-@override List<Reaction> get reactions {
+@override@JsonKey() List<Reaction> get reactions {
   if (_reactions is EqualUnmodifiableListView) return _reactions;
   // ignore: implicit_dynamic_type
   return EqualUnmodifiableListView(_reactions);
 }
 
-@override final  bool rekaroted;
+@override@JsonKey() final  bool rekaroted;
 @override final  Author? rekarotedBy;
 // required List<Id> rekarots,
-@override final  int rekarotsCount;
+@override@JsonKey() final  int rekarotsCount;
 @override final  int repliesCount;
 @override final  Circle? replyCircle;
 @override final  int? replyCircleId;
 @override final  String replyRestriction;
  final  List<ReplyTarget> _replyTargets;
-@override List<ReplyTarget> get replyTargets {
+@override@JsonKey() List<ReplyTarget> get replyTargets {
   if (_replyTargets is EqualUnmodifiableListView) return _replyTargets;
   // ignore: implicit_dynamic_type
   return EqualUnmodifiableListView(_replyTargets);
 }
 
  final  List<Author> _replyToUsers;
-@override List<Author> get replyToUsers {
+@override@JsonKey() List<Author> get replyToUsers {
   if (_replyToUsers is EqualUnmodifiableListView) return _replyToUsers;
   // ignore: implicit_dynamic_type
   return EqualUnmodifiableListView(_replyToUsers);

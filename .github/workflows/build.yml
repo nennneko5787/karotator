@@ -45,7 +45,7 @@ jobs:
 
       - name: Generate tag
         id: tag
-        run: echo "tag=pre-$(date +'%Y%m%d-%H%M%S')" >> $GITHUB_OUTPUT
+        run: echo "tag=pre-$(date +'%Y-%m-%d_%H-%M-%S')" >> $GITHUB_OUTPUT
 
       - name: Create Release
         uses: softprops/action-gh-release@v2
