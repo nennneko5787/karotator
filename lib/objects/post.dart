@@ -212,44 +212,14 @@ abstract class Post with _$Post {
 
   factory Post.fromJson(Map<String, Object?> json) => _$PostFromJson(json);
 
-  factory Post.empty(int id) {
-    return Post(
-      id: id,
-      content: '',
-      liked: false,
-      likesCount: 0,
-      rekaroted: false,
-      rekarotsCount: 0,
-      bookmarked: false,
-      bookmarksCount: 0,
-      repliesCount: 0,
-      viewsCount: 0,
-      mediaUrls: [],
-      author: Author.empty(-1),
-      authorId: -1,
-      createdAt: DateTime.now(),
-      canInteract: false,
-      canQuote: false,
-      excludedMentions: [],
-      hasBlockedAuthor: true,
-      hashtags: [],
-      isAiGenerated: false,
-      isBlockedByAuthor: false,
-      isMutedByViewer: false,
-      isPromotional: false,
-      mediaAlts: [],
-      mediaR18Flags: [],
-      mediaSpoilerFlags: [],
-      mediaTypes: [],
-      mentions: [],
-      quoteUsersCount: -1,
-      reactionSummary: [],
-      reactions: [],
-      replyRestriction: "EVERYONE",
-      replyTargets: [],
-      replyToUsers: [],
-      updatedAt: DateTime.now(),
-      visibility: "PUBLIC",
-    );
+  Author? getThreadParentAuthor() {
+    for (var target in replyTargets) {
+      // PARENT_AUTHOR or THREAD_PARTICIPANT and more
+      if (target.source == "PARENT_AUTHOR") {
+        return target.user;
+      }
+    }
+
+    return null;
   }
 }

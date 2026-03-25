@@ -1,4 +1,4 @@
-package net.nennneko5787.karotator
+package com.example.karotator
 
 import io.flutter.embedding.android.FlutterActivity
 

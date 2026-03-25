@@ -1,3 +1,4 @@
+import "package:flutter/gestures.dart";
 import "package:flutter/material.dart";
 import "package:flutter_riverpod/flutter_riverpod.dart";
 import "package:karotator/factory/poll.dart";
@@ -80,34 +81,41 @@ Widget postUserDetailFactory(Post post, BuildContext context) {
 }
 
 Widget postContentFactory(Post post, BuildContext context) {
-  final medias = postMediaFactory(post, context);
-
   return Column(
     crossAxisAlignment: CrossAxisAlignment.start,
     spacing: 10,
     children: [
+      if (post.replyTargets.isNotEmpty)
+        RichText(
+          text: TextSpan(
+            children: [
+              TextSpan(text: "返信先: "),
+              TextSpan(
+                text: "@${post.getThreadParentAuthor()!.username}",
+                style: TextStyle(color: Colors.blue),
+                recognizer: TapGestureRecognizer()..onTap = () async {},
+              ),
+            ],
+          ),
+        ),
       Text(post.content, style: const TextStyle(fontSize: 12)),
-      ...medias,
+      if (post.mediaUrls.isNotEmpty) postMediaFactory(post, context),
       if (post.poll != null) pollFactory(post),
       PostActionsWidget(post: post),
     ],
   );
 }
 
-List<Widget> postMediaFactory(Post post, BuildContext context) {
-  if (post.mediaUrls.isEmpty) return [];
-
+Widget postMediaFactory(Post post, BuildContext context) {
   final urls = post.mediaUrls.map((e) => "https://karotter.com$e").toList();
 
-  return [
-    ClipRRect(
-      borderRadius: BorderRadius.circular(12),
-      child: AspectRatio(
-        aspectRatio: getAspectRatio(urls.length),
-        child: buildMediaLayout(urls, context),
-      ),
+  return ClipRRect(
+    borderRadius: BorderRadius.circular(12),
+    child: AspectRatio(
+      aspectRatio: getAspectRatio(urls.length),
+      child: buildMediaLayout(urls, context),
     ),
-  ];
+  );
 }
 
 Widget postImage(List<String> urls, int index, BuildContext context) {
