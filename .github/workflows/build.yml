@@ -26,7 +26,7 @@ jobs:
 
       # iOS build
       - name: Build .app (no codesign)
-        run: flutter build ios --release --no-codesign --simulator
+        run: flutter build ios --release --no-codesign
 
       - name: Convert .app to .ipa
         run: |

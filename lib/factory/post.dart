@@ -81,18 +81,24 @@ Widget postUserDetailFactory(Post post, BuildContext context) {
 }
 
 Widget postContentFactory(Post post, BuildContext context) {
+  final threadParentAuthor = post.getThreadParentAuthor();
   return Column(
     crossAxisAlignment: CrossAxisAlignment.start,
     spacing: 10,
     children: [
-      if (post.replyTargets.isNotEmpty)
+      if (threadParentAuthor != null)
         RichText(
           text: TextSpan(
             children: [
-              TextSpan(text: "返信先: "),
               TextSpan(
-                text: "@${post.getThreadParentAuthor()!.username}",
-                style: TextStyle(color: Colors.blue),
+                text: "返信先: ",
+                style: DefaultTextStyle.of(
+                  context,
+                ).style.copyWith(fontSize: 12.0),
+              ),
+              TextSpan(
+                text: "@${threadParentAuthor.username}",
+                style: TextStyle(color: Colors.blue, fontSize: 12),
                 recognizer: TapGestureRecognizer()..onTap = () async {},
               ),
             ],

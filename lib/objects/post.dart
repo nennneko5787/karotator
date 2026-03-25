@@ -211,7 +211,9 @@ abstract class Post with _$Post {
   }) = _Post;
 
   factory Post.fromJson(Map<String, Object?> json) => _$PostFromJson(json);
+}
 
+extension PostX on Post {
   Author? getThreadParentAuthor() {
     for (var target in replyTargets) {
       // PARENT_AUTHOR or THREAD_PARTICIPANT and more
@@ -219,7 +221,6 @@ abstract class Post with _$Post {
         return target.user;
       }
     }
-
     return null;
   }
 }

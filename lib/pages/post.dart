@@ -1,6 +1,7 @@
 import "package:flutter/material.dart";
 import "package:karotator/http.dart";
 import "package:karotator/ui/highlight_text_editing_controller.dart";
+import "package:material_symbols_icons/symbols.dart";
 
 class PostPage extends StatefulWidget {
   const PostPage({super.key});
@@ -95,7 +96,7 @@ class _PostPageState extends State<PostPage> {
                 controller: _postController,
                 maxLines: null,
                 decoration: const InputDecoration(
-                  hintText: '今、何が起きてる？',
+                  hintText: '思いついたことを書き込んでみましょう…',
                   border: InputBorder.none,
                 ),
               ),
@@ -115,13 +116,17 @@ class _PostPageState extends State<PostPage> {
         ),
         child: Row(
           children: [
+            TextButton(onPressed: () {}, child: Text("公開: 全体")),
+            TextButton(onPressed: () {}, child: Text("返信: 全体")),
             IconButton(
               onPressed: () {},
               icon: const Icon(Icons.image_outlined),
             ),
+            IconButton(onPressed: () {}, icon: const Icon(Icons.movie)),
+            IconButton(onPressed: () {}, icon: const Icon(Icons.how_to_vote)),
             IconButton(
               onPressed: () {},
-              icon: const Icon(Icons.gif_box_outlined),
+              icon: const Icon(Symbols.calendar_clock),
             ),
             const Spacer(),
             Text(

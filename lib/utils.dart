@@ -10,21 +10,40 @@ Future<bool> openURL(String url) async {
 }
 
 String getLocalizedDateTime(DateTime dateTime) {
-  final now = DateTime.now().millisecondsSinceEpoch ~/ 1000;
-  final seconds = dateTime.millisecondsSinceEpoch ~/ 1000;
+  final now = DateTime.now();
+  final difference = now.difference(dateTime);
 
-  final elapsed = now - seconds;
+  if (difference.inDays > 0) {
+    return "${difference.inDays}日前";
+  } else if (difference.inHours > 0) {
+    return "約${difference.inHours}時間前";
+  } else if (difference.inMinutes > 0) {
+    return "約${difference.inMinutes}分前";
+  } else {
+    return "${difference.inSeconds}秒前";
+  }
+}
 
-  if (elapsed > 60 * 60 * 24) {
-    final value = elapsed ~/ (60 * 60 * 24);
-    return "$value日前";
-  } else if (elapsed > 60 * 60) {
-    final value = elapsed ~/ (60 * 60);
-    return "約$value時間前";
-  } else if (elapsed > 60) {
-    final value = elapsed ~/ 60;
-    return "約$value分前";
+String getRemainingTime(DateTime dateTime) {
+  final now = DateTime.now();
+  final difference = dateTime.difference(now);
+
+  if (difference.isNegative) {
+    return "既に終了";
   }
 
-  return "$elapsed秒前";
+  final days = difference.inDays;
+  final hours = difference.inHours % 24;
+  final minutes = difference.inMinutes % 60;
+  final seconds = difference.inSeconds % 60;
+
+  final parts = <String>[];
+  if (days > 0) parts.add("$days日");
+  if (hours > 0) parts.add("$hours時間");
+  if (minutes > 0) parts.add("$minutes分");
+  if (seconds > 0 && days == 0 && hours == 0 && minutes == 0) {
+    parts.add("$seconds秒");
+  }
+
+  return "残り${parts.join("と")}";
 }
