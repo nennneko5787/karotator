@@ -1,7 +1,10 @@
+import 'dart:io';
+import 'dart:typed_data';
+
 import 'package:freezed_annotation/freezed_annotation.dart';
+import 'package:karotator/enum.dart';
 
 part 'state.freezed.dart';
-part 'state.g.dart';
 
 @freezed
 abstract class PostState with _$PostState {
@@ -14,7 +17,16 @@ abstract class PostState with _$PostState {
     required bool bookmarked,
     required int bookmarksCount,
   }) = _PostState;
+}
 
-  factory PostState.fromJson(Map<String, Object?> json) =>
-      _$PostStateFromJson(json);
+@unfreezed
+abstract class MediaState with _$MediaState {
+  factory MediaState({
+    required File file,
+    Uint8List? thumbnail,
+    required MediaType type,
+    @Default("") String alt,
+    @Default(false) bool spoiler,
+    @Default(false) bool nsfw,
+  }) = _MediaState;
 }

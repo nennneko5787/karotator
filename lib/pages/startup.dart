@@ -15,7 +15,11 @@ class _StartUpPageState extends State<StartUpPage> {
   @override
   void initState() {
     super.initState();
-    Future(() async {
+    _initialize();
+  }
+
+  Future<void> _initialize() async {
+    try {
       if (!HTTPClient().initialized) {
         await HTTPClient().initialize();
       }
@@ -23,15 +27,22 @@ class _StartUpPageState extends State<StartUpPage> {
       if (HTTPClient().nowAccountId != null) {
         await HTTPClient().refresh();
       }
-
-      Navigator.pushReplacement(
-        context,
-        MaterialPageRoute(builder: (context) => HomePage(body: TimeLine())),
-      );
-    }).catchError((e, stackTrace) {
-      showAlert(context, e: e);
+    } catch (e, stackTrace) {
       debugPrint("$e\n$stackTrace");
-    });
+      if (!mounted) return;
+      showAlert(context, e: e);
+
+      final accountId = HTTPClient().nowAccountId;
+      if (accountId != null) {
+        await HTTPClient().removeAccountId(accountId);
+      }
+    }
+
+    if (!mounted) return;
+    Navigator.pushReplacement(
+      context,
+      MaterialPageRoute(builder: (context) => HomePage(body: TimeLine())),
+    );
   }
 
   @override

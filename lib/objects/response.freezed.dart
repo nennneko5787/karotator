@@ -279,6 +279,278 @@ as int,
 
 
 /// @nodoc
+mixin _$RepliesPagination {
+
+ int get limit; int get page; int get total; int get pages;
+/// Create a copy of RepliesPagination
+/// with the given fields replaced by the non-null parameter values.
+@JsonKey(includeFromJson: false, includeToJson: false)
+@pragma('vm:prefer-inline')
+$RepliesPaginationCopyWith<RepliesPagination> get copyWith => _$RepliesPaginationCopyWithImpl<RepliesPagination>(this as RepliesPagination, _$identity);
+
+  /// Serializes this RepliesPagination to a JSON map.
+  Map<String, dynamic> toJson();
+
+
+@override
+bool operator ==(Object other) {
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is RepliesPagination&&(identical(other.limit, limit) || other.limit == limit)&&(identical(other.page, page) || other.page == page)&&(identical(other.total, total) || other.total == total)&&(identical(other.pages, pages) || other.pages == pages));
+}
+
+@JsonKey(includeFromJson: false, includeToJson: false)
+@override
+int get hashCode => Object.hash(runtimeType,limit,page,total,pages);
+
+@override
+String toString() {
+  return 'RepliesPagination(limit: $limit, page: $page, total: $total, pages: $pages)';
+}
+
+
+}
+
+/// @nodoc
+abstract mixin class $RepliesPaginationCopyWith<$Res>  {
+  factory $RepliesPaginationCopyWith(RepliesPagination value, $Res Function(RepliesPagination) _then) = _$RepliesPaginationCopyWithImpl;
+@useResult
+$Res call({
+ int limit, int page, int total, int pages
+});
+
+
+
+
+}
+/// @nodoc
+class _$RepliesPaginationCopyWithImpl<$Res>
+    implements $RepliesPaginationCopyWith<$Res> {
+  _$RepliesPaginationCopyWithImpl(this._self, this._then);
+
+  final RepliesPagination _self;
+  final $Res Function(RepliesPagination) _then;
+
+/// Create a copy of RepliesPagination
+/// with the given fields replaced by the non-null parameter values.
+@pragma('vm:prefer-inline') @override $Res call({Object? limit = null,Object? page = null,Object? total = null,Object? pages = null,}) {
+  return _then(_self.copyWith(
+limit: null == limit ? _self.limit : limit // ignore: cast_nullable_to_non_nullable
+as int,page: null == page ? _self.page : page // ignore: cast_nullable_to_non_nullable
+as int,total: null == total ? _self.total : total // ignore: cast_nullable_to_non_nullable
+as int,pages: null == pages ? _self.pages : pages // ignore: cast_nullable_to_non_nullable
+as int,
+  ));
+}
+
+}
+
+
+/// Adds pattern-matching-related methods to [RepliesPagination].
+extension RepliesPaginationPatterns on RepliesPagination {
+/// A variant of `map` that fallback to returning `orElse`.
+///
+/// It is equivalent to doing:
+/// ```dart
+/// switch (sealedClass) {
+///   case final Subclass value:
+///     return ...;
+///   case _:
+///     return orElse();
+/// }
+/// ```
+
+@optionalTypeArgs TResult maybeMap<TResult extends Object?>(TResult Function( _RepliesPagination value)?  $default,{required TResult orElse(),}){
+final _that = this;
+switch (_that) {
+case _RepliesPagination() when $default != null:
+return $default(_that);case _:
+  return orElse();
+
+}
+}
+/// A `switch`-like method, using callbacks.
+///
+/// Callbacks receives the raw object, upcasted.
+/// It is equivalent to doing:
+/// ```dart
+/// switch (sealedClass) {
+///   case final Subclass value:
+///     return ...;
+///   case final Subclass2 value:
+///     return ...;
+/// }
+/// ```
+
+@optionalTypeArgs TResult map<TResult extends Object?>(TResult Function( _RepliesPagination value)  $default,){
+final _that = this;
+switch (_that) {
+case _RepliesPagination():
+return $default(_that);case _:
+  throw StateError('Unexpected subclass');
+
+}
+}
+/// A variant of `map` that fallback to returning `null`.
+///
+/// It is equivalent to doing:
+/// ```dart
+/// switch (sealedClass) {
+///   case final Subclass value:
+///     return ...;
+///   case _:
+///     return null;
+/// }
+/// ```
+
+@optionalTypeArgs TResult? mapOrNull<TResult extends Object?>(TResult? Function( _RepliesPagination value)?  $default,){
+final _that = this;
+switch (_that) {
+case _RepliesPagination() when $default != null:
+return $default(_that);case _:
+  return null;
+
+}
+}
+/// A variant of `when` that fallback to an `orElse` callback.
+///
+/// It is equivalent to doing:
+/// ```dart
+/// switch (sealedClass) {
+///   case Subclass(:final field):
+///     return ...;
+///   case _:
+///     return orElse();
+/// }
+/// ```
+
+@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( int limit,  int page,  int total,  int pages)?  $default,{required TResult orElse(),}) {final _that = this;
+switch (_that) {
+case _RepliesPagination() when $default != null:
+return $default(_that.limit,_that.page,_that.total,_that.pages);case _:
+  return orElse();
+
+}
+}
+/// A `switch`-like method, using callbacks.
+///
+/// As opposed to `map`, this offers destructuring.
+/// It is equivalent to doing:
+/// ```dart
+/// switch (sealedClass) {
+///   case Subclass(:final field):
+///     return ...;
+///   case Subclass2(:final field2):
+///     return ...;
+/// }
+/// ```
+
+@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( int limit,  int page,  int total,  int pages)  $default,) {final _that = this;
+switch (_that) {
+case _RepliesPagination():
+return $default(_that.limit,_that.page,_that.total,_that.pages);case _:
+  throw StateError('Unexpected subclass');
+
+}
+}
+/// A variant of `when` that fallback to returning `null`
+///
+/// It is equivalent to doing:
+/// ```dart
+/// switch (sealedClass) {
+///   case Subclass(:final field):
+///     return ...;
+///   case _:
+///     return null;
+/// }
+/// ```
+
+@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( int limit,  int page,  int total,  int pages)?  $default,) {final _that = this;
+switch (_that) {
+case _RepliesPagination() when $default != null:
+return $default(_that.limit,_that.page,_that.total,_that.pages);case _:
+  return null;
+
+}
+}
+
+}
+
+/// @nodoc
+@JsonSerializable()
+
+class _RepliesPagination implements RepliesPagination {
+  const _RepliesPagination({required this.limit, required this.page, required this.total, required this.pages});
+  factory _RepliesPagination.fromJson(Map<String, dynamic> json) => _$RepliesPaginationFromJson(json);
+
+@override final  int limit;
+@override final  int page;
+@override final  int total;
+@override final  int pages;
+
+/// Create a copy of RepliesPagination
+/// with the given fields replaced by the non-null parameter values.
+@override @JsonKey(includeFromJson: false, includeToJson: false)
+@pragma('vm:prefer-inline')
+_$RepliesPaginationCopyWith<_RepliesPagination> get copyWith => __$RepliesPaginationCopyWithImpl<_RepliesPagination>(this, _$identity);
+
+@override
+Map<String, dynamic> toJson() {
+  return _$RepliesPaginationToJson(this, );
+}
+
+@override
+bool operator ==(Object other) {
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is _RepliesPagination&&(identical(other.limit, limit) || other.limit == limit)&&(identical(other.page, page) || other.page == page)&&(identical(other.total, total) || other.total == total)&&(identical(other.pages, pages) || other.pages == pages));
+}
+
+@JsonKey(includeFromJson: false, includeToJson: false)
+@override
+int get hashCode => Object.hash(runtimeType,limit,page,total,pages);
+
+@override
+String toString() {
+  return 'RepliesPagination(limit: $limit, page: $page, total: $total, pages: $pages)';
+}
+
+
+}
+
+/// @nodoc
+abstract mixin class _$RepliesPaginationCopyWith<$Res> implements $RepliesPaginationCopyWith<$Res> {
+  factory _$RepliesPaginationCopyWith(_RepliesPagination value, $Res Function(_RepliesPagination) _then) = __$RepliesPaginationCopyWithImpl;
+@override @useResult
+$Res call({
+ int limit, int page, int total, int pages
+});
+
+
+
+
+}
+/// @nodoc
+class __$RepliesPaginationCopyWithImpl<$Res>
+    implements _$RepliesPaginationCopyWith<$Res> {
+  __$RepliesPaginationCopyWithImpl(this._self, this._then);
+
+  final _RepliesPagination _self;
+  final $Res Function(_RepliesPagination) _then;
+
+/// Create a copy of RepliesPagination
+/// with the given fields replaced by the non-null parameter values.
+@override @pragma('vm:prefer-inline') $Res call({Object? limit = null,Object? page = null,Object? total = null,Object? pages = null,}) {
+  return _then(_RepliesPagination(
+limit: null == limit ? _self.limit : limit // ignore: cast_nullable_to_non_nullable
+as int,page: null == page ? _self.page : page // ignore: cast_nullable_to_non_nullable
+as int,total: null == total ? _self.total : total // ignore: cast_nullable_to_non_nullable
+as int,pages: null == pages ? _self.pages : pages // ignore: cast_nullable_to_non_nullable
+as int,
+  ));
+}
+
+
+}
+
+
+/// @nodoc
 mixin _$RecommendedResponse {
 
  RecommendedPagination get pagination; List<Post> get posts;
@@ -852,6 +1124,296 @@ as List<Post>,
 $RecommendedPaginationCopyWith<$Res> get pagination {
   
   return $RecommendedPaginationCopyWith<$Res>(_self.pagination, (value) {
+    return _then(_self.copyWith(pagination: value));
+  });
+}
+}
+
+
+/// @nodoc
+mixin _$RepliesResponse {
+
+ RepliesPagination get pagination; List<Post> get replies;
+/// Create a copy of RepliesResponse
+/// with the given fields replaced by the non-null parameter values.
+@JsonKey(includeFromJson: false, includeToJson: false)
+@pragma('vm:prefer-inline')
+$RepliesResponseCopyWith<RepliesResponse> get copyWith => _$RepliesResponseCopyWithImpl<RepliesResponse>(this as RepliesResponse, _$identity);
+
+  /// Serializes this RepliesResponse to a JSON map.
+  Map<String, dynamic> toJson();
+
+
+@override
+bool operator ==(Object other) {
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is RepliesResponse&&(identical(other.pagination, pagination) || other.pagination == pagination)&&const DeepCollectionEquality().equals(other.replies, replies));
+}
+
+@JsonKey(includeFromJson: false, includeToJson: false)
+@override
+int get hashCode => Object.hash(runtimeType,pagination,const DeepCollectionEquality().hash(replies));
+
+@override
+String toString() {
+  return 'RepliesResponse(pagination: $pagination, replies: $replies)';
+}
+
+
+}
+
+/// @nodoc
+abstract mixin class $RepliesResponseCopyWith<$Res>  {
+  factory $RepliesResponseCopyWith(RepliesResponse value, $Res Function(RepliesResponse) _then) = _$RepliesResponseCopyWithImpl;
+@useResult
+$Res call({
+ RepliesPagination pagination, List<Post> replies
+});
+
+
+$RepliesPaginationCopyWith<$Res> get pagination;
+
+}
+/// @nodoc
+class _$RepliesResponseCopyWithImpl<$Res>
+    implements $RepliesResponseCopyWith<$Res> {
+  _$RepliesResponseCopyWithImpl(this._self, this._then);
+
+  final RepliesResponse _self;
+  final $Res Function(RepliesResponse) _then;
+
+/// Create a copy of RepliesResponse
+/// with the given fields replaced by the non-null parameter values.
+@pragma('vm:prefer-inline') @override $Res call({Object? pagination = null,Object? replies = null,}) {
+  return _then(_self.copyWith(
+pagination: null == pagination ? _self.pagination : pagination // ignore: cast_nullable_to_non_nullable
+as RepliesPagination,replies: null == replies ? _self.replies : replies // ignore: cast_nullable_to_non_nullable
+as List<Post>,
+  ));
+}
+/// Create a copy of RepliesResponse
+/// with the given fields replaced by the non-null parameter values.
+@override
+@pragma('vm:prefer-inline')
+$RepliesPaginationCopyWith<$Res> get pagination {
+  
+  return $RepliesPaginationCopyWith<$Res>(_self.pagination, (value) {
+    return _then(_self.copyWith(pagination: value));
+  });
+}
+}
+
+
+/// Adds pattern-matching-related methods to [RepliesResponse].
+extension RepliesResponsePatterns on RepliesResponse {
+/// A variant of `map` that fallback to returning `orElse`.
+///
+/// It is equivalent to doing:
+/// ```dart
+/// switch (sealedClass) {
+///   case final Subclass value:
+///     return ...;
+///   case _:
+///     return orElse();
+/// }
+/// ```
+
+@optionalTypeArgs TResult maybeMap<TResult extends Object?>(TResult Function( _RepliesResponse value)?  $default,{required TResult orElse(),}){
+final _that = this;
+switch (_that) {
+case _RepliesResponse() when $default != null:
+return $default(_that);case _:
+  return orElse();
+
+}
+}
+/// A `switch`-like method, using callbacks.
+///
+/// Callbacks receives the raw object, upcasted.
+/// It is equivalent to doing:
+/// ```dart
+/// switch (sealedClass) {
+///   case final Subclass value:
+///     return ...;
+///   case final Subclass2 value:
+///     return ...;
+/// }
+/// ```
+
+@optionalTypeArgs TResult map<TResult extends Object?>(TResult Function( _RepliesResponse value)  $default,){
+final _that = this;
+switch (_that) {
+case _RepliesResponse():
+return $default(_that);case _:
+  throw StateError('Unexpected subclass');
+
+}
+}
+/// A variant of `map` that fallback to returning `null`.
+///
+/// It is equivalent to doing:
+/// ```dart
+/// switch (sealedClass) {
+///   case final Subclass value:
+///     return ...;
+///   case _:
+///     return null;
+/// }
+/// ```
+
+@optionalTypeArgs TResult? mapOrNull<TResult extends Object?>(TResult? Function( _RepliesResponse value)?  $default,){
+final _that = this;
+switch (_that) {
+case _RepliesResponse() when $default != null:
+return $default(_that);case _:
+  return null;
+
+}
+}
+/// A variant of `when` that fallback to an `orElse` callback.
+///
+/// It is equivalent to doing:
+/// ```dart
+/// switch (sealedClass) {
+///   case Subclass(:final field):
+///     return ...;
+///   case _:
+///     return orElse();
+/// }
+/// ```
+
+@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( RepliesPagination pagination,  List<Post> replies)?  $default,{required TResult orElse(),}) {final _that = this;
+switch (_that) {
+case _RepliesResponse() when $default != null:
+return $default(_that.pagination,_that.replies);case _:
+  return orElse();
+
+}
+}
+/// A `switch`-like method, using callbacks.
+///
+/// As opposed to `map`, this offers destructuring.
+/// It is equivalent to doing:
+/// ```dart
+/// switch (sealedClass) {
+///   case Subclass(:final field):
+///     return ...;
+///   case Subclass2(:final field2):
+///     return ...;
+/// }
+/// ```
+
+@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( RepliesPagination pagination,  List<Post> replies)  $default,) {final _that = this;
+switch (_that) {
+case _RepliesResponse():
+return $default(_that.pagination,_that.replies);case _:
+  throw StateError('Unexpected subclass');
+
+}
+}
+/// A variant of `when` that fallback to returning `null`
+///
+/// It is equivalent to doing:
+/// ```dart
+/// switch (sealedClass) {
+///   case Subclass(:final field):
+///     return ...;
+///   case _:
+///     return null;
+/// }
+/// ```
+
+@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( RepliesPagination pagination,  List<Post> replies)?  $default,) {final _that = this;
+switch (_that) {
+case _RepliesResponse() when $default != null:
+return $default(_that.pagination,_that.replies);case _:
+  return null;
+
+}
+}
+
+}
+
+/// @nodoc
+@JsonSerializable()
+
+class _RepliesResponse implements RepliesResponse {
+  const _RepliesResponse({required this.pagination, required final  List<Post> replies}): _replies = replies;
+  factory _RepliesResponse.fromJson(Map<String, dynamic> json) => _$RepliesResponseFromJson(json);
+
+@override final  RepliesPagination pagination;
+ final  List<Post> _replies;
+@override List<Post> get replies {
+  if (_replies is EqualUnmodifiableListView) return _replies;
+  // ignore: implicit_dynamic_type
+  return EqualUnmodifiableListView(_replies);
+}
+
+
+/// Create a copy of RepliesResponse
+/// with the given fields replaced by the non-null parameter values.
+@override @JsonKey(includeFromJson: false, includeToJson: false)
+@pragma('vm:prefer-inline')
+_$RepliesResponseCopyWith<_RepliesResponse> get copyWith => __$RepliesResponseCopyWithImpl<_RepliesResponse>(this, _$identity);
+
+@override
+Map<String, dynamic> toJson() {
+  return _$RepliesResponseToJson(this, );
+}
+
+@override
+bool operator ==(Object other) {
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is _RepliesResponse&&(identical(other.pagination, pagination) || other.pagination == pagination)&&const DeepCollectionEquality().equals(other._replies, _replies));
+}
+
+@JsonKey(includeFromJson: false, includeToJson: false)
+@override
+int get hashCode => Object.hash(runtimeType,pagination,const DeepCollectionEquality().hash(_replies));
+
+@override
+String toString() {
+  return 'RepliesResponse(pagination: $pagination, replies: $replies)';
+}
+
+
+}
+
+/// @nodoc
+abstract mixin class _$RepliesResponseCopyWith<$Res> implements $RepliesResponseCopyWith<$Res> {
+  factory _$RepliesResponseCopyWith(_RepliesResponse value, $Res Function(_RepliesResponse) _then) = __$RepliesResponseCopyWithImpl;
+@override @useResult
+$Res call({
+ RepliesPagination pagination, List<Post> replies
+});
+
+
+@override $RepliesPaginationCopyWith<$Res> get pagination;
+
+}
+/// @nodoc
+class __$RepliesResponseCopyWithImpl<$Res>
+    implements _$RepliesResponseCopyWith<$Res> {
+  __$RepliesResponseCopyWithImpl(this._self, this._then);
+
+  final _RepliesResponse _self;
+  final $Res Function(_RepliesResponse) _then;
+
+/// Create a copy of RepliesResponse
+/// with the given fields replaced by the non-null parameter values.
+@override @pragma('vm:prefer-inline') $Res call({Object? pagination = null,Object? replies = null,}) {
+  return _then(_RepliesResponse(
+pagination: null == pagination ? _self.pagination : pagination // ignore: cast_nullable_to_non_nullable
+as RepliesPagination,replies: null == replies ? _self._replies : replies // ignore: cast_nullable_to_non_nullable
+as List<Post>,
+  ));
+}
+
+/// Create a copy of RepliesResponse
+/// with the given fields replaced by the non-null parameter values.
+@override
+@pragma('vm:prefer-inline')
+$RepliesPaginationCopyWith<$Res> get pagination {
+  
+  return $RepliesPaginationCopyWith<$Res>(_self.pagination, (value) {
     return _then(_self.copyWith(pagination: value));
   });
 }

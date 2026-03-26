@@ -113,6 +113,8 @@ class _DrawerMenuState extends State<DrawerMenu> {
                     await HTTPClient().removeAccountId(
                       HTTPClient().nowAccountId!,
                     );
+
+                    if (!context.mounted) return;
                     Navigator.push(
                       context,
                       MaterialPageRoute(builder: (context) => StartUpPage()),
@@ -183,11 +185,31 @@ class _DrawerMenuState extends State<DrawerMenu> {
               color: Theme.of(context).scaffoldBackgroundColor,
             ),
             accountName: user != null
-                ? Text(user!.displayName)
-                : const Text("ログインしていません"),
+                ? Text(
+                    user!.displayName,
+                    style: TextStyle(
+                      color: Theme.of(context).colorScheme.onPrimary,
+                    ),
+                  )
+                : Text(
+                    "ログインしていません",
+                    style: TextStyle(
+                      color: Theme.of(context).colorScheme.onPrimary,
+                    ),
+                  ),
             accountEmail: user != null
-                ? Text("@${user!.username}")
-                : const Text("Karotterにログインして投稿を楽しみましょう"),
+                ? Text(
+                    "@${user!.username}",
+                    style: TextStyle(
+                      color: Theme.of(context).colorScheme.onPrimary,
+                    ),
+                  )
+                : Text(
+                    "Karotterにログインして投稿を楽しみましょう",
+                    style: TextStyle(
+                      color: Theme.of(context).colorScheme.onPrimary,
+                    ),
+                  ),
             currentAccountPicture: CircleAvatar(
               backgroundImage: NetworkImage(
                 user?.avatarUrl != null

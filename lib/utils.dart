@@ -1,3 +1,7 @@
+import 'dart:typed_data';
+
+import 'package:media_kit/media_kit.dart';
+import 'package:media_kit_video/media_kit_video.dart';
 import 'package:url_launcher/url_launcher_string.dart';
 
 Future<bool> openURL(String url) async {
@@ -46,4 +50,61 @@ String getRemainingTime(DateTime dateTime) {
   }
 
   return "残り${parts.join("と")}";
+}
+
+Future<Uint8List?> getVideoThumbnail(String videoPath) async {
+  final player = Player();
+  final _ = VideoController(player);
+
+  await player.open(Media(videoPath));
+  // 少し待ってフレームが来るのを待つ
+  await Future.delayed(const Duration(milliseconds: 500));
+
+  final screenshot = await player.screenshot();
+
+  await player.dispose();
+  return screenshot;
+}
+
+String getMimeType(String path) {
+  final ext = path.split('.').last.toLowerCase();
+  const mimeTypes = {
+    // 画像
+    'jpg': 'image/jpeg',
+    'jpeg': 'image/jpeg',
+    'jpe': 'image/jpeg',
+    'jfif': 'image/jpeg',
+    'pjpeg': 'image/jpeg',
+    'pjp': 'image/jpeg',
+    'png': 'image/png',
+    'apng': 'image/apng',
+    'gif': 'image/gif',
+    'webp': 'image/webp',
+    'heic': 'image/heic',
+    'heif': 'image/heif',
+    'tiff': 'image/tiff',
+    'tif': 'image/tiff',
+    'bmp': 'image/bmp',
+    'ico': 'image/x-icon',
+    'svg': 'image/svg+xml',
+    'svgz': 'image/svg+xml',
+    'xbm': 'image/x-xbitmap',
+    'xjk': 'image/x-xbitmap',
+    'avif': 'image/avif',
+    // 動画
+    'mp4': 'video/mp4',
+    'mov': 'video/quicktime',
+    'm4v': 'video/x-m4v',
+    'avi': 'video/x-msvideo',
+    'mkv': 'video/x-matroska',
+    'webm': 'video/webm',
+    'wmv': 'video/x-ms-wmv',
+    'mpg': 'video/mpeg',
+    'mpeg': 'video/mpeg',
+    'mpe': 'video/mpeg',
+    'ogv': 'video/ogg',
+    'ogm': 'video/ogg',
+    'asx': 'video/x-ms-asf',
+  };
+  return mimeTypes[ext] ?? 'application/octet-stream';
 }

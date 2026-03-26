@@ -89,9 +89,9 @@ abstract class ReplyTarget with _$ReplyTarget {
 abstract class HashTags with _$HashTags {
   const factory HashTags({
     required int id,
-    required String name,
-    required int usageCount,
-    required int trendScore,
+    required String? name,
+    required int? usageCount,
+    required int? trendScore,
   }) = _HashTags;
 
   factory HashTags.fromJson(Map<String, Object?> json) =>

@@ -15,6 +15,19 @@ abstract class RecommendedPagination with _$RecommendedPagination {
 }
 
 @freezed
+abstract class RepliesPagination with _$RepliesPagination {
+  const factory RepliesPagination({
+    required int limit,
+    required int page,
+    required int total,
+    required int pages,
+  }) = _RepliesPagination;
+
+  factory RepliesPagination.fromJson(Map<String, Object?> json) =>
+      _$RepliesPaginationFromJson(json);
+}
+
+@freezed
 abstract class RecommendedResponse with _$RecommendedResponse {
   const factory RecommendedResponse({
     required RecommendedPagination pagination,
@@ -34,6 +47,17 @@ abstract class TimeLineResponse with _$TimeLineResponse {
 
   factory TimeLineResponse.fromJson(Map<String, Object?> json) =>
       _$TimeLineResponseFromJson(json);
+}
+
+@freezed
+abstract class RepliesResponse with _$RepliesResponse {
+  const factory RepliesResponse({
+    required RepliesPagination pagination,
+    required List<Post> replies,
+  }) = _RepliesResponse;
+
+  factory RepliesResponse.fromJson(Map<String, Object?> json) =>
+      _$RepliesResponseFromJson(json);
 }
 
 @freezed

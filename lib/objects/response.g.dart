@@ -17,6 +17,22 @@ Map<String, dynamic> _$RecommendedPaginationToJson(
   _RecommendedPagination instance,
 ) => <String, dynamic>{'limit': instance.limit, 'page': instance.page};
 
+_RepliesPagination _$RepliesPaginationFromJson(Map<String, dynamic> json) =>
+    _RepliesPagination(
+      limit: (json['limit'] as num).toInt(),
+      page: (json['page'] as num).toInt(),
+      total: (json['total'] as num).toInt(),
+      pages: (json['pages'] as num).toInt(),
+    );
+
+Map<String, dynamic> _$RepliesPaginationToJson(_RepliesPagination instance) =>
+    <String, dynamic>{
+      'limit': instance.limit,
+      'page': instance.page,
+      'total': instance.total,
+      'pages': instance.pages,
+    };
+
 _RecommendedResponse _$RecommendedResponseFromJson(Map<String, dynamic> json) =>
     _RecommendedResponse(
       pagination: RecommendedPagination.fromJson(
@@ -48,6 +64,22 @@ Map<String, dynamic> _$TimeLineResponseToJson(_TimeLineResponse instance) =>
     <String, dynamic>{
       'pagination': instance.pagination,
       'posts': instance.posts,
+    };
+
+_RepliesResponse _$RepliesResponseFromJson(Map<String, dynamic> json) =>
+    _RepliesResponse(
+      pagination: RepliesPagination.fromJson(
+        json['pagination'] as Map<String, dynamic>,
+      ),
+      replies: (json['replies'] as List<dynamic>)
+          .map((e) => Post.fromJson(e as Map<String, dynamic>))
+          .toList(),
+    );
+
+Map<String, dynamic> _$RepliesResponseToJson(_RepliesResponse instance) =>
+    <String, dynamic>{
+      'pagination': instance.pagination,
+      'replies': instance.replies,
     };
 
 _LoginResponse _$LoginResponseFromJson(Map<String, dynamic> json) =>

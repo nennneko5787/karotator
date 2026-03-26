@@ -103,9 +103,9 @@ Map<String, dynamic> _$ReplyTargetToJson(_ReplyTarget instance) =>
 
 _HashTags _$HashTagsFromJson(Map<String, dynamic> json) => _HashTags(
   id: (json['id'] as num).toInt(),
-  name: json['name'] as String,
-  usageCount: (json['usageCount'] as num).toInt(),
-  trendScore: (json['trendScore'] as num).toInt(),
+  name: json['name'] as String?,
+  usageCount: (json['usageCount'] as num?)?.toInt(),
+  trendScore: (json['trendScore'] as num?)?.toInt(),
 );
 
 Map<String, dynamic> _$HashTagsToJson(_HashTags instance) => <String, dynamic>{

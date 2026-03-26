@@ -1934,7 +1934,7 @@ $AuthorCopyWith<$Res> get user {
 /// @nodoc
 mixin _$HashTags {
 
- int get id; String get name; int get usageCount; int get trendScore;
+ int get id; String? get name; int? get usageCount; int? get trendScore;
 /// Create a copy of HashTags
 /// with the given fields replaced by the non-null parameter values.
 @JsonKey(includeFromJson: false, includeToJson: false)
@@ -1967,7 +1967,7 @@ abstract mixin class $HashTagsCopyWith<$Res>  {
   factory $HashTagsCopyWith(HashTags value, $Res Function(HashTags) _then) = _$HashTagsCopyWithImpl;
 @useResult
 $Res call({
- int id, String name, int usageCount, int trendScore
+ int id, String? name, int? usageCount, int? trendScore
 });
 
 
@@ -1984,13 +1984,13 @@ class _$HashTagsCopyWithImpl<$Res>
 
 /// Create a copy of HashTags
 /// with the given fields replaced by the non-null parameter values.
-@pragma('vm:prefer-inline') @override $Res call({Object? id = null,Object? name = null,Object? usageCount = null,Object? trendScore = null,}) {
+@pragma('vm:prefer-inline') @override $Res call({Object? id = null,Object? name = freezed,Object? usageCount = freezed,Object? trendScore = freezed,}) {
   return _then(_self.copyWith(
 id: null == id ? _self.id : id // ignore: cast_nullable_to_non_nullable
-as int,name: null == name ? _self.name : name // ignore: cast_nullable_to_non_nullable
-as String,usageCount: null == usageCount ? _self.usageCount : usageCount // ignore: cast_nullable_to_non_nullable
-as int,trendScore: null == trendScore ? _self.trendScore : trendScore // ignore: cast_nullable_to_non_nullable
-as int,
+as int,name: freezed == name ? _self.name : name // ignore: cast_nullable_to_non_nullable
+as String?,usageCount: freezed == usageCount ? _self.usageCount : usageCount // ignore: cast_nullable_to_non_nullable
+as int?,trendScore: freezed == trendScore ? _self.trendScore : trendScore // ignore: cast_nullable_to_non_nullable
+as int?,
   ));
 }
 
@@ -2075,7 +2075,7 @@ return $default(_that);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( int id,  String name,  int usageCount,  int trendScore)?  $default,{required TResult orElse(),}) {final _that = this;
+@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( int id,  String? name,  int? usageCount,  int? trendScore)?  $default,{required TResult orElse(),}) {final _that = this;
 switch (_that) {
 case _HashTags() when $default != null:
 return $default(_that.id,_that.name,_that.usageCount,_that.trendScore);case _:
@@ -2096,7 +2096,7 @@ return $default(_that.id,_that.name,_that.usageCount,_that.trendScore);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( int id,  String name,  int usageCount,  int trendScore)  $default,) {final _that = this;
+@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( int id,  String? name,  int? usageCount,  int? trendScore)  $default,) {final _that = this;
 switch (_that) {
 case _HashTags():
 return $default(_that.id,_that.name,_that.usageCount,_that.trendScore);case _:
@@ -2116,7 +2116,7 @@ return $default(_that.id,_that.name,_that.usageCount,_that.trendScore);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( int id,  String name,  int usageCount,  int trendScore)?  $default,) {final _that = this;
+@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( int id,  String? name,  int? usageCount,  int? trendScore)?  $default,) {final _that = this;
 switch (_that) {
 case _HashTags() when $default != null:
 return $default(_that.id,_that.name,_that.usageCount,_that.trendScore);case _:
@@ -2135,9 +2135,9 @@ class _HashTags implements HashTags {
   factory _HashTags.fromJson(Map<String, dynamic> json) => _$HashTagsFromJson(json);
 
 @override final  int id;
-@override final  String name;
-@override final  int usageCount;
-@override final  int trendScore;
+@override final  String? name;
+@override final  int? usageCount;
+@override final  int? trendScore;
 
 /// Create a copy of HashTags
 /// with the given fields replaced by the non-null parameter values.
@@ -2172,7 +2172,7 @@ abstract mixin class _$HashTagsCopyWith<$Res> implements $HashTagsCopyWith<$Res>
   factory _$HashTagsCopyWith(_HashTags value, $Res Function(_HashTags) _then) = __$HashTagsCopyWithImpl;
 @override @useResult
 $Res call({
- int id, String name, int usageCount, int trendScore
+ int id, String? name, int? usageCount, int? trendScore
 });
 
 
@@ -2189,13 +2189,13 @@ class __$HashTagsCopyWithImpl<$Res>
 
 /// Create a copy of HashTags
 /// with the given fields replaced by the non-null parameter values.
-@override @pragma('vm:prefer-inline') $Res call({Object? id = null,Object? name = null,Object? usageCount = null,Object? trendScore = null,}) {
+@override @pragma('vm:prefer-inline') $Res call({Object? id = null,Object? name = freezed,Object? usageCount = freezed,Object? trendScore = freezed,}) {
   return _then(_HashTags(
 id: null == id ? _self.id : id // ignore: cast_nullable_to_non_nullable
-as int,name: null == name ? _self.name : name // ignore: cast_nullable_to_non_nullable
-as String,usageCount: null == usageCount ? _self.usageCount : usageCount // ignore: cast_nullable_to_non_nullable
-as int,trendScore: null == trendScore ? _self.trendScore : trendScore // ignore: cast_nullable_to_non_nullable
-as int,
+as int,name: freezed == name ? _self.name : name // ignore: cast_nullable_to_non_nullable
+as String?,usageCount: freezed == usageCount ? _self.usageCount : usageCount // ignore: cast_nullable_to_non_nullable
+as int?,trendScore: freezed == trendScore ? _self.trendScore : trendScore // ignore: cast_nullable_to_non_nullable
+as int?,
   ));
 }
 

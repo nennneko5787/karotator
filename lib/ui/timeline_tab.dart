@@ -1,6 +1,7 @@
 import "package:flutter/material.dart";
 import "package:karotator/factory/post.dart";
 import "package:karotator/objects/post.dart";
+import "package:karotator/pages/post_detail.dart";
 import "package:karotator/ui/dialog.dart";
 
 class TimeLineTab extends StatefulWidget {
@@ -13,7 +14,7 @@ class TimeLineTab extends StatefulWidget {
 }
 
 class _TimeLineTabState extends State<TimeLineTab> {
-  late List<Post> posts;
+  late List<Post> posts = [];
   late Future<void> initPostsData;
   late ScrollController controller;
   int page = 1;
@@ -67,6 +68,7 @@ class _TimeLineTabState extends State<TimeLineTab> {
       final response = await widget.fetcher(1, 12);
       setState(() {
         posts = List<Post>.from(response.posts);
+        hasMore = response.posts.length >= 12;
       });
       isLoadingMore = false;
     } catch (e, stackTrace) {
@@ -138,12 +140,25 @@ class _TimeLineTabState extends State<TimeLineTab> {
                       children: [
                         if (post.rekarotedBy != null)
                           postRekarotedByFactory(post),
-                        ListTile(
-                          shape: RoundedRectangleBorder(borderRadius: radius),
-                          titleAlignment: ListTileTitleAlignment.top,
-                          leading: postUserAvatarFactory(post.author.avatarUrl),
-                          title: postUserDetailFactory(post, context),
-                          subtitle: postContentFactory(post, context),
+                        GestureDetector(
+                          onTap: () {
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                builder: (context) =>
+                                    PostDetailPage(post: post),
+                              ),
+                            );
+                          },
+                          child: ListTile(
+                            shape: RoundedRectangleBorder(borderRadius: radius),
+                            titleAlignment: ListTileTitleAlignment.top,
+                            leading: postUserAvatarFactory(
+                              post.author.avatarUrl,
+                            ),
+                            title: postUserDetailFactory(post, context),
+                            subtitle: postContentFactory(post, context),
+                          ),
                         ),
                       ],
                     ),

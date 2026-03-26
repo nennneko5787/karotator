@@ -6,6 +6,7 @@ import 'package:http/http.dart' as httpx;
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:karotator/enum.dart';
 import 'package:karotator/objects/post.dart';
+import 'package:karotator/utils.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:uuid/v4.dart';
 
@@ -401,6 +402,11 @@ class HTTPClient {
     return response;
   }
 
+  Future<Post> getPostById(int postId) async {
+    final jsonData = await get("posts/$postId");
+    return Post.fromJson(jsonData["post"] as Map<String, dynamic>);
+  }
+
   Future<void> like(int postId) async {
     final _ = await post("posts/$postId/like");
   }
@@ -425,6 +431,15 @@ class HTTPClient {
     final _ = await delete("posts/$postId/bookmark");
   }
 
+  Future<RepliesResponse> getReplies({
+    required int postId,
+    required int page,
+    required int limit,
+  }) async {
+    final jsonData = await get("posts/$postId/replies?page=$page&limit=$limit");
+    return RepliesResponse.fromJson(jsonData);
+  }
+
   Future<Post> createPost(
     String content, {
     bool isAiGenerated = false,
@@ -439,8 +454,9 @@ class HTTPClient {
     List<String>? pollOptions,
     int? pollDurationHours,
     DateTime? scheduledFor,
-    File? media,
+    List<File>? medias,
     int? parentId,
+    int? quotedPostId,
   }) async {
     // setting up my attr
     mediaAlts ??= [];
@@ -493,18 +509,33 @@ class HTTPClient {
       data.addAll({"scheduledFor": scheduledFor.toIso8601String()});
     }
     if (parentId != null) data.addAll({"parentId": parentId.toString()});
+    if (quotedPostId != null) {
+      data.addAll({"quotedPostId": quotedPostId.toString()});
+    }
 
     request.fields.addAll(data);
 
-    if (media != null) {
-      request.files.add(
-        httpx.MultipartFile.fromBytes("media", await media.readAsBytes()),
-      );
+    if (medias != null) {
+      for (var media in medias) {
+        request.files.add(
+          httpx.MultipartFile.fromBytes(
+            "media",
+            await media.readAsBytes(),
+            filename: media.path.split(Platform.pathSeparator).last,
+            contentType: httpx.MediaType.parse(getMimeType(media.path)),
+          ),
+        );
+      }
     }
 
     final response = await request.send();
     final bodyString = await response.stream.bytesToString();
-    afterRequestStreamed(response, bodyString);
+
+    debugPrint("req-headers: $headers");
+    debugPrint("status: ${response.statusCode}");
+    debugPrint("body: $bodyString");
+
+    await afterRequestStreamed(response, bodyString);
 
     final jsonData = jsonDecode(bodyString) as Map<String, dynamic>;
     return Post.fromJson(jsonData["post"] as Map<String, dynamic>);

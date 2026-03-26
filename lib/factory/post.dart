@@ -1,11 +1,13 @@
 import "package:flutter/gestures.dart";
 import "package:flutter/material.dart";
 import "package:flutter_riverpod/flutter_riverpod.dart";
+import "package:karotator/enum.dart";
 import "package:karotator/factory/poll.dart";
 import "package:karotator/objects/post.dart";
 import "package:karotator/objects/state.dart";
+import "package:karotator/pages/post.dart";
 import "package:karotator/providers/post.dart";
-import "package:karotator/ui/image_viewer.dart";
+import "package:karotator/ui/media_viewer.dart";
 import "package:karotator/utils.dart";
 import "package:material_symbols_icons/symbols.dart";
 
@@ -48,10 +50,14 @@ Widget postUserAvatarFactory(String? avatarUrl) {
   );
 }
 
-Widget postUserDetailFactory(Post post, BuildContext context) {
+Widget postUserDetailFactory(
+  Post post,
+  BuildContext context, {
+  double fontSize = 12,
+}) {
   final subStyle = TextStyle(
     color: Theme.of(context).secondaryHeaderColor,
-    fontSize: 11,
+    fontSize: fontSize - 1,
   );
   return Column(
     children: [
@@ -61,7 +67,7 @@ Widget postUserDetailFactory(Post post, BuildContext context) {
             child: Text(
               post.author.displayName,
               overflow: TextOverflow.ellipsis,
-              style: const TextStyle(fontSize: 12),
+              style: TextStyle(fontSize: fontSize),
             ),
           ),
           Text(" ", style: subStyle),
@@ -80,7 +86,12 @@ Widget postUserDetailFactory(Post post, BuildContext context) {
   );
 }
 
-Widget postContentFactory(Post post, BuildContext context) {
+Widget postContentFactory(
+  Post post,
+  BuildContext context, {
+  bool hideActions = false,
+  double fontSize = 12,
+}) {
   final threadParentAuthor = post.getThreadParentAuthor();
   return Column(
     crossAxisAlignment: CrossAxisAlignment.start,
@@ -94,82 +105,104 @@ Widget postContentFactory(Post post, BuildContext context) {
                 text: "返信先: ",
                 style: DefaultTextStyle.of(
                   context,
-                ).style.copyWith(fontSize: 12.0),
+                ).style.copyWith(fontSize: fontSize),
               ),
               TextSpan(
                 text: "@${threadParentAuthor.username}",
-                style: TextStyle(color: Colors.blue, fontSize: 12),
+                style: TextStyle(color: Colors.blue, fontSize: fontSize),
                 recognizer: TapGestureRecognizer()..onTap = () async {},
               ),
             ],
           ),
         ),
-      Text(post.content, style: const TextStyle(fontSize: 12)),
+      Text(post.content, style: TextStyle(fontSize: fontSize)),
       if (post.mediaUrls.isNotEmpty) postMediaFactory(post, context),
       if (post.poll != null) pollFactory(post),
-      PostActionsWidget(post: post),
+      if (hideActions == false) PostActionsWidget(post: post),
     ],
   );
 }
 
 Widget postMediaFactory(Post post, BuildContext context) {
   final urls = post.mediaUrls.map((e) => "https://karotter.com$e").toList();
+  final isVideos = post.mediaTypes.map((e) => e == "video").toList();
 
   return ClipRRect(
     borderRadius: BorderRadius.circular(12),
     child: AspectRatio(
       aspectRatio: getAspectRatio(urls.length),
-      child: buildMediaLayout(urls, context),
+      child: buildMediaLayout(urls, isVideos, context),
     ),
   );
 }
 
-Widget postImage(List<String> urls, int index, BuildContext context) {
+Widget postMedia(
+  List<String> urls,
+  List<bool> isVideos,
+  int index,
+  BuildContext context,
+) {
   return GestureDetector(
     onTap: () {
       Navigator.push(
         context,
         MaterialPageRoute(
-          builder: (_) => ImageViewer(urls: urls, initialIndex: index),
+          builder: (_) =>
+              MediaViewer(urls: urls, isVideos: isVideos, initialIndex: index),
         ),
       );
     },
-    child: Image.network(urls[index], fit: BoxFit.cover),
+    child: isVideos[index]
+        ? Stack(
+            fit: StackFit.expand,
+            children: [
+              Container(color: Colors.black),
+              const Center(
+                child: Icon(
+                  Icons.play_circle_outline,
+                  color: Colors.white,
+                  size: 48,
+                ),
+              ),
+            ],
+          )
+        : Image.network(urls[index], fit: BoxFit.cover),
   );
 }
 
-Widget buildMediaLayout(List<String> urls, BuildContext context) {
+Widget buildMediaLayout(
+  List<String> urls,
+  List<bool> isVideos,
+  BuildContext context,
+) {
   switch (urls.length) {
     case 1:
-      return postImage(urls, 0, context);
-
+      return postMedia(urls, isVideos, 0, context);
     case 2:
       return Row(
         children: [
-          Expanded(child: postImage(urls, 0, context)),
+          Expanded(child: postMedia(urls, isVideos, 0, context)),
           const SizedBox(width: 2),
-          Expanded(child: postImage(urls, 1, context)),
+          Expanded(child: postMedia(urls, isVideos, 1, context)),
         ],
       );
-
     case 3:
       return Row(
         children: [
-          Expanded(child: postImage(urls, 0, context)),
+          Expanded(child: postMedia(urls, isVideos, 0, context)),
           const SizedBox(width: 2),
           Expanded(
             child: Column(
               children: [
-                Expanded(child: postImage(urls, 1, context)),
+                Expanded(child: postMedia(urls, isVideos, 1, context)),
                 const SizedBox(height: 2),
-                Expanded(child: postImage(urls, 2, context)),
+                Expanded(child: postMedia(urls, isVideos, 2, context)),
               ],
             ),
           ),
         ],
       );
-
-    default: // 4枚以上
+    default:
       return GridView.builder(
         physics: const NeverScrollableScrollPhysics(),
         itemCount: urls.length > 4 ? 4 : urls.length,
@@ -182,7 +215,7 @@ Widget buildMediaLayout(List<String> urls, BuildContext context) {
           return Stack(
             fit: StackFit.expand,
             children: [
-              postImage(urls, index, context),
+              postMedia(urls, isVideos, index, context),
               if (index == 3 && urls.length > 4)
                 Container(
                   color: Colors.black54,
@@ -232,6 +265,13 @@ class PostActionsWidget extends ConsumerWidget {
                 title: const Text("引用リカロート"),
                 onTap: () {
                   Navigator.pop(context);
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) =>
+                          PostPage(post: post, type: InternalPostType.rekarot),
+                    ),
+                  );
                 },
               ),
             ],
@@ -283,7 +323,15 @@ class PostActionsWidget extends ConsumerWidget {
     return Row(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
-        actionItem(Icons.comment_outlined, post.repliesCount, () {}),
+        actionItem(Icons.comment_outlined, post.repliesCount, () {
+          Navigator.push(
+            context,
+            MaterialPageRoute(
+              builder: (context) =>
+                  PostPage(post: post, type: InternalPostType.reply),
+            ),
+          );
+        }),
         actionItem(
           Icons.repeat,
           currentPost.rekarotsCount,

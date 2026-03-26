@@ -3,8 +3,11 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:karotator/const.dart';
 
 import 'package:karotator/pages/startup.dart';
+import 'package:media_kit/media_kit.dart';
 
 void main() {
+  WidgetsFlutterBinding.ensureInitialized();
+  MediaKit.ensureInitialized();
   runApp(const Karotator());
 }
 
@@ -21,7 +24,7 @@ class Karotator extends StatelessWidget {
         theme: ThemeData(
           brightness: Brightness.light,
           secondaryHeaderColor: Color.fromARGB(255, 120, 153, 181),
-          scaffoldBackgroundColor: Color.fromARGB(255, 112, 134, 157),
+          scaffoldBackgroundColor: Color.fromARGB(255, 238, 243, 248),
           appBarTheme: const AppBarTheme(backgroundColor: Colors.white),
           drawerTheme: DrawerThemeData(backgroundColor: Colors.white),
           bottomNavigationBarTheme: const BottomNavigationBarThemeData(
@@ -30,13 +33,12 @@ class Karotator extends StatelessWidget {
             unselectedItemColor: Color.fromARGB(255, 65, 90, 116),
           ),
           floatingActionButtonTheme: FloatingActionButtonThemeData(
+            foregroundColor: Colors.white,
             backgroundColor: Color.fromARGB(255, 29, 78, 216),
           ),
           elevatedButtonTheme: ElevatedButtonThemeData(
             style: ButtonStyle(
-							foregroundColor: WidgetStateProperty.all(
-								Colors.white,
-							),
+              foregroundColor: WidgetStateProperty.all(Colors.white),
               backgroundColor: WidgetStateProperty.all(
                 Color.fromARGB(255, 29, 78, 216),
               ),

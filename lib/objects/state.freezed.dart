@@ -11,7 +11,6 @@ part of 'state.dart';
 
 // dart format off
 T _$identity<T>(T value) => value;
-
 /// @nodoc
 mixin _$PostState {
 
@@ -22,8 +21,6 @@ mixin _$PostState {
 @pragma('vm:prefer-inline')
 $PostStateCopyWith<PostState> get copyWith => _$PostStateCopyWithImpl<PostState>(this as PostState, _$identity);
 
-  /// Serializes this PostState to a JSON map.
-  Map<String, dynamic> toJson();
 
 
 @override
@@ -31,7 +28,7 @@ bool operator ==(Object other) {
   return identical(this, other) || (other.runtimeType == runtimeType&&other is PostState&&(identical(other.id, id) || other.id == id)&&(identical(other.rekaroted, rekaroted) || other.rekaroted == rekaroted)&&(identical(other.rekarotsCount, rekarotsCount) || other.rekarotsCount == rekarotsCount)&&(identical(other.liked, liked) || other.liked == liked)&&(identical(other.likesCount, likesCount) || other.likesCount == likesCount)&&(identical(other.bookmarked, bookmarked) || other.bookmarked == bookmarked)&&(identical(other.bookmarksCount, bookmarksCount) || other.bookmarksCount == bookmarksCount));
 }
 
-@JsonKey(includeFromJson: false, includeToJson: false)
+
 @override
 int get hashCode => Object.hash(runtimeType,id,rekaroted,rekarotsCount,liked,likesCount,bookmarked,bookmarksCount);
 
@@ -212,11 +209,11 @@ return $default(_that.id,_that.rekaroted,_that.rekarotsCount,_that.liked,_that.l
 }
 
 /// @nodoc
-@JsonSerializable()
+
 
 class _PostState implements PostState {
   const _PostState({required this.id, required this.rekaroted, required this.rekarotsCount, required this.liked, required this.likesCount, required this.bookmarked, required this.bookmarksCount});
-  factory _PostState.fromJson(Map<String, dynamic> json) => _$PostStateFromJson(json);
+  
 
 @override final  int id;
 @override final  bool rekaroted;
@@ -232,17 +229,14 @@ class _PostState implements PostState {
 @pragma('vm:prefer-inline')
 _$PostStateCopyWith<_PostState> get copyWith => __$PostStateCopyWithImpl<_PostState>(this, _$identity);
 
-@override
-Map<String, dynamic> toJson() {
-  return _$PostStateToJson(this, );
-}
+
 
 @override
 bool operator ==(Object other) {
   return identical(this, other) || (other.runtimeType == runtimeType&&other is _PostState&&(identical(other.id, id) || other.id == id)&&(identical(other.rekaroted, rekaroted) || other.rekaroted == rekaroted)&&(identical(other.rekarotsCount, rekarotsCount) || other.rekarotsCount == rekarotsCount)&&(identical(other.liked, liked) || other.liked == liked)&&(identical(other.likesCount, likesCount) || other.likesCount == likesCount)&&(identical(other.bookmarked, bookmarked) || other.bookmarked == bookmarked)&&(identical(other.bookmarksCount, bookmarksCount) || other.bookmarksCount == bookmarksCount));
 }
 
-@JsonKey(includeFromJson: false, includeToJson: false)
+
 @override
 int get hashCode => Object.hash(runtimeType,id,rekaroted,rekarotsCount,liked,likesCount,bookmarked,bookmarksCount);
 
@@ -286,6 +280,264 @@ as bool,likesCount: null == likesCount ? _self.likesCount : likesCount // ignore
 as int,bookmarked: null == bookmarked ? _self.bookmarked : bookmarked // ignore: cast_nullable_to_non_nullable
 as bool,bookmarksCount: null == bookmarksCount ? _self.bookmarksCount : bookmarksCount // ignore: cast_nullable_to_non_nullable
 as int,
+  ));
+}
+
+
+}
+
+/// @nodoc
+mixin _$MediaState {
+
+ File get file; set file(File value); Uint8List? get thumbnail; set thumbnail(Uint8List? value); MediaType get type; set type(MediaType value); String get alt; set alt(String value); bool get spoiler; set spoiler(bool value); bool get nsfw; set nsfw(bool value);
+/// Create a copy of MediaState
+/// with the given fields replaced by the non-null parameter values.
+@JsonKey(includeFromJson: false, includeToJson: false)
+@pragma('vm:prefer-inline')
+$MediaStateCopyWith<MediaState> get copyWith => _$MediaStateCopyWithImpl<MediaState>(this as MediaState, _$identity);
+
+
+
+
+
+@override
+String toString() {
+  return 'MediaState(file: $file, thumbnail: $thumbnail, type: $type, alt: $alt, spoiler: $spoiler, nsfw: $nsfw)';
+}
+
+
+}
+
+/// @nodoc
+abstract mixin class $MediaStateCopyWith<$Res>  {
+  factory $MediaStateCopyWith(MediaState value, $Res Function(MediaState) _then) = _$MediaStateCopyWithImpl;
+@useResult
+$Res call({
+ File file, Uint8List? thumbnail, MediaType type, String alt, bool spoiler, bool nsfw
+});
+
+
+
+
+}
+/// @nodoc
+class _$MediaStateCopyWithImpl<$Res>
+    implements $MediaStateCopyWith<$Res> {
+  _$MediaStateCopyWithImpl(this._self, this._then);
+
+  final MediaState _self;
+  final $Res Function(MediaState) _then;
+
+/// Create a copy of MediaState
+/// with the given fields replaced by the non-null parameter values.
+@pragma('vm:prefer-inline') @override $Res call({Object? file = null,Object? thumbnail = freezed,Object? type = null,Object? alt = null,Object? spoiler = null,Object? nsfw = null,}) {
+  return _then(_self.copyWith(
+file: null == file ? _self.file : file // ignore: cast_nullable_to_non_nullable
+as File,thumbnail: freezed == thumbnail ? _self.thumbnail : thumbnail // ignore: cast_nullable_to_non_nullable
+as Uint8List?,type: null == type ? _self.type : type // ignore: cast_nullable_to_non_nullable
+as MediaType,alt: null == alt ? _self.alt : alt // ignore: cast_nullable_to_non_nullable
+as String,spoiler: null == spoiler ? _self.spoiler : spoiler // ignore: cast_nullable_to_non_nullable
+as bool,nsfw: null == nsfw ? _self.nsfw : nsfw // ignore: cast_nullable_to_non_nullable
+as bool,
+  ));
+}
+
+}
+
+
+/// Adds pattern-matching-related methods to [MediaState].
+extension MediaStatePatterns on MediaState {
+/// A variant of `map` that fallback to returning `orElse`.
+///
+/// It is equivalent to doing:
+/// ```dart
+/// switch (sealedClass) {
+///   case final Subclass value:
+///     return ...;
+///   case _:
+///     return orElse();
+/// }
+/// ```
+
+@optionalTypeArgs TResult maybeMap<TResult extends Object?>(TResult Function( _MediaState value)?  $default,{required TResult orElse(),}){
+final _that = this;
+switch (_that) {
+case _MediaState() when $default != null:
+return $default(_that);case _:
+  return orElse();
+
+}
+}
+/// A `switch`-like method, using callbacks.
+///
+/// Callbacks receives the raw object, upcasted.
+/// It is equivalent to doing:
+/// ```dart
+/// switch (sealedClass) {
+///   case final Subclass value:
+///     return ...;
+///   case final Subclass2 value:
+///     return ...;
+/// }
+/// ```
+
+@optionalTypeArgs TResult map<TResult extends Object?>(TResult Function( _MediaState value)  $default,){
+final _that = this;
+switch (_that) {
+case _MediaState():
+return $default(_that);case _:
+  throw StateError('Unexpected subclass');
+
+}
+}
+/// A variant of `map` that fallback to returning `null`.
+///
+/// It is equivalent to doing:
+/// ```dart
+/// switch (sealedClass) {
+///   case final Subclass value:
+///     return ...;
+///   case _:
+///     return null;
+/// }
+/// ```
+
+@optionalTypeArgs TResult? mapOrNull<TResult extends Object?>(TResult? Function( _MediaState value)?  $default,){
+final _that = this;
+switch (_that) {
+case _MediaState() when $default != null:
+return $default(_that);case _:
+  return null;
+
+}
+}
+/// A variant of `when` that fallback to an `orElse` callback.
+///
+/// It is equivalent to doing:
+/// ```dart
+/// switch (sealedClass) {
+///   case Subclass(:final field):
+///     return ...;
+///   case _:
+///     return orElse();
+/// }
+/// ```
+
+@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( File file,  Uint8List? thumbnail,  MediaType type,  String alt,  bool spoiler,  bool nsfw)?  $default,{required TResult orElse(),}) {final _that = this;
+switch (_that) {
+case _MediaState() when $default != null:
+return $default(_that.file,_that.thumbnail,_that.type,_that.alt,_that.spoiler,_that.nsfw);case _:
+  return orElse();
+
+}
+}
+/// A `switch`-like method, using callbacks.
+///
+/// As opposed to `map`, this offers destructuring.
+/// It is equivalent to doing:
+/// ```dart
+/// switch (sealedClass) {
+///   case Subclass(:final field):
+///     return ...;
+///   case Subclass2(:final field2):
+///     return ...;
+/// }
+/// ```
+
+@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( File file,  Uint8List? thumbnail,  MediaType type,  String alt,  bool spoiler,  bool nsfw)  $default,) {final _that = this;
+switch (_that) {
+case _MediaState():
+return $default(_that.file,_that.thumbnail,_that.type,_that.alt,_that.spoiler,_that.nsfw);case _:
+  throw StateError('Unexpected subclass');
+
+}
+}
+/// A variant of `when` that fallback to returning `null`
+///
+/// It is equivalent to doing:
+/// ```dart
+/// switch (sealedClass) {
+///   case Subclass(:final field):
+///     return ...;
+///   case _:
+///     return null;
+/// }
+/// ```
+
+@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( File file,  Uint8List? thumbnail,  MediaType type,  String alt,  bool spoiler,  bool nsfw)?  $default,) {final _that = this;
+switch (_that) {
+case _MediaState() when $default != null:
+return $default(_that.file,_that.thumbnail,_that.type,_that.alt,_that.spoiler,_that.nsfw);case _:
+  return null;
+
+}
+}
+
+}
+
+/// @nodoc
+
+
+class _MediaState implements MediaState {
+   _MediaState({required this.file, this.thumbnail, required this.type, this.alt = "", this.spoiler = false, this.nsfw = false});
+  
+
+@override  File file;
+@override  Uint8List? thumbnail;
+@override  MediaType type;
+@override@JsonKey()  String alt;
+@override@JsonKey()  bool spoiler;
+@override@JsonKey()  bool nsfw;
+
+/// Create a copy of MediaState
+/// with the given fields replaced by the non-null parameter values.
+@override @JsonKey(includeFromJson: false, includeToJson: false)
+@pragma('vm:prefer-inline')
+_$MediaStateCopyWith<_MediaState> get copyWith => __$MediaStateCopyWithImpl<_MediaState>(this, _$identity);
+
+
+
+
+
+@override
+String toString() {
+  return 'MediaState(file: $file, thumbnail: $thumbnail, type: $type, alt: $alt, spoiler: $spoiler, nsfw: $nsfw)';
+}
+
+
+}
+
+/// @nodoc
+abstract mixin class _$MediaStateCopyWith<$Res> implements $MediaStateCopyWith<$Res> {
+  factory _$MediaStateCopyWith(_MediaState value, $Res Function(_MediaState) _then) = __$MediaStateCopyWithImpl;
+@override @useResult
+$Res call({
+ File file, Uint8List? thumbnail, MediaType type, String alt, bool spoiler, bool nsfw
+});
+
+
+
+
+}
+/// @nodoc
+class __$MediaStateCopyWithImpl<$Res>
+    implements _$MediaStateCopyWith<$Res> {
+  __$MediaStateCopyWithImpl(this._self, this._then);
+
+  final _MediaState _self;
+  final $Res Function(_MediaState) _then;
+
+/// Create a copy of MediaState
+/// with the given fields replaced by the non-null parameter values.
+@override @pragma('vm:prefer-inline') $Res call({Object? file = null,Object? thumbnail = freezed,Object? type = null,Object? alt = null,Object? spoiler = null,Object? nsfw = null,}) {
+  return _then(_MediaState(
+file: null == file ? _self.file : file // ignore: cast_nullable_to_non_nullable
+as File,thumbnail: freezed == thumbnail ? _self.thumbnail : thumbnail // ignore: cast_nullable_to_non_nullable
+as Uint8List?,type: null == type ? _self.type : type // ignore: cast_nullable_to_non_nullable
+as MediaType,alt: null == alt ? _self.alt : alt // ignore: cast_nullable_to_non_nullable
+as String,spoiler: null == spoiler ? _self.spoiler : spoiler // ignore: cast_nullable_to_non_nullable
+as bool,nsfw: null == nsfw ? _self.nsfw : nsfw // ignore: cast_nullable_to_non_nullable
+as bool,
   ));
 }
 
