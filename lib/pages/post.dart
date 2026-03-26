@@ -309,7 +309,7 @@ class _PostPageState extends State<PostPage> {
               ),
           ],
         ),
-      ),
+      ),),
       bottomNavigationBar: Padding(
 				padding: MediaQuery.of(context).viewInsets,
 				child: BottomAppBar(
@@ -411,7 +411,7 @@ class _PostPageState extends State<PostPage> {
 	          ],
 	        ),
 	      ),
-			),),
+			),
     );
   }
 }
