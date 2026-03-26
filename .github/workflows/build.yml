@@ -23,16 +23,8 @@ jobs:
       - name: Flutter pub get
         run: flutter pub get
 
-      # iOS build
-      - name: Build .app (no codesign)
-        run: flutter build ios --release --no-codesign
-
-      - name: Convert .app to .ipa
-        run: |
-          cd build/ios/iphoneos
-          mkdir Payload
-          mv Runner.app Payload/Runner.app
-          zip -r karotator.ipa Payload
+      - name: Lint check
+        run: flutter analyze
 
       # Android build
       - name: Build APK
@@ -42,6 +34,20 @@ jobs:
         run: |
           cd build/app/outputs/flutter-apk/
           mv app-release.apk karotator.apk
+
+      # iOS build
+      - name: Check xcodebuild version (for debug)
+        run: xcodebuild -version
+
+      - name: Build .app (no codesign)
+        run: flutter build ios --release --no-codesign
+
+      - name: Convert .app to .ipa
+        run: |
+          cd build/ios/iphoneos
+          mkdir Payload
+          mv Runner.app Payload/Runner.app
+          zip -r karotator.ipa Payload
 
       - name: Generate tag
         id: tag
