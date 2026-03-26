@@ -281,135 +281,138 @@ class _PostPageState extends State<PostPage> {
                       ],
                     ),
                   ),
-                  if (widget.post != null &&
-                      widget.type == InternalPostType.rekarot)
-                    Container(
-                      decoration: BoxDecoration(
-                        border: Border.all(
-                          color: Theme.of(context).dividerColor,
-                          width: 1,
-                        ),
-                        borderRadius: BorderRadius.circular(8),
-                      ),
-                      child: ListTile(
-                        titleAlignment: ListTileTitleAlignment.top,
-                        leading: postUserAvatarFactory(
-                          widget.post!.author.avatarUrl,
-                        ),
-                        title: postUserDetailFactory(widget.post!, context),
-                        subtitle: postContentFactory(
-                          widget.post!,
-                          context,
-                          hideActions: true,
-                        ),
-                      ),
-                    ),
                 ],
               ),
             ),
+            if (widget.post != null &&
+                widget.type == InternalPostType.rekarot)
+              Container(
+                decoration: BoxDecoration(
+                  border: Border.all(
+                    color: Theme.of(context).dividerColor,
+                    width: 1,
+                  ),
+                  borderRadius: BorderRadius.circular(8),
+                ),
+                child: ListTile(
+                  titleAlignment: ListTileTitleAlignment.top,
+                  leading: postUserAvatarFactory(
+                    widget.post!.author.avatarUrl,
+                  ),
+                  title: postUserDetailFactory(widget.post!, context),
+                  subtitle: postContentFactory(
+                    widget.post!,
+                    context,
+                    hideActions: true,
+                  ),
+                ),
+              ),
           ],
         ),
       ),
       resizeToAvoidBottomInset: false,
-      bottomNavigationBar: BottomAppBar(
-        child: Row(
-          children: [
-            TextButton(onPressed: () {}, child: Text("公開: 全体")),
-            TextButton(onPressed: () {}, child: Text("返信: 全体")),
-            IconButton(
-              onPressed: () async {
-                final result = await FilePicker.platform.pickFiles(
-                  allowedExtensions: [
-                    "tiff",
-                    "pjp",
-                    "apng",
-                    "xbm",
-                    "xjk",
-                    "jpe",
-                    "svgz",
-                    "jpg",
-                    "jpeg",
-                    "heif",
-                    "ico",
-                    "tif",
-                    "webp",
-                    "jfif",
-                    "heic",
-                    "gif",
-                    "svg",
-                    "bmp",
-                    "pjpeg",
-                    "avif",
-                  ],
-                );
-
-                if (result != null) {
-                  File file = File(result.files.single.path!);
-                  final state = MediaState(
-                    file: file,
-                    thumbnail: await file.readAsBytes(),
-                    type: MediaType.image,
-                  );
-                  setState(() {
-                    medias.add(state);
-                  });
-                }
-              },
-              icon: const Icon(Icons.image_outlined),
-            ),
-            IconButton(
-              onPressed: () async {
-                final result = await FilePicker.platform.pickFiles(
-                  allowedExtensions: [
-                    "mpe",
-                    "mpeg",
-                    "ogm",
-                    "mkv",
-                    "mpg",
-                    "wmv",
-                    "webm",
-                    "ogv",
-                    "mov",
-                    "m4v",
-                    "asx",
-                    "mp4",
-                    "avi",
-                  ],
-                );
-
-                if (result != null) {
-                  File file = File(result.files.single.path!);
-                  final thumbnail = await getVideoThumbnail(file.path);
-                  if (thumbnail != null) {
-                    final state = MediaState(
-                      file: file,
-                      thumbnail: thumbnail,
-                      type: MediaType.video,
-                    );
-                    setState(() {
-                      medias.add(state);
-                    });
-                  }
-                }
-              },
-              icon: const Icon(Icons.movie),
-            ),
-            IconButton(onPressed: () {}, icon: const Icon(Icons.how_to_vote)),
-            IconButton(
-              onPressed: () {},
-              icon: const Icon(Symbols.calendar_clock),
-            ),
-            IconButton(onPressed: () {}, icon: const Icon(Icons.verified)),
-            const Spacer(),
-            Text(
-              '${medias.length} | ${_postController.text.length} / 200',
-              style: Theme.of(context).textTheme.bodySmall?.copyWith(
-                color: _postController.text.length > 200 ? Colors.red : null,
-              ),
-            ),
-          ],
-        ),
-      ),
+      bottomNavigationBar: Padding(
+				padding: MediaQuery.of(context).viewInsets,
+				child: BottomAppBar(
+	        child: Row(
+	          children: [
+	            TextButton(onPressed: () {}, child: Text("公開: 全体")),
+	            TextButton(onPressed: () {}, child: Text("返信: 全体")),
+	            IconButton(
+	              onPressed: () async {
+	                final result = await FilePicker.platform.pickFiles(
+	                  allowedExtensions: [
+	                    "tiff",
+	                    "pjp",
+	                    "apng",
+	                    "xbm",
+	                    "xjk",
+	                    "jpe",
+	                    "svgz",
+	                    "jpg",
+	                    "jpeg",
+	                    "heif",
+	                    "ico",
+	                    "tif",
+	                    "webp",
+	                    "jfif",
+	                    "heic",
+	                    "gif",
+	                    "svg",
+	                    "bmp",
+	                    "pjpeg",
+	                    "avif",
+	                  ],
+	                );
+	
+	                if (result != null) {
+	                  File file = File(result.files.single.path!);
+	                  final state = MediaState(
+	                    file: file,
+	                    thumbnail: await file.readAsBytes(),
+	                    type: MediaType.image,
+	                  );
+	                  setState(() {
+	                    medias.add(state);
+	                  });
+	                }
+	              },
+	              icon: const Icon(Icons.image_outlined),
+	            ),
+	            IconButton(
+	              onPressed: () async {
+	                final result = await FilePicker.platform.pickFiles(
+	                  allowedExtensions: [
+	                    "mpe",
+	                    "mpeg",
+	                    "ogm",
+	                    "mkv",
+	                    "mpg",
+	                    "wmv",
+	                    "webm",
+	                    "ogv",
+	                    "mov",
+	                    "m4v",
+	                    "asx",
+	                    "mp4",
+	                    "avi",
+	                  ],
+	                );
+	
+	                if (result != null) {
+	                  File file = File(result.files.single.path!);
+	                  final thumbnail = await getVideoThumbnail(file.path);
+	                  if (thumbnail != null) {
+	                    final state = MediaState(
+	                      file: file,
+	                      thumbnail: thumbnail,
+	                      type: MediaType.video,
+	                    );
+	                    setState(() {
+	                      medias.add(state);
+	                    });
+	                  }
+	                }
+	              },
+	              icon: const Icon(Icons.movie),
+	            ),
+	            IconButton(onPressed: () {}, icon: const Icon(Icons.how_to_vote)),
+	            IconButton(
+	              onPressed: () {},
+	              icon: const Icon(Symbols.calendar_clock),
+	            ),
+	            IconButton(onPressed: () {}, icon: const Icon(Icons.verified)),
+	            const Spacer(),
+	            Text(
+	              '${medias.length} | ${_postController.text.length} / 200',
+	              style: Theme.of(context).textTheme.bodySmall?.copyWith(
+	                color: _postController.text.length > 200 ? Colors.red : null,
+	              ),
+	            ),
+	          ],
+	        ),
+	      ),
+			),
     );
   }
 }
