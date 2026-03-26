@@ -2,6 +2,11 @@
 READMEに書くと長ったらしくなるのでファイルを分けることにしました  
 実装されたら消されます
 
+## アプリ全体
+- テストを書く
+- https://pub.dev/packages/media_kit#permissions をやる
+- iOS用のPodfileを作る
+
 ## ホーム
 - 検索
 - 通知
