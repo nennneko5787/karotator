@@ -122,7 +122,7 @@ class _PostPageState extends State<PostPage> {
           SizedBox(width: 4),
         ],
       ),
-      body: Padding(
+      body: SingleChildScrollView(child:Padding(
         padding: const EdgeInsets.all(8),
         child: Column(
           children: [
@@ -310,7 +310,6 @@ class _PostPageState extends State<PostPage> {
           ],
         ),
       ),
-      resizeToAvoidBottomInset: false,
       bottomNavigationBar: Padding(
 				padding: MediaQuery.of(context).viewInsets,
 				child: BottomAppBar(
@@ -412,7 +411,7 @@ class _PostPageState extends State<PostPage> {
 	          ],
 	        ),
 	      ),
-			),
+			),),
     );
   }
 }
