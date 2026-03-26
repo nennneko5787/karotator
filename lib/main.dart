@@ -34,6 +34,9 @@ class Karotator extends StatelessWidget {
           ),
           elevatedButtonTheme: ElevatedButtonThemeData(
             style: ButtonStyle(
+							foregroundColor: WidgetStateProperty.all(
+								Colors.white,
+							),
               backgroundColor: WidgetStateProperty.all(
                 Color.fromARGB(255, 29, 78, 216),
               ),
