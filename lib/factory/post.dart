@@ -335,7 +335,7 @@ class PostActionsWidget extends ConsumerWidget {
         actionItem(
           Icons.repeat,
           currentPost.rekarotsCount,
-          () => showModeMenu(context, notifier, current),
+          () => showModeMenu(context, notifier, currentPost),
           iconColor: currentPost.rekaroted ? Colors.lightGreenAccent : null,
         ),
         actionItem(
