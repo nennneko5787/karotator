@@ -244,7 +244,7 @@ class PostActionsWidget extends ConsumerWidget {
 
   const PostActionsWidget({super.key, required this.post});
 
-  void showModeMenu(BuildContext context, PostNotifier notifier, Post current) {
+  void showModeMenu(BuildContext context, PostNotifier notifier, PostState current) {
     showModalBottomSheet(
       context: context,
       builder: (context) {
