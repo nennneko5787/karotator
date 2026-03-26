@@ -16,6 +16,14 @@
 >
 > ipaファイルはAltStoreやSideStore等でインストールできます。PCが必要です。
 
+> [!CAUTION]
+>
+> ### iOS / iPadOS で LiveContainer を使用する方へ
+>
+> 設定の **LiveContainerのバンドル識別子を使用** はオンにしないでください！  
+>
+> アプリを終了させるたびにデータがリセットされる原因になります！
+
 ## 既知のバグ
 [known_bug.md](known_bugs.md) を参照してください。
 
