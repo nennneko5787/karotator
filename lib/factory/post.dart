@@ -244,7 +244,7 @@ class PostActionsWidget extends ConsumerWidget {
 
   const PostActionsWidget({super.key, required this.post});
 
-  void showModeMenu(BuildContext context, PostNotifier notifier) {
+  void showModeMenu(BuildContext context, PostNotifier notifier, Post current) {
     showModalBottomSheet(
       context: context,
       builder: (context) {
@@ -253,8 +253,8 @@ class PostActionsWidget extends ConsumerWidget {
             mainAxisSize: MainAxisSize.min,
             children: [
               ListTile(
-                leading: const Icon(Icons.repeat),
-                title: const Text("リカロート"),
+                leading: (post.rekaroted) ? const Icon(Icons.close, color: Colors.red) : const Icon(Icons.repeat),
+                title: (post.rekaroted) ? const Text("リカロートを取り消す", style: TextStyle(color: Colors.red)) : const Text("リカロート"),
                 onTap: () {
                   notifier.toggleRekarot();
                   Navigator.pop(context);
@@ -335,7 +335,7 @@ class PostActionsWidget extends ConsumerWidget {
         actionItem(
           Icons.repeat,
           currentPost.rekarotsCount,
-          () => showModeMenu(context, notifier),
+          () => showModeMenu(context, notifier, current),
           iconColor: currentPost.rekaroted ? Colors.lightGreenAccent : null,
         ),
         actionItem(
