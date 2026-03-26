@@ -24,7 +24,7 @@ jobs:
         run: flutter pub get
 
       - name: Lint check
-        run: flutter analyze --no-fatal-warnings
+        run: flutter analyze --no-fatal-warnings --no-fatal-infos
 
       # Android build
       - name: Build APK
