@@ -16,8 +16,15 @@
 >
 > ipaファイルはAltStoreやSideStore等でインストールできます。PCが必要です。
 
+## 既知のバグ
+[known_bug.md](known_bugs.md) を参照してください。
+
+## ToDo
+[todo.md](todo.md) を参照してください。
+
 # いろいろ
 
-- iOSアプリは flutter v3.41.5 でビルドしないと失敗する。そういうバグなんかね
+- ~~iOSアプリは flutter v3.41.5 でビルドしないと失敗する。そういうバグなんかね~~
+コードがミスっててもApple Developer Program登録しろって弾かれるらしい。なんじゃそりゃ。
 - AI使ったコードにはコメントを残しています。8割Claude2割ChatGPT。
 - 他のサイトから拝借したファイルにはコメントを残しています。
