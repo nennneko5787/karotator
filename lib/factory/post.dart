@@ -253,8 +253,8 @@ class PostActionsWidget extends ConsumerWidget {
             mainAxisSize: MainAxisSize.min,
             children: [
               ListTile(
-                leading: (post.rekaroted) ? const Icon(Icons.close, color: Colors.red) : const Icon(Icons.repeat),
-                title: (post.rekaroted) ? const Text("リカロートを取り消す", style: TextStyle(color: Colors.red)) : const Text("リカロート"),
+                leading: (current.rekaroted) ? const Icon(Icons.close, color: Colors.red) : const Icon(Icons.repeat),
+                title: (current.rekaroted) ? const Text("リカロートを取り消す", style: TextStyle(color: Colors.red)) : const Text("リカロート"),
                 onTap: () {
                   notifier.toggleRekarot();
                   Navigator.pop(context);
