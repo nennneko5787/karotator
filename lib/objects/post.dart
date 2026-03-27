@@ -1,4 +1,3 @@
-import 'package:flutter/material.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:karotator/enum.dart';
 import 'package:karotator/objects/circle.dart';
