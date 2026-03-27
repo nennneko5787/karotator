@@ -1,6 +1,5 @@
 import "dart:io";
 
-import "package:flutter/cupertino.dart";
 import "package:flutter/material.dart";
 import "package:image_picker/image_picker.dart";
 import "package:karotator/enum.dart";
@@ -16,7 +15,6 @@ import "package:karotator/ui/datetime.dart";
 import "package:karotator/utils.dart";
 import "package:material_symbols_icons/symbols.dart";
 import 'package:karotator/const.dart';
-import "package:omni_datetime_picker/omni_datetime_picker.dart";
 
 class PostPage extends StatefulWidget {
   const PostPage({super.key, this.post, this.type});
