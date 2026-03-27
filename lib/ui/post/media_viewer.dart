@@ -1,6 +1,10 @@
+import "dart:io";
+
 import "package:flutter/material.dart";
+import "package:karotator/http.dart";
 import "package:media_kit/media_kit.dart";
 import "package:media_kit_video/media_kit_video.dart";
+import "package:path_provider/path_provider.dart";
 
 class MediaViewer extends StatefulWidget {
   final List<String> urls;
@@ -97,27 +101,56 @@ class _MediaViewerState extends State<MediaViewer> {
 }
 
 class _VideoPlayerItem extends StatefulWidget {
-  final String url;
-
   const _VideoPlayerItem({required this.url});
+  final String url;
 
   @override
   State<_VideoPlayerItem> createState() => _VideoPlayerItemState();
 }
 
 class _VideoPlayerItemState extends State<_VideoPlayerItem> {
-  late final player = Player();
-  late final controller = VideoController(player);
+  late Player player;
+  late VideoController controller;
+  bool isLoading = true;
+  String ext = ".mp4";
 
   @override
   void initState() {
     super.initState();
-    player.open(Media(widget.url));
+
+    player = Player();
+    controller = VideoController(player);
+    loadAndPlayVideo();
+  }
+
+  Future<void> loadAndPlayVideo() async {
+    // 1. APIからUint8Listとして取得
+    final response = await HTTPClient().http.get(Uri.parse(widget.url));
+    final videoBytes = response.bodyBytes; // Uint8List
+
+    final uri = Uri.parse(widget.url);
+    final pathSegments = uri.pathSegments;
+    final fileName = pathSegments.isNotEmpty ? pathSegments.last : '';
+    ext = fileName.contains('.') ? '.${fileName.split('.').last}' : '.mp4';
+
+    // 2. 一時ディレクトリに保存
+    final tempDir = await getTemporaryDirectory();
+    final tempFile = File('${tempDir.path}/temp_video.$ext');
+    await tempFile.writeAsBytes(videoBytes);
+
+    // 3. media_kitで再生
+    await player.open(Media(tempFile.path));
+
+    setState(() => isLoading = false);
   }
 
   @override
   void dispose() {
     player.dispose();
+    getTemporaryDirectory().then((dir) {
+      final tempFile = File('${dir.path}/temp_video.$ext');
+      if (tempFile.existsSync()) tempFile.deleteSync();
+    });
     super.dispose();
   }
 
@@ -128,7 +161,9 @@ class _VideoPlayerItemState extends State<_VideoPlayerItem> {
         width: MediaQuery.of(context).size.width,
         height: MediaQuery.of(context).size.width * 9.0 / 16.0,
         // Use [Video] widget to display video output.
-        child: Video(controller: controller),
+        child: isLoading
+            ? const Center(child: CircularProgressIndicator())
+            : Video(controller: controller),
       ),
     );
   }

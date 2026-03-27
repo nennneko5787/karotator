@@ -6,12 +6,37 @@ part 'response.freezed.dart';
 part 'response.g.dart';
 
 @freezed
+abstract class TimeLinePagination with _$TimeLinePagination {
+  const factory TimeLinePagination({
+    required int limit,
+    required int page,
+    required String mode,
+  }) = _TimeLinePagination;
+
+  factory TimeLinePagination.fromJson(Map<String, Object?> json) =>
+      _$TimeLinePaginationFromJson(json);
+}
+
+@freezed
 abstract class RecommendedPagination with _$RecommendedPagination {
   const factory RecommendedPagination({required int limit, required int page}) =
       _RecommendedPagination;
 
   factory RecommendedPagination.fromJson(Map<String, Object?> json) =>
       _$RecommendedPaginationFromJson(json);
+}
+
+@freezed
+abstract class RecommendedPaginationLatest with _$RecommendedPaginationLatest {
+  const factory RecommendedPaginationLatest({
+    required int limit,
+    required int page,
+    required bool hasNext,
+    required int nextCursor,
+  }) = _RecommendedPaginationLatest;
+
+  factory RecommendedPaginationLatest.fromJson(Map<String, Object?> json) =>
+      _$RecommendedPaginationLatestFromJson(json);
 }
 
 @freezed
@@ -39,9 +64,20 @@ abstract class RecommendedResponse with _$RecommendedResponse {
 }
 
 @freezed
+abstract class RecommendedResponseLatest with _$RecommendedResponseLatest {
+  const factory RecommendedResponseLatest({
+    required RecommendedPaginationLatest pagination,
+    required List<Post> posts,
+  }) = _RecommendedResponseLatest;
+
+  factory RecommendedResponseLatest.fromJson(Map<String, Object?> json) =>
+      _$RecommendedResponseLatestFromJson(json);
+}
+
+@freezed
 abstract class TimeLineResponse with _$TimeLineResponse {
   const factory TimeLineResponse({
-    required RecommendedPagination pagination,
+    required TimeLinePagination pagination,
     required List<Post> posts,
   }) = _TimeLineResponse;
 

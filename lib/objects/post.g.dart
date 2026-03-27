@@ -120,12 +120,11 @@ _QuotedPost _$QuotedPostFromJson(Map<String, dynamic> json) => _QuotedPost(
   content: json['content'] as String,
   authorId: (json['authorId'] as num).toInt(),
   author: Author.fromJson(json['author'] as Map<String, dynamic>),
-  createdAt: json['createdAt'] == null
+  createdAt: DateTime.parse(json['createdAt'] as String),
+  updatedAt: DateTime.parse(json['updatedAt'] as String),
+  editedAt: json['editedAt'] == null
       ? null
-      : DateTime.parse(json['createdAt'] as String),
-  updatedAt: json['updatedAt'] == null
-      ? null
-      : DateTime.parse(json['updatedAt'] as String),
+      : DateTime.parse(json['editedAt'] as String),
   parentId: (json['parentId'] as num?)?.toInt(),
   quotedPostId: (json['quotedPostId'] as num?)?.toInt(),
   mediaUrls:
@@ -153,22 +152,19 @@ _QuotedPost _$QuotedPostFromJson(Map<String, dynamic> json) => _QuotedPost(
   embedTitle: json['embedTitle'] as String?,
   embedDescription: json['embedDescription'] as String?,
   embedImage: json['embedImage'] as String?,
-  likesCount: (json['likesCount'] as num?)?.toInt(),
-  rekarotsCount: (json['rekarotsCount'] as num?)?.toInt(),
-  repliesCount: (json['repliesCount'] as num?)?.toInt(),
-  viewsCount: (json['viewsCount'] as num?)?.toInt(),
-  replyRestriction: json['replyRestriction'] as String?,
-  visibility: json['visibility'] as String?,
-  isAiGenerated: json['isAiGenerated'] as bool?,
-  isPromotional: json['isPromotional'] as bool?,
-  liked: json['liked'] as bool?,
-  rekaroted: json['rekaroted'] as bool?,
-  bookmarked: json['bookmarked'] as bool?,
-  canInteract: json['canInteract'] as bool?,
-  canQuote: json['canQuote'] as bool?,
-  quotedPost: json['quotedPost'] == null
-      ? null
-      : QuotedPost.fromJson(json['quotedPost'] as Map<String, dynamic>),
+  likesCount: (json['likesCount'] as num).toInt(),
+  rekarotsCount: (json['rekarotsCount'] as num).toInt(),
+  repliesCount: (json['repliesCount'] as num).toInt(),
+  viewsCount: (json['viewsCount'] as num).toInt(),
+  excludedMentions: (json['excludedMentions'] as List<dynamic>)
+      .map((e) => (e as num).toInt())
+      .toList(),
+  replyRestriction: $enumDecode(
+    _$ReplyRestrictionEnumMap,
+    json['replyRestriction'],
+  ),
+  visibility: $enumDecode(_$PostVisibilityEnumMap, json['visibility']),
+  canView: json['canView'] as bool,
 );
 
 Map<String, dynamic> _$QuotedPostToJson(_QuotedPost instance) =>
@@ -177,8 +173,9 @@ Map<String, dynamic> _$QuotedPostToJson(_QuotedPost instance) =>
       'content': instance.content,
       'authorId': instance.authorId,
       'author': instance.author,
-      'createdAt': instance.createdAt?.toIso8601String(),
-      'updatedAt': instance.updatedAt?.toIso8601String(),
+      'createdAt': instance.createdAt.toIso8601String(),
+      'updatedAt': instance.updatedAt.toIso8601String(),
+      'editedAt': instance.editedAt?.toIso8601String(),
       'parentId': instance.parentId,
       'quotedPostId': instance.quotedPostId,
       'mediaUrls': instance.mediaUrls,
@@ -194,17 +191,23 @@ Map<String, dynamic> _$QuotedPostToJson(_QuotedPost instance) =>
       'rekarotsCount': instance.rekarotsCount,
       'repliesCount': instance.repliesCount,
       'viewsCount': instance.viewsCount,
-      'replyRestriction': instance.replyRestriction,
-      'visibility': instance.visibility,
-      'isAiGenerated': instance.isAiGenerated,
-      'isPromotional': instance.isPromotional,
-      'liked': instance.liked,
-      'rekaroted': instance.rekaroted,
-      'bookmarked': instance.bookmarked,
-      'canInteract': instance.canInteract,
-      'canQuote': instance.canQuote,
-      'quotedPost': instance.quotedPost,
+      'excludedMentions': instance.excludedMentions,
+      'replyRestriction': _$ReplyRestrictionEnumMap[instance.replyRestriction]!,
+      'visibility': _$PostVisibilityEnumMap[instance.visibility]!,
+      'canView': instance.canView,
     };
+
+const _$ReplyRestrictionEnumMap = {
+  ReplyRestriction.EVERYONE: 'EVERYONE',
+  ReplyRestriction.FOLLOWING: 'FOLLOWING',
+  ReplyRestriction.MENTIONED: 'MENTIONED',
+  ReplyRestriction.CIRCLE: 'CIRCLE',
+};
+
+const _$PostVisibilityEnumMap = {
+  PostVisibility.PUBLIC: 'PUBLIC',
+  PostVisibility.CIRCLE: 'CIRCLE',
+};
 
 _Post _$PostFromJson(Map<String, dynamic> json) => _Post(
   author: Author.fromJson(json['author'] as Map<String, dynamic>),
@@ -288,7 +291,10 @@ _Post _$PostFromJson(Map<String, dynamic> json) => _Post(
       ? null
       : Circle.fromJson(json['replyCircle'] as Map<String, dynamic>),
   replyCircleId: (json['replyCircleId'] as num?)?.toInt(),
-  replyRestriction: json['replyRestriction'] as String,
+  replyRestriction: $enumDecode(
+    _$ReplyRestrictionEnumMap,
+    json['replyRestriction'],
+  ),
   replyTargets:
       (json['replyTargets'] as List<dynamic>?)
           ?.map((e) => ReplyTarget.fromJson(e as Map<String, dynamic>))
@@ -305,7 +311,7 @@ _Post _$PostFromJson(Map<String, dynamic> json) => _Post(
       : Circle.fromJson(json['viewerCircle'] as Map<String, dynamic>),
   viewerCircleId: (json['viewerCircleId'] as num?)?.toInt(),
   viewsCount: (json['viewsCount'] as num).toInt(),
-  visibility: json['visibility'] as String,
+  visibility: $enumDecode(_$PostVisibilityEnumMap, json['visibility']),
 );
 
 Map<String, dynamic> _$PostToJson(_Post instance) => <String, dynamic>{
@@ -352,12 +358,12 @@ Map<String, dynamic> _$PostToJson(_Post instance) => <String, dynamic>{
   'repliesCount': instance.repliesCount,
   'replyCircle': instance.replyCircle,
   'replyCircleId': instance.replyCircleId,
-  'replyRestriction': instance.replyRestriction,
+  'replyRestriction': _$ReplyRestrictionEnumMap[instance.replyRestriction]!,
   'replyTargets': instance.replyTargets,
   'replyToUsers': instance.replyToUsers,
   'updatedAt': instance.updatedAt.toIso8601String(),
   'viewerCircle': instance.viewerCircle,
   'viewerCircleId': instance.viewerCircleId,
   'viewsCount': instance.viewsCount,
-  'visibility': instance.visibility,
+  'visibility': _$PostVisibilityEnumMap[instance.visibility]!,
 };

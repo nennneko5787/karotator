@@ -1,13 +1,18 @@
 import "package:flutter/material.dart";
-import "package:karotator/factory/post.dart";
 import "package:karotator/objects/post.dart";
-import "package:karotator/pages/post_detail.dart";
+import "package:karotator/objects/response.dart";
 import "package:karotator/ui/dialog.dart";
+import "package:karotator/ui/post/post.dart";
 
 class TimeLineTab extends StatefulWidget {
-  final Future<dynamic> Function(int page, int limit) fetcher;
+  final Future<dynamic> Function(int? page, int limit) fetcher;
+  final bool isRecLatest;
 
-  const TimeLineTab({super.key, required this.fetcher});
+  const TimeLineTab({
+    super.key,
+    required this.fetcher,
+    this.isRecLatest = false,
+  });
 
   @override
   State<TimeLineTab> createState() => _TimeLineTabState();
@@ -18,6 +23,7 @@ class _TimeLineTabState extends State<TimeLineTab> {
   late Future<void> initPostsData;
   late ScrollController controller;
   int page = 1;
+  int? cursor;
   bool isLoadingMore = false;
   bool hasMore = true;
 
@@ -45,19 +51,31 @@ class _TimeLineTabState extends State<TimeLineTab> {
       isLoadingMore = true;
       page++;
 
-      final response = await widget.fetcher(page, 12);
+      if (widget.isRecLatest) {
+        RecommendedResponseLatest response = await widget.fetcher(cursor, 12);
 
-      setState(() {
-        if (response.posts.isEmpty) {
-          hasMore = false;
-        } else {
+        setState(() {
           posts.addAll(response.posts);
-        }
-      });
+          cursor = response.pagination.nextCursor;
+          hasMore = response.pagination.hasNext;
+        });
+      } else {
+        final response = await widget.fetcher(page, 12);
+
+        setState(() {
+          if (response.posts.isEmpty) {
+            hasMore = false;
+          } else {
+            posts.addAll(response.posts);
+          }
+        });
+      }
 
       isLoadingMore = false;
     } catch (e, stackTrace) {
       debugPrint("$e\n$stackTrace");
+
+      if (!mounted) return;
       showAlert(context, e: e);
     }
   }
@@ -65,14 +83,27 @@ class _TimeLineTabState extends State<TimeLineTab> {
   Future<void> refreshPosts() async {
     try {
       isLoadingMore = true;
-      final response = await widget.fetcher(1, 12);
-      setState(() {
-        posts = List<Post>.from(response.posts);
-        hasMore = response.posts.length >= 12;
-      });
+
+      if (widget.isRecLatest) {
+        RecommendedResponseLatest response = await widget.fetcher(cursor, 12);
+        setState(() {
+          posts = List<Post>.from(response.posts);
+          cursor = response.pagination.nextCursor;
+          hasMore = response.pagination.hasNext;
+        });
+      } else {
+        final response = await widget.fetcher(1, 12);
+        setState(() {
+          posts = List<Post>.from(response.posts);
+          hasMore = response.posts.length >= 12;
+        });
+      }
+
       isLoadingMore = false;
     } catch (e, stackTrace) {
       debugPrint("$e\n$stackTrace");
+
+      if (!mounted) return;
       showAlert(context, e: e);
     }
   }
@@ -111,60 +142,7 @@ class _TimeLineTabState extends State<TimeLineTab> {
               final isFirst = index == 0;
               final isLast = index == posts.length - 1;
 
-              final radius = BorderRadius.vertical(
-                top: isFirst ? const Radius.circular(16) : Radius.zero,
-                bottom: isLast ? const Radius.circular(16) : Radius.zero,
-              );
-
-              return Container(
-                decoration: BoxDecoration(
-                  border: isLast
-                      ? null
-                      : Border(
-                          bottom: BorderSide(
-                            color: Theme.of(context).dividerColor,
-                            width: 1,
-                          ),
-                        ),
-                ),
-                child: ClipRRect(
-                  borderRadius: radius,
-                  child: Ink(
-                    decoration: BoxDecoration(
-                      color: Theme.of(
-                        context,
-                      ).bottomNavigationBarTheme.backgroundColor,
-                      borderRadius: radius,
-                    ),
-                    child: Column(
-                      children: [
-                        if (post.rekarotedBy != null)
-                          postRekarotedByFactory(post),
-                        GestureDetector(
-                          onTap: () {
-                            Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                builder: (context) =>
-                                    PostDetailPage(post: post),
-                              ),
-                            );
-                          },
-                          child: ListTile(
-                            shape: RoundedRectangleBorder(borderRadius: radius),
-                            titleAlignment: ListTileTitleAlignment.top,
-                            leading: postUserAvatarFactory(
-                              post.author.avatarUrl,
-                            ),
-                            title: postUserDetailFactory(post, context),
-                            subtitle: postContentFactory(post, context),
-                          ),
-                        ),
-                      ],
-                    ),
-                  ),
-                ),
-              );
+              return PostWidget(post: post, isFirst: isFirst, isLast: isLast);
             },
           ),
         );

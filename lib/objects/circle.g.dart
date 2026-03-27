@@ -18,12 +18,16 @@ Map<String, dynamic> _$CircleCountMetaToJson(_CircleCountMeta instance) =>
 _Circle _$CircleFromJson(Map<String, dynamic> json) => _Circle(
   id: (json['id'] as num).toInt(),
   ownerId: (json['ownerId'] as num).toInt(),
-  createdAt: DateTime.parse(json['createdAt'] as String),
-  updatedAt: DateTime.parse(json['updatedAt'] as String),
   name: json['name'] as String,
+  createdAt: json['createdAt'] == null
+      ? null
+      : DateTime.parse(json['createdAt'] as String),
+  updatedAt: json['updatedAt'] == null
+      ? null
+      : DateTime.parse(json['updatedAt'] as String),
   description: json['description'] as String?,
-  members: (json['members'] as List<dynamic>)
-      .map((e) => Author.fromJson(e as Map<String, dynamic>))
+  members: (json['members'] as List<dynamic>?)
+      ?.map((e) => Author.fromJson(e as Map<String, dynamic>))
       .toList(),
   meta: CircleCountMeta.fromJson(json['_count'] as Map<String, dynamic>),
 );
@@ -31,9 +35,9 @@ _Circle _$CircleFromJson(Map<String, dynamic> json) => _Circle(
 Map<String, dynamic> _$CircleToJson(_Circle instance) => <String, dynamic>{
   'id': instance.id,
   'ownerId': instance.ownerId,
-  'createdAt': instance.createdAt.toIso8601String(),
-  'updatedAt': instance.updatedAt.toIso8601String(),
   'name': instance.name,
+  'createdAt': instance.createdAt?.toIso8601String(),
+  'updatedAt': instance.updatedAt?.toIso8601String(),
   'description': instance.description,
   'members': instance.members,
   '_count': instance.meta,

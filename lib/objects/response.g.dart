@@ -6,6 +6,20 @@ part of 'response.dart';
 // JsonSerializableGenerator
 // **************************************************************************
 
+_TimeLinePagination _$TimeLinePaginationFromJson(Map<String, dynamic> json) =>
+    _TimeLinePagination(
+      limit: (json['limit'] as num).toInt(),
+      page: (json['page'] as num).toInt(),
+      mode: json['mode'] as String,
+    );
+
+Map<String, dynamic> _$TimeLinePaginationToJson(_TimeLinePagination instance) =>
+    <String, dynamic>{
+      'limit': instance.limit,
+      'page': instance.page,
+      'mode': instance.mode,
+    };
+
 _RecommendedPagination _$RecommendedPaginationFromJson(
   Map<String, dynamic> json,
 ) => _RecommendedPagination(
@@ -16,6 +30,24 @@ _RecommendedPagination _$RecommendedPaginationFromJson(
 Map<String, dynamic> _$RecommendedPaginationToJson(
   _RecommendedPagination instance,
 ) => <String, dynamic>{'limit': instance.limit, 'page': instance.page};
+
+_RecommendedPaginationLatest _$RecommendedPaginationLatestFromJson(
+  Map<String, dynamic> json,
+) => _RecommendedPaginationLatest(
+  limit: (json['limit'] as num).toInt(),
+  page: (json['page'] as num).toInt(),
+  hasNext: json['hasNext'] as bool,
+  nextCursor: (json['nextCursor'] as num).toInt(),
+);
+
+Map<String, dynamic> _$RecommendedPaginationLatestToJson(
+  _RecommendedPaginationLatest instance,
+) => <String, dynamic>{
+  'limit': instance.limit,
+  'page': instance.page,
+  'hasNext': instance.hasNext,
+  'nextCursor': instance.nextCursor,
+};
 
 _RepliesPagination _$RepliesPaginationFromJson(Map<String, dynamic> json) =>
     _RepliesPagination(
@@ -50,9 +82,27 @@ Map<String, dynamic> _$RecommendedResponseToJson(
   'posts': instance.posts,
 };
 
+_RecommendedResponseLatest _$RecommendedResponseLatestFromJson(
+  Map<String, dynamic> json,
+) => _RecommendedResponseLatest(
+  pagination: RecommendedPaginationLatest.fromJson(
+    json['pagination'] as Map<String, dynamic>,
+  ),
+  posts: (json['posts'] as List<dynamic>)
+      .map((e) => Post.fromJson(e as Map<String, dynamic>))
+      .toList(),
+);
+
+Map<String, dynamic> _$RecommendedResponseLatestToJson(
+  _RecommendedResponseLatest instance,
+) => <String, dynamic>{
+  'pagination': instance.pagination,
+  'posts': instance.posts,
+};
+
 _TimeLineResponse _$TimeLineResponseFromJson(Map<String, dynamic> json) =>
     _TimeLineResponse(
-      pagination: RecommendedPagination.fromJson(
+      pagination: TimeLinePagination.fromJson(
         json['pagination'] as Map<String, dynamic>,
       ),
       posts: (json['posts'] as List<dynamic>)

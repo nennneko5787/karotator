@@ -10,16 +10,14 @@ abstract class Author with _$Author {
     String? avatarUrl,
     required String displayName,
     required int id,
-    @Default(false) bool isPrivate,
+    required bool isPrivate,
+    required bool isBotAccount,
+    required bool isParodyAccount,
     @Default("NONE") String officialMark,
     required String username,
   }) = _Author;
 
   factory Author.fromJson(Map<String, Object?> json) => _$AuthorFromJson(json);
-
-  factory Author.empty(int id) {
-    return Author(displayName: "", id: id, username: "");
-  }
 }
 
 @freezed

@@ -18,11 +18,11 @@ abstract class Circle with _$Circle {
   const factory Circle({
     required int id,
     required int ownerId,
-    required DateTime createdAt,
-    required DateTime updatedAt,
     required String name,
+    DateTime? createdAt,
+    DateTime? updatedAt,
     String? description,
-    required List<Author> members,
+    List<Author>? members,
     @JsonKey(name: '_count') required CircleCountMeta meta,
   }) = _Circle;
 

@@ -1,17 +1,22 @@
 import "dart:io";
 
+import "package:flutter/cupertino.dart";
 import "package:flutter/material.dart";
+import "package:image_picker/image_picker.dart";
 import "package:karotator/enum.dart";
 import "package:karotator/factory/post.dart";
 import "package:karotator/http.dart";
+import "package:karotator/objects/circle.dart";
 import "package:karotator/objects/post.dart";
 import "package:karotator/objects/state.dart";
-import "package:karotator/ui/highlight_text_editing_controller.dart";
-import "package:karotator/ui/media_settings.dart";
+import "package:karotator/pages/post_detail.dart";
+import "package:karotator/ui/create_post/highlight_text_editing_controller.dart";
+import "package:karotator/ui/create_post/media_settings.dart";
+import "package:karotator/ui/datetime.dart";
 import "package:karotator/utils.dart";
 import "package:material_symbols_icons/symbols.dart";
 import 'package:karotator/const.dart';
-import 'package:file_picker/file_picker.dart';
+import "package:omni_datetime_picker/omni_datetime_picker.dart";
 
 class PostPage extends StatefulWidget {
   const PostPage({super.key, this.post, this.type});
@@ -24,12 +29,24 @@ class PostPage extends StatefulWidget {
 }
 
 class _PostPageState extends State<PostPage> {
-  final _pageKey = GlobalKey<ScaffoldState>();
   String? _avatarUrl;
   List<MediaState> medias = [];
+  PostVisibility visibility = PostVisibility.PUBLIC;
+  ReplyRestriction replyRestriction = ReplyRestriction.EVERYONE;
+  int? viewerCircleId;
+  int? replyCircleId;
+  DateTime? scheduledFor;
+  bool isAiGenerated = false;
+  bool isPromotional = false;
+  bool isR18 = false;
+  bool hideFromMinors = false;
+
+  final _pageKey = GlobalKey<ScaffoldState>();
   final HighlightTextEditingController _postController =
       HighlightTextEditingController();
   final ValueNotifier<bool> _isPostButtonEnabled = ValueNotifier(false);
+
+  List<Circle> _circles = [];
 
   @override
   void initState() {
@@ -42,6 +59,7 @@ class _PostPageState extends State<PostPage> {
         }),
       },
     );
+    HTTPClient().getUserCircles().then((circles) => _circles = circles);
   }
 
   @override
@@ -68,10 +86,19 @@ class _PostPageState extends State<PostPage> {
     try {
       final post = await HTTPClient().createPost(
         content,
+        visibility: visibility,
+        replyRestriction: replyRestriction,
+        viewerCircleId: viewerCircleId,
+        replyCircleId: replyCircleId,
         medias: [for (var media in medias) media.file],
         mediaAlts: [for (var media in medias) media.alt],
         mediaSpoilerFlags: [for (var media in medias) media.spoiler],
         mediaR18Flags: [for (var media in medias) media.nsfw],
+        scheduledFor: scheduledFor,
+        isAiGenerated: isAiGenerated,
+        isPromotional: isPromotional,
+        hideFromMinors: hideFromMinors,
+        isR18: isR18,
         parentId: (widget.post != null && widget.type == InternalPostType.reply)
             ? widget.post?.id
             : null,
@@ -81,7 +108,20 @@ class _PostPageState extends State<PostPage> {
             : null,
       );
       messengerKey.currentState?.showSnackBar(
-        SnackBar(content: Text("投稿しました。 ID:${post.id}")),
+        SnackBar(
+          content: GestureDetector(
+            onTap: () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(builder: (_) => PostDetailPage(post: post)),
+              );
+            },
+            child: Row(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [const Icon(Icons.check_circle), Text("投稿しました。")],
+            ),
+          ),
+        ),
       );
     } catch (e, stackTrace) {
       debugPrint("$e\n$stackTrace");
@@ -89,6 +129,198 @@ class _PostPageState extends State<PostPage> {
         SnackBar(content: Text("Error: $e")),
       );
     }
+  }
+
+  void openSetting<T>(
+    T variable,
+    void Function(T value, Circle? circle) onChanged, { // Circleに固定
+    required List<Map<String, Object>> items,
+  }) {
+    showModalBottomSheet(
+      context: context,
+      builder: (context) {
+        return SafeArea(
+          child: Column(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              for (var item in items)
+                ListTile(
+                  leading: Icon(item["icon"] as IconData),
+                  title: Text(item["label"] as String),
+                  trailing: _isSelected(variable, item)
+                      ? const Icon(Icons.check)
+                      : null,
+                  onTap: () {
+                    Navigator.pop(context);
+                    setState(
+                      () => onChanged(
+                        item["value"] as T,
+                        item["circle"] as Circle?,
+                      ),
+                    );
+                  },
+                ),
+            ],
+          ),
+        );
+      },
+    );
+  }
+
+  bool _isSelected<T>(T variable, Map<String, Object> item) {
+    if (variable != item["value"]) return false;
+
+    final circle = item["circle"] as Circle?;
+    if (circle != null) {
+      return (((variable is PostVisibility) && (viewerCircleId == circle.id)) ||
+          ((variable is ReplyRestriction) && (replyCircleId == circle.id)));
+    }
+    return true;
+  }
+
+  void openVisibilitySetting() {
+    openSetting<PostVisibility>(
+      visibility,
+      (value, circle) {
+        visibility = value;
+        if (visibility == PostVisibility.CIRCLE) {
+          viewerCircleId = circle!.id;
+        }
+      },
+      items: [
+        {"label": "全体", "icon": Symbols.globe, "value": PostVisibility.PUBLIC},
+        for (var circle in _circles)
+          {
+            "label": "サークル限定: ${circle.name}",
+            "icon": Symbols.group,
+            "value": PostVisibility.CIRCLE,
+            "circle": circle,
+          },
+      ],
+    );
+  }
+
+  void openReplyRestrictionSetting() {
+    openSetting<ReplyRestriction>(
+      replyRestriction,
+      (value, circle) {
+        replyRestriction = value;
+        if (replyRestriction == ReplyRestriction.CIRCLE) {
+          replyCircleId = circle!.id;
+        }
+      },
+      items: [
+        {
+          "label": "全員",
+          "icon": Symbols.globe,
+          "value": ReplyRestriction.EVERYONE,
+        },
+        {
+          "label": "フォロー中",
+          "icon": Icons.person_add,
+          "value": ReplyRestriction.FOLLOWING,
+        },
+        {
+          "label": "メンションのみ",
+          "icon": Icons.alternate_email,
+          "value": ReplyRestriction.MENTIONED,
+        },
+        for (var circle in _circles)
+          {
+            "label": "サークル限定: ${circle.name}",
+            "icon": Symbols.group,
+            "value": ReplyRestriction.CIRCLE,
+            "circle": circle,
+          },
+      ],
+    );
+  }
+
+  Future<void> openContentDisclosureSetting() async {
+    return showDialog<void>(
+      context: context,
+      builder: (BuildContext context) {
+        return StatefulBuilder(
+          // ← 追加
+          builder: (context, setDialogState) {
+            return AlertDialog(
+              title: Text("コンテンツ開示の設定"),
+              content: Column(
+                mainAxisSize: MainAxisSize.min,
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Row(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Checkbox(
+                        value: isAiGenerated,
+                        onChanged: (bool? value) {
+                          setDialogState(() {
+                            // ← setDialogStateに変更
+                            isAiGenerated = value!;
+                          });
+                        },
+                      ),
+                      const Text("このカロートはAIで作成した内容を含む"),
+                    ],
+                  ),
+                  Row(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Checkbox(
+                        value: isPromotional,
+                        onChanged: (bool? value) {
+                          setDialogState(() {
+                            isPromotional = value!;
+                          });
+                        },
+                      ),
+                      const Text("このカロートはブランドまたはビジネスの宣伝である"),
+                    ],
+                  ),
+                  Row(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Checkbox(
+                        value: isR18,
+                        onChanged: (bool? value) {
+                          setDialogState(() {
+                            isR18 = value!;
+                          });
+                        },
+                      ),
+                      const Text("投稿全体をR18として扱う"),
+                    ],
+                  ),
+                  Row(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Checkbox(
+                        value: hideFromMinors,
+                        onChanged: (bool? value) {
+                          setDialogState(() {
+                            hideFromMinors = value!;
+                          });
+                        },
+                      ),
+                      const Text("未成年ユーザーにはこの投稿を表示しない"),
+                    ],
+                  ),
+                ],
+              ),
+              actions: <Widget>[
+                TextButton(
+                  child: Text('OK'),
+                  onPressed: () {
+                    Navigator.of(context).pop();
+                  },
+                ),
+              ],
+            );
+          },
+        );
+      },
+    );
   }
 
   @override
@@ -101,10 +333,7 @@ class _PostPageState extends State<PostPage> {
           icon: const Icon(Icons.close),
         ),
         actions: [
-          TextButton(
-            onPressed: () => {Navigator.pop(context)},
-            child: const Text("下書き"),
-          ),
+          TextButton(onPressed: () => {}, child: const Text("下書き")),
           ValueListenableBuilder<bool>(
             valueListenable: _isPostButtonEnabled,
             builder: (context, isEnabled, child) {
@@ -122,23 +351,24 @@ class _PostPageState extends State<PostPage> {
           SizedBox(width: 4),
         ],
       ),
-      body: SingleChildScrollView(child:Padding(
-        padding: const EdgeInsets.all(8),
-        child: Column(
-          children: [
-            if (widget.post != null && widget.type == InternalPostType.reply)
-              ListTile(
-                titleAlignment: ListTileTitleAlignment.top,
-                leading: postUserAvatarFactory(widget.post!.author.avatarUrl),
-                title: postUserDetailFactory(widget.post!, context),
-                subtitle: postContentFactory(
-                  widget.post!,
-                  context,
-                  hideActions: true,
+      body: SingleChildScrollView(
+        child: Padding(
+          padding: const EdgeInsets.all(8),
+          child: Column(
+            children: [
+              if (widget.post != null && widget.type == InternalPostType.reply)
+                ListTile(
+                  titleAlignment: ListTileTitleAlignment.top,
+                  leading: postUserAvatarFactory(widget.post!.author.avatarUrl),
+                  title: postUserDetailFactory(widget.post!, context),
+                  subtitle: postContentFactory(
+                    widget.post!,
+                    context,
+                    hideActions: true,
+                    hideReplyTo: true,
+                  ),
                 ),
-              ),
-            Expanded(
-              child: Row(
+              Row(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 spacing: 8,
                 children: [
@@ -283,135 +513,152 @@ class _PostPageState extends State<PostPage> {
                   ),
                 ],
               ),
-            ),
-            if (widget.post != null &&
-                widget.type == InternalPostType.rekarot)
-              Container(
-                decoration: BoxDecoration(
-                  border: Border.all(
-                    color: Theme.of(context).dividerColor,
-                    width: 1,
+              if (widget.post != null &&
+                  widget.type == InternalPostType.rekarot)
+                Container(
+                  decoration: BoxDecoration(
+                    border: Border.all(
+                      color: Theme.of(context).dividerColor,
+                      width: 1,
+                    ),
+                    borderRadius: BorderRadius.circular(8),
                   ),
-                  borderRadius: BorderRadius.circular(8),
+                  child: ListTile(
+                    titleAlignment: ListTileTitleAlignment.top,
+                    leading: postUserAvatarFactory(
+                      widget.post!.author.avatarUrl,
+                    ),
+                    title: postUserDetailFactory(widget.post!, context),
+                    subtitle: postContentFactory(
+                      widget.post!,
+                      context,
+                      hideActions: true,
+                      hideReplyTo: true,
+                    ),
+                  ),
                 ),
-                child: ListTile(
-                  titleAlignment: ListTileTitleAlignment.top,
-                  leading: postUserAvatarFactory(
-                    widget.post!.author.avatarUrl,
-                  ),
-                  title: postUserDetailFactory(widget.post!, context),
-                  subtitle: postContentFactory(
-                    widget.post!,
-                    context,
-                    hideActions: true,
+            ],
+          ),
+        ),
+      ),
+      bottomNavigationBar: Padding(
+        padding: MediaQuery.of(context).viewInsets,
+        child: BottomAppBar(
+          child: Row(
+            children: [
+              Flexible(
+                child: SingleChildScrollView(
+                  scrollDirection: Axis.horizontal,
+                  child: Row(
+                    children: [
+                      IconButton(
+                        onPressed: () {
+                          openVisibilitySetting();
+                        },
+                        tooltip: "公開範囲",
+                        icon: const Icon(Icons.visibility),
+                      ),
+                      IconButton(
+                        onPressed: () {
+                          openReplyRestrictionSetting();
+                        },
+                        tooltip: "返信可能なユーザーの範囲",
+                        icon: const Icon(Icons.comment),
+                      ),
+                      IconButton(
+                        onPressed: () async {
+                          final picker = ImagePicker();
+                          final results = await picker.pickMultiImage();
+
+                          for (var result in results) {
+                            File file = File(result.path);
+                            final state = MediaState(
+                              file: file,
+                              thumbnail: await file.readAsBytes(),
+                              type: MediaType.image,
+                            );
+                            setState(() {
+                              medias.add(state);
+                            });
+                          }
+                        },
+                        tooltip: "画像を添付",
+                        icon: const Icon(Icons.image_outlined),
+                      ),
+                      IconButton(
+                        onPressed: () async {
+                          final picker = ImagePicker();
+                          final result = await picker.pickVideo(
+                            source: ImageSource.gallery,
+                          );
+
+                          if (result != null) {
+                            File file = File(result.path);
+                            final thumbnail = await getVideoThumbnail(
+                              file.path,
+                            );
+                            if (thumbnail != null) {
+                              final state = MediaState(
+                                file: file,
+                                thumbnail: thumbnail,
+                                type: MediaType.video,
+                              );
+                              setState(() {
+                                medias.add(state);
+                              });
+                            }
+                          }
+                        },
+                        tooltip: "動画を添付",
+                        icon: const Icon(Icons.movie),
+                      ),
+                      IconButton(
+                        onPressed: () {},
+                        tooltip: "投票",
+                        icon: const Icon(Icons.how_to_vote),
+                      ),
+                      IconButton(
+                        onPressed: () {
+                          showModalBottomSheet(
+                            context: context,
+                            builder: (BuildContext context) {
+                              return DateTimeSelector(
+                                dateTime: scheduledFor,
+                                onConfirm: (dt) {
+                                  setState(() => scheduledFor = dt);
+                                },
+                                onDelete: () {
+                                  setState(() => scheduledFor = null);
+                                },
+                              );
+                            },
+                          );
+                        },
+                        tooltip: "予約投稿",
+                        icon: const Icon(Symbols.calendar_clock),
+                        color: (scheduledFor != null) ? Colors.lightBlue : null,
+                      ),
+                      IconButton(
+                        onPressed: () {
+                          openContentDisclosureSetting();
+                        },
+                        tooltip: "コンテンツ開示",
+                        icon: const Icon(Icons.verified),
+                      ),
+                    ],
                   ),
                 ),
               ),
-          ],
+              Text(
+                '${_postController.text.length} / 200',
+                style: Theme.of(context).textTheme.bodySmall?.copyWith(
+                  color: _postController.text.length > 200 ? Colors.red : null,
+                ),
+              ),
+            ],
+          ),
         ),
-      ),),
-      bottomNavigationBar: Padding(
-				padding: MediaQuery.of(context).viewInsets,
-				child: BottomAppBar(
-	        child: Row(
-	          children: [
-	            TextButton(onPressed: () {}, child: Text("公開: 全体")),
-	            TextButton(onPressed: () {}, child: Text("返信: 全体")),
-	            IconButton(
-	              onPressed: () async {
-	                final result = await FilePicker.platform.pickFiles(
-	                  allowedExtensions: [
-	                    "tiff",
-	                    "pjp",
-	                    "apng",
-	                    "xbm",
-	                    "xjk",
-	                    "jpe",
-	                    "svgz",
-	                    "jpg",
-	                    "jpeg",
-	                    "heif",
-	                    "ico",
-	                    "tif",
-	                    "webp",
-	                    "jfif",
-	                    "heic",
-	                    "gif",
-	                    "svg",
-	                    "bmp",
-	                    "pjpeg",
-	                    "avif",
-	                  ],
-	                );
-	
-	                if (result != null) {
-	                  File file = File(result.files.single.path!);
-	                  final state = MediaState(
-	                    file: file,
-	                    thumbnail: await file.readAsBytes(),
-	                    type: MediaType.image,
-	                  );
-	                  setState(() {
-	                    medias.add(state);
-	                  });
-	                }
-	              },
-	              icon: const Icon(Icons.image_outlined),
-	            ),
-	            IconButton(
-	              onPressed: () async {
-	                final result = await FilePicker.platform.pickFiles(
-	                  allowedExtensions: [
-	                    "mpe",
-	                    "mpeg",
-	                    "ogm",
-	                    "mkv",
-	                    "mpg",
-	                    "wmv",
-	                    "webm",
-	                    "ogv",
-	                    "mov",
-	                    "m4v",
-	                    "asx",
-	                    "mp4",
-	                    "avi",
-	                  ],
-	                );
-	
-	                if (result != null) {
-	                  File file = File(result.files.single.path!);
-	                  final thumbnail = await getVideoThumbnail(file.path);
-	                  if (thumbnail != null) {
-	                    final state = MediaState(
-	                      file: file,
-	                      thumbnail: thumbnail,
-	                      type: MediaType.video,
-	                    );
-	                    setState(() {
-	                      medias.add(state);
-	                    });
-	                  }
-	                }
-	              },
-	              icon: const Icon(Icons.movie),
-	            ),
-	            IconButton(onPressed: () {}, icon: const Icon(Icons.how_to_vote)),
-	            IconButton(
-	              onPressed: () {},
-	              icon: const Icon(Symbols.calendar_clock),
-	            ),
-	            IconButton(onPressed: () {}, icon: const Icon(Icons.verified)),
-	            const Spacer(),
-	            Text(
-	              '${medias.length} | ${_postController.text.length} / 200',
-	              style: Theme.of(context).textTheme.bodySmall?.copyWith(
-	                color: _postController.text.length > 200 ? Colors.red : null,
-	              ),
-	            ),
-	          ],
-	        ),
-	      ),
-			),
+      ),
     );
   }
 }

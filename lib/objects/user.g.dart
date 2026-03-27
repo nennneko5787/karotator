@@ -11,7 +11,9 @@ _Author _$AuthorFromJson(Map<String, dynamic> json) => _Author(
   avatarUrl: json['avatarUrl'] as String?,
   displayName: json['displayName'] as String,
   id: (json['id'] as num).toInt(),
-  isPrivate: json['isPrivate'] as bool? ?? false,
+  isPrivate: json['isPrivate'] as bool,
+  isBotAccount: json['isBotAccount'] as bool,
+  isParodyAccount: json['isParodyAccount'] as bool,
   officialMark: json['officialMark'] as String? ?? "NONE",
   username: json['username'] as String,
 );
@@ -22,6 +24,8 @@ Map<String, dynamic> _$AuthorToJson(_Author instance) => <String, dynamic>{
   'displayName': instance.displayName,
   'id': instance.id,
   'isPrivate': instance.isPrivate,
+  'isBotAccount': instance.isBotAccount,
+  'isParodyAccount': instance.isParodyAccount,
   'officialMark': instance.officialMark,
   'username': instance.username,
 };

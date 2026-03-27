@@ -544,4 +544,282 @@ as bool,
 
 }
 
+/// @nodoc
+mixin _$PollState {
+
+ int get id; Poll get poll;
+/// Create a copy of PollState
+/// with the given fields replaced by the non-null parameter values.
+@JsonKey(includeFromJson: false, includeToJson: false)
+@pragma('vm:prefer-inline')
+$PollStateCopyWith<PollState> get copyWith => _$PollStateCopyWithImpl<PollState>(this as PollState, _$identity);
+
+
+
+@override
+bool operator ==(Object other) {
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is PollState&&(identical(other.id, id) || other.id == id)&&(identical(other.poll, poll) || other.poll == poll));
+}
+
+
+@override
+int get hashCode => Object.hash(runtimeType,id,poll);
+
+@override
+String toString() {
+  return 'PollState(id: $id, poll: $poll)';
+}
+
+
+}
+
+/// @nodoc
+abstract mixin class $PollStateCopyWith<$Res>  {
+  factory $PollStateCopyWith(PollState value, $Res Function(PollState) _then) = _$PollStateCopyWithImpl;
+@useResult
+$Res call({
+ int id, Poll poll
+});
+
+
+$PollCopyWith<$Res> get poll;
+
+}
+/// @nodoc
+class _$PollStateCopyWithImpl<$Res>
+    implements $PollStateCopyWith<$Res> {
+  _$PollStateCopyWithImpl(this._self, this._then);
+
+  final PollState _self;
+  final $Res Function(PollState) _then;
+
+/// Create a copy of PollState
+/// with the given fields replaced by the non-null parameter values.
+@pragma('vm:prefer-inline') @override $Res call({Object? id = null,Object? poll = null,}) {
+  return _then(_self.copyWith(
+id: null == id ? _self.id : id // ignore: cast_nullable_to_non_nullable
+as int,poll: null == poll ? _self.poll : poll // ignore: cast_nullable_to_non_nullable
+as Poll,
+  ));
+}
+/// Create a copy of PollState
+/// with the given fields replaced by the non-null parameter values.
+@override
+@pragma('vm:prefer-inline')
+$PollCopyWith<$Res> get poll {
+  
+  return $PollCopyWith<$Res>(_self.poll, (value) {
+    return _then(_self.copyWith(poll: value));
+  });
+}
+}
+
+
+/// Adds pattern-matching-related methods to [PollState].
+extension PollStatePatterns on PollState {
+/// A variant of `map` that fallback to returning `orElse`.
+///
+/// It is equivalent to doing:
+/// ```dart
+/// switch (sealedClass) {
+///   case final Subclass value:
+///     return ...;
+///   case _:
+///     return orElse();
+/// }
+/// ```
+
+@optionalTypeArgs TResult maybeMap<TResult extends Object?>(TResult Function( _PollState value)?  $default,{required TResult orElse(),}){
+final _that = this;
+switch (_that) {
+case _PollState() when $default != null:
+return $default(_that);case _:
+  return orElse();
+
+}
+}
+/// A `switch`-like method, using callbacks.
+///
+/// Callbacks receives the raw object, upcasted.
+/// It is equivalent to doing:
+/// ```dart
+/// switch (sealedClass) {
+///   case final Subclass value:
+///     return ...;
+///   case final Subclass2 value:
+///     return ...;
+/// }
+/// ```
+
+@optionalTypeArgs TResult map<TResult extends Object?>(TResult Function( _PollState value)  $default,){
+final _that = this;
+switch (_that) {
+case _PollState():
+return $default(_that);case _:
+  throw StateError('Unexpected subclass');
+
+}
+}
+/// A variant of `map` that fallback to returning `null`.
+///
+/// It is equivalent to doing:
+/// ```dart
+/// switch (sealedClass) {
+///   case final Subclass value:
+///     return ...;
+///   case _:
+///     return null;
+/// }
+/// ```
+
+@optionalTypeArgs TResult? mapOrNull<TResult extends Object?>(TResult? Function( _PollState value)?  $default,){
+final _that = this;
+switch (_that) {
+case _PollState() when $default != null:
+return $default(_that);case _:
+  return null;
+
+}
+}
+/// A variant of `when` that fallback to an `orElse` callback.
+///
+/// It is equivalent to doing:
+/// ```dart
+/// switch (sealedClass) {
+///   case Subclass(:final field):
+///     return ...;
+///   case _:
+///     return orElse();
+/// }
+/// ```
+
+@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( int id,  Poll poll)?  $default,{required TResult orElse(),}) {final _that = this;
+switch (_that) {
+case _PollState() when $default != null:
+return $default(_that.id,_that.poll);case _:
+  return orElse();
+
+}
+}
+/// A `switch`-like method, using callbacks.
+///
+/// As opposed to `map`, this offers destructuring.
+/// It is equivalent to doing:
+/// ```dart
+/// switch (sealedClass) {
+///   case Subclass(:final field):
+///     return ...;
+///   case Subclass2(:final field2):
+///     return ...;
+/// }
+/// ```
+
+@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( int id,  Poll poll)  $default,) {final _that = this;
+switch (_that) {
+case _PollState():
+return $default(_that.id,_that.poll);case _:
+  throw StateError('Unexpected subclass');
+
+}
+}
+/// A variant of `when` that fallback to returning `null`
+///
+/// It is equivalent to doing:
+/// ```dart
+/// switch (sealedClass) {
+///   case Subclass(:final field):
+///     return ...;
+///   case _:
+///     return null;
+/// }
+/// ```
+
+@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( int id,  Poll poll)?  $default,) {final _that = this;
+switch (_that) {
+case _PollState() when $default != null:
+return $default(_that.id,_that.poll);case _:
+  return null;
+
+}
+}
+
+}
+
+/// @nodoc
+
+
+class _PollState implements PollState {
+  const _PollState({required this.id, required this.poll});
+  
+
+@override final  int id;
+@override final  Poll poll;
+
+/// Create a copy of PollState
+/// with the given fields replaced by the non-null parameter values.
+@override @JsonKey(includeFromJson: false, includeToJson: false)
+@pragma('vm:prefer-inline')
+_$PollStateCopyWith<_PollState> get copyWith => __$PollStateCopyWithImpl<_PollState>(this, _$identity);
+
+
+
+@override
+bool operator ==(Object other) {
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is _PollState&&(identical(other.id, id) || other.id == id)&&(identical(other.poll, poll) || other.poll == poll));
+}
+
+
+@override
+int get hashCode => Object.hash(runtimeType,id,poll);
+
+@override
+String toString() {
+  return 'PollState(id: $id, poll: $poll)';
+}
+
+
+}
+
+/// @nodoc
+abstract mixin class _$PollStateCopyWith<$Res> implements $PollStateCopyWith<$Res> {
+  factory _$PollStateCopyWith(_PollState value, $Res Function(_PollState) _then) = __$PollStateCopyWithImpl;
+@override @useResult
+$Res call({
+ int id, Poll poll
+});
+
+
+@override $PollCopyWith<$Res> get poll;
+
+}
+/// @nodoc
+class __$PollStateCopyWithImpl<$Res>
+    implements _$PollStateCopyWith<$Res> {
+  __$PollStateCopyWithImpl(this._self, this._then);
+
+  final _PollState _self;
+  final $Res Function(_PollState) _then;
+
+/// Create a copy of PollState
+/// with the given fields replaced by the non-null parameter values.
+@override @pragma('vm:prefer-inline') $Res call({Object? id = null,Object? poll = null,}) {
+  return _then(_PollState(
+id: null == id ? _self.id : id // ignore: cast_nullable_to_non_nullable
+as int,poll: null == poll ? _self.poll : poll // ignore: cast_nullable_to_non_nullable
+as Poll,
+  ));
+}
+
+/// Create a copy of PollState
+/// with the given fields replaced by the non-null parameter values.
+@override
+@pragma('vm:prefer-inline')
+$PollCopyWith<$Res> get poll {
+  
+  return $PollCopyWith<$Res>(_self.poll, (value) {
+    return _then(_self.copyWith(poll: value));
+  });
+}
+}
+
 // dart format on

@@ -281,7 +281,7 @@ as int,
 /// @nodoc
 mixin _$Circle {
 
- int get id; int get ownerId; DateTime get createdAt; DateTime get updatedAt; String get name; String? get description; List<Author> get members;@JsonKey(name: '_count') CircleCountMeta get meta;
+ int get id; int get ownerId; String get name; DateTime? get createdAt; DateTime? get updatedAt; String? get description; List<Author>? get members;@JsonKey(name: '_count') CircleCountMeta get meta;
 /// Create a copy of Circle
 /// with the given fields replaced by the non-null parameter values.
 @JsonKey(includeFromJson: false, includeToJson: false)
@@ -294,16 +294,16 @@ $CircleCopyWith<Circle> get copyWith => _$CircleCopyWithImpl<Circle>(this as Cir
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is Circle&&(identical(other.id, id) || other.id == id)&&(identical(other.ownerId, ownerId) || other.ownerId == ownerId)&&(identical(other.createdAt, createdAt) || other.createdAt == createdAt)&&(identical(other.updatedAt, updatedAt) || other.updatedAt == updatedAt)&&(identical(other.name, name) || other.name == name)&&(identical(other.description, description) || other.description == description)&&const DeepCollectionEquality().equals(other.members, members)&&(identical(other.meta, meta) || other.meta == meta));
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is Circle&&(identical(other.id, id) || other.id == id)&&(identical(other.ownerId, ownerId) || other.ownerId == ownerId)&&(identical(other.name, name) || other.name == name)&&(identical(other.createdAt, createdAt) || other.createdAt == createdAt)&&(identical(other.updatedAt, updatedAt) || other.updatedAt == updatedAt)&&(identical(other.description, description) || other.description == description)&&const DeepCollectionEquality().equals(other.members, members)&&(identical(other.meta, meta) || other.meta == meta));
 }
 
 @JsonKey(includeFromJson: false, includeToJson: false)
 @override
-int get hashCode => Object.hash(runtimeType,id,ownerId,createdAt,updatedAt,name,description,const DeepCollectionEquality().hash(members),meta);
+int get hashCode => Object.hash(runtimeType,id,ownerId,name,createdAt,updatedAt,description,const DeepCollectionEquality().hash(members),meta);
 
 @override
 String toString() {
-  return 'Circle(id: $id, ownerId: $ownerId, createdAt: $createdAt, updatedAt: $updatedAt, name: $name, description: $description, members: $members, meta: $meta)';
+  return 'Circle(id: $id, ownerId: $ownerId, name: $name, createdAt: $createdAt, updatedAt: $updatedAt, description: $description, members: $members, meta: $meta)';
 }
 
 
@@ -314,7 +314,7 @@ abstract mixin class $CircleCopyWith<$Res>  {
   factory $CircleCopyWith(Circle value, $Res Function(Circle) _then) = _$CircleCopyWithImpl;
 @useResult
 $Res call({
- int id, int ownerId, DateTime createdAt, DateTime updatedAt, String name, String? description, List<Author> members,@JsonKey(name: '_count') CircleCountMeta meta
+ int id, int ownerId, String name, DateTime? createdAt, DateTime? updatedAt, String? description, List<Author>? members,@JsonKey(name: '_count') CircleCountMeta meta
 });
 
 
@@ -331,16 +331,16 @@ class _$CircleCopyWithImpl<$Res>
 
 /// Create a copy of Circle
 /// with the given fields replaced by the non-null parameter values.
-@pragma('vm:prefer-inline') @override $Res call({Object? id = null,Object? ownerId = null,Object? createdAt = null,Object? updatedAt = null,Object? name = null,Object? description = freezed,Object? members = null,Object? meta = null,}) {
+@pragma('vm:prefer-inline') @override $Res call({Object? id = null,Object? ownerId = null,Object? name = null,Object? createdAt = freezed,Object? updatedAt = freezed,Object? description = freezed,Object? members = freezed,Object? meta = null,}) {
   return _then(_self.copyWith(
 id: null == id ? _self.id : id // ignore: cast_nullable_to_non_nullable
 as int,ownerId: null == ownerId ? _self.ownerId : ownerId // ignore: cast_nullable_to_non_nullable
-as int,createdAt: null == createdAt ? _self.createdAt : createdAt // ignore: cast_nullable_to_non_nullable
-as DateTime,updatedAt: null == updatedAt ? _self.updatedAt : updatedAt // ignore: cast_nullable_to_non_nullable
-as DateTime,name: null == name ? _self.name : name // ignore: cast_nullable_to_non_nullable
-as String,description: freezed == description ? _self.description : description // ignore: cast_nullable_to_non_nullable
-as String?,members: null == members ? _self.members : members // ignore: cast_nullable_to_non_nullable
-as List<Author>,meta: null == meta ? _self.meta : meta // ignore: cast_nullable_to_non_nullable
+as int,name: null == name ? _self.name : name // ignore: cast_nullable_to_non_nullable
+as String,createdAt: freezed == createdAt ? _self.createdAt : createdAt // ignore: cast_nullable_to_non_nullable
+as DateTime?,updatedAt: freezed == updatedAt ? _self.updatedAt : updatedAt // ignore: cast_nullable_to_non_nullable
+as DateTime?,description: freezed == description ? _self.description : description // ignore: cast_nullable_to_non_nullable
+as String?,members: freezed == members ? _self.members : members // ignore: cast_nullable_to_non_nullable
+as List<Author>?,meta: null == meta ? _self.meta : meta // ignore: cast_nullable_to_non_nullable
 as CircleCountMeta,
   ));
 }
@@ -435,10 +435,10 @@ return $default(_that);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( int id,  int ownerId,  DateTime createdAt,  DateTime updatedAt,  String name,  String? description,  List<Author> members, @JsonKey(name: '_count')  CircleCountMeta meta)?  $default,{required TResult orElse(),}) {final _that = this;
+@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( int id,  int ownerId,  String name,  DateTime? createdAt,  DateTime? updatedAt,  String? description,  List<Author>? members, @JsonKey(name: '_count')  CircleCountMeta meta)?  $default,{required TResult orElse(),}) {final _that = this;
 switch (_that) {
 case _Circle() when $default != null:
-return $default(_that.id,_that.ownerId,_that.createdAt,_that.updatedAt,_that.name,_that.description,_that.members,_that.meta);case _:
+return $default(_that.id,_that.ownerId,_that.name,_that.createdAt,_that.updatedAt,_that.description,_that.members,_that.meta);case _:
   return orElse();
 
 }
@@ -456,10 +456,10 @@ return $default(_that.id,_that.ownerId,_that.createdAt,_that.updatedAt,_that.nam
 /// }
 /// ```
 
-@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( int id,  int ownerId,  DateTime createdAt,  DateTime updatedAt,  String name,  String? description,  List<Author> members, @JsonKey(name: '_count')  CircleCountMeta meta)  $default,) {final _that = this;
+@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( int id,  int ownerId,  String name,  DateTime? createdAt,  DateTime? updatedAt,  String? description,  List<Author>? members, @JsonKey(name: '_count')  CircleCountMeta meta)  $default,) {final _that = this;
 switch (_that) {
 case _Circle():
-return $default(_that.id,_that.ownerId,_that.createdAt,_that.updatedAt,_that.name,_that.description,_that.members,_that.meta);case _:
+return $default(_that.id,_that.ownerId,_that.name,_that.createdAt,_that.updatedAt,_that.description,_that.members,_that.meta);case _:
   throw StateError('Unexpected subclass');
 
 }
@@ -476,10 +476,10 @@ return $default(_that.id,_that.ownerId,_that.createdAt,_that.updatedAt,_that.nam
 /// }
 /// ```
 
-@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( int id,  int ownerId,  DateTime createdAt,  DateTime updatedAt,  String name,  String? description,  List<Author> members, @JsonKey(name: '_count')  CircleCountMeta meta)?  $default,) {final _that = this;
+@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( int id,  int ownerId,  String name,  DateTime? createdAt,  DateTime? updatedAt,  String? description,  List<Author>? members, @JsonKey(name: '_count')  CircleCountMeta meta)?  $default,) {final _that = this;
 switch (_that) {
 case _Circle() when $default != null:
-return $default(_that.id,_that.ownerId,_that.createdAt,_that.updatedAt,_that.name,_that.description,_that.members,_that.meta);case _:
+return $default(_that.id,_that.ownerId,_that.name,_that.createdAt,_that.updatedAt,_that.description,_that.members,_that.meta);case _:
   return null;
 
 }
@@ -491,20 +491,22 @@ return $default(_that.id,_that.ownerId,_that.createdAt,_that.updatedAt,_that.nam
 @JsonSerializable()
 
 class _Circle implements Circle {
-  const _Circle({required this.id, required this.ownerId, required this.createdAt, required this.updatedAt, required this.name, this.description, required final  List<Author> members, @JsonKey(name: '_count') required this.meta}): _members = members;
+  const _Circle({required this.id, required this.ownerId, required this.name, this.createdAt, this.updatedAt, this.description, final  List<Author>? members, @JsonKey(name: '_count') required this.meta}): _members = members;
   factory _Circle.fromJson(Map<String, dynamic> json) => _$CircleFromJson(json);
 
 @override final  int id;
 @override final  int ownerId;
-@override final  DateTime createdAt;
-@override final  DateTime updatedAt;
 @override final  String name;
+@override final  DateTime? createdAt;
+@override final  DateTime? updatedAt;
 @override final  String? description;
- final  List<Author> _members;
-@override List<Author> get members {
+ final  List<Author>? _members;
+@override List<Author>? get members {
+  final value = _members;
+  if (value == null) return null;
   if (_members is EqualUnmodifiableListView) return _members;
   // ignore: implicit_dynamic_type
-  return EqualUnmodifiableListView(_members);
+  return EqualUnmodifiableListView(value);
 }
 
 @override@JsonKey(name: '_count') final  CircleCountMeta meta;
@@ -522,16 +524,16 @@ Map<String, dynamic> toJson() {
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is _Circle&&(identical(other.id, id) || other.id == id)&&(identical(other.ownerId, ownerId) || other.ownerId == ownerId)&&(identical(other.createdAt, createdAt) || other.createdAt == createdAt)&&(identical(other.updatedAt, updatedAt) || other.updatedAt == updatedAt)&&(identical(other.name, name) || other.name == name)&&(identical(other.description, description) || other.description == description)&&const DeepCollectionEquality().equals(other._members, _members)&&(identical(other.meta, meta) || other.meta == meta));
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is _Circle&&(identical(other.id, id) || other.id == id)&&(identical(other.ownerId, ownerId) || other.ownerId == ownerId)&&(identical(other.name, name) || other.name == name)&&(identical(other.createdAt, createdAt) || other.createdAt == createdAt)&&(identical(other.updatedAt, updatedAt) || other.updatedAt == updatedAt)&&(identical(other.description, description) || other.description == description)&&const DeepCollectionEquality().equals(other._members, _members)&&(identical(other.meta, meta) || other.meta == meta));
 }
 
 @JsonKey(includeFromJson: false, includeToJson: false)
 @override
-int get hashCode => Object.hash(runtimeType,id,ownerId,createdAt,updatedAt,name,description,const DeepCollectionEquality().hash(_members),meta);
+int get hashCode => Object.hash(runtimeType,id,ownerId,name,createdAt,updatedAt,description,const DeepCollectionEquality().hash(_members),meta);
 
 @override
 String toString() {
-  return 'Circle(id: $id, ownerId: $ownerId, createdAt: $createdAt, updatedAt: $updatedAt, name: $name, description: $description, members: $members, meta: $meta)';
+  return 'Circle(id: $id, ownerId: $ownerId, name: $name, createdAt: $createdAt, updatedAt: $updatedAt, description: $description, members: $members, meta: $meta)';
 }
 
 
@@ -542,7 +544,7 @@ abstract mixin class _$CircleCopyWith<$Res> implements $CircleCopyWith<$Res> {
   factory _$CircleCopyWith(_Circle value, $Res Function(_Circle) _then) = __$CircleCopyWithImpl;
 @override @useResult
 $Res call({
- int id, int ownerId, DateTime createdAt, DateTime updatedAt, String name, String? description, List<Author> members,@JsonKey(name: '_count') CircleCountMeta meta
+ int id, int ownerId, String name, DateTime? createdAt, DateTime? updatedAt, String? description, List<Author>? members,@JsonKey(name: '_count') CircleCountMeta meta
 });
 
 
@@ -559,16 +561,16 @@ class __$CircleCopyWithImpl<$Res>
 
 /// Create a copy of Circle
 /// with the given fields replaced by the non-null parameter values.
-@override @pragma('vm:prefer-inline') $Res call({Object? id = null,Object? ownerId = null,Object? createdAt = null,Object? updatedAt = null,Object? name = null,Object? description = freezed,Object? members = null,Object? meta = null,}) {
+@override @pragma('vm:prefer-inline') $Res call({Object? id = null,Object? ownerId = null,Object? name = null,Object? createdAt = freezed,Object? updatedAt = freezed,Object? description = freezed,Object? members = freezed,Object? meta = null,}) {
   return _then(_Circle(
 id: null == id ? _self.id : id // ignore: cast_nullable_to_non_nullable
 as int,ownerId: null == ownerId ? _self.ownerId : ownerId // ignore: cast_nullable_to_non_nullable
-as int,createdAt: null == createdAt ? _self.createdAt : createdAt // ignore: cast_nullable_to_non_nullable
-as DateTime,updatedAt: null == updatedAt ? _self.updatedAt : updatedAt // ignore: cast_nullable_to_non_nullable
-as DateTime,name: null == name ? _self.name : name // ignore: cast_nullable_to_non_nullable
-as String,description: freezed == description ? _self.description : description // ignore: cast_nullable_to_non_nullable
-as String?,members: null == members ? _self._members : members // ignore: cast_nullable_to_non_nullable
-as List<Author>,meta: null == meta ? _self.meta : meta // ignore: cast_nullable_to_non_nullable
+as int,name: null == name ? _self.name : name // ignore: cast_nullable_to_non_nullable
+as String,createdAt: freezed == createdAt ? _self.createdAt : createdAt // ignore: cast_nullable_to_non_nullable
+as DateTime?,updatedAt: freezed == updatedAt ? _self.updatedAt : updatedAt // ignore: cast_nullable_to_non_nullable
+as DateTime?,description: freezed == description ? _self.description : description // ignore: cast_nullable_to_non_nullable
+as String?,members: freezed == members ? _self._members : members // ignore: cast_nullable_to_non_nullable
+as List<Author>?,meta: null == meta ? _self.meta : meta // ignore: cast_nullable_to_non_nullable
 as CircleCountMeta,
   ));
 }

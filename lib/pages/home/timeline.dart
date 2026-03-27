@@ -11,8 +11,9 @@ class TimeLine extends StatefulWidget {
 
 class _TimeLineState extends State<TimeLine> {
   String _followingMode = "latest";
+  String _recommendMode = "algorithm";
 
-  void showModeMenu(BuildContext context) {
+  void showFollowingModeMenu(BuildContext context) {
     showModalBottomSheet(
       context: context,
       builder: (context) {
@@ -49,6 +50,43 @@ class _TimeLineState extends State<TimeLine> {
     );
   }
 
+  void showRecommendModeMenu(BuildContext context) {
+    showModalBottomSheet(
+      context: context,
+      builder: (context) {
+        return SafeArea(
+          child: Column(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              ListTile(
+                leading: const Icon(Icons.schedule),
+                title: const Text("最新"),
+                trailing: _recommendMode == "latest"
+                    ? const Icon(Icons.check)
+                    : null,
+                onTap: () {
+                  setState(() => _recommendMode = "latest");
+                  Navigator.pop(context);
+                },
+              ),
+              ListTile(
+                leading: const Icon(Icons.analytics),
+                title: const Text("アルゴリズム"),
+                trailing: _recommendMode == "algorithm"
+                    ? const Icon(Icons.check)
+                    : null,
+                onTap: () {
+                  setState(() => _recommendMode = "algorithm");
+                  Navigator.pop(context);
+                },
+              ),
+            ],
+          ),
+        );
+      },
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     return DefaultTabController(
@@ -58,7 +96,7 @@ class _TimeLineState extends State<TimeLine> {
           TabBar(
             tabs: [
               GestureDetector(
-                onLongPress: () => showModeMenu(context),
+                onLongPress: () => showFollowingModeMenu(context),
                 child: Tab(
                   child: Row(
                     mainAxisSize: MainAxisSize.min,
@@ -75,7 +113,24 @@ class _TimeLineState extends State<TimeLine> {
                   ),
                 ),
               ),
-              const Tab(text: 'おすすめ'),
+              GestureDetector(
+                onLongPress: () => showRecommendModeMenu(context),
+                child: Tab(
+                  child: Row(
+                    mainAxisSize: MainAxisSize.min,
+                    spacing: 4,
+                    children: [
+                      const Tab(text: 'おすすめ'),
+                      Icon(
+                        _recommendMode == "latest"
+                            ? Icons.schedule
+                            : Icons.analytics,
+                        size: 14,
+                      ),
+                    ],
+                  ),
+                ),
+              ),
             ],
           ),
           Expanded(
@@ -83,15 +138,21 @@ class _TimeLineState extends State<TimeLine> {
               children: [
                 TimeLineTab(
                   key: ValueKey(_followingMode),
-                  fetcher: (page, limit) => HTTPClient().getTimeLine(
-                    page: page,
+                  fetcher: (cursor, limit) => HTTPClient().getTimeLine(
+                    cursor: cursor,
                     limit: limit,
                     mode: _followingMode,
                   ),
                 ),
                 TimeLineTab(
-                  fetcher: (page, limit) =>
-                      HTTPClient().getRecommended(page: page, limit: limit),
+                  key: ValueKey(_recommendMode),
+                  isRecLatest: (_recommendMode == "latest"),
+                  fetcher: (page, limit) => _recommendMode == "latest"
+                      ? HTTPClient().getRecommendedLatest(
+                          cursor: page,
+                          limit: limit,
+                        )
+                      : HTTPClient().getRecommended(page: page!, limit: limit),
                 ),
               ],
             ),

@@ -1,8 +1,8 @@
 import "package:flutter/material.dart";
 import "package:karotator/http.dart";
 import "package:karotator/objects/post.dart";
-import 'package:karotator/factory/post.dart';
 import "package:karotator/ui/dialog.dart";
+import "package:karotator/ui/post/post.dart";
 
 class PostDetailPage extends StatefulWidget {
   const PostDetailPage({super.key, required this.post});
@@ -63,6 +63,8 @@ class _PostDetailPageState extends State<PostDetailPage> {
       isLoadingMore = false;
     } catch (e, stackTrace) {
       debugPrint("$e\n$stackTrace");
+
+      if (!mounted) return;
       showAlert(context, e: e);
     }
   }
@@ -90,6 +92,8 @@ class _PostDetailPageState extends State<PostDetailPage> {
       isLoadingMore = false;
     } catch (e, stackTrace) {
       debugPrint("$e\n$stackTrace");
+
+      if (!mounted) return;
       showAlert(context, e: e);
     }
   }
@@ -111,11 +115,7 @@ class _PostDetailPageState extends State<PostDetailPage> {
             }
 
             // ヘッダーをリストの先頭に含める
-            final allItems = [
-              if (parentPost != null) parentPost!,
-              widget.post,
-              ...posts,
-            ];
+            final allItems = [?parentPost, widget.post, ...posts];
 
             return ListView.builder(
               controller: controller,
@@ -139,82 +139,14 @@ class _PostDetailPageState extends State<PostDetailPage> {
                 final isFirst = index == headerIndex + 1;
                 final isLast = index == allItems.length - 1;
 
-                final radius = BorderRadius.vertical(
-                  top: isHeader || isFirst
-                      ? const Radius.circular(16)
-                      : Radius.zero,
-                  bottom: isLast || isHeader
-                      ? const Radius.circular(16)
-                      : Radius.zero,
-                );
-
                 return Padding(
                   padding: EdgeInsets.only(bottom: isHeader ? 8 : 0),
-                  child: Container(
-                    decoration: BoxDecoration(
-                      border: (isLast || isHeader)
-                          ? null
-                          : Border(
-                              bottom: BorderSide(
-                                color: Theme.of(context).dividerColor,
-                                width: 1,
-                              ),
-                            ),
-                    ),
-                    child: ClipRRect(
-                      borderRadius: radius,
-                      child: Ink(
-                        decoration: BoxDecoration(
-                          color: Theme.of(
-                            context,
-                          ).bottomNavigationBarTheme.backgroundColor,
-                          borderRadius: radius,
-                        ),
-                        child: GestureDetector(
-                          // ヘッダーはタップ不要
-                          onTap: isHeader
-                              ? null
-                              : () {
-                                  Navigator.push(
-                                    context,
-                                    MaterialPageRoute(
-                                      builder: (context) =>
-                                          PostDetailPage(post: post),
-                                    ),
-                                  );
-                                },
-                          child: Padding(
-                            padding: const EdgeInsets.all(8),
-                            child: Row(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              spacing: 8,
-                              children: [
-                                postUserAvatarFactory(post.author.avatarUrl),
-                                Expanded(
-                                  child: Column(
-                                    mainAxisSize: MainAxisSize.min,
-                                    crossAxisAlignment:
-                                        CrossAxisAlignment.start,
-                                    children: [
-                                      postUserDetailFactory(
-                                        post,
-                                        context,
-                                        fontSize: isHeader ? 14 : 12,
-                                      ),
-                                      postContentFactory(
-                                        post,
-                                        context,
-                                        fontSize: isHeader ? 14 : 12,
-                                      ),
-                                    ],
-                                  ),
-                                ),
-                              ],
-                            ),
-                          ),
-                        ),
-                      ),
-                    ),
+                  child: PostWidget(
+                    post: post,
+                    isFirst: isFirst,
+                    isLast: isLast,
+                    fontSize: isHeader ? 14 : 12,
+                    disablePageTransition: isHeader,
                   ),
                 );
               },

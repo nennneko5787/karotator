@@ -51,6 +51,8 @@ class _DrawerMenuState extends State<DrawerMenu> {
   }
 
   void showAccountMenu() {
+    final parentContext = context;
+
     showModalBottomSheet(
       context: context,
       builder: (context) {
@@ -88,8 +90,10 @@ class _DrawerMenuState extends State<DrawerMenu> {
                     HTTPClient().setAccountId(account.accountId);
                     Navigator.pop(context);
                     Navigator.pushReplacement(
-                      context,
-                      MaterialPageRoute(builder: (context) => StartUpPage()),
+                      parentContext,
+                      MaterialPageRoute(
+                        builder: (parentContext) => StartUpPage(),
+                      ),
                     );
                   },
                 ),
@@ -99,8 +103,8 @@ class _DrawerMenuState extends State<DrawerMenu> {
                 onTap: () {
                   Navigator.pop(context);
                   Navigator.push(
-                    context,
-                    MaterialPageRoute(builder: (context) => LoginPage()),
+                    parentContext,
+                    MaterialPageRoute(builder: (parentContext) => LoginPage()),
                   );
                 },
               ),
@@ -116,8 +120,10 @@ class _DrawerMenuState extends State<DrawerMenu> {
 
                     if (!context.mounted) return;
                     Navigator.push(
-                      context,
-                      MaterialPageRoute(builder: (context) => StartUpPage()),
+                      parentContext,
+                      MaterialPageRoute(
+                        builder: (parentContext) => StartUpPage(),
+                      ),
                     );
                   },
                 ),

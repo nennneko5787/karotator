@@ -4,6 +4,7 @@ import 'package:karotator/const.dart';
 
 import 'package:karotator/pages/startup.dart';
 import 'package:media_kit/media_kit.dart';
+import 'package:media_kit_video/media_kit_video.dart';
 
 void main() {
   WidgetsFlutterBinding.ensureInitialized();

@@ -16,10 +16,10 @@ class MediaSettings extends StatefulWidget {
   final MediaState state;
 
   @override
-  State<MediaSettings> createState() => _MediaSettingsSate();
+  State<MediaSettings> createState() => _MediaSettingsState();
 }
 
-class _MediaSettingsSate extends State<MediaSettings> {
+class _MediaSettingsState extends State<MediaSettings> {
   late final TextEditingController _mediaAltController = TextEditingController(
     text: widget.state.alt,
   );
@@ -41,8 +41,8 @@ class _MediaSettingsSate extends State<MediaSettings> {
               labelText: 'メディアの説明（Alt）',
             ),
           ),
-          Flex(
-            direction: Axis.horizontal,
+          Row(
+            crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Checkbox(
                 value: _spoiler,
@@ -55,8 +55,8 @@ class _MediaSettingsSate extends State<MediaSettings> {
               const Text("スポイラー"),
             ],
           ),
-          Flex(
-            direction: Axis.horizontal,
+          Row(
+            crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Checkbox(
                 value: _nsfw,

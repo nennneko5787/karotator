@@ -5,6 +5,7 @@ import 'package:flutter/rendering.dart';
 import 'package:http/http.dart' as httpx;
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:karotator/enum.dart';
+import 'package:karotator/objects/circle.dart';
 import 'package:karotator/objects/post.dart';
 import 'package:karotator/utils.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -291,7 +292,7 @@ class HTTPClient {
       "req-headers: ${{...cookies, ...deviceId, ...authorization, ...csrfHeader, ...?headers, "x-client-type": "unofficial_app"}}",
     );
     debugPrint("status: ${response.statusCode}");
-    // debugPrint("body: ${utf8.decode(response.bodyBytes)}");
+    debugPrint("body: ${utf8.decode(response.bodyBytes)}");
 
     await afterRequest(response);
     return jsonDecode(utf8.decode(response.bodyBytes)) as Map<String, Object?>;
@@ -345,17 +346,29 @@ class HTTPClient {
     required int page,
     required int limit,
   }) async {
-    final jsonData = await get("posts/recommended?page=$page&limit=$limit");
+    final jsonData = await get(
+      "posts/recommended?page=$page&limit=$limit&mode=algorithm",
+    );
     return RecommendedResponse.fromJson(jsonData);
   }
 
+  Future<RecommendedResponseLatest> getRecommendedLatest({
+    required int? cursor,
+    required int limit,
+  }) async {
+    final jsonData = await get(
+      "posts/recommended?cursor=${cursor ?? ""}&limit=$limit&mode=latest",
+    );
+    return RecommendedResponseLatest.fromJson(jsonData);
+  }
+
   Future<TimeLineResponse> getTimeLine({
-    required int page,
+    required int? cursor,
     required int limit,
     required String mode,
   }) async {
     final jsonData = await get(
-      "posts/timeline?page=$page&limit=$limit&mode=$mode",
+      "posts/timeline?page=${cursor ?? ""}&limit=$limit&mode=$mode",
       csrf: true,
     );
     return TimeLineResponse.fromJson(jsonData);
@@ -431,6 +444,15 @@ class HTTPClient {
     final _ = await delete("posts/$postId/bookmark");
   }
 
+  Future<Poll> poll(int postId, {required int optionId}) async {
+    final jsonData = await post(
+      "posts/$postId/poll/vote",
+      headers: {"content-type": "application/json"},
+      body: jsonEncode({"optionId": optionId}),
+    );
+    return Poll.fromJson(jsonData["poll"] as Map<String, Object?>);
+  }
+
   Future<RepliesResponse> getReplies({
     required int postId,
     required int page,
@@ -444,6 +466,8 @@ class HTTPClient {
     String content, {
     bool isAiGenerated = false,
     bool isPromotional = false,
+    bool isR18 = false,
+    bool hideFromMinors = false,
     PostVisibility visibility = PostVisibility.PUBLIC,
     int? viewerCircleId,
     ReplyRestriction replyRestriction = ReplyRestriction.EVERYONE,
@@ -486,6 +510,8 @@ class HTTPClient {
       "content": content,
       "isAiGenerated": isAiGenerated.toString(),
       "isPromotional": isPromotional.toString(),
+      "isR18": isR18.toString(),
+      "hideFromMinors": hideFromMinors.toString(),
       "visibility": visibility.name,
       "replyRestriction": replyRestriction.name,
       "mediaAlts": jsonEncode(mediaAlts),
@@ -539,5 +565,12 @@ class HTTPClient {
 
     final jsonData = jsonDecode(bodyString) as Map<String, dynamic>;
     return Post.fromJson(jsonData["post"] as Map<String, dynamic>);
+  }
+
+  Future<List<Circle>> getUserCircles() async {
+    final jsonData = await get("social/circles");
+    return (jsonData["circles"] as List<dynamic>)
+        .map((e) => Circle.fromJson(e as Map<String, Object?>))
+        .toList();
   }
 }

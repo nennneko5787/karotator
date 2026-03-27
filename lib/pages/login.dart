@@ -19,6 +19,7 @@ class _LoginPageState extends State<LoginPage> {
   final TextEditingController _usernameController = TextEditingController();
   final TextEditingController _passwordController = TextEditingController();
   String gender = "OTHER";
+  bool isLoading = false;
 
   Future<void> failedOpenLink(BuildContext context) async {
     ScaffoldMessenger.of(context).showSnackBar(
@@ -40,7 +41,7 @@ class _LoginPageState extends State<LoginPage> {
         gender: gender,
       );
 
-      if (!context.mounted) return;
+      if (!mounted) return;
 
       Navigator.pushReplacement(
         context,
@@ -49,7 +50,7 @@ class _LoginPageState extends State<LoginPage> {
     } catch (e, stackTrace) {
       debugPrint("$e\n$stackTrace");
 
-      if (!context.mounted) return;
+      if (!mounted) return;
       showAlert(context, e: e);
     }
   }
@@ -168,10 +169,18 @@ class _LoginPageState extends State<LoginPage> {
                       width: double.infinity,
                       child: ElevatedButton(
                         onPressed: () async {
-                          if (!context.mounted) return;
+                          if (!context.mounted || isLoading) return;
+                          setState(() {
+                            isLoading = true;
+                          });
                           await login();
+                          setState(() {
+                            isLoading = false;
+                          });
                         },
-                        child: const Text('ログイン'),
+                        child: isLoading
+                            ? CircularProgressIndicator()
+                            : const Text('ログイン'),
                       ),
                     ),
                   ],

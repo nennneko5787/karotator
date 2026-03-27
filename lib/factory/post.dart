@@ -2,14 +2,18 @@ import "package:flutter/gestures.dart";
 import "package:flutter/material.dart";
 import "package:flutter_riverpod/flutter_riverpod.dart";
 import "package:karotator/enum.dart";
-import "package:karotator/factory/poll.dart";
+import "package:karotator/ui/post/poll.dart";
+import "package:karotator/http.dart";
 import "package:karotator/objects/post.dart";
 import "package:karotator/objects/state.dart";
+import "package:karotator/objects/user.dart";
 import "package:karotator/pages/post.dart";
+import "package:karotator/pages/post_detail.dart";
 import "package:karotator/providers/post.dart";
-import "package:karotator/ui/media_viewer.dart";
+import "package:karotator/ui/post/media_viewer.dart";
 import "package:karotator/utils.dart";
 import "package:material_symbols_icons/symbols.dart";
+import 'package:share_plus/share_plus.dart';
 
 Widget postRekarotedByFactory(Post post) {
   return Row(
@@ -51,7 +55,7 @@ Widget postUserAvatarFactory(String? avatarUrl) {
 }
 
 Widget postUserDetailFactory(
-  Post post,
+  AbstractPost post,
   BuildContext context, {
   double fontSize = 12,
 }) {
@@ -87,12 +91,17 @@ Widget postUserDetailFactory(
 }
 
 Widget postContentFactory(
-  Post post,
+  AbstractPost post,
   BuildContext context, {
   bool hideActions = false,
   double fontSize = 12,
+  bool hideReplyTo = false,
 }) {
-  final threadParentAuthor = post.getThreadParentAuthor();
+  Author? threadParentAuthor;
+  if (post is Post) {
+    threadParentAuthor = post.getThreadParentAuthor();
+  }
+
   return Column(
     crossAxisAlignment: CrossAxisAlignment.start,
     spacing: 10,
@@ -101,12 +110,13 @@ Widget postContentFactory(
         RichText(
           text: TextSpan(
             children: [
-              TextSpan(
-                text: "返信先: ",
-                style: DefaultTextStyle.of(
-                  context,
-                ).style.copyWith(fontSize: fontSize),
-              ),
+              if (hideReplyTo != true)
+                TextSpan(
+                  text: "返信先: ",
+                  style: DefaultTextStyle.of(
+                    context,
+                  ).style.copyWith(fontSize: fontSize),
+                ),
               TextSpan(
                 text: "@${threadParentAuthor.username}",
                 style: TextStyle(color: Colors.blue, fontSize: fontSize),
@@ -117,13 +127,48 @@ Widget postContentFactory(
         ),
       Text(post.content, style: TextStyle(fontSize: fontSize)),
       if (post.mediaUrls.isNotEmpty) postMediaFactory(post, context),
-      if (post.poll != null) pollFactory(post),
-      if (hideActions == false) PostActionsWidget(post: post),
+      if ((post is Post) && (post.poll != null)) PollWidget(post: post),
+      if ((post is Post) && (post.quotedPost != null))
+        GestureDetector(
+          onTap: () async {
+            final newPost = await HTTPClient().getPostById(post.quotedPostId!);
+
+            if (!context.mounted) return;
+            Navigator.push(
+              context,
+              MaterialPageRoute(
+                builder: (context) => PostDetailPage(post: newPost),
+              ),
+            );
+          },
+          child: Container(
+            decoration: BoxDecoration(
+              border: Border.all(
+                color: Theme.of(context).dividerColor,
+                width: 1,
+              ),
+              borderRadius: BorderRadius.circular(8),
+            ),
+            child: ListTile(
+              titleAlignment: ListTileTitleAlignment.top,
+              leading: postUserAvatarFactory(post.quotedPost!.author.avatarUrl),
+              title: postUserDetailFactory(post.quotedPost!, context),
+              subtitle: postContentFactory(
+                post.quotedPost!,
+                context,
+                hideActions: true,
+                hideReplyTo: true,
+              ),
+            ),
+          ),
+        ),
+      if ((post is Post) && (hideActions == false))
+        PostActionsWidget(post: post),
     ],
   );
 }
 
-Widget postMediaFactory(Post post, BuildContext context) {
+Widget postMediaFactory(AbstractPost post, BuildContext context) {
   final urls = post.mediaUrls.map((e) => "https://karotter.com$e").toList();
   final isVideos = post.mediaTypes.map((e) => e == "video").toList();
 
@@ -244,7 +289,11 @@ class PostActionsWidget extends ConsumerWidget {
 
   const PostActionsWidget({super.key, required this.post});
 
-  void showModeMenu(BuildContext context, PostNotifier notifier, PostState current) {
+  void showModeMenu(
+    BuildContext context,
+    PostNotifier notifier,
+    PostState current,
+  ) {
     showModalBottomSheet(
       context: context,
       builder: (context) {
@@ -253,8 +302,15 @@ class PostActionsWidget extends ConsumerWidget {
             mainAxisSize: MainAxisSize.min,
             children: [
               ListTile(
-                leading: (current.rekaroted) ? const Icon(Icons.close, color: Colors.red) : const Icon(Icons.repeat),
-                title: (current.rekaroted) ? const Text("リカロートを取り消す", style: TextStyle(color: Colors.red)) : const Text("リカロート"),
+                leading: (current.rekaroted)
+                    ? const Icon(Icons.close, color: Colors.red)
+                    : const Icon(Icons.repeat),
+                title: (current.rekaroted)
+                    ? const Text(
+                        "リカロートを取り消す",
+                        style: TextStyle(color: Colors.red),
+                      )
+                    : const Text("リカロート"),
                 onTap: () {
                   notifier.toggleRekarot();
                   Navigator.pop(context);
@@ -336,7 +392,7 @@ class PostActionsWidget extends ConsumerWidget {
           Icons.repeat,
           currentPost.rekarotsCount,
           () => showModeMenu(context, notifier, currentPost),
-          iconColor: currentPost.rekaroted ? Colors.lightGreenAccent : null,
+          iconColor: currentPost.rekaroted ? Colors.lightGreen : null,
         ),
         actionItem(
           currentPost.liked ? Icons.favorite : Icons.favorite_outline,
@@ -348,9 +404,23 @@ class PostActionsWidget extends ConsumerWidget {
           currentPost.bookmarked ? Icons.bookmark : Icons.bookmark_outline,
           post.bookmarksCount,
           () => notifier.toggleBookmark(),
-          iconColor: currentPost.bookmarked ? Colors.lightBlueAccent : null,
+          iconColor: currentPost.bookmarked ? Colors.lightBlue : null,
         ),
         actionItem(Icons.analytics, post.viewsCount, () {}),
+        IconButton(
+          icon: Icon(Icons.ios_share, size: 16),
+          color: color,
+          onPressed: () async {
+            await SharePlus.instance.share(
+              ShareParams(
+                uri: Uri.https("karotter.com", "posts/${post.id.toString()}"),
+              ),
+            );
+          },
+          padding: EdgeInsets.zero,
+          constraints: const BoxConstraints(),
+          visualDensity: VisualDensity.compact,
+        ),
       ],
     );
   }

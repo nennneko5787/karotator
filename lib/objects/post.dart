@@ -1,4 +1,6 @@
+import 'package:flutter/material.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
+import 'package:karotator/enum.dart';
 import 'package:karotator/objects/circle.dart';
 import 'package:karotator/objects/user.dart';
 
@@ -98,16 +100,50 @@ abstract class HashTags with _$HashTags {
       _$HashTagsFromJson(json);
 }
 
+abstract interface class AbstractPost {
+  int get id;
+  String get content;
+  Author get author;
+
+  int? get parentId;
+  int? get quotedPostId;
+
+  DateTime get createdAt;
+  DateTime get updatedAt;
+  DateTime? get editedAt;
+
+  String? get embedUrl;
+  String? get embedTitle;
+  String? get embedDescription;
+  String? get embedImage;
+
+  List<String> get mediaUrls;
+  List<String> get mediaTypes;
+  List<String> get mediaAlts;
+  List<bool> get mediaSpoilerFlags;
+  List<bool> get mediaR18Flags;
+
+  List<int> get excludedMentions;
+  ReplyRestriction get replyRestriction;
+  PostVisibility get visibility;
+
+  int get likesCount;
+  int get rekarotsCount;
+  int get repliesCount;
+  int get viewsCount;
+}
+
 @freezed
-abstract class QuotedPost with _$QuotedPost {
+abstract class QuotedPost with _$QuotedPost implements AbstractPost {
   const factory QuotedPost({
     required int id,
     required String content,
     required int authorId,
     required Author author,
 
-    DateTime? createdAt,
-    DateTime? updatedAt,
+    required DateTime createdAt,
+    required DateTime updatedAt,
+    DateTime? editedAt,
 
     int? parentId,
     int? quotedPostId,
@@ -123,25 +159,16 @@ abstract class QuotedPost with _$QuotedPost {
     String? embedDescription,
     String? embedImage,
 
-    int? likesCount,
-    int? rekarotsCount,
-    int? repliesCount,
-    int? viewsCount,
+    required int likesCount,
+    required int rekarotsCount,
+    required int repliesCount,
+    required int viewsCount,
 
-    String? replyRestriction,
-    String? visibility,
+    required List<int> excludedMentions,
+    required ReplyRestriction replyRestriction,
+    required PostVisibility visibility,
 
-    bool? isAiGenerated,
-    bool? isPromotional,
-    bool? liked,
-    bool? rekaroted,
-    bool? bookmarked,
-
-    bool? canInteract,
-    bool? canQuote,
-
-    // 再帰対応（ネストされた引用）
-    QuotedPost? quotedPost,
+    required bool canView,
   }) = _QuotedPost;
 
   factory QuotedPost.fromJson(Map<String, Object?> json) =>
@@ -149,7 +176,7 @@ abstract class QuotedPost with _$QuotedPost {
 }
 
 @freezed
-abstract class Post with _$Post {
+abstract class Post with _$Post implements AbstractPost {
   const factory Post({
     required Author author,
     required int authorId,
@@ -198,7 +225,7 @@ abstract class Post with _$Post {
     required int repliesCount,
     Circle? replyCircle,
     int? replyCircleId,
-    required String replyRestriction,
+    required ReplyRestriction replyRestriction,
     @Default([]) List<ReplyTarget> replyTargets,
     @Default([]) List<Author> replyToUsers,
     // required DateTime time,
@@ -207,7 +234,7 @@ abstract class Post with _$Post {
     Circle? viewerCircle,
     int? viewerCircleId,
     required int viewsCount,
-    required String visibility,
+    required PostVisibility visibility,
   }) = _Post;
 
   factory Post.fromJson(Map<String, Object?> json) => _$PostFromJson(json);

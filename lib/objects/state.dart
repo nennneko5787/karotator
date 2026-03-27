@@ -3,6 +3,7 @@ import 'dart:typed_data';
 
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:karotator/enum.dart';
+import 'package:karotator/objects/post.dart';
 
 part 'state.freezed.dart';
 
@@ -29,4 +30,9 @@ abstract class MediaState with _$MediaState {
     @Default(false) bool spoiler,
     @Default(false) bool nsfw,
   }) = _MediaState;
+}
+
+@freezed
+abstract class PollState with _$PollState {
+  const factory PollState({required int id, required Poll poll}) = _PollState;
 }
