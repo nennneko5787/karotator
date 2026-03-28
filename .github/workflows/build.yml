@@ -10,16 +10,16 @@ permissions:
   contents: write
 
 jobs:
-  build:
-    name: Build & Release
-    runs-on: macos-latest
+  build-android:
+    name: Build Android
+    runs-on: ubuntu-latest
 
     steps:
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@v4
 
       - uses: subosito/flutter-action@v2
         with:
-          flutter-version: "3.41.5"
+          flutter-version: "3.41.5"               # ← 元に戻す
           channel: "stable"
 
       - name: Flutter pub get
@@ -28,7 +28,6 @@ jobs:
       - name: Lint check
         run: flutter analyze --no-fatal-warnings --no-fatal-infos
 
-      # Android build
       - name: Build APK
         run: flutter build apk --release --split-per-abi
 
@@ -39,9 +38,33 @@ jobs:
           mv app-armeabi-v7a-release.apk karotator-armeabi-v7a.apk
           mv app-x86_64-release.apk      karotator-x86_64.apk
 
-      # iOS build
-      - name: Check xcodebuild version (for debug)
-        run: xcodebuild -version
+      - name: Upload APK artifacts
+        uses: actions/upload-artifact@v4
+        with:
+          name: apk-files
+          path: build/app/outputs/flutter-apk/karotator-*.apk
+
+  build-ios:
+    name: Build iOS
+    runs-on: macos-latest
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: maxim-lobanov/setup-xcode@v1        # ← これは残す
+        with:
+          xcode-version: latest-stable
+
+      - uses: subosito/flutter-action@v2
+        with:
+          flutter-version: "3.41.5"               # ← 元に戻す
+          channel: "stable"
+
+      - name: Flutter pub get
+        run: flutter pub get
+
+      - name: Lint check
+        run: flutter analyze --no-fatal-warnings --no-fatal-infos
 
       - name: Build .app (no codesign)
         run: flutter build ios --release --no-codesign
@@ -52,6 +75,24 @@ jobs:
           mkdir Payload
           mv Runner.app Payload/Runner.app
           zip -r karotator.ipa Payload
+
+      - name: Upload IPA artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: ipa-file
+          path: build/ios/iphoneos/karotator.ipa
+
+  release:
+    name: Create Release
+    runs-on: ubuntu-latest
+    needs: [build-android, build-ios]
+
+    steps:
+      - name: Download all artifacts
+        uses: actions/download-artifact@v4
+        with:
+          path: artifacts
+          merge-multiple: true
 
       - name: Generate tag
         id: tag
@@ -64,9 +105,9 @@ jobs:
           name: Pre-release ${{ steps.tag.outputs.tag }}
           prerelease: true
           files: |
-            build/ios/iphoneos/karotator.ipa
-            build/app/outputs/flutter-apk/karotator-arm64-v8a.apk
-            build/app/outputs/flutter-apk/karotator-armeabi-v7a.apk
-            build/app/outputs/flutter-apk/karotator-x86_64.apk
+            artifacts/karotator.ipa
+            artifacts/karotator-arm64-v8a.apk
+            artifacts/karotator-armeabi-v7a.apk
+            artifacts/karotator-x86_64.apk
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
