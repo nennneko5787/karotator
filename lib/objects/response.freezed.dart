@@ -3147,4 +3147,566 @@ $QuotedPostCopyWith<$Res>? get pinnedPost {
 }
 }
 
+
+/// @nodoc
+mixin _$NotificationPagination {
+
+ bool get hasMore; int get limit; int get nextPage; int get page;
+/// Create a copy of NotificationPagination
+/// with the given fields replaced by the non-null parameter values.
+@JsonKey(includeFromJson: false, includeToJson: false)
+@pragma('vm:prefer-inline')
+$NotificationPaginationCopyWith<NotificationPagination> get copyWith => _$NotificationPaginationCopyWithImpl<NotificationPagination>(this as NotificationPagination, _$identity);
+
+  /// Serializes this NotificationPagination to a JSON map.
+  Map<String, dynamic> toJson();
+
+
+@override
+bool operator ==(Object other) {
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is NotificationPagination&&(identical(other.hasMore, hasMore) || other.hasMore == hasMore)&&(identical(other.limit, limit) || other.limit == limit)&&(identical(other.nextPage, nextPage) || other.nextPage == nextPage)&&(identical(other.page, page) || other.page == page));
+}
+
+@JsonKey(includeFromJson: false, includeToJson: false)
+@override
+int get hashCode => Object.hash(runtimeType,hasMore,limit,nextPage,page);
+
+@override
+String toString() {
+  return 'NotificationPagination(hasMore: $hasMore, limit: $limit, nextPage: $nextPage, page: $page)';
+}
+
+
+}
+
+/// @nodoc
+abstract mixin class $NotificationPaginationCopyWith<$Res>  {
+  factory $NotificationPaginationCopyWith(NotificationPagination value, $Res Function(NotificationPagination) _then) = _$NotificationPaginationCopyWithImpl;
+@useResult
+$Res call({
+ bool hasMore, int limit, int nextPage, int page
+});
+
+
+
+
+}
+/// @nodoc
+class _$NotificationPaginationCopyWithImpl<$Res>
+    implements $NotificationPaginationCopyWith<$Res> {
+  _$NotificationPaginationCopyWithImpl(this._self, this._then);
+
+  final NotificationPagination _self;
+  final $Res Function(NotificationPagination) _then;
+
+/// Create a copy of NotificationPagination
+/// with the given fields replaced by the non-null parameter values.
+@pragma('vm:prefer-inline') @override $Res call({Object? hasMore = null,Object? limit = null,Object? nextPage = null,Object? page = null,}) {
+  return _then(_self.copyWith(
+hasMore: null == hasMore ? _self.hasMore : hasMore // ignore: cast_nullable_to_non_nullable
+as bool,limit: null == limit ? _self.limit : limit // ignore: cast_nullable_to_non_nullable
+as int,nextPage: null == nextPage ? _self.nextPage : nextPage // ignore: cast_nullable_to_non_nullable
+as int,page: null == page ? _self.page : page // ignore: cast_nullable_to_non_nullable
+as int,
+  ));
+}
+
+}
+
+
+/// Adds pattern-matching-related methods to [NotificationPagination].
+extension NotificationPaginationPatterns on NotificationPagination {
+/// A variant of `map` that fallback to returning `orElse`.
+///
+/// It is equivalent to doing:
+/// ```dart
+/// switch (sealedClass) {
+///   case final Subclass value:
+///     return ...;
+///   case _:
+///     return orElse();
+/// }
+/// ```
+
+@optionalTypeArgs TResult maybeMap<TResult extends Object?>(TResult Function( _NotificationPagination value)?  $default,{required TResult orElse(),}){
+final _that = this;
+switch (_that) {
+case _NotificationPagination() when $default != null:
+return $default(_that);case _:
+  return orElse();
+
+}
+}
+/// A `switch`-like method, using callbacks.
+///
+/// Callbacks receives the raw object, upcasted.
+/// It is equivalent to doing:
+/// ```dart
+/// switch (sealedClass) {
+///   case final Subclass value:
+///     return ...;
+///   case final Subclass2 value:
+///     return ...;
+/// }
+/// ```
+
+@optionalTypeArgs TResult map<TResult extends Object?>(TResult Function( _NotificationPagination value)  $default,){
+final _that = this;
+switch (_that) {
+case _NotificationPagination():
+return $default(_that);case _:
+  throw StateError('Unexpected subclass');
+
+}
+}
+/// A variant of `map` that fallback to returning `null`.
+///
+/// It is equivalent to doing:
+/// ```dart
+/// switch (sealedClass) {
+///   case final Subclass value:
+///     return ...;
+///   case _:
+///     return null;
+/// }
+/// ```
+
+@optionalTypeArgs TResult? mapOrNull<TResult extends Object?>(TResult? Function( _NotificationPagination value)?  $default,){
+final _that = this;
+switch (_that) {
+case _NotificationPagination() when $default != null:
+return $default(_that);case _:
+  return null;
+
+}
+}
+/// A variant of `when` that fallback to an `orElse` callback.
+///
+/// It is equivalent to doing:
+/// ```dart
+/// switch (sealedClass) {
+///   case Subclass(:final field):
+///     return ...;
+///   case _:
+///     return orElse();
+/// }
+/// ```
+
+@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( bool hasMore,  int limit,  int nextPage,  int page)?  $default,{required TResult orElse(),}) {final _that = this;
+switch (_that) {
+case _NotificationPagination() when $default != null:
+return $default(_that.hasMore,_that.limit,_that.nextPage,_that.page);case _:
+  return orElse();
+
+}
+}
+/// A `switch`-like method, using callbacks.
+///
+/// As opposed to `map`, this offers destructuring.
+/// It is equivalent to doing:
+/// ```dart
+/// switch (sealedClass) {
+///   case Subclass(:final field):
+///     return ...;
+///   case Subclass2(:final field2):
+///     return ...;
+/// }
+/// ```
+
+@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( bool hasMore,  int limit,  int nextPage,  int page)  $default,) {final _that = this;
+switch (_that) {
+case _NotificationPagination():
+return $default(_that.hasMore,_that.limit,_that.nextPage,_that.page);case _:
+  throw StateError('Unexpected subclass');
+
+}
+}
+/// A variant of `when` that fallback to returning `null`
+///
+/// It is equivalent to doing:
+/// ```dart
+/// switch (sealedClass) {
+///   case Subclass(:final field):
+///     return ...;
+///   case _:
+///     return null;
+/// }
+/// ```
+
+@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( bool hasMore,  int limit,  int nextPage,  int page)?  $default,) {final _that = this;
+switch (_that) {
+case _NotificationPagination() when $default != null:
+return $default(_that.hasMore,_that.limit,_that.nextPage,_that.page);case _:
+  return null;
+
+}
+}
+
+}
+
+/// @nodoc
+@JsonSerializable()
+
+class _NotificationPagination implements NotificationPagination {
+  const _NotificationPagination({required this.hasMore, required this.limit, required this.nextPage, required this.page});
+  factory _NotificationPagination.fromJson(Map<String, dynamic> json) => _$NotificationPaginationFromJson(json);
+
+@override final  bool hasMore;
+@override final  int limit;
+@override final  int nextPage;
+@override final  int page;
+
+/// Create a copy of NotificationPagination
+/// with the given fields replaced by the non-null parameter values.
+@override @JsonKey(includeFromJson: false, includeToJson: false)
+@pragma('vm:prefer-inline')
+_$NotificationPaginationCopyWith<_NotificationPagination> get copyWith => __$NotificationPaginationCopyWithImpl<_NotificationPagination>(this, _$identity);
+
+@override
+Map<String, dynamic> toJson() {
+  return _$NotificationPaginationToJson(this, );
+}
+
+@override
+bool operator ==(Object other) {
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is _NotificationPagination&&(identical(other.hasMore, hasMore) || other.hasMore == hasMore)&&(identical(other.limit, limit) || other.limit == limit)&&(identical(other.nextPage, nextPage) || other.nextPage == nextPage)&&(identical(other.page, page) || other.page == page));
+}
+
+@JsonKey(includeFromJson: false, includeToJson: false)
+@override
+int get hashCode => Object.hash(runtimeType,hasMore,limit,nextPage,page);
+
+@override
+String toString() {
+  return 'NotificationPagination(hasMore: $hasMore, limit: $limit, nextPage: $nextPage, page: $page)';
+}
+
+
+}
+
+/// @nodoc
+abstract mixin class _$NotificationPaginationCopyWith<$Res> implements $NotificationPaginationCopyWith<$Res> {
+  factory _$NotificationPaginationCopyWith(_NotificationPagination value, $Res Function(_NotificationPagination) _then) = __$NotificationPaginationCopyWithImpl;
+@override @useResult
+$Res call({
+ bool hasMore, int limit, int nextPage, int page
+});
+
+
+
+
+}
+/// @nodoc
+class __$NotificationPaginationCopyWithImpl<$Res>
+    implements _$NotificationPaginationCopyWith<$Res> {
+  __$NotificationPaginationCopyWithImpl(this._self, this._then);
+
+  final _NotificationPagination _self;
+  final $Res Function(_NotificationPagination) _then;
+
+/// Create a copy of NotificationPagination
+/// with the given fields replaced by the non-null parameter values.
+@override @pragma('vm:prefer-inline') $Res call({Object? hasMore = null,Object? limit = null,Object? nextPage = null,Object? page = null,}) {
+  return _then(_NotificationPagination(
+hasMore: null == hasMore ? _self.hasMore : hasMore // ignore: cast_nullable_to_non_nullable
+as bool,limit: null == limit ? _self.limit : limit // ignore: cast_nullable_to_non_nullable
+as int,nextPage: null == nextPage ? _self.nextPage : nextPage // ignore: cast_nullable_to_non_nullable
+as int,page: null == page ? _self.page : page // ignore: cast_nullable_to_non_nullable
+as int,
+  ));
+}
+
+
+}
+
+
+/// @nodoc
+mixin _$NotificationResponse {
+
+ NotificationPagination get pagination; List<Notification> get notifications;
+/// Create a copy of NotificationResponse
+/// with the given fields replaced by the non-null parameter values.
+@JsonKey(includeFromJson: false, includeToJson: false)
+@pragma('vm:prefer-inline')
+$NotificationResponseCopyWith<NotificationResponse> get copyWith => _$NotificationResponseCopyWithImpl<NotificationResponse>(this as NotificationResponse, _$identity);
+
+  /// Serializes this NotificationResponse to a JSON map.
+  Map<String, dynamic> toJson();
+
+
+@override
+bool operator ==(Object other) {
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is NotificationResponse&&(identical(other.pagination, pagination) || other.pagination == pagination)&&const DeepCollectionEquality().equals(other.notifications, notifications));
+}
+
+@JsonKey(includeFromJson: false, includeToJson: false)
+@override
+int get hashCode => Object.hash(runtimeType,pagination,const DeepCollectionEquality().hash(notifications));
+
+@override
+String toString() {
+  return 'NotificationResponse(pagination: $pagination, notifications: $notifications)';
+}
+
+
+}
+
+/// @nodoc
+abstract mixin class $NotificationResponseCopyWith<$Res>  {
+  factory $NotificationResponseCopyWith(NotificationResponse value, $Res Function(NotificationResponse) _then) = _$NotificationResponseCopyWithImpl;
+@useResult
+$Res call({
+ NotificationPagination pagination, List<Notification> notifications
+});
+
+
+$NotificationPaginationCopyWith<$Res> get pagination;
+
+}
+/// @nodoc
+class _$NotificationResponseCopyWithImpl<$Res>
+    implements $NotificationResponseCopyWith<$Res> {
+  _$NotificationResponseCopyWithImpl(this._self, this._then);
+
+  final NotificationResponse _self;
+  final $Res Function(NotificationResponse) _then;
+
+/// Create a copy of NotificationResponse
+/// with the given fields replaced by the non-null parameter values.
+@pragma('vm:prefer-inline') @override $Res call({Object? pagination = null,Object? notifications = null,}) {
+  return _then(_self.copyWith(
+pagination: null == pagination ? _self.pagination : pagination // ignore: cast_nullable_to_non_nullable
+as NotificationPagination,notifications: null == notifications ? _self.notifications : notifications // ignore: cast_nullable_to_non_nullable
+as List<Notification>,
+  ));
+}
+/// Create a copy of NotificationResponse
+/// with the given fields replaced by the non-null parameter values.
+@override
+@pragma('vm:prefer-inline')
+$NotificationPaginationCopyWith<$Res> get pagination {
+  
+  return $NotificationPaginationCopyWith<$Res>(_self.pagination, (value) {
+    return _then(_self.copyWith(pagination: value));
+  });
+}
+}
+
+
+/// Adds pattern-matching-related methods to [NotificationResponse].
+extension NotificationResponsePatterns on NotificationResponse {
+/// A variant of `map` that fallback to returning `orElse`.
+///
+/// It is equivalent to doing:
+/// ```dart
+/// switch (sealedClass) {
+///   case final Subclass value:
+///     return ...;
+///   case _:
+///     return orElse();
+/// }
+/// ```
+
+@optionalTypeArgs TResult maybeMap<TResult extends Object?>(TResult Function( _NotificationResponse value)?  $default,{required TResult orElse(),}){
+final _that = this;
+switch (_that) {
+case _NotificationResponse() when $default != null:
+return $default(_that);case _:
+  return orElse();
+
+}
+}
+/// A `switch`-like method, using callbacks.
+///
+/// Callbacks receives the raw object, upcasted.
+/// It is equivalent to doing:
+/// ```dart
+/// switch (sealedClass) {
+///   case final Subclass value:
+///     return ...;
+///   case final Subclass2 value:
+///     return ...;
+/// }
+/// ```
+
+@optionalTypeArgs TResult map<TResult extends Object?>(TResult Function( _NotificationResponse value)  $default,){
+final _that = this;
+switch (_that) {
+case _NotificationResponse():
+return $default(_that);case _:
+  throw StateError('Unexpected subclass');
+
+}
+}
+/// A variant of `map` that fallback to returning `null`.
+///
+/// It is equivalent to doing:
+/// ```dart
+/// switch (sealedClass) {
+///   case final Subclass value:
+///     return ...;
+///   case _:
+///     return null;
+/// }
+/// ```
+
+@optionalTypeArgs TResult? mapOrNull<TResult extends Object?>(TResult? Function( _NotificationResponse value)?  $default,){
+final _that = this;
+switch (_that) {
+case _NotificationResponse() when $default != null:
+return $default(_that);case _:
+  return null;
+
+}
+}
+/// A variant of `when` that fallback to an `orElse` callback.
+///
+/// It is equivalent to doing:
+/// ```dart
+/// switch (sealedClass) {
+///   case Subclass(:final field):
+///     return ...;
+///   case _:
+///     return orElse();
+/// }
+/// ```
+
+@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( NotificationPagination pagination,  List<Notification> notifications)?  $default,{required TResult orElse(),}) {final _that = this;
+switch (_that) {
+case _NotificationResponse() when $default != null:
+return $default(_that.pagination,_that.notifications);case _:
+  return orElse();
+
+}
+}
+/// A `switch`-like method, using callbacks.
+///
+/// As opposed to `map`, this offers destructuring.
+/// It is equivalent to doing:
+/// ```dart
+/// switch (sealedClass) {
+///   case Subclass(:final field):
+///     return ...;
+///   case Subclass2(:final field2):
+///     return ...;
+/// }
+/// ```
+
+@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( NotificationPagination pagination,  List<Notification> notifications)  $default,) {final _that = this;
+switch (_that) {
+case _NotificationResponse():
+return $default(_that.pagination,_that.notifications);case _:
+  throw StateError('Unexpected subclass');
+
+}
+}
+/// A variant of `when` that fallback to returning `null`
+///
+/// It is equivalent to doing:
+/// ```dart
+/// switch (sealedClass) {
+///   case Subclass(:final field):
+///     return ...;
+///   case _:
+///     return null;
+/// }
+/// ```
+
+@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( NotificationPagination pagination,  List<Notification> notifications)?  $default,) {final _that = this;
+switch (_that) {
+case _NotificationResponse() when $default != null:
+return $default(_that.pagination,_that.notifications);case _:
+  return null;
+
+}
+}
+
+}
+
+/// @nodoc
+@JsonSerializable()
+
+class _NotificationResponse implements NotificationResponse {
+  const _NotificationResponse({required this.pagination, required final  List<Notification> notifications}): _notifications = notifications;
+  factory _NotificationResponse.fromJson(Map<String, dynamic> json) => _$NotificationResponseFromJson(json);
+
+@override final  NotificationPagination pagination;
+ final  List<Notification> _notifications;
+@override List<Notification> get notifications {
+  if (_notifications is EqualUnmodifiableListView) return _notifications;
+  // ignore: implicit_dynamic_type
+  return EqualUnmodifiableListView(_notifications);
+}
+
+
+/// Create a copy of NotificationResponse
+/// with the given fields replaced by the non-null parameter values.
+@override @JsonKey(includeFromJson: false, includeToJson: false)
+@pragma('vm:prefer-inline')
+_$NotificationResponseCopyWith<_NotificationResponse> get copyWith => __$NotificationResponseCopyWithImpl<_NotificationResponse>(this, _$identity);
+
+@override
+Map<String, dynamic> toJson() {
+  return _$NotificationResponseToJson(this, );
+}
+
+@override
+bool operator ==(Object other) {
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is _NotificationResponse&&(identical(other.pagination, pagination) || other.pagination == pagination)&&const DeepCollectionEquality().equals(other._notifications, _notifications));
+}
+
+@JsonKey(includeFromJson: false, includeToJson: false)
+@override
+int get hashCode => Object.hash(runtimeType,pagination,const DeepCollectionEquality().hash(_notifications));
+
+@override
+String toString() {
+  return 'NotificationResponse(pagination: $pagination, notifications: $notifications)';
+}
+
+
+}
+
+/// @nodoc
+abstract mixin class _$NotificationResponseCopyWith<$Res> implements $NotificationResponseCopyWith<$Res> {
+  factory _$NotificationResponseCopyWith(_NotificationResponse value, $Res Function(_NotificationResponse) _then) = __$NotificationResponseCopyWithImpl;
+@override @useResult
+$Res call({
+ NotificationPagination pagination, List<Notification> notifications
+});
+
+
+@override $NotificationPaginationCopyWith<$Res> get pagination;
+
+}
+/// @nodoc
+class __$NotificationResponseCopyWithImpl<$Res>
+    implements _$NotificationResponseCopyWith<$Res> {
+  __$NotificationResponseCopyWithImpl(this._self, this._then);
+
+  final _NotificationResponse _self;
+  final $Res Function(_NotificationResponse) _then;
+
+/// Create a copy of NotificationResponse
+/// with the given fields replaced by the non-null parameter values.
+@override @pragma('vm:prefer-inline') $Res call({Object? pagination = null,Object? notifications = null,}) {
+  return _then(_NotificationResponse(
+pagination: null == pagination ? _self.pagination : pagination // ignore: cast_nullable_to_non_nullable
+as NotificationPagination,notifications: null == notifications ? _self._notifications : notifications // ignore: cast_nullable_to_non_nullable
+as List<Notification>,
+  ));
+}
+
+/// Create a copy of NotificationResponse
+/// with the given fields replaced by the non-null parameter values.
+@override
+@pragma('vm:prefer-inline')
+$NotificationPaginationCopyWith<$Res> get pagination {
+  
+  return $NotificationPaginationCopyWith<$Res>(_self.pagination, (value) {
+    return _then(_self.copyWith(pagination: value));
+  });
+}
+}
+
 // dart format on

@@ -134,14 +134,15 @@ class _PostDetailPageState extends State<PostDetailPage> {
                 }
 
                 final post = allItems[index];
-                final headerIndex = parentPost != null ? 1 : 0;
+                final headerIndex = parentPost != null ? 0 : 1;
                 final isHeader = index == headerIndex;
-                final isFirst = index == headerIndex + 1;
+                final isFirst = index == headerIndex;
                 final isLast = index == allItems.length - 1;
 
                 return Padding(
                   padding: EdgeInsets.only(bottom: isHeader ? 8 : 0),
                   child: PostWidget(
+                    key: ValueKey('post_${post.id}_${allItems.length}'),
                     post: post,
                     isFirst: isFirst,
                     isLast: isLast,

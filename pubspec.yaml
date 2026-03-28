@@ -51,6 +51,7 @@ dependencies:
   omni_datetime_picker: ^2.3.1
   video_player: ^2.11.1
   video_thumbnail: ^0.5.6
+  emoji_picker_flutter: ^4.4.0
 
 dev_dependencies:
   flutter_test:
@@ -80,7 +81,7 @@ flutter:
 
   # To add assets to your application, add an assets section, like this:
   assets:
-    - assets/images/karotter-log.png
+    - assets/images/icon.png
     - assets/images/default-avatar.png
     - assets/images/dummy_image.png
 

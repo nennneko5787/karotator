@@ -56,12 +56,11 @@ class _DrawerMenuState extends State<DrawerMenu> {
 
     showModalBottomSheet(
       context: context,
-      builder: (context) {
+      builder: (bottomSheetContext) {
         return SafeArea(
           child: Column(
             mainAxisSize: MainAxisSize.min,
             children: [
-              // 現在のアカウント
               if (user != null)
                 ListTile(
                   leading: CircleAvatar(
@@ -114,20 +113,16 @@ class _DrawerMenuState extends State<DrawerMenu> {
                   leading: const Icon(Icons.logout),
                   title: Text("@${user!.username} からログアウト"),
                   onTap: () async {
-                    Navigator.pop(context);
+                    Navigator.of(bottomSheetContext).pop();
                     await HTTPClient().removeAccountId(
                       HTTPClient().nowAccountId!,
                     );
-
-                    if (!context.mounted) return;
-                    WidgetsBinding.instance.addPostFrameCallback((_) {
-                      Navigator.push(
-                        parentContext,
-                        MaterialPageRoute(
-                          builder: (parentContext) => StartUpPage(),
-                        ),
-                      );
-                    });
+                    await Future.delayed(Duration.zero);
+                    if (!parentContext.mounted) return;
+                    Navigator.of(parentContext).pushAndRemoveUntil(
+                      MaterialPageRoute(builder: (_) => StartUpPage()),
+                      (_) => false,
+                    );
                   },
                 ),
             ],
@@ -157,6 +152,7 @@ class _DrawerMenuState extends State<DrawerMenu> {
               leading: const Icon(Icons.person),
               title: const Text("プロフィール"),
               onTap: () {
+                Navigator.pop(context);
                 Navigator.push(
                   context,
                   MaterialPageRoute(

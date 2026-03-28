@@ -115,6 +115,34 @@ Map<String, dynamic> _$HashTagsToJson(_HashTags instance) => <String, dynamic>{
   'trendScore': instance.trendScore,
 };
 
+_NotificationPost _$NotificationPostFromJson(Map<String, dynamic> json) =>
+    _NotificationPost(
+      id: (json['id'] as num).toInt(),
+      content: json['content'] as String,
+      author: Author.fromJson(json['author'] as Map<String, dynamic>),
+      createdAt: DateTime.parse(json['createdAt'] as String),
+      mediaUrls:
+          (json['mediaUrls'] as List<dynamic>?)
+              ?.map((e) => e as String)
+              .toList() ??
+          const [],
+      mediaTypes:
+          (json['mediaTypes'] as List<dynamic>?)
+              ?.map((e) => e as String)
+              .toList() ??
+          const [],
+    );
+
+Map<String, dynamic> _$NotificationPostToJson(_NotificationPost instance) =>
+    <String, dynamic>{
+      'id': instance.id,
+      'content': instance.content,
+      'author': instance.author,
+      'createdAt': instance.createdAt.toIso8601String(),
+      'mediaUrls': instance.mediaUrls,
+      'mediaTypes': instance.mediaTypes,
+    };
+
 _QuotedPost _$QuotedPostFromJson(Map<String, dynamic> json) => _QuotedPost(
   id: (json['id'] as num).toInt(),
   content: json['content'] as String,
@@ -217,7 +245,6 @@ const _$PostVisibilityEnumMap = {
 
 _Post _$PostFromJson(Map<String, dynamic> json) => _Post(
   author: Author.fromJson(json['author'] as Map<String, dynamic>),
-  authorId: (json['authorId'] as num).toInt(),
   bookmarked: json['bookmarked'] as bool,
   bookmarksCount: (json['bookmarksCount'] as num).toInt(),
   canInteract: json['canInteract'] as bool? ?? true,
@@ -232,9 +259,11 @@ _Post _$PostFromJson(Map<String, dynamic> json) => _Post(
   embedImage: json['embedImage'] as String?,
   embedTitle: json['embedTitle'] as String?,
   embedUrl: json['embedUrl'] as String?,
-  excludedMentions: (json['excludedMentions'] as List<dynamic>)
-      .map((e) => (e as num).toInt())
-      .toList(),
+  excludedMentions:
+      (json['excludedMentions'] as List<dynamic>?)
+          ?.map((e) => (e as num).toInt())
+          .toList() ??
+      const [],
   hasBlockedAuthor: json['hasBlockedAuthor'] as bool? ?? true,
   hashtags:
       (json['hashtags'] as List<dynamic>?)
@@ -297,10 +326,12 @@ _Post _$PostFromJson(Map<String, dynamic> json) => _Post(
       ? null
       : Circle.fromJson(json['replyCircle'] as Map<String, dynamic>),
   replyCircleId: (json['replyCircleId'] as num?)?.toInt(),
-  replyRestriction: $enumDecode(
-    _$ReplyRestrictionEnumMap,
-    json['replyRestriction'],
-  ),
+  replyRestriction:
+      $enumDecodeNullable(
+        _$ReplyRestrictionEnumMap,
+        json['replyRestriction'],
+      ) ??
+      ReplyRestriction.EVERYONE,
   replyTargets:
       (json['replyTargets'] as List<dynamic>?)
           ?.map((e) => ReplyTarget.fromJson(e as Map<String, dynamic>))
@@ -311,18 +342,21 @@ _Post _$PostFromJson(Map<String, dynamic> json) => _Post(
           ?.map((e) => Author.fromJson(e as Map<String, dynamic>))
           .toList() ??
       const [],
-  updatedAt: DateTime.parse(json['updatedAt'] as String),
+  updatedAt: json['updatedAt'] == null
+      ? null
+      : DateTime.parse(json['updatedAt'] as String),
   viewerCircle: json['viewerCircle'] == null
       ? null
       : Circle.fromJson(json['viewerCircle'] as Map<String, dynamic>),
   viewerCircleId: (json['viewerCircleId'] as num?)?.toInt(),
   viewsCount: (json['viewsCount'] as num).toInt(),
-  visibility: $enumDecode(_$PostVisibilityEnumMap, json['visibility']),
+  visibility:
+      $enumDecodeNullable(_$PostVisibilityEnumMap, json['visibility']) ??
+      PostVisibility.PUBLIC,
 );
 
 Map<String, dynamic> _$PostToJson(_Post instance) => <String, dynamic>{
   'author': instance.author,
-  'authorId': instance.authorId,
   'bookmarked': instance.bookmarked,
   'bookmarksCount': instance.bookmarksCount,
   'canInteract': instance.canInteract,
@@ -367,7 +401,7 @@ Map<String, dynamic> _$PostToJson(_Post instance) => <String, dynamic>{
   'replyRestriction': _$ReplyRestrictionEnumMap[instance.replyRestriction]!,
   'replyTargets': instance.replyTargets,
   'replyToUsers': instance.replyToUsers,
-  'updatedAt': instance.updatedAt.toIso8601String(),
+  'updatedAt': instance.updatedAt?.toIso8601String(),
   'viewerCircle': instance.viewerCircle,
   'viewerCircleId': instance.viewerCircleId,
   'viewsCount': instance.viewsCount,

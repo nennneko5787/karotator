@@ -142,7 +142,12 @@ class _TimeLineTabState extends State<TimeLineTab> {
               final isFirst = index == 0;
               final isLast = index == posts.length - 1;
 
-              return PostWidget(post: post, isFirst: isFirst, isLast: isLast);
+              return PostWidget(
+                key: ValueKey('post_${post.id}_${posts.length}'),
+                post: post,
+                isFirst: isFirst,
+                isLast: isLast,
+              );
             },
           ),
         );

@@ -99,6 +99,22 @@ abstract class HashTags with _$HashTags {
       _$HashTagsFromJson(json);
 }
 
+@freezed
+abstract class NotificationPost with _$NotificationPost {
+  const factory NotificationPost({
+    required int id,
+    required String content,
+    required Author author,
+    required DateTime createdAt,
+
+    @Default([]) List<String> mediaUrls,
+    @Default([]) List<String> mediaTypes,
+  }) = _NotificationPost;
+
+  factory NotificationPost.fromJson(Map<String, Object?> json) =>
+      _$NotificationPostFromJson(json);
+}
+
 abstract interface class AbstractPost {
   int get id;
   String get content;
@@ -125,11 +141,6 @@ abstract interface class AbstractPost {
   List<int> get excludedMentions;
   ReplyRestriction get replyRestriction;
   PostVisibility get visibility;
-
-  int get likesCount;
-  int get rekarotsCount;
-  int get repliesCount;
-  int get viewsCount;
 }
 
 @freezed
@@ -177,7 +188,7 @@ abstract class QuotedPost with _$QuotedPost implements AbstractPost {
 abstract class Post with _$Post implements AbstractPost {
   const factory Post({
     required Author author,
-    required int authorId,
+    // required int authorId,
     required bool bookmarked,
     //required List<Id> bookmarks,
     required int bookmarksCount,
@@ -191,7 +202,7 @@ abstract class Post with _$Post implements AbstractPost {
     String? embedImage,
     String? embedTitle,
     String? embedUrl,
-    required List<int> excludedMentions,
+    @Default([]) List<int> excludedMentions,
     @Default(true) bool hasBlockedAuthor,
     @Default([]) List<HashTags> hashtags,
     required int id,
@@ -223,19 +234,38 @@ abstract class Post with _$Post implements AbstractPost {
     required int repliesCount,
     Circle? replyCircle,
     int? replyCircleId,
-    required ReplyRestriction replyRestriction,
+    @Default(ReplyRestriction.EVERYONE) ReplyRestriction replyRestriction,
     @Default([]) List<ReplyTarget> replyTargets,
     @Default([]) List<Author> replyToUsers,
     // required DateTime time,
     // required String type,
-    required DateTime updatedAt,
+    DateTime? updatedAt,
     Circle? viewerCircle,
     int? viewerCircleId,
     required int viewsCount,
-    required PostVisibility visibility,
+    @Default(PostVisibility.PUBLIC) PostVisibility visibility,
   }) = _Post;
 
   factory Post.fromJson(Map<String, Object?> json) => _$PostFromJson(json);
+
+  factory Post.empty() => Post(
+    author: Author.empty(),
+    bookmarked: false,
+    bookmarksCount: 0,
+    content: "",
+    createdAt: DateTime(0),
+    id: 0,
+    isAiGenerated: false,
+    isPromotional: false,
+    likesCount: 0,
+    mediaAlts: [],
+    mediaR18Flags: [],
+    mediaSpoilerFlags: [],
+    mediaTypes: [],
+    mediaUrls: [],
+    repliesCount: 0,
+    viewsCount: 0,
+  );
 }
 
 extension PostX on Post {

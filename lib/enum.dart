@@ -13,3 +13,9 @@ enum ReplyRestriction { EVERYONE, FOLLOWING, MENTIONED, CIRCLE }
 
 // ignore: constant_identifier_names
 enum OnlineStatus { ONLINE, IDLE, DND, OFFLINE }
+
+// ignore: constant_identifier_names
+enum NotificationContext { OWN_POST, OTHER }
+
+// ignore: constant_identifier_names
+enum NotificationType { LIKE, FOLLOW, QUOTE, REPLY, REACTION, REKAROT }

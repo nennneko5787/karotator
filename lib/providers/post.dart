@@ -1,15 +1,24 @@
 import 'package:flutter/material.dart';
 import 'package:karotator/exceptions.dart';
 import 'package:karotator/http.dart';
-import 'package:karotator/objects/state.dart';
+import 'package:karotator/objects/post.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 
 part 'post.g.dart';
 
 @riverpod
 class PostNotifier extends _$PostNotifier {
+  bool _initialize = false;
+
   @override
-  PostState build(PostState post) => post;
+  Post build(int postId) => Post.empty();
+
+  void initialize(Post post) {
+    if (_initialize) return;
+    _initialize = true;
+
+    state = post;
+  }
 
   Future<void> toggleLike() async {
     final current = state;
@@ -98,6 +107,69 @@ class PostNotifier extends _$PostNotifier {
         );
         rethrow;
       }
+    }
+  }
+
+  Future<void> addReaction(String emoji) async {
+    final current = state;
+
+    state = current.copyWith(
+      /*reactions: [
+        ...current.reactions,
+        Reaction(emoji: emoji, userId: userId), アプデで必要になったら更新する今はいらん
+      ],*/
+      reactionSummary: [
+        for (var s in current.reactionSummary)
+          if (s.emoji == emoji)
+            s.copyWith(count: s.count + 1, reacted: true)
+          else
+            s,
+        if (!current.reactionSummary.any((s) => s.emoji == emoji))
+          ReactionSummary(emoji: emoji, count: 1, reacted: true),
+      ],
+    );
+
+    try {
+      await HTTPClient().react(current.id, emoji: emoji);
+    } catch (e) {
+      state = current; // ロールバック
+      rethrow;
+    }
+  }
+
+  Future<void> removeReaction(String emoji) async {
+    final current = state;
+
+    state = current.copyWith(
+      /*reactions: current.reactions
+        .where((r) => !(r.emoji == emoji && r.userId == userId))
+        .toList(),*/
+      reactionSummary: [
+        for (var s in current.reactionSummary)
+          if (s.emoji == emoji)
+            s.copyWith(count: s.count - 1, reacted: false)
+          else
+            s,
+      ]..removeWhere((s) => s.count <= 0),
+    );
+
+    try {
+      await HTTPClient().react(current.id, emoji: emoji);
+    } catch (e) {
+      state = current; // ロールバック
+      rethrow;
+    }
+  }
+
+  Future<void> poll(int optionId) async {
+    final current = state;
+
+    try {
+      final poll = await HTTPClient().poll(current.id, optionId: optionId);
+      state = current.copyWith(poll: poll);
+    } catch (e, stackTrace) {
+      debugPrint("$e\n$stackTrace");
+      rethrow;
     }
   }
 }

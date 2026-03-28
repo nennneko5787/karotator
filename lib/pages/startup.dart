@@ -1,7 +1,6 @@
 import "package:flutter/material.dart";
 import "package:karotator/http.dart";
 import "package:karotator/pages/home.dart";
-import "package:karotator/pages/home/timeline.dart";
 import "package:karotator/ui/dialog.dart";
 
 class StartUpPage extends StatefulWidget {
@@ -15,7 +14,9 @@ class _StartUpPageState extends State<StartUpPage> {
   @override
   void initState() {
     super.initState();
-    _initialize();
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      _initialize();
+    });
   }
 
   Future<void> _initialize() async {
@@ -41,7 +42,7 @@ class _StartUpPageState extends State<StartUpPage> {
     if (!mounted) return;
     Navigator.pushReplacement(
       context,
-      MaterialPageRoute(builder: (context) => HomePage(body: TimeLine())),
+      MaterialPageRoute(builder: (context) => HomePage()),
     );
   }
 
@@ -62,26 +63,24 @@ class _StartUpPageState extends State<StartUpPage> {
       child: Scaffold(
         backgroundColor: Colors.transparent,
         body: Center(
-          child: AutofillGroup(
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                SizedBox(
-                  width: 128,
-                  height: 128,
-                  child: Image.asset("assets/images/karotter-log.png"),
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              SizedBox(
+                width: 128,
+                height: 128,
+                child: Image.asset("assets/images/icon.png"),
+              ),
+              SizedBox(height: 32.0),
+              SizedBox(
+                width: 24,
+                height: 24,
+                child: CircularProgressIndicator(
+                  color: Colors.white,
+                  strokeWidth: 2,
                 ),
-                SizedBox(height: 32.0),
-                SizedBox(
-                  width: 24,
-                  height: 24,
-                  child: CircularProgressIndicator(
-                    color: Colors.white,
-                    strokeWidth: 2,
-                  ),
-                ),
-              ],
-            ),
+              ),
+            ],
           ),
         ),
       ),

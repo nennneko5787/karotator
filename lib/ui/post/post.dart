@@ -1,5 +1,6 @@
 import "package:flutter/material.dart";
 import "package:karotator/factory/post.dart";
+import "package:karotator/http.dart";
 import "package:karotator/objects/post.dart";
 import "package:karotator/pages/post_detail.dart";
 
@@ -11,24 +12,27 @@ class PostWidget extends StatefulWidget {
     required this.isLast,
     this.fontSize = 12,
     this.disablePageTransition = false,
+    this.pinned = false,
   });
 
-  final Post post;
+  final AbstractPost post;
   final bool isFirst;
   final bool isLast;
   final double fontSize;
   final bool disablePageTransition;
+  final bool pinned;
 
   @override
   State<PostWidget> createState() => _PostWidgetState();
 }
 
 class _PostWidgetState extends State<PostWidget> {
-  late final Post post = widget.post;
+  late final AbstractPost post = widget.post;
   late final bool isFirst = widget.isFirst;
   late final bool isLast = widget.isLast;
   late final double fontSize = widget.fontSize;
   late final bool disablePageTransition = widget.disablePageTransition;
+  late final bool pinned = widget.pinned;
 
   @override
   Widget build(BuildContext context) {
@@ -57,15 +61,23 @@ class _PostWidgetState extends State<PostWidget> {
           ),
           child: Column(
             children: [
-              if (post.rekarotedBy != null) postRekarotedByFactory(post),
+              if (post is Post && (post as Post).rekarotedBy != null)
+                postRekarotedByFactory(post as Post),
+              if (pinned) postPinnedFactory(),
               GestureDetector(
                 onTap: disablePageTransition
                     ? null
-                    : () {
+                    : () async {
+                        final fullPost = await HTTPClient().getPostById(
+                          post.id,
+                        );
+
+                        if (!context.mounted) return;
                         Navigator.push(
                           context,
                           MaterialPageRoute(
-                            builder: (context) => PostDetailPage(post: post),
+                            builder: (context) =>
+                                PostDetailPage(post: fullPost),
                           ),
                         );
                       },

@@ -2,19 +2,31 @@ import "package:flutter/gestures.dart";
 import "package:flutter/material.dart";
 import "package:flutter_riverpod/flutter_riverpod.dart";
 import "package:karotator/enum.dart";
+import "package:karotator/pages/login.dart";
 import "package:karotator/pages/profile.dart";
 import "package:karotator/ui/post/poll.dart";
 import "package:karotator/http.dart";
 import "package:karotator/objects/post.dart";
-import "package:karotator/objects/state.dart";
 import "package:karotator/objects/user.dart";
 import "package:karotator/pages/post.dart";
 import "package:karotator/pages/post_detail.dart";
 import "package:karotator/providers/post.dart";
 import "package:karotator/ui/post/media_viewer.dart";
+import "package:karotator/ui/post/reaction.dart";
 import "package:karotator/utils.dart";
 import "package:material_symbols_icons/symbols.dart";
 import 'package:share_plus/share_plus.dart';
+
+Widget postPinnedFactory() {
+  return Row(
+    crossAxisAlignment: CrossAxisAlignment.center,
+    children: [
+      const SizedBox(width: 12),
+      const Icon(Icons.push_pin, size: 16),
+      const Text("固定されたポスト", style: TextStyle(fontSize: 12)),
+    ],
+  );
+}
 
 Widget postRekarotedByFactory(Post post) {
   return Row(
@@ -51,19 +63,11 @@ Widget postUserAvatarFactory(
           },
     child: Wrap(
       children: [
-        Container(
-          width: 32,
-          height: 32,
-          decoration: BoxDecoration(
-            shape: BoxShape.circle,
-            image: DecorationImage(
-              fit: BoxFit.fill,
-              image: NetworkImage(
-                avatarUrl != null
-                    ? "https://karotter.com$avatarUrl"
-                    : "https://karotter.com/default-avatar.png",
-              ),
-            ),
+        CircleAvatar(
+          backgroundImage: NetworkImage(
+            avatarUrl != null
+                ? "https://karotter.com$avatarUrl"
+                : "https://karotter.com/default-avatar.png",
           ),
         ),
       ],
@@ -157,7 +161,7 @@ Widget postContentFactory(
       if ((post is Post) && (post.quotedPost != null))
         GestureDetector(
           onTap: () async {
-            final newPost = await HTTPClient().getPostById(post.quotedPostId!);
+            final newPost = await HTTPClient().getPostById(post.quotedPost!.id);
 
             if (!context.mounted) return;
             Navigator.push(
@@ -188,6 +192,7 @@ Widget postContentFactory(
             ),
           ),
         ),
+      if (post is Post) ReactionWidget(post: post),
       if ((post is Post) && (hideActions == false))
         PostActionsWidget(post: post),
     ],
@@ -310,16 +315,30 @@ double getAspectRatio(int count) {
   return 1;
 }
 
-class PostActionsWidget extends ConsumerWidget {
+class PostActionsWidget extends ConsumerStatefulWidget {
   final Post post;
 
   const PostActionsWidget({super.key, required this.post});
 
-  void showModeMenu(
-    BuildContext context,
-    PostNotifier notifier,
-    PostState current,
-  ) {
+  @override
+  ConsumerState<PostActionsWidget> createState() => _PostActionsWidgetState();
+}
+
+class _PostActionsWidgetState extends ConsumerState<PostActionsWidget> {
+  late final Post post = widget.post;
+
+  @override
+  void initState() {
+    super.initState();
+
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      if (!mounted) return;
+
+      ref.read(postProvider(widget.post.id).notifier).initialize(widget.post);
+    });
+  }
+
+  void showModeMenu(BuildContext context, PostNotifier notifier, Post post) {
     showModalBottomSheet(
       context: context,
       builder: (context) {
@@ -328,10 +347,10 @@ class PostActionsWidget extends ConsumerWidget {
             mainAxisSize: MainAxisSize.min,
             children: [
               ListTile(
-                leading: (current.rekaroted)
+                leading: (post.rekaroted)
                     ? const Icon(Icons.close, color: Colors.red)
                     : const Icon(Icons.repeat),
-                title: (current.rekaroted)
+                title: (post.rekaroted)
                     ? const Text(
                         "リカロートを取り消す",
                         style: TextStyle(color: Colors.red),
@@ -364,18 +383,9 @@ class PostActionsWidget extends ConsumerWidget {
   }
 
   @override
-  Widget build(BuildContext context, WidgetRef ref) {
-    final postState = PostState(
-      id: post.id,
-      bookmarked: post.bookmarked,
-      bookmarksCount: post.bookmarksCount,
-      rekaroted: post.rekaroted,
-      rekarotsCount: post.rekarotsCount,
-      liked: post.liked,
-      likesCount: post.likesCount,
-    );
-    final currentPost = ref.watch(postProvider(postState));
-    final notifier = ref.read(postProvider(postState).notifier);
+  Widget build(BuildContext context) {
+    final currentPost = ref.watch(postProvider(post.id));
+    final notifier = ref.read(postProvider(post.id).notifier);
 
     final color = Theme.of(context).secondaryHeaderColor;
     final style = TextStyle(color: color, fontSize: 12);
@@ -417,19 +427,46 @@ class PostActionsWidget extends ConsumerWidget {
         actionItem(
           Icons.repeat,
           currentPost.rekarotsCount,
-          () => showModeMenu(context, notifier, currentPost),
+          () {
+            if (HTTPClient().nowAccountId == null) {
+              Navigator.push(
+                context,
+                MaterialPageRoute(builder: (context) => LoginPage()),
+              );
+            } else {
+              showModeMenu(context, notifier, currentPost);
+            }
+          },
           iconColor: currentPost.rekaroted ? Colors.lightGreen : null,
         ),
         actionItem(
           currentPost.liked ? Icons.favorite : Icons.favorite_outline,
           currentPost.likesCount,
-          () => notifier.toggleLike(),
+          () {
+            if (HTTPClient().nowAccountId == null) {
+              Navigator.push(
+                context,
+                MaterialPageRoute(builder: (context) => LoginPage()),
+              );
+            } else {
+              notifier.toggleLike();
+            }
+          },
           iconColor: currentPost.liked ? Colors.red : null,
         ),
         actionItem(
           currentPost.bookmarked ? Icons.bookmark : Icons.bookmark_outline,
           post.bookmarksCount,
-          () => notifier.toggleBookmark(),
+          () {
+            if (HTTPClient().nowAccountId == null) {
+              Navigator.push(
+                context,
+                MaterialPageRoute(builder: (context) => LoginPage()),
+              );
+            } else {
+              notifier.toggleBookmark();
+            }
+          },
           iconColor: currentPost.bookmarked ? Colors.lightBlue : null,
         ),
         actionItem(Icons.analytics, post.viewsCount, () {}),

@@ -19,6 +19,8 @@ abstract class Author with _$Author {
   }) = _Author;
 
   factory Author.fromJson(Map<String, Object?> json) => _$AuthorFromJson(json);
+
+  factory Author.empty() => Author(displayName: "", id: 0, username: "");
 }
 
 @freezed
@@ -50,7 +52,7 @@ abstract class User with _$User {
     required String username,
     int? pinnedPostId,
     String? headerUrl,
-    required String bio,
+    String? bio,
     String? birthday,
     required BirthdayVisibility birthdayVisibility,
     required bool birthdayBalloonsEnabled,
@@ -69,4 +71,26 @@ abstract class User with _$User {
   }) = _User;
 
   factory User.fromJson(Map<String, Object?> json) => _$UserFromJson(json);
+
+  factory User.empty() => User(
+    displayName: "",
+    id: 0,
+    isPrivate: false,
+    isBotAccount: false,
+    isParodyAccount: false,
+    isPremium: false,
+    officialMark: [],
+    username: "",
+    birthdayVisibility: BirthdayVisibility.PRIVATE,
+    birthdayBalloonsEnabled: true,
+    birthday: null,
+    hideProfileFromMinors: false,
+    onlineStatus: OnlineStatus.OFFLINE,
+    followersCount: 0,
+    followingCount: 0,
+    postsCount: 0,
+    createdAt: DateTime(0),
+    userBadges: [],
+    badges: [],
+  );
 }

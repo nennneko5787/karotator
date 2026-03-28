@@ -101,30 +101,33 @@ class _TimeLineState extends State<TimeLine> {
 
   @override
   Widget build(BuildContext context) {
+    final isLoggedIn = HTTPClient().nowAccountId != null;
+
     return DefaultTabController(
-      length: 2,
+      length: isLoggedIn ? 2 : 1,
       child: Column(
         children: [
           TabBar(
             tabs: [
-              GestureDetector(
-                onLongPress: () => showFollowingModeMenu(context),
-                child: Tab(
-                  child: Row(
-                    mainAxisSize: MainAxisSize.min,
-                    spacing: 4,
-                    children: [
-                      const Text("フォロー中"),
-                      Icon(
-                        _followingMode == "latest"
-                            ? Icons.schedule
-                            : Icons.star,
-                        size: 14,
-                      ),
-                    ],
+              if (isLoggedIn)
+                GestureDetector(
+                  onLongPress: () => showFollowingModeMenu(context),
+                  child: Tab(
+                    child: Row(
+                      mainAxisSize: MainAxisSize.min,
+                      spacing: 4,
+                      children: [
+                        const Text("フォロー中"),
+                        Icon(
+                          _followingMode == "latest"
+                              ? Icons.schedule
+                              : Icons.star,
+                          size: 14,
+                        ),
+                      ],
+                    ),
                   ),
                 ),
-              ),
               GestureDetector(
                 onLongPress: () => showRecommendModeMenu(context),
                 child: Tab(
@@ -150,14 +153,15 @@ class _TimeLineState extends State<TimeLine> {
           Expanded(
             child: TabBarView(
               children: [
-                TimeLineTab(
-                  key: ValueKey(_followingMode),
-                  fetcher: (cursor, limit) => HTTPClient().getTimeLine(
-                    cursor: cursor,
-                    limit: limit,
-                    mode: _followingMode,
+                if (isLoggedIn)
+                  TimeLineTab(
+                    key: ValueKey(_followingMode),
+                    fetcher: (cursor, limit) => HTTPClient().getTimeLine(
+                      page: cursor!,
+                      limit: limit,
+                      mode: _followingMode,
+                    ),
                   ),
-                ),
                 TimeLineTab(
                   key: ValueKey(_recommendMode),
                   isRecLatest: (_recommendMode == "latest"),

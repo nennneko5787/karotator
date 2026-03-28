@@ -2204,6 +2204,314 @@ as int?,
 
 
 /// @nodoc
+mixin _$NotificationPost {
+
+ int get id; String get content; Author get author; DateTime get createdAt; List<String> get mediaUrls; List<String> get mediaTypes;
+/// Create a copy of NotificationPost
+/// with the given fields replaced by the non-null parameter values.
+@JsonKey(includeFromJson: false, includeToJson: false)
+@pragma('vm:prefer-inline')
+$NotificationPostCopyWith<NotificationPost> get copyWith => _$NotificationPostCopyWithImpl<NotificationPost>(this as NotificationPost, _$identity);
+
+  /// Serializes this NotificationPost to a JSON map.
+  Map<String, dynamic> toJson();
+
+
+@override
+bool operator ==(Object other) {
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is NotificationPost&&(identical(other.id, id) || other.id == id)&&(identical(other.content, content) || other.content == content)&&(identical(other.author, author) || other.author == author)&&(identical(other.createdAt, createdAt) || other.createdAt == createdAt)&&const DeepCollectionEquality().equals(other.mediaUrls, mediaUrls)&&const DeepCollectionEquality().equals(other.mediaTypes, mediaTypes));
+}
+
+@JsonKey(includeFromJson: false, includeToJson: false)
+@override
+int get hashCode => Object.hash(runtimeType,id,content,author,createdAt,const DeepCollectionEquality().hash(mediaUrls),const DeepCollectionEquality().hash(mediaTypes));
+
+@override
+String toString() {
+  return 'NotificationPost(id: $id, content: $content, author: $author, createdAt: $createdAt, mediaUrls: $mediaUrls, mediaTypes: $mediaTypes)';
+}
+
+
+}
+
+/// @nodoc
+abstract mixin class $NotificationPostCopyWith<$Res>  {
+  factory $NotificationPostCopyWith(NotificationPost value, $Res Function(NotificationPost) _then) = _$NotificationPostCopyWithImpl;
+@useResult
+$Res call({
+ int id, String content, Author author, DateTime createdAt, List<String> mediaUrls, List<String> mediaTypes
+});
+
+
+$AuthorCopyWith<$Res> get author;
+
+}
+/// @nodoc
+class _$NotificationPostCopyWithImpl<$Res>
+    implements $NotificationPostCopyWith<$Res> {
+  _$NotificationPostCopyWithImpl(this._self, this._then);
+
+  final NotificationPost _self;
+  final $Res Function(NotificationPost) _then;
+
+/// Create a copy of NotificationPost
+/// with the given fields replaced by the non-null parameter values.
+@pragma('vm:prefer-inline') @override $Res call({Object? id = null,Object? content = null,Object? author = null,Object? createdAt = null,Object? mediaUrls = null,Object? mediaTypes = null,}) {
+  return _then(_self.copyWith(
+id: null == id ? _self.id : id // ignore: cast_nullable_to_non_nullable
+as int,content: null == content ? _self.content : content // ignore: cast_nullable_to_non_nullable
+as String,author: null == author ? _self.author : author // ignore: cast_nullable_to_non_nullable
+as Author,createdAt: null == createdAt ? _self.createdAt : createdAt // ignore: cast_nullable_to_non_nullable
+as DateTime,mediaUrls: null == mediaUrls ? _self.mediaUrls : mediaUrls // ignore: cast_nullable_to_non_nullable
+as List<String>,mediaTypes: null == mediaTypes ? _self.mediaTypes : mediaTypes // ignore: cast_nullable_to_non_nullable
+as List<String>,
+  ));
+}
+/// Create a copy of NotificationPost
+/// with the given fields replaced by the non-null parameter values.
+@override
+@pragma('vm:prefer-inline')
+$AuthorCopyWith<$Res> get author {
+  
+  return $AuthorCopyWith<$Res>(_self.author, (value) {
+    return _then(_self.copyWith(author: value));
+  });
+}
+}
+
+
+/// Adds pattern-matching-related methods to [NotificationPost].
+extension NotificationPostPatterns on NotificationPost {
+/// A variant of `map` that fallback to returning `orElse`.
+///
+/// It is equivalent to doing:
+/// ```dart
+/// switch (sealedClass) {
+///   case final Subclass value:
+///     return ...;
+///   case _:
+///     return orElse();
+/// }
+/// ```
+
+@optionalTypeArgs TResult maybeMap<TResult extends Object?>(TResult Function( _NotificationPost value)?  $default,{required TResult orElse(),}){
+final _that = this;
+switch (_that) {
+case _NotificationPost() when $default != null:
+return $default(_that);case _:
+  return orElse();
+
+}
+}
+/// A `switch`-like method, using callbacks.
+///
+/// Callbacks receives the raw object, upcasted.
+/// It is equivalent to doing:
+/// ```dart
+/// switch (sealedClass) {
+///   case final Subclass value:
+///     return ...;
+///   case final Subclass2 value:
+///     return ...;
+/// }
+/// ```
+
+@optionalTypeArgs TResult map<TResult extends Object?>(TResult Function( _NotificationPost value)  $default,){
+final _that = this;
+switch (_that) {
+case _NotificationPost():
+return $default(_that);case _:
+  throw StateError('Unexpected subclass');
+
+}
+}
+/// A variant of `map` that fallback to returning `null`.
+///
+/// It is equivalent to doing:
+/// ```dart
+/// switch (sealedClass) {
+///   case final Subclass value:
+///     return ...;
+///   case _:
+///     return null;
+/// }
+/// ```
+
+@optionalTypeArgs TResult? mapOrNull<TResult extends Object?>(TResult? Function( _NotificationPost value)?  $default,){
+final _that = this;
+switch (_that) {
+case _NotificationPost() when $default != null:
+return $default(_that);case _:
+  return null;
+
+}
+}
+/// A variant of `when` that fallback to an `orElse` callback.
+///
+/// It is equivalent to doing:
+/// ```dart
+/// switch (sealedClass) {
+///   case Subclass(:final field):
+///     return ...;
+///   case _:
+///     return orElse();
+/// }
+/// ```
+
+@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( int id,  String content,  Author author,  DateTime createdAt,  List<String> mediaUrls,  List<String> mediaTypes)?  $default,{required TResult orElse(),}) {final _that = this;
+switch (_that) {
+case _NotificationPost() when $default != null:
+return $default(_that.id,_that.content,_that.author,_that.createdAt,_that.mediaUrls,_that.mediaTypes);case _:
+  return orElse();
+
+}
+}
+/// A `switch`-like method, using callbacks.
+///
+/// As opposed to `map`, this offers destructuring.
+/// It is equivalent to doing:
+/// ```dart
+/// switch (sealedClass) {
+///   case Subclass(:final field):
+///     return ...;
+///   case Subclass2(:final field2):
+///     return ...;
+/// }
+/// ```
+
+@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( int id,  String content,  Author author,  DateTime createdAt,  List<String> mediaUrls,  List<String> mediaTypes)  $default,) {final _that = this;
+switch (_that) {
+case _NotificationPost():
+return $default(_that.id,_that.content,_that.author,_that.createdAt,_that.mediaUrls,_that.mediaTypes);case _:
+  throw StateError('Unexpected subclass');
+
+}
+}
+/// A variant of `when` that fallback to returning `null`
+///
+/// It is equivalent to doing:
+/// ```dart
+/// switch (sealedClass) {
+///   case Subclass(:final field):
+///     return ...;
+///   case _:
+///     return null;
+/// }
+/// ```
+
+@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( int id,  String content,  Author author,  DateTime createdAt,  List<String> mediaUrls,  List<String> mediaTypes)?  $default,) {final _that = this;
+switch (_that) {
+case _NotificationPost() when $default != null:
+return $default(_that.id,_that.content,_that.author,_that.createdAt,_that.mediaUrls,_that.mediaTypes);case _:
+  return null;
+
+}
+}
+
+}
+
+/// @nodoc
+@JsonSerializable()
+
+class _NotificationPost implements NotificationPost {
+  const _NotificationPost({required this.id, required this.content, required this.author, required this.createdAt, final  List<String> mediaUrls = const [], final  List<String> mediaTypes = const []}): _mediaUrls = mediaUrls,_mediaTypes = mediaTypes;
+  factory _NotificationPost.fromJson(Map<String, dynamic> json) => _$NotificationPostFromJson(json);
+
+@override final  int id;
+@override final  String content;
+@override final  Author author;
+@override final  DateTime createdAt;
+ final  List<String> _mediaUrls;
+@override@JsonKey() List<String> get mediaUrls {
+  if (_mediaUrls is EqualUnmodifiableListView) return _mediaUrls;
+  // ignore: implicit_dynamic_type
+  return EqualUnmodifiableListView(_mediaUrls);
+}
+
+ final  List<String> _mediaTypes;
+@override@JsonKey() List<String> get mediaTypes {
+  if (_mediaTypes is EqualUnmodifiableListView) return _mediaTypes;
+  // ignore: implicit_dynamic_type
+  return EqualUnmodifiableListView(_mediaTypes);
+}
+
+
+/// Create a copy of NotificationPost
+/// with the given fields replaced by the non-null parameter values.
+@override @JsonKey(includeFromJson: false, includeToJson: false)
+@pragma('vm:prefer-inline')
+_$NotificationPostCopyWith<_NotificationPost> get copyWith => __$NotificationPostCopyWithImpl<_NotificationPost>(this, _$identity);
+
+@override
+Map<String, dynamic> toJson() {
+  return _$NotificationPostToJson(this, );
+}
+
+@override
+bool operator ==(Object other) {
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is _NotificationPost&&(identical(other.id, id) || other.id == id)&&(identical(other.content, content) || other.content == content)&&(identical(other.author, author) || other.author == author)&&(identical(other.createdAt, createdAt) || other.createdAt == createdAt)&&const DeepCollectionEquality().equals(other._mediaUrls, _mediaUrls)&&const DeepCollectionEquality().equals(other._mediaTypes, _mediaTypes));
+}
+
+@JsonKey(includeFromJson: false, includeToJson: false)
+@override
+int get hashCode => Object.hash(runtimeType,id,content,author,createdAt,const DeepCollectionEquality().hash(_mediaUrls),const DeepCollectionEquality().hash(_mediaTypes));
+
+@override
+String toString() {
+  return 'NotificationPost(id: $id, content: $content, author: $author, createdAt: $createdAt, mediaUrls: $mediaUrls, mediaTypes: $mediaTypes)';
+}
+
+
+}
+
+/// @nodoc
+abstract mixin class _$NotificationPostCopyWith<$Res> implements $NotificationPostCopyWith<$Res> {
+  factory _$NotificationPostCopyWith(_NotificationPost value, $Res Function(_NotificationPost) _then) = __$NotificationPostCopyWithImpl;
+@override @useResult
+$Res call({
+ int id, String content, Author author, DateTime createdAt, List<String> mediaUrls, List<String> mediaTypes
+});
+
+
+@override $AuthorCopyWith<$Res> get author;
+
+}
+/// @nodoc
+class __$NotificationPostCopyWithImpl<$Res>
+    implements _$NotificationPostCopyWith<$Res> {
+  __$NotificationPostCopyWithImpl(this._self, this._then);
+
+  final _NotificationPost _self;
+  final $Res Function(_NotificationPost) _then;
+
+/// Create a copy of NotificationPost
+/// with the given fields replaced by the non-null parameter values.
+@override @pragma('vm:prefer-inline') $Res call({Object? id = null,Object? content = null,Object? author = null,Object? createdAt = null,Object? mediaUrls = null,Object? mediaTypes = null,}) {
+  return _then(_NotificationPost(
+id: null == id ? _self.id : id // ignore: cast_nullable_to_non_nullable
+as int,content: null == content ? _self.content : content // ignore: cast_nullable_to_non_nullable
+as String,author: null == author ? _self.author : author // ignore: cast_nullable_to_non_nullable
+as Author,createdAt: null == createdAt ? _self.createdAt : createdAt // ignore: cast_nullable_to_non_nullable
+as DateTime,mediaUrls: null == mediaUrls ? _self._mediaUrls : mediaUrls // ignore: cast_nullable_to_non_nullable
+as List<String>,mediaTypes: null == mediaTypes ? _self._mediaTypes : mediaTypes // ignore: cast_nullable_to_non_nullable
+as List<String>,
+  ));
+}
+
+/// Create a copy of NotificationPost
+/// with the given fields replaced by the non-null parameter values.
+@override
+@pragma('vm:prefer-inline')
+$AuthorCopyWith<$Res> get author {
+  
+  return $AuthorCopyWith<$Res>(_self.author, (value) {
+    return _then(_self.copyWith(author: value));
+  });
+}
+}
+
+
+/// @nodoc
 mixin _$QuotedPost {
 
  int get id; String get content; Author get author; DateTime get createdAt; DateTime? get updatedAt; DateTime? get editedAt; int? get parentId; int? get quotedPostId; List<String> get mediaUrls; List<String> get mediaTypes; List<String> get mediaAlts; List<bool> get mediaSpoilerFlags; List<bool> get mediaR18Flags; String? get embedUrl; String? get embedTitle; String? get embedDescription; String? get embedImage; int get likesCount; int get rekarotsCount; int get repliesCount; int get viewsCount; List<int> get excludedMentions; ReplyRestriction get replyRestriction; PostVisibility get visibility; bool get canView;
@@ -2595,13 +2903,14 @@ $AuthorCopyWith<$Res> get author {
 /// @nodoc
 mixin _$Post {
 
- Author get author; int get authorId; bool get bookmarked;//required List<Id> bookmarks,
+ Author get author;// required int authorId,
+ bool get bookmarked;//required List<Id> bookmarks,
  int get bookmarksCount; bool get canInteract; bool get canQuote; String? get comment; String get content; DateTime get createdAt; DateTime? get editedAt; String? get embedDescription; String? get embedImage; String? get embedTitle; String? get embedUrl; List<int> get excludedMentions; bool get hasBlockedAuthor; List<HashTags> get hashtags; int get id; bool get isAiGenerated; bool get isBlockedByAuthor; bool get isMutedByViewer; bool get isPromotional;// required String itemId,
  bool get liked;// required List<Id> likes,
  int get likesCount; List<String> get mediaAlts; List<bool> get mediaR18Flags; List<bool> get mediaSpoilerFlags; List<String> get mediaTypes; List<String> get mediaUrls; List<MentionId> get mentions; int? get parentId; Poll? get poll; int get quoteUsersCount; QuotedPost? get quotedPost; int? get quotedPostId; List<ReactionSummary> get reactionSummary; List<Reaction> get reactions; bool get rekaroted; Author? get rekarotedBy;// required List<Id> rekarots,
  int get rekarotsCount; int get repliesCount; Circle? get replyCircle; int? get replyCircleId; ReplyRestriction get replyRestriction; List<ReplyTarget> get replyTargets; List<Author> get replyToUsers;// required DateTime time,
 // required String type,
- DateTime get updatedAt; Circle? get viewerCircle; int? get viewerCircleId; int get viewsCount; PostVisibility get visibility;
+ DateTime? get updatedAt; Circle? get viewerCircle; int? get viewerCircleId; int get viewsCount; PostVisibility get visibility;
 /// Create a copy of Post
 /// with the given fields replaced by the non-null parameter values.
 @JsonKey(includeFromJson: false, includeToJson: false)
@@ -2614,16 +2923,16 @@ $PostCopyWith<Post> get copyWith => _$PostCopyWithImpl<Post>(this as Post, _$ide
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is Post&&(identical(other.author, author) || other.author == author)&&(identical(other.authorId, authorId) || other.authorId == authorId)&&(identical(other.bookmarked, bookmarked) || other.bookmarked == bookmarked)&&(identical(other.bookmarksCount, bookmarksCount) || other.bookmarksCount == bookmarksCount)&&(identical(other.canInteract, canInteract) || other.canInteract == canInteract)&&(identical(other.canQuote, canQuote) || other.canQuote == canQuote)&&(identical(other.comment, comment) || other.comment == comment)&&(identical(other.content, content) || other.content == content)&&(identical(other.createdAt, createdAt) || other.createdAt == createdAt)&&(identical(other.editedAt, editedAt) || other.editedAt == editedAt)&&(identical(other.embedDescription, embedDescription) || other.embedDescription == embedDescription)&&(identical(other.embedImage, embedImage) || other.embedImage == embedImage)&&(identical(other.embedTitle, embedTitle) || other.embedTitle == embedTitle)&&(identical(other.embedUrl, embedUrl) || other.embedUrl == embedUrl)&&const DeepCollectionEquality().equals(other.excludedMentions, excludedMentions)&&(identical(other.hasBlockedAuthor, hasBlockedAuthor) || other.hasBlockedAuthor == hasBlockedAuthor)&&const DeepCollectionEquality().equals(other.hashtags, hashtags)&&(identical(other.id, id) || other.id == id)&&(identical(other.isAiGenerated, isAiGenerated) || other.isAiGenerated == isAiGenerated)&&(identical(other.isBlockedByAuthor, isBlockedByAuthor) || other.isBlockedByAuthor == isBlockedByAuthor)&&(identical(other.isMutedByViewer, isMutedByViewer) || other.isMutedByViewer == isMutedByViewer)&&(identical(other.isPromotional, isPromotional) || other.isPromotional == isPromotional)&&(identical(other.liked, liked) || other.liked == liked)&&(identical(other.likesCount, likesCount) || other.likesCount == likesCount)&&const DeepCollectionEquality().equals(other.mediaAlts, mediaAlts)&&const DeepCollectionEquality().equals(other.mediaR18Flags, mediaR18Flags)&&const DeepCollectionEquality().equals(other.mediaSpoilerFlags, mediaSpoilerFlags)&&const DeepCollectionEquality().equals(other.mediaTypes, mediaTypes)&&const DeepCollectionEquality().equals(other.mediaUrls, mediaUrls)&&const DeepCollectionEquality().equals(other.mentions, mentions)&&(identical(other.parentId, parentId) || other.parentId == parentId)&&(identical(other.poll, poll) || other.poll == poll)&&(identical(other.quoteUsersCount, quoteUsersCount) || other.quoteUsersCount == quoteUsersCount)&&(identical(other.quotedPost, quotedPost) || other.quotedPost == quotedPost)&&(identical(other.quotedPostId, quotedPostId) || other.quotedPostId == quotedPostId)&&const DeepCollectionEquality().equals(other.reactionSummary, reactionSummary)&&const DeepCollectionEquality().equals(other.reactions, reactions)&&(identical(other.rekaroted, rekaroted) || other.rekaroted == rekaroted)&&(identical(other.rekarotedBy, rekarotedBy) || other.rekarotedBy == rekarotedBy)&&(identical(other.rekarotsCount, rekarotsCount) || other.rekarotsCount == rekarotsCount)&&(identical(other.repliesCount, repliesCount) || other.repliesCount == repliesCount)&&(identical(other.replyCircle, replyCircle) || other.replyCircle == replyCircle)&&(identical(other.replyCircleId, replyCircleId) || other.replyCircleId == replyCircleId)&&(identical(other.replyRestriction, replyRestriction) || other.replyRestriction == replyRestriction)&&const DeepCollectionEquality().equals(other.replyTargets, replyTargets)&&const DeepCollectionEquality().equals(other.replyToUsers, replyToUsers)&&(identical(other.updatedAt, updatedAt) || other.updatedAt == updatedAt)&&(identical(other.viewerCircle, viewerCircle) || other.viewerCircle == viewerCircle)&&(identical(other.viewerCircleId, viewerCircleId) || other.viewerCircleId == viewerCircleId)&&(identical(other.viewsCount, viewsCount) || other.viewsCount == viewsCount)&&(identical(other.visibility, visibility) || other.visibility == visibility));
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is Post&&(identical(other.author, author) || other.author == author)&&(identical(other.bookmarked, bookmarked) || other.bookmarked == bookmarked)&&(identical(other.bookmarksCount, bookmarksCount) || other.bookmarksCount == bookmarksCount)&&(identical(other.canInteract, canInteract) || other.canInteract == canInteract)&&(identical(other.canQuote, canQuote) || other.canQuote == canQuote)&&(identical(other.comment, comment) || other.comment == comment)&&(identical(other.content, content) || other.content == content)&&(identical(other.createdAt, createdAt) || other.createdAt == createdAt)&&(identical(other.editedAt, editedAt) || other.editedAt == editedAt)&&(identical(other.embedDescription, embedDescription) || other.embedDescription == embedDescription)&&(identical(other.embedImage, embedImage) || other.embedImage == embedImage)&&(identical(other.embedTitle, embedTitle) || other.embedTitle == embedTitle)&&(identical(other.embedUrl, embedUrl) || other.embedUrl == embedUrl)&&const DeepCollectionEquality().equals(other.excludedMentions, excludedMentions)&&(identical(other.hasBlockedAuthor, hasBlockedAuthor) || other.hasBlockedAuthor == hasBlockedAuthor)&&const DeepCollectionEquality().equals(other.hashtags, hashtags)&&(identical(other.id, id) || other.id == id)&&(identical(other.isAiGenerated, isAiGenerated) || other.isAiGenerated == isAiGenerated)&&(identical(other.isBlockedByAuthor, isBlockedByAuthor) || other.isBlockedByAuthor == isBlockedByAuthor)&&(identical(other.isMutedByViewer, isMutedByViewer) || other.isMutedByViewer == isMutedByViewer)&&(identical(other.isPromotional, isPromotional) || other.isPromotional == isPromotional)&&(identical(other.liked, liked) || other.liked == liked)&&(identical(other.likesCount, likesCount) || other.likesCount == likesCount)&&const DeepCollectionEquality().equals(other.mediaAlts, mediaAlts)&&const DeepCollectionEquality().equals(other.mediaR18Flags, mediaR18Flags)&&const DeepCollectionEquality().equals(other.mediaSpoilerFlags, mediaSpoilerFlags)&&const DeepCollectionEquality().equals(other.mediaTypes, mediaTypes)&&const DeepCollectionEquality().equals(other.mediaUrls, mediaUrls)&&const DeepCollectionEquality().equals(other.mentions, mentions)&&(identical(other.parentId, parentId) || other.parentId == parentId)&&(identical(other.poll, poll) || other.poll == poll)&&(identical(other.quoteUsersCount, quoteUsersCount) || other.quoteUsersCount == quoteUsersCount)&&(identical(other.quotedPost, quotedPost) || other.quotedPost == quotedPost)&&(identical(other.quotedPostId, quotedPostId) || other.quotedPostId == quotedPostId)&&const DeepCollectionEquality().equals(other.reactionSummary, reactionSummary)&&const DeepCollectionEquality().equals(other.reactions, reactions)&&(identical(other.rekaroted, rekaroted) || other.rekaroted == rekaroted)&&(identical(other.rekarotedBy, rekarotedBy) || other.rekarotedBy == rekarotedBy)&&(identical(other.rekarotsCount, rekarotsCount) || other.rekarotsCount == rekarotsCount)&&(identical(other.repliesCount, repliesCount) || other.repliesCount == repliesCount)&&(identical(other.replyCircle, replyCircle) || other.replyCircle == replyCircle)&&(identical(other.replyCircleId, replyCircleId) || other.replyCircleId == replyCircleId)&&(identical(other.replyRestriction, replyRestriction) || other.replyRestriction == replyRestriction)&&const DeepCollectionEquality().equals(other.replyTargets, replyTargets)&&const DeepCollectionEquality().equals(other.replyToUsers, replyToUsers)&&(identical(other.updatedAt, updatedAt) || other.updatedAt == updatedAt)&&(identical(other.viewerCircle, viewerCircle) || other.viewerCircle == viewerCircle)&&(identical(other.viewerCircleId, viewerCircleId) || other.viewerCircleId == viewerCircleId)&&(identical(other.viewsCount, viewsCount) || other.viewsCount == viewsCount)&&(identical(other.visibility, visibility) || other.visibility == visibility));
 }
 
 @JsonKey(includeFromJson: false, includeToJson: false)
 @override
-int get hashCode => Object.hashAll([runtimeType,author,authorId,bookmarked,bookmarksCount,canInteract,canQuote,comment,content,createdAt,editedAt,embedDescription,embedImage,embedTitle,embedUrl,const DeepCollectionEquality().hash(excludedMentions),hasBlockedAuthor,const DeepCollectionEquality().hash(hashtags),id,isAiGenerated,isBlockedByAuthor,isMutedByViewer,isPromotional,liked,likesCount,const DeepCollectionEquality().hash(mediaAlts),const DeepCollectionEquality().hash(mediaR18Flags),const DeepCollectionEquality().hash(mediaSpoilerFlags),const DeepCollectionEquality().hash(mediaTypes),const DeepCollectionEquality().hash(mediaUrls),const DeepCollectionEquality().hash(mentions),parentId,poll,quoteUsersCount,quotedPost,quotedPostId,const DeepCollectionEquality().hash(reactionSummary),const DeepCollectionEquality().hash(reactions),rekaroted,rekarotedBy,rekarotsCount,repliesCount,replyCircle,replyCircleId,replyRestriction,const DeepCollectionEquality().hash(replyTargets),const DeepCollectionEquality().hash(replyToUsers),updatedAt,viewerCircle,viewerCircleId,viewsCount,visibility]);
+int get hashCode => Object.hashAll([runtimeType,author,bookmarked,bookmarksCount,canInteract,canQuote,comment,content,createdAt,editedAt,embedDescription,embedImage,embedTitle,embedUrl,const DeepCollectionEquality().hash(excludedMentions),hasBlockedAuthor,const DeepCollectionEquality().hash(hashtags),id,isAiGenerated,isBlockedByAuthor,isMutedByViewer,isPromotional,liked,likesCount,const DeepCollectionEquality().hash(mediaAlts),const DeepCollectionEquality().hash(mediaR18Flags),const DeepCollectionEquality().hash(mediaSpoilerFlags),const DeepCollectionEquality().hash(mediaTypes),const DeepCollectionEquality().hash(mediaUrls),const DeepCollectionEquality().hash(mentions),parentId,poll,quoteUsersCount,quotedPost,quotedPostId,const DeepCollectionEquality().hash(reactionSummary),const DeepCollectionEquality().hash(reactions),rekaroted,rekarotedBy,rekarotsCount,repliesCount,replyCircle,replyCircleId,replyRestriction,const DeepCollectionEquality().hash(replyTargets),const DeepCollectionEquality().hash(replyToUsers),updatedAt,viewerCircle,viewerCircleId,viewsCount,visibility]);
 
 @override
 String toString() {
-  return 'Post(author: $author, authorId: $authorId, bookmarked: $bookmarked, bookmarksCount: $bookmarksCount, canInteract: $canInteract, canQuote: $canQuote, comment: $comment, content: $content, createdAt: $createdAt, editedAt: $editedAt, embedDescription: $embedDescription, embedImage: $embedImage, embedTitle: $embedTitle, embedUrl: $embedUrl, excludedMentions: $excludedMentions, hasBlockedAuthor: $hasBlockedAuthor, hashtags: $hashtags, id: $id, isAiGenerated: $isAiGenerated, isBlockedByAuthor: $isBlockedByAuthor, isMutedByViewer: $isMutedByViewer, isPromotional: $isPromotional, liked: $liked, likesCount: $likesCount, mediaAlts: $mediaAlts, mediaR18Flags: $mediaR18Flags, mediaSpoilerFlags: $mediaSpoilerFlags, mediaTypes: $mediaTypes, mediaUrls: $mediaUrls, mentions: $mentions, parentId: $parentId, poll: $poll, quoteUsersCount: $quoteUsersCount, quotedPost: $quotedPost, quotedPostId: $quotedPostId, reactionSummary: $reactionSummary, reactions: $reactions, rekaroted: $rekaroted, rekarotedBy: $rekarotedBy, rekarotsCount: $rekarotsCount, repliesCount: $repliesCount, replyCircle: $replyCircle, replyCircleId: $replyCircleId, replyRestriction: $replyRestriction, replyTargets: $replyTargets, replyToUsers: $replyToUsers, updatedAt: $updatedAt, viewerCircle: $viewerCircle, viewerCircleId: $viewerCircleId, viewsCount: $viewsCount, visibility: $visibility)';
+  return 'Post(author: $author, bookmarked: $bookmarked, bookmarksCount: $bookmarksCount, canInteract: $canInteract, canQuote: $canQuote, comment: $comment, content: $content, createdAt: $createdAt, editedAt: $editedAt, embedDescription: $embedDescription, embedImage: $embedImage, embedTitle: $embedTitle, embedUrl: $embedUrl, excludedMentions: $excludedMentions, hasBlockedAuthor: $hasBlockedAuthor, hashtags: $hashtags, id: $id, isAiGenerated: $isAiGenerated, isBlockedByAuthor: $isBlockedByAuthor, isMutedByViewer: $isMutedByViewer, isPromotional: $isPromotional, liked: $liked, likesCount: $likesCount, mediaAlts: $mediaAlts, mediaR18Flags: $mediaR18Flags, mediaSpoilerFlags: $mediaSpoilerFlags, mediaTypes: $mediaTypes, mediaUrls: $mediaUrls, mentions: $mentions, parentId: $parentId, poll: $poll, quoteUsersCount: $quoteUsersCount, quotedPost: $quotedPost, quotedPostId: $quotedPostId, reactionSummary: $reactionSummary, reactions: $reactions, rekaroted: $rekaroted, rekarotedBy: $rekarotedBy, rekarotsCount: $rekarotsCount, repliesCount: $repliesCount, replyCircle: $replyCircle, replyCircleId: $replyCircleId, replyRestriction: $replyRestriction, replyTargets: $replyTargets, replyToUsers: $replyToUsers, updatedAt: $updatedAt, viewerCircle: $viewerCircle, viewerCircleId: $viewerCircleId, viewsCount: $viewsCount, visibility: $visibility)';
 }
 
 
@@ -2634,7 +2943,7 @@ abstract mixin class $PostCopyWith<$Res>  {
   factory $PostCopyWith(Post value, $Res Function(Post) _then) = _$PostCopyWithImpl;
 @useResult
 $Res call({
- Author author, int authorId, bool bookmarked, int bookmarksCount, bool canInteract, bool canQuote, String? comment, String content, DateTime createdAt, DateTime? editedAt, String? embedDescription, String? embedImage, String? embedTitle, String? embedUrl, List<int> excludedMentions, bool hasBlockedAuthor, List<HashTags> hashtags, int id, bool isAiGenerated, bool isBlockedByAuthor, bool isMutedByViewer, bool isPromotional, bool liked, int likesCount, List<String> mediaAlts, List<bool> mediaR18Flags, List<bool> mediaSpoilerFlags, List<String> mediaTypes, List<String> mediaUrls, List<MentionId> mentions, int? parentId, Poll? poll, int quoteUsersCount, QuotedPost? quotedPost, int? quotedPostId, List<ReactionSummary> reactionSummary, List<Reaction> reactions, bool rekaroted, Author? rekarotedBy, int rekarotsCount, int repliesCount, Circle? replyCircle, int? replyCircleId, ReplyRestriction replyRestriction, List<ReplyTarget> replyTargets, List<Author> replyToUsers, DateTime updatedAt, Circle? viewerCircle, int? viewerCircleId, int viewsCount, PostVisibility visibility
+ Author author, bool bookmarked, int bookmarksCount, bool canInteract, bool canQuote, String? comment, String content, DateTime createdAt, DateTime? editedAt, String? embedDescription, String? embedImage, String? embedTitle, String? embedUrl, List<int> excludedMentions, bool hasBlockedAuthor, List<HashTags> hashtags, int id, bool isAiGenerated, bool isBlockedByAuthor, bool isMutedByViewer, bool isPromotional, bool liked, int likesCount, List<String> mediaAlts, List<bool> mediaR18Flags, List<bool> mediaSpoilerFlags, List<String> mediaTypes, List<String> mediaUrls, List<MentionId> mentions, int? parentId, Poll? poll, int quoteUsersCount, QuotedPost? quotedPost, int? quotedPostId, List<ReactionSummary> reactionSummary, List<Reaction> reactions, bool rekaroted, Author? rekarotedBy, int rekarotsCount, int repliesCount, Circle? replyCircle, int? replyCircleId, ReplyRestriction replyRestriction, List<ReplyTarget> replyTargets, List<Author> replyToUsers, DateTime? updatedAt, Circle? viewerCircle, int? viewerCircleId, int viewsCount, PostVisibility visibility
 });
 
 
@@ -2651,11 +2960,10 @@ class _$PostCopyWithImpl<$Res>
 
 /// Create a copy of Post
 /// with the given fields replaced by the non-null parameter values.
-@pragma('vm:prefer-inline') @override $Res call({Object? author = null,Object? authorId = null,Object? bookmarked = null,Object? bookmarksCount = null,Object? canInteract = null,Object? canQuote = null,Object? comment = freezed,Object? content = null,Object? createdAt = null,Object? editedAt = freezed,Object? embedDescription = freezed,Object? embedImage = freezed,Object? embedTitle = freezed,Object? embedUrl = freezed,Object? excludedMentions = null,Object? hasBlockedAuthor = null,Object? hashtags = null,Object? id = null,Object? isAiGenerated = null,Object? isBlockedByAuthor = null,Object? isMutedByViewer = null,Object? isPromotional = null,Object? liked = null,Object? likesCount = null,Object? mediaAlts = null,Object? mediaR18Flags = null,Object? mediaSpoilerFlags = null,Object? mediaTypes = null,Object? mediaUrls = null,Object? mentions = null,Object? parentId = freezed,Object? poll = freezed,Object? quoteUsersCount = null,Object? quotedPost = freezed,Object? quotedPostId = freezed,Object? reactionSummary = null,Object? reactions = null,Object? rekaroted = null,Object? rekarotedBy = freezed,Object? rekarotsCount = null,Object? repliesCount = null,Object? replyCircle = freezed,Object? replyCircleId = freezed,Object? replyRestriction = null,Object? replyTargets = null,Object? replyToUsers = null,Object? updatedAt = null,Object? viewerCircle = freezed,Object? viewerCircleId = freezed,Object? viewsCount = null,Object? visibility = null,}) {
+@pragma('vm:prefer-inline') @override $Res call({Object? author = null,Object? bookmarked = null,Object? bookmarksCount = null,Object? canInteract = null,Object? canQuote = null,Object? comment = freezed,Object? content = null,Object? createdAt = null,Object? editedAt = freezed,Object? embedDescription = freezed,Object? embedImage = freezed,Object? embedTitle = freezed,Object? embedUrl = freezed,Object? excludedMentions = null,Object? hasBlockedAuthor = null,Object? hashtags = null,Object? id = null,Object? isAiGenerated = null,Object? isBlockedByAuthor = null,Object? isMutedByViewer = null,Object? isPromotional = null,Object? liked = null,Object? likesCount = null,Object? mediaAlts = null,Object? mediaR18Flags = null,Object? mediaSpoilerFlags = null,Object? mediaTypes = null,Object? mediaUrls = null,Object? mentions = null,Object? parentId = freezed,Object? poll = freezed,Object? quoteUsersCount = null,Object? quotedPost = freezed,Object? quotedPostId = freezed,Object? reactionSummary = null,Object? reactions = null,Object? rekaroted = null,Object? rekarotedBy = freezed,Object? rekarotsCount = null,Object? repliesCount = null,Object? replyCircle = freezed,Object? replyCircleId = freezed,Object? replyRestriction = null,Object? replyTargets = null,Object? replyToUsers = null,Object? updatedAt = freezed,Object? viewerCircle = freezed,Object? viewerCircleId = freezed,Object? viewsCount = null,Object? visibility = null,}) {
   return _then(_self.copyWith(
 author: null == author ? _self.author : author // ignore: cast_nullable_to_non_nullable
-as Author,authorId: null == authorId ? _self.authorId : authorId // ignore: cast_nullable_to_non_nullable
-as int,bookmarked: null == bookmarked ? _self.bookmarked : bookmarked // ignore: cast_nullable_to_non_nullable
+as Author,bookmarked: null == bookmarked ? _self.bookmarked : bookmarked // ignore: cast_nullable_to_non_nullable
 as bool,bookmarksCount: null == bookmarksCount ? _self.bookmarksCount : bookmarksCount // ignore: cast_nullable_to_non_nullable
 as int,canInteract: null == canInteract ? _self.canInteract : canInteract // ignore: cast_nullable_to_non_nullable
 as bool,canQuote: null == canQuote ? _self.canQuote : canQuote // ignore: cast_nullable_to_non_nullable
@@ -2699,8 +3007,8 @@ as Circle?,replyCircleId: freezed == replyCircleId ? _self.replyCircleId : reply
 as int?,replyRestriction: null == replyRestriction ? _self.replyRestriction : replyRestriction // ignore: cast_nullable_to_non_nullable
 as ReplyRestriction,replyTargets: null == replyTargets ? _self.replyTargets : replyTargets // ignore: cast_nullable_to_non_nullable
 as List<ReplyTarget>,replyToUsers: null == replyToUsers ? _self.replyToUsers : replyToUsers // ignore: cast_nullable_to_non_nullable
-as List<Author>,updatedAt: null == updatedAt ? _self.updatedAt : updatedAt // ignore: cast_nullable_to_non_nullable
-as DateTime,viewerCircle: freezed == viewerCircle ? _self.viewerCircle : viewerCircle // ignore: cast_nullable_to_non_nullable
+as List<Author>,updatedAt: freezed == updatedAt ? _self.updatedAt : updatedAt // ignore: cast_nullable_to_non_nullable
+as DateTime?,viewerCircle: freezed == viewerCircle ? _self.viewerCircle : viewerCircle // ignore: cast_nullable_to_non_nullable
 as Circle?,viewerCircleId: freezed == viewerCircleId ? _self.viewerCircleId : viewerCircleId // ignore: cast_nullable_to_non_nullable
 as int?,viewsCount: null == viewsCount ? _self.viewsCount : viewsCount // ignore: cast_nullable_to_non_nullable
 as int,visibility: null == visibility ? _self.visibility : visibility // ignore: cast_nullable_to_non_nullable
@@ -2858,10 +3166,10 @@ return $default(_that);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( Author author,  int authorId,  bool bookmarked,  int bookmarksCount,  bool canInteract,  bool canQuote,  String? comment,  String content,  DateTime createdAt,  DateTime? editedAt,  String? embedDescription,  String? embedImage,  String? embedTitle,  String? embedUrl,  List<int> excludedMentions,  bool hasBlockedAuthor,  List<HashTags> hashtags,  int id,  bool isAiGenerated,  bool isBlockedByAuthor,  bool isMutedByViewer,  bool isPromotional,  bool liked,  int likesCount,  List<String> mediaAlts,  List<bool> mediaR18Flags,  List<bool> mediaSpoilerFlags,  List<String> mediaTypes,  List<String> mediaUrls,  List<MentionId> mentions,  int? parentId,  Poll? poll,  int quoteUsersCount,  QuotedPost? quotedPost,  int? quotedPostId,  List<ReactionSummary> reactionSummary,  List<Reaction> reactions,  bool rekaroted,  Author? rekarotedBy,  int rekarotsCount,  int repliesCount,  Circle? replyCircle,  int? replyCircleId,  ReplyRestriction replyRestriction,  List<ReplyTarget> replyTargets,  List<Author> replyToUsers,  DateTime updatedAt,  Circle? viewerCircle,  int? viewerCircleId,  int viewsCount,  PostVisibility visibility)?  $default,{required TResult orElse(),}) {final _that = this;
+@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( Author author,  bool bookmarked,  int bookmarksCount,  bool canInteract,  bool canQuote,  String? comment,  String content,  DateTime createdAt,  DateTime? editedAt,  String? embedDescription,  String? embedImage,  String? embedTitle,  String? embedUrl,  List<int> excludedMentions,  bool hasBlockedAuthor,  List<HashTags> hashtags,  int id,  bool isAiGenerated,  bool isBlockedByAuthor,  bool isMutedByViewer,  bool isPromotional,  bool liked,  int likesCount,  List<String> mediaAlts,  List<bool> mediaR18Flags,  List<bool> mediaSpoilerFlags,  List<String> mediaTypes,  List<String> mediaUrls,  List<MentionId> mentions,  int? parentId,  Poll? poll,  int quoteUsersCount,  QuotedPost? quotedPost,  int? quotedPostId,  List<ReactionSummary> reactionSummary,  List<Reaction> reactions,  bool rekaroted,  Author? rekarotedBy,  int rekarotsCount,  int repliesCount,  Circle? replyCircle,  int? replyCircleId,  ReplyRestriction replyRestriction,  List<ReplyTarget> replyTargets,  List<Author> replyToUsers,  DateTime? updatedAt,  Circle? viewerCircle,  int? viewerCircleId,  int viewsCount,  PostVisibility visibility)?  $default,{required TResult orElse(),}) {final _that = this;
 switch (_that) {
 case _Post() when $default != null:
-return $default(_that.author,_that.authorId,_that.bookmarked,_that.bookmarksCount,_that.canInteract,_that.canQuote,_that.comment,_that.content,_that.createdAt,_that.editedAt,_that.embedDescription,_that.embedImage,_that.embedTitle,_that.embedUrl,_that.excludedMentions,_that.hasBlockedAuthor,_that.hashtags,_that.id,_that.isAiGenerated,_that.isBlockedByAuthor,_that.isMutedByViewer,_that.isPromotional,_that.liked,_that.likesCount,_that.mediaAlts,_that.mediaR18Flags,_that.mediaSpoilerFlags,_that.mediaTypes,_that.mediaUrls,_that.mentions,_that.parentId,_that.poll,_that.quoteUsersCount,_that.quotedPost,_that.quotedPostId,_that.reactionSummary,_that.reactions,_that.rekaroted,_that.rekarotedBy,_that.rekarotsCount,_that.repliesCount,_that.replyCircle,_that.replyCircleId,_that.replyRestriction,_that.replyTargets,_that.replyToUsers,_that.updatedAt,_that.viewerCircle,_that.viewerCircleId,_that.viewsCount,_that.visibility);case _:
+return $default(_that.author,_that.bookmarked,_that.bookmarksCount,_that.canInteract,_that.canQuote,_that.comment,_that.content,_that.createdAt,_that.editedAt,_that.embedDescription,_that.embedImage,_that.embedTitle,_that.embedUrl,_that.excludedMentions,_that.hasBlockedAuthor,_that.hashtags,_that.id,_that.isAiGenerated,_that.isBlockedByAuthor,_that.isMutedByViewer,_that.isPromotional,_that.liked,_that.likesCount,_that.mediaAlts,_that.mediaR18Flags,_that.mediaSpoilerFlags,_that.mediaTypes,_that.mediaUrls,_that.mentions,_that.parentId,_that.poll,_that.quoteUsersCount,_that.quotedPost,_that.quotedPostId,_that.reactionSummary,_that.reactions,_that.rekaroted,_that.rekarotedBy,_that.rekarotsCount,_that.repliesCount,_that.replyCircle,_that.replyCircleId,_that.replyRestriction,_that.replyTargets,_that.replyToUsers,_that.updatedAt,_that.viewerCircle,_that.viewerCircleId,_that.viewsCount,_that.visibility);case _:
   return orElse();
 
 }
@@ -2879,10 +3187,10 @@ return $default(_that.author,_that.authorId,_that.bookmarked,_that.bookmarksCoun
 /// }
 /// ```
 
-@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( Author author,  int authorId,  bool bookmarked,  int bookmarksCount,  bool canInteract,  bool canQuote,  String? comment,  String content,  DateTime createdAt,  DateTime? editedAt,  String? embedDescription,  String? embedImage,  String? embedTitle,  String? embedUrl,  List<int> excludedMentions,  bool hasBlockedAuthor,  List<HashTags> hashtags,  int id,  bool isAiGenerated,  bool isBlockedByAuthor,  bool isMutedByViewer,  bool isPromotional,  bool liked,  int likesCount,  List<String> mediaAlts,  List<bool> mediaR18Flags,  List<bool> mediaSpoilerFlags,  List<String> mediaTypes,  List<String> mediaUrls,  List<MentionId> mentions,  int? parentId,  Poll? poll,  int quoteUsersCount,  QuotedPost? quotedPost,  int? quotedPostId,  List<ReactionSummary> reactionSummary,  List<Reaction> reactions,  bool rekaroted,  Author? rekarotedBy,  int rekarotsCount,  int repliesCount,  Circle? replyCircle,  int? replyCircleId,  ReplyRestriction replyRestriction,  List<ReplyTarget> replyTargets,  List<Author> replyToUsers,  DateTime updatedAt,  Circle? viewerCircle,  int? viewerCircleId,  int viewsCount,  PostVisibility visibility)  $default,) {final _that = this;
+@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( Author author,  bool bookmarked,  int bookmarksCount,  bool canInteract,  bool canQuote,  String? comment,  String content,  DateTime createdAt,  DateTime? editedAt,  String? embedDescription,  String? embedImage,  String? embedTitle,  String? embedUrl,  List<int> excludedMentions,  bool hasBlockedAuthor,  List<HashTags> hashtags,  int id,  bool isAiGenerated,  bool isBlockedByAuthor,  bool isMutedByViewer,  bool isPromotional,  bool liked,  int likesCount,  List<String> mediaAlts,  List<bool> mediaR18Flags,  List<bool> mediaSpoilerFlags,  List<String> mediaTypes,  List<String> mediaUrls,  List<MentionId> mentions,  int? parentId,  Poll? poll,  int quoteUsersCount,  QuotedPost? quotedPost,  int? quotedPostId,  List<ReactionSummary> reactionSummary,  List<Reaction> reactions,  bool rekaroted,  Author? rekarotedBy,  int rekarotsCount,  int repliesCount,  Circle? replyCircle,  int? replyCircleId,  ReplyRestriction replyRestriction,  List<ReplyTarget> replyTargets,  List<Author> replyToUsers,  DateTime? updatedAt,  Circle? viewerCircle,  int? viewerCircleId,  int viewsCount,  PostVisibility visibility)  $default,) {final _that = this;
 switch (_that) {
 case _Post():
-return $default(_that.author,_that.authorId,_that.bookmarked,_that.bookmarksCount,_that.canInteract,_that.canQuote,_that.comment,_that.content,_that.createdAt,_that.editedAt,_that.embedDescription,_that.embedImage,_that.embedTitle,_that.embedUrl,_that.excludedMentions,_that.hasBlockedAuthor,_that.hashtags,_that.id,_that.isAiGenerated,_that.isBlockedByAuthor,_that.isMutedByViewer,_that.isPromotional,_that.liked,_that.likesCount,_that.mediaAlts,_that.mediaR18Flags,_that.mediaSpoilerFlags,_that.mediaTypes,_that.mediaUrls,_that.mentions,_that.parentId,_that.poll,_that.quoteUsersCount,_that.quotedPost,_that.quotedPostId,_that.reactionSummary,_that.reactions,_that.rekaroted,_that.rekarotedBy,_that.rekarotsCount,_that.repliesCount,_that.replyCircle,_that.replyCircleId,_that.replyRestriction,_that.replyTargets,_that.replyToUsers,_that.updatedAt,_that.viewerCircle,_that.viewerCircleId,_that.viewsCount,_that.visibility);case _:
+return $default(_that.author,_that.bookmarked,_that.bookmarksCount,_that.canInteract,_that.canQuote,_that.comment,_that.content,_that.createdAt,_that.editedAt,_that.embedDescription,_that.embedImage,_that.embedTitle,_that.embedUrl,_that.excludedMentions,_that.hasBlockedAuthor,_that.hashtags,_that.id,_that.isAiGenerated,_that.isBlockedByAuthor,_that.isMutedByViewer,_that.isPromotional,_that.liked,_that.likesCount,_that.mediaAlts,_that.mediaR18Flags,_that.mediaSpoilerFlags,_that.mediaTypes,_that.mediaUrls,_that.mentions,_that.parentId,_that.poll,_that.quoteUsersCount,_that.quotedPost,_that.quotedPostId,_that.reactionSummary,_that.reactions,_that.rekaroted,_that.rekarotedBy,_that.rekarotsCount,_that.repliesCount,_that.replyCircle,_that.replyCircleId,_that.replyRestriction,_that.replyTargets,_that.replyToUsers,_that.updatedAt,_that.viewerCircle,_that.viewerCircleId,_that.viewsCount,_that.visibility);case _:
   throw StateError('Unexpected subclass');
 
 }
@@ -2899,10 +3207,10 @@ return $default(_that.author,_that.authorId,_that.bookmarked,_that.bookmarksCoun
 /// }
 /// ```
 
-@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( Author author,  int authorId,  bool bookmarked,  int bookmarksCount,  bool canInteract,  bool canQuote,  String? comment,  String content,  DateTime createdAt,  DateTime? editedAt,  String? embedDescription,  String? embedImage,  String? embedTitle,  String? embedUrl,  List<int> excludedMentions,  bool hasBlockedAuthor,  List<HashTags> hashtags,  int id,  bool isAiGenerated,  bool isBlockedByAuthor,  bool isMutedByViewer,  bool isPromotional,  bool liked,  int likesCount,  List<String> mediaAlts,  List<bool> mediaR18Flags,  List<bool> mediaSpoilerFlags,  List<String> mediaTypes,  List<String> mediaUrls,  List<MentionId> mentions,  int? parentId,  Poll? poll,  int quoteUsersCount,  QuotedPost? quotedPost,  int? quotedPostId,  List<ReactionSummary> reactionSummary,  List<Reaction> reactions,  bool rekaroted,  Author? rekarotedBy,  int rekarotsCount,  int repliesCount,  Circle? replyCircle,  int? replyCircleId,  ReplyRestriction replyRestriction,  List<ReplyTarget> replyTargets,  List<Author> replyToUsers,  DateTime updatedAt,  Circle? viewerCircle,  int? viewerCircleId,  int viewsCount,  PostVisibility visibility)?  $default,) {final _that = this;
+@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( Author author,  bool bookmarked,  int bookmarksCount,  bool canInteract,  bool canQuote,  String? comment,  String content,  DateTime createdAt,  DateTime? editedAt,  String? embedDescription,  String? embedImage,  String? embedTitle,  String? embedUrl,  List<int> excludedMentions,  bool hasBlockedAuthor,  List<HashTags> hashtags,  int id,  bool isAiGenerated,  bool isBlockedByAuthor,  bool isMutedByViewer,  bool isPromotional,  bool liked,  int likesCount,  List<String> mediaAlts,  List<bool> mediaR18Flags,  List<bool> mediaSpoilerFlags,  List<String> mediaTypes,  List<String> mediaUrls,  List<MentionId> mentions,  int? parentId,  Poll? poll,  int quoteUsersCount,  QuotedPost? quotedPost,  int? quotedPostId,  List<ReactionSummary> reactionSummary,  List<Reaction> reactions,  bool rekaroted,  Author? rekarotedBy,  int rekarotsCount,  int repliesCount,  Circle? replyCircle,  int? replyCircleId,  ReplyRestriction replyRestriction,  List<ReplyTarget> replyTargets,  List<Author> replyToUsers,  DateTime? updatedAt,  Circle? viewerCircle,  int? viewerCircleId,  int viewsCount,  PostVisibility visibility)?  $default,) {final _that = this;
 switch (_that) {
 case _Post() when $default != null:
-return $default(_that.author,_that.authorId,_that.bookmarked,_that.bookmarksCount,_that.canInteract,_that.canQuote,_that.comment,_that.content,_that.createdAt,_that.editedAt,_that.embedDescription,_that.embedImage,_that.embedTitle,_that.embedUrl,_that.excludedMentions,_that.hasBlockedAuthor,_that.hashtags,_that.id,_that.isAiGenerated,_that.isBlockedByAuthor,_that.isMutedByViewer,_that.isPromotional,_that.liked,_that.likesCount,_that.mediaAlts,_that.mediaR18Flags,_that.mediaSpoilerFlags,_that.mediaTypes,_that.mediaUrls,_that.mentions,_that.parentId,_that.poll,_that.quoteUsersCount,_that.quotedPost,_that.quotedPostId,_that.reactionSummary,_that.reactions,_that.rekaroted,_that.rekarotedBy,_that.rekarotsCount,_that.repliesCount,_that.replyCircle,_that.replyCircleId,_that.replyRestriction,_that.replyTargets,_that.replyToUsers,_that.updatedAt,_that.viewerCircle,_that.viewerCircleId,_that.viewsCount,_that.visibility);case _:
+return $default(_that.author,_that.bookmarked,_that.bookmarksCount,_that.canInteract,_that.canQuote,_that.comment,_that.content,_that.createdAt,_that.editedAt,_that.embedDescription,_that.embedImage,_that.embedTitle,_that.embedUrl,_that.excludedMentions,_that.hasBlockedAuthor,_that.hashtags,_that.id,_that.isAiGenerated,_that.isBlockedByAuthor,_that.isMutedByViewer,_that.isPromotional,_that.liked,_that.likesCount,_that.mediaAlts,_that.mediaR18Flags,_that.mediaSpoilerFlags,_that.mediaTypes,_that.mediaUrls,_that.mentions,_that.parentId,_that.poll,_that.quoteUsersCount,_that.quotedPost,_that.quotedPostId,_that.reactionSummary,_that.reactions,_that.rekaroted,_that.rekarotedBy,_that.rekarotsCount,_that.repliesCount,_that.replyCircle,_that.replyCircleId,_that.replyRestriction,_that.replyTargets,_that.replyToUsers,_that.updatedAt,_that.viewerCircle,_that.viewerCircleId,_that.viewsCount,_that.visibility);case _:
   return null;
 
 }
@@ -2914,11 +3222,11 @@ return $default(_that.author,_that.authorId,_that.bookmarked,_that.bookmarksCoun
 @JsonSerializable()
 
 class _Post implements Post {
-  const _Post({required this.author, required this.authorId, required this.bookmarked, required this.bookmarksCount, this.canInteract = true, this.canQuote = true, this.comment, required this.content, required this.createdAt, this.editedAt, this.embedDescription, this.embedImage, this.embedTitle, this.embedUrl, required final  List<int> excludedMentions, this.hasBlockedAuthor = true, final  List<HashTags> hashtags = const [], required this.id, required this.isAiGenerated, this.isBlockedByAuthor = false, this.isMutedByViewer = false, required this.isPromotional, this.liked = false, required this.likesCount, required final  List<String> mediaAlts, required final  List<bool> mediaR18Flags, required final  List<bool> mediaSpoilerFlags, required final  List<String> mediaTypes, required final  List<String> mediaUrls, final  List<MentionId> mentions = const [], this.parentId, this.poll, this.quoteUsersCount = 0, this.quotedPost, this.quotedPostId, final  List<ReactionSummary> reactionSummary = const [], final  List<Reaction> reactions = const [], this.rekaroted = false, this.rekarotedBy, this.rekarotsCount = 0, required this.repliesCount, this.replyCircle, this.replyCircleId, required this.replyRestriction, final  List<ReplyTarget> replyTargets = const [], final  List<Author> replyToUsers = const [], required this.updatedAt, this.viewerCircle, this.viewerCircleId, required this.viewsCount, required this.visibility}): _excludedMentions = excludedMentions,_hashtags = hashtags,_mediaAlts = mediaAlts,_mediaR18Flags = mediaR18Flags,_mediaSpoilerFlags = mediaSpoilerFlags,_mediaTypes = mediaTypes,_mediaUrls = mediaUrls,_mentions = mentions,_reactionSummary = reactionSummary,_reactions = reactions,_replyTargets = replyTargets,_replyToUsers = replyToUsers;
+  const _Post({required this.author, required this.bookmarked, required this.bookmarksCount, this.canInteract = true, this.canQuote = true, this.comment, required this.content, required this.createdAt, this.editedAt, this.embedDescription, this.embedImage, this.embedTitle, this.embedUrl, final  List<int> excludedMentions = const [], this.hasBlockedAuthor = true, final  List<HashTags> hashtags = const [], required this.id, required this.isAiGenerated, this.isBlockedByAuthor = false, this.isMutedByViewer = false, required this.isPromotional, this.liked = false, required this.likesCount, required final  List<String> mediaAlts, required final  List<bool> mediaR18Flags, required final  List<bool> mediaSpoilerFlags, required final  List<String> mediaTypes, required final  List<String> mediaUrls, final  List<MentionId> mentions = const [], this.parentId, this.poll, this.quoteUsersCount = 0, this.quotedPost, this.quotedPostId, final  List<ReactionSummary> reactionSummary = const [], final  List<Reaction> reactions = const [], this.rekaroted = false, this.rekarotedBy, this.rekarotsCount = 0, required this.repliesCount, this.replyCircle, this.replyCircleId, this.replyRestriction = ReplyRestriction.EVERYONE, final  List<ReplyTarget> replyTargets = const [], final  List<Author> replyToUsers = const [], this.updatedAt, this.viewerCircle, this.viewerCircleId, required this.viewsCount, this.visibility = PostVisibility.PUBLIC}): _excludedMentions = excludedMentions,_hashtags = hashtags,_mediaAlts = mediaAlts,_mediaR18Flags = mediaR18Flags,_mediaSpoilerFlags = mediaSpoilerFlags,_mediaTypes = mediaTypes,_mediaUrls = mediaUrls,_mentions = mentions,_reactionSummary = reactionSummary,_reactions = reactions,_replyTargets = replyTargets,_replyToUsers = replyToUsers;
   factory _Post.fromJson(Map<String, dynamic> json) => _$PostFromJson(json);
 
 @override final  Author author;
-@override final  int authorId;
+// required int authorId,
 @override final  bool bookmarked;
 //required List<Id> bookmarks,
 @override final  int bookmarksCount;
@@ -2933,7 +3241,7 @@ class _Post implements Post {
 @override final  String? embedTitle;
 @override final  String? embedUrl;
  final  List<int> _excludedMentions;
-@override List<int> get excludedMentions {
+@override@JsonKey() List<int> get excludedMentions {
   if (_excludedMentions is EqualUnmodifiableListView) return _excludedMentions;
   // ignore: implicit_dynamic_type
   return EqualUnmodifiableListView(_excludedMentions);
@@ -3024,7 +3332,7 @@ class _Post implements Post {
 @override final  int repliesCount;
 @override final  Circle? replyCircle;
 @override final  int? replyCircleId;
-@override final  ReplyRestriction replyRestriction;
+@override@JsonKey() final  ReplyRestriction replyRestriction;
  final  List<ReplyTarget> _replyTargets;
 @override@JsonKey() List<ReplyTarget> get replyTargets {
   if (_replyTargets is EqualUnmodifiableListView) return _replyTargets;
@@ -3041,11 +3349,11 @@ class _Post implements Post {
 
 // required DateTime time,
 // required String type,
-@override final  DateTime updatedAt;
+@override final  DateTime? updatedAt;
 @override final  Circle? viewerCircle;
 @override final  int? viewerCircleId;
 @override final  int viewsCount;
-@override final  PostVisibility visibility;
+@override@JsonKey() final  PostVisibility visibility;
 
 /// Create a copy of Post
 /// with the given fields replaced by the non-null parameter values.
@@ -3060,16 +3368,16 @@ Map<String, dynamic> toJson() {
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is _Post&&(identical(other.author, author) || other.author == author)&&(identical(other.authorId, authorId) || other.authorId == authorId)&&(identical(other.bookmarked, bookmarked) || other.bookmarked == bookmarked)&&(identical(other.bookmarksCount, bookmarksCount) || other.bookmarksCount == bookmarksCount)&&(identical(other.canInteract, canInteract) || other.canInteract == canInteract)&&(identical(other.canQuote, canQuote) || other.canQuote == canQuote)&&(identical(other.comment, comment) || other.comment == comment)&&(identical(other.content, content) || other.content == content)&&(identical(other.createdAt, createdAt) || other.createdAt == createdAt)&&(identical(other.editedAt, editedAt) || other.editedAt == editedAt)&&(identical(other.embedDescription, embedDescription) || other.embedDescription == embedDescription)&&(identical(other.embedImage, embedImage) || other.embedImage == embedImage)&&(identical(other.embedTitle, embedTitle) || other.embedTitle == embedTitle)&&(identical(other.embedUrl, embedUrl) || other.embedUrl == embedUrl)&&const DeepCollectionEquality().equals(other._excludedMentions, _excludedMentions)&&(identical(other.hasBlockedAuthor, hasBlockedAuthor) || other.hasBlockedAuthor == hasBlockedAuthor)&&const DeepCollectionEquality().equals(other._hashtags, _hashtags)&&(identical(other.id, id) || other.id == id)&&(identical(other.isAiGenerated, isAiGenerated) || other.isAiGenerated == isAiGenerated)&&(identical(other.isBlockedByAuthor, isBlockedByAuthor) || other.isBlockedByAuthor == isBlockedByAuthor)&&(identical(other.isMutedByViewer, isMutedByViewer) || other.isMutedByViewer == isMutedByViewer)&&(identical(other.isPromotional, isPromotional) || other.isPromotional == isPromotional)&&(identical(other.liked, liked) || other.liked == liked)&&(identical(other.likesCount, likesCount) || other.likesCount == likesCount)&&const DeepCollectionEquality().equals(other._mediaAlts, _mediaAlts)&&const DeepCollectionEquality().equals(other._mediaR18Flags, _mediaR18Flags)&&const DeepCollectionEquality().equals(other._mediaSpoilerFlags, _mediaSpoilerFlags)&&const DeepCollectionEquality().equals(other._mediaTypes, _mediaTypes)&&const DeepCollectionEquality().equals(other._mediaUrls, _mediaUrls)&&const DeepCollectionEquality().equals(other._mentions, _mentions)&&(identical(other.parentId, parentId) || other.parentId == parentId)&&(identical(other.poll, poll) || other.poll == poll)&&(identical(other.quoteUsersCount, quoteUsersCount) || other.quoteUsersCount == quoteUsersCount)&&(identical(other.quotedPost, quotedPost) || other.quotedPost == quotedPost)&&(identical(other.quotedPostId, quotedPostId) || other.quotedPostId == quotedPostId)&&const DeepCollectionEquality().equals(other._reactionSummary, _reactionSummary)&&const DeepCollectionEquality().equals(other._reactions, _reactions)&&(identical(other.rekaroted, rekaroted) || other.rekaroted == rekaroted)&&(identical(other.rekarotedBy, rekarotedBy) || other.rekarotedBy == rekarotedBy)&&(identical(other.rekarotsCount, rekarotsCount) || other.rekarotsCount == rekarotsCount)&&(identical(other.repliesCount, repliesCount) || other.repliesCount == repliesCount)&&(identical(other.replyCircle, replyCircle) || other.replyCircle == replyCircle)&&(identical(other.replyCircleId, replyCircleId) || other.replyCircleId == replyCircleId)&&(identical(other.replyRestriction, replyRestriction) || other.replyRestriction == replyRestriction)&&const DeepCollectionEquality().equals(other._replyTargets, _replyTargets)&&const DeepCollectionEquality().equals(other._replyToUsers, _replyToUsers)&&(identical(other.updatedAt, updatedAt) || other.updatedAt == updatedAt)&&(identical(other.viewerCircle, viewerCircle) || other.viewerCircle == viewerCircle)&&(identical(other.viewerCircleId, viewerCircleId) || other.viewerCircleId == viewerCircleId)&&(identical(other.viewsCount, viewsCount) || other.viewsCount == viewsCount)&&(identical(other.visibility, visibility) || other.visibility == visibility));
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is _Post&&(identical(other.author, author) || other.author == author)&&(identical(other.bookmarked, bookmarked) || other.bookmarked == bookmarked)&&(identical(other.bookmarksCount, bookmarksCount) || other.bookmarksCount == bookmarksCount)&&(identical(other.canInteract, canInteract) || other.canInteract == canInteract)&&(identical(other.canQuote, canQuote) || other.canQuote == canQuote)&&(identical(other.comment, comment) || other.comment == comment)&&(identical(other.content, content) || other.content == content)&&(identical(other.createdAt, createdAt) || other.createdAt == createdAt)&&(identical(other.editedAt, editedAt) || other.editedAt == editedAt)&&(identical(other.embedDescription, embedDescription) || other.embedDescription == embedDescription)&&(identical(other.embedImage, embedImage) || other.embedImage == embedImage)&&(identical(other.embedTitle, embedTitle) || other.embedTitle == embedTitle)&&(identical(other.embedUrl, embedUrl) || other.embedUrl == embedUrl)&&const DeepCollectionEquality().equals(other._excludedMentions, _excludedMentions)&&(identical(other.hasBlockedAuthor, hasBlockedAuthor) || other.hasBlockedAuthor == hasBlockedAuthor)&&const DeepCollectionEquality().equals(other._hashtags, _hashtags)&&(identical(other.id, id) || other.id == id)&&(identical(other.isAiGenerated, isAiGenerated) || other.isAiGenerated == isAiGenerated)&&(identical(other.isBlockedByAuthor, isBlockedByAuthor) || other.isBlockedByAuthor == isBlockedByAuthor)&&(identical(other.isMutedByViewer, isMutedByViewer) || other.isMutedByViewer == isMutedByViewer)&&(identical(other.isPromotional, isPromotional) || other.isPromotional == isPromotional)&&(identical(other.liked, liked) || other.liked == liked)&&(identical(other.likesCount, likesCount) || other.likesCount == likesCount)&&const DeepCollectionEquality().equals(other._mediaAlts, _mediaAlts)&&const DeepCollectionEquality().equals(other._mediaR18Flags, _mediaR18Flags)&&const DeepCollectionEquality().equals(other._mediaSpoilerFlags, _mediaSpoilerFlags)&&const DeepCollectionEquality().equals(other._mediaTypes, _mediaTypes)&&const DeepCollectionEquality().equals(other._mediaUrls, _mediaUrls)&&const DeepCollectionEquality().equals(other._mentions, _mentions)&&(identical(other.parentId, parentId) || other.parentId == parentId)&&(identical(other.poll, poll) || other.poll == poll)&&(identical(other.quoteUsersCount, quoteUsersCount) || other.quoteUsersCount == quoteUsersCount)&&(identical(other.quotedPost, quotedPost) || other.quotedPost == quotedPost)&&(identical(other.quotedPostId, quotedPostId) || other.quotedPostId == quotedPostId)&&const DeepCollectionEquality().equals(other._reactionSummary, _reactionSummary)&&const DeepCollectionEquality().equals(other._reactions, _reactions)&&(identical(other.rekaroted, rekaroted) || other.rekaroted == rekaroted)&&(identical(other.rekarotedBy, rekarotedBy) || other.rekarotedBy == rekarotedBy)&&(identical(other.rekarotsCount, rekarotsCount) || other.rekarotsCount == rekarotsCount)&&(identical(other.repliesCount, repliesCount) || other.repliesCount == repliesCount)&&(identical(other.replyCircle, replyCircle) || other.replyCircle == replyCircle)&&(identical(other.replyCircleId, replyCircleId) || other.replyCircleId == replyCircleId)&&(identical(other.replyRestriction, replyRestriction) || other.replyRestriction == replyRestriction)&&const DeepCollectionEquality().equals(other._replyTargets, _replyTargets)&&const DeepCollectionEquality().equals(other._replyToUsers, _replyToUsers)&&(identical(other.updatedAt, updatedAt) || other.updatedAt == updatedAt)&&(identical(other.viewerCircle, viewerCircle) || other.viewerCircle == viewerCircle)&&(identical(other.viewerCircleId, viewerCircleId) || other.viewerCircleId == viewerCircleId)&&(identical(other.viewsCount, viewsCount) || other.viewsCount == viewsCount)&&(identical(other.visibility, visibility) || other.visibility == visibility));
 }
 
 @JsonKey(includeFromJson: false, includeToJson: false)
 @override
-int get hashCode => Object.hashAll([runtimeType,author,authorId,bookmarked,bookmarksCount,canInteract,canQuote,comment,content,createdAt,editedAt,embedDescription,embedImage,embedTitle,embedUrl,const DeepCollectionEquality().hash(_excludedMentions),hasBlockedAuthor,const DeepCollectionEquality().hash(_hashtags),id,isAiGenerated,isBlockedByAuthor,isMutedByViewer,isPromotional,liked,likesCount,const DeepCollectionEquality().hash(_mediaAlts),const DeepCollectionEquality().hash(_mediaR18Flags),const DeepCollectionEquality().hash(_mediaSpoilerFlags),const DeepCollectionEquality().hash(_mediaTypes),const DeepCollectionEquality().hash(_mediaUrls),const DeepCollectionEquality().hash(_mentions),parentId,poll,quoteUsersCount,quotedPost,quotedPostId,const DeepCollectionEquality().hash(_reactionSummary),const DeepCollectionEquality().hash(_reactions),rekaroted,rekarotedBy,rekarotsCount,repliesCount,replyCircle,replyCircleId,replyRestriction,const DeepCollectionEquality().hash(_replyTargets),const DeepCollectionEquality().hash(_replyToUsers),updatedAt,viewerCircle,viewerCircleId,viewsCount,visibility]);
+int get hashCode => Object.hashAll([runtimeType,author,bookmarked,bookmarksCount,canInteract,canQuote,comment,content,createdAt,editedAt,embedDescription,embedImage,embedTitle,embedUrl,const DeepCollectionEquality().hash(_excludedMentions),hasBlockedAuthor,const DeepCollectionEquality().hash(_hashtags),id,isAiGenerated,isBlockedByAuthor,isMutedByViewer,isPromotional,liked,likesCount,const DeepCollectionEquality().hash(_mediaAlts),const DeepCollectionEquality().hash(_mediaR18Flags),const DeepCollectionEquality().hash(_mediaSpoilerFlags),const DeepCollectionEquality().hash(_mediaTypes),const DeepCollectionEquality().hash(_mediaUrls),const DeepCollectionEquality().hash(_mentions),parentId,poll,quoteUsersCount,quotedPost,quotedPostId,const DeepCollectionEquality().hash(_reactionSummary),const DeepCollectionEquality().hash(_reactions),rekaroted,rekarotedBy,rekarotsCount,repliesCount,replyCircle,replyCircleId,replyRestriction,const DeepCollectionEquality().hash(_replyTargets),const DeepCollectionEquality().hash(_replyToUsers),updatedAt,viewerCircle,viewerCircleId,viewsCount,visibility]);
 
 @override
 String toString() {
-  return 'Post(author: $author, authorId: $authorId, bookmarked: $bookmarked, bookmarksCount: $bookmarksCount, canInteract: $canInteract, canQuote: $canQuote, comment: $comment, content: $content, createdAt: $createdAt, editedAt: $editedAt, embedDescription: $embedDescription, embedImage: $embedImage, embedTitle: $embedTitle, embedUrl: $embedUrl, excludedMentions: $excludedMentions, hasBlockedAuthor: $hasBlockedAuthor, hashtags: $hashtags, id: $id, isAiGenerated: $isAiGenerated, isBlockedByAuthor: $isBlockedByAuthor, isMutedByViewer: $isMutedByViewer, isPromotional: $isPromotional, liked: $liked, likesCount: $likesCount, mediaAlts: $mediaAlts, mediaR18Flags: $mediaR18Flags, mediaSpoilerFlags: $mediaSpoilerFlags, mediaTypes: $mediaTypes, mediaUrls: $mediaUrls, mentions: $mentions, parentId: $parentId, poll: $poll, quoteUsersCount: $quoteUsersCount, quotedPost: $quotedPost, quotedPostId: $quotedPostId, reactionSummary: $reactionSummary, reactions: $reactions, rekaroted: $rekaroted, rekarotedBy: $rekarotedBy, rekarotsCount: $rekarotsCount, repliesCount: $repliesCount, replyCircle: $replyCircle, replyCircleId: $replyCircleId, replyRestriction: $replyRestriction, replyTargets: $replyTargets, replyToUsers: $replyToUsers, updatedAt: $updatedAt, viewerCircle: $viewerCircle, viewerCircleId: $viewerCircleId, viewsCount: $viewsCount, visibility: $visibility)';
+  return 'Post(author: $author, bookmarked: $bookmarked, bookmarksCount: $bookmarksCount, canInteract: $canInteract, canQuote: $canQuote, comment: $comment, content: $content, createdAt: $createdAt, editedAt: $editedAt, embedDescription: $embedDescription, embedImage: $embedImage, embedTitle: $embedTitle, embedUrl: $embedUrl, excludedMentions: $excludedMentions, hasBlockedAuthor: $hasBlockedAuthor, hashtags: $hashtags, id: $id, isAiGenerated: $isAiGenerated, isBlockedByAuthor: $isBlockedByAuthor, isMutedByViewer: $isMutedByViewer, isPromotional: $isPromotional, liked: $liked, likesCount: $likesCount, mediaAlts: $mediaAlts, mediaR18Flags: $mediaR18Flags, mediaSpoilerFlags: $mediaSpoilerFlags, mediaTypes: $mediaTypes, mediaUrls: $mediaUrls, mentions: $mentions, parentId: $parentId, poll: $poll, quoteUsersCount: $quoteUsersCount, quotedPost: $quotedPost, quotedPostId: $quotedPostId, reactionSummary: $reactionSummary, reactions: $reactions, rekaroted: $rekaroted, rekarotedBy: $rekarotedBy, rekarotsCount: $rekarotsCount, repliesCount: $repliesCount, replyCircle: $replyCircle, replyCircleId: $replyCircleId, replyRestriction: $replyRestriction, replyTargets: $replyTargets, replyToUsers: $replyToUsers, updatedAt: $updatedAt, viewerCircle: $viewerCircle, viewerCircleId: $viewerCircleId, viewsCount: $viewsCount, visibility: $visibility)';
 }
 
 
@@ -3080,7 +3388,7 @@ abstract mixin class _$PostCopyWith<$Res> implements $PostCopyWith<$Res> {
   factory _$PostCopyWith(_Post value, $Res Function(_Post) _then) = __$PostCopyWithImpl;
 @override @useResult
 $Res call({
- Author author, int authorId, bool bookmarked, int bookmarksCount, bool canInteract, bool canQuote, String? comment, String content, DateTime createdAt, DateTime? editedAt, String? embedDescription, String? embedImage, String? embedTitle, String? embedUrl, List<int> excludedMentions, bool hasBlockedAuthor, List<HashTags> hashtags, int id, bool isAiGenerated, bool isBlockedByAuthor, bool isMutedByViewer, bool isPromotional, bool liked, int likesCount, List<String> mediaAlts, List<bool> mediaR18Flags, List<bool> mediaSpoilerFlags, List<String> mediaTypes, List<String> mediaUrls, List<MentionId> mentions, int? parentId, Poll? poll, int quoteUsersCount, QuotedPost? quotedPost, int? quotedPostId, List<ReactionSummary> reactionSummary, List<Reaction> reactions, bool rekaroted, Author? rekarotedBy, int rekarotsCount, int repliesCount, Circle? replyCircle, int? replyCircleId, ReplyRestriction replyRestriction, List<ReplyTarget> replyTargets, List<Author> replyToUsers, DateTime updatedAt, Circle? viewerCircle, int? viewerCircleId, int viewsCount, PostVisibility visibility
+ Author author, bool bookmarked, int bookmarksCount, bool canInteract, bool canQuote, String? comment, String content, DateTime createdAt, DateTime? editedAt, String? embedDescription, String? embedImage, String? embedTitle, String? embedUrl, List<int> excludedMentions, bool hasBlockedAuthor, List<HashTags> hashtags, int id, bool isAiGenerated, bool isBlockedByAuthor, bool isMutedByViewer, bool isPromotional, bool liked, int likesCount, List<String> mediaAlts, List<bool> mediaR18Flags, List<bool> mediaSpoilerFlags, List<String> mediaTypes, List<String> mediaUrls, List<MentionId> mentions, int? parentId, Poll? poll, int quoteUsersCount, QuotedPost? quotedPost, int? quotedPostId, List<ReactionSummary> reactionSummary, List<Reaction> reactions, bool rekaroted, Author? rekarotedBy, int rekarotsCount, int repliesCount, Circle? replyCircle, int? replyCircleId, ReplyRestriction replyRestriction, List<ReplyTarget> replyTargets, List<Author> replyToUsers, DateTime? updatedAt, Circle? viewerCircle, int? viewerCircleId, int viewsCount, PostVisibility visibility
 });
 
 
@@ -3097,11 +3405,10 @@ class __$PostCopyWithImpl<$Res>
 
 /// Create a copy of Post
 /// with the given fields replaced by the non-null parameter values.
-@override @pragma('vm:prefer-inline') $Res call({Object? author = null,Object? authorId = null,Object? bookmarked = null,Object? bookmarksCount = null,Object? canInteract = null,Object? canQuote = null,Object? comment = freezed,Object? content = null,Object? createdAt = null,Object? editedAt = freezed,Object? embedDescription = freezed,Object? embedImage = freezed,Object? embedTitle = freezed,Object? embedUrl = freezed,Object? excludedMentions = null,Object? hasBlockedAuthor = null,Object? hashtags = null,Object? id = null,Object? isAiGenerated = null,Object? isBlockedByAuthor = null,Object? isMutedByViewer = null,Object? isPromotional = null,Object? liked = null,Object? likesCount = null,Object? mediaAlts = null,Object? mediaR18Flags = null,Object? mediaSpoilerFlags = null,Object? mediaTypes = null,Object? mediaUrls = null,Object? mentions = null,Object? parentId = freezed,Object? poll = freezed,Object? quoteUsersCount = null,Object? quotedPost = freezed,Object? quotedPostId = freezed,Object? reactionSummary = null,Object? reactions = null,Object? rekaroted = null,Object? rekarotedBy = freezed,Object? rekarotsCount = null,Object? repliesCount = null,Object? replyCircle = freezed,Object? replyCircleId = freezed,Object? replyRestriction = null,Object? replyTargets = null,Object? replyToUsers = null,Object? updatedAt = null,Object? viewerCircle = freezed,Object? viewerCircleId = freezed,Object? viewsCount = null,Object? visibility = null,}) {
+@override @pragma('vm:prefer-inline') $Res call({Object? author = null,Object? bookmarked = null,Object? bookmarksCount = null,Object? canInteract = null,Object? canQuote = null,Object? comment = freezed,Object? content = null,Object? createdAt = null,Object? editedAt = freezed,Object? embedDescription = freezed,Object? embedImage = freezed,Object? embedTitle = freezed,Object? embedUrl = freezed,Object? excludedMentions = null,Object? hasBlockedAuthor = null,Object? hashtags = null,Object? id = null,Object? isAiGenerated = null,Object? isBlockedByAuthor = null,Object? isMutedByViewer = null,Object? isPromotional = null,Object? liked = null,Object? likesCount = null,Object? mediaAlts = null,Object? mediaR18Flags = null,Object? mediaSpoilerFlags = null,Object? mediaTypes = null,Object? mediaUrls = null,Object? mentions = null,Object? parentId = freezed,Object? poll = freezed,Object? quoteUsersCount = null,Object? quotedPost = freezed,Object? quotedPostId = freezed,Object? reactionSummary = null,Object? reactions = null,Object? rekaroted = null,Object? rekarotedBy = freezed,Object? rekarotsCount = null,Object? repliesCount = null,Object? replyCircle = freezed,Object? replyCircleId = freezed,Object? replyRestriction = null,Object? replyTargets = null,Object? replyToUsers = null,Object? updatedAt = freezed,Object? viewerCircle = freezed,Object? viewerCircleId = freezed,Object? viewsCount = null,Object? visibility = null,}) {
   return _then(_Post(
 author: null == author ? _self.author : author // ignore: cast_nullable_to_non_nullable
-as Author,authorId: null == authorId ? _self.authorId : authorId // ignore: cast_nullable_to_non_nullable
-as int,bookmarked: null == bookmarked ? _self.bookmarked : bookmarked // ignore: cast_nullable_to_non_nullable
+as Author,bookmarked: null == bookmarked ? _self.bookmarked : bookmarked // ignore: cast_nullable_to_non_nullable
 as bool,bookmarksCount: null == bookmarksCount ? _self.bookmarksCount : bookmarksCount // ignore: cast_nullable_to_non_nullable
 as int,canInteract: null == canInteract ? _self.canInteract : canInteract // ignore: cast_nullable_to_non_nullable
 as bool,canQuote: null == canQuote ? _self.canQuote : canQuote // ignore: cast_nullable_to_non_nullable
@@ -3145,8 +3452,8 @@ as Circle?,replyCircleId: freezed == replyCircleId ? _self.replyCircleId : reply
 as int?,replyRestriction: null == replyRestriction ? _self.replyRestriction : replyRestriction // ignore: cast_nullable_to_non_nullable
 as ReplyRestriction,replyTargets: null == replyTargets ? _self._replyTargets : replyTargets // ignore: cast_nullable_to_non_nullable
 as List<ReplyTarget>,replyToUsers: null == replyToUsers ? _self._replyToUsers : replyToUsers // ignore: cast_nullable_to_non_nullable
-as List<Author>,updatedAt: null == updatedAt ? _self.updatedAt : updatedAt // ignore: cast_nullable_to_non_nullable
-as DateTime,viewerCircle: freezed == viewerCircle ? _self.viewerCircle : viewerCircle // ignore: cast_nullable_to_non_nullable
+as List<Author>,updatedAt: freezed == updatedAt ? _self.updatedAt : updatedAt // ignore: cast_nullable_to_non_nullable
+as DateTime?,viewerCircle: freezed == viewerCircle ? _self.viewerCircle : viewerCircle // ignore: cast_nullable_to_non_nullable
 as Circle?,viewerCircleId: freezed == viewerCircleId ? _self.viewerCircleId : viewerCircleId // ignore: cast_nullable_to_non_nullable
 as int?,viewsCount: null == viewsCount ? _self.viewsCount : viewsCount // ignore: cast_nullable_to_non_nullable
 as int,visibility: null == visibility ? _self.visibility : visibility // ignore: cast_nullable_to_non_nullable

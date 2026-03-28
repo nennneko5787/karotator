@@ -7,7 +7,6 @@ import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:karotator/enum.dart';
 import 'package:karotator/objects/circle.dart';
 import 'package:karotator/objects/post.dart';
-import 'package:karotator/objects/user.dart';
 import 'package:karotator/utils.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:uuid/v4.dart';
@@ -27,11 +26,16 @@ class HTTPClient {
   final storage = const FlutterSecureStorage();
   bool initialized = false;
   String? nowAccountId;
+  int? nowUserId;
   final baseUrl = "https://api.karotter.com/api/";
 
   Future<void> initialize() async {
     final prefs = await SharedPreferences.getInstance();
     nowAccountId = prefs.getString("nowAccountId");
+
+    if (nowAccountId != null) {
+      nowUserId = (await loadLoginResponse())!.user.id;
+    }
 
     initialized = true;
   }
@@ -365,15 +369,63 @@ class HTTPClient {
   }
 
   Future<TimeLineResponse> getTimeLine({
-    required int? cursor,
+    required int page,
     required int limit,
     required String mode,
   }) async {
     final jsonData = await get(
-      "posts/timeline?page=${cursor ?? ""}&limit=$limit&mode=$mode",
+      "posts/timeline?page=$page&limit=$limit&mode=$mode",
       csrf: true,
     );
     return TimeLineResponse.fromJson(jsonData);
+  }
+
+  Future<RecommendedResponse> getPostsByUserId({
+    required int? userId,
+    required int page,
+    required int limit,
+  }) async {
+    final jsonData = await get(
+      "users/$userId/posts?page=$page&limit=$limit",
+      csrf: true,
+    );
+    return RecommendedResponse.fromJson(jsonData);
+  }
+
+  Future<RecommendedResponse> getUserRepliesByUserId({
+    required int? userId,
+    required int page,
+    required int limit,
+  }) async {
+    final jsonData = await get(
+      "users/$userId/replies?page=$page&limit=$limit",
+      csrf: true,
+    );
+    return RecommendedResponse.fromJson(jsonData);
+  }
+
+  Future<RecommendedResponse> getUserMediasByUserId({
+    required int? userId,
+    required int page,
+    required int limit,
+  }) async {
+    final jsonData = await get(
+      "users/$userId/media?page=$page&limit=$limit",
+      csrf: true,
+    );
+    return RecommendedResponse.fromJson(jsonData);
+  }
+
+  Future<RecommendedResponse> getUserLikesByUserId({
+    required int? userId,
+    required int page,
+    required int limit,
+  }) async {
+    final jsonData = await get(
+      "users/$userId/likes?page=$page&limit=$limit",
+      csrf: true,
+    );
+    return RecommendedResponse.fromJson(jsonData);
   }
 
   Future<LoginResponse> login({
@@ -444,6 +496,18 @@ class HTTPClient {
 
   Future<void> unbookmark(int postId) async {
     final _ = await delete("posts/$postId/bookmark");
+  }
+
+  Future<void> react(int postId, {required String emoji}) async {
+    final _ = await post(
+      "posts/$postId/react",
+      headers: {"Content-Type": "application/json"},
+      body: jsonEncode({"emoji": emoji}),
+    );
+  }
+
+  Future<void> unReact(int postId, {required String emoji}) async {
+    final _ = await delete("posts/$postId/react/$emoji");
   }
 
   Future<Poll> poll(int postId, {required int optionId}) async {
@@ -579,5 +643,35 @@ class HTTPClient {
   Future<UserResponse> getUserByUsername(String username) async {
     final jsonData = await get("users/$username");
     return UserResponse.fromJson(jsonData);
+  }
+
+  Future<void> follow(int userId) async {
+    final _ = await post("follow/$userId");
+  }
+
+  Future<void> unfollow(int userId) async {
+    final _ = await delete("follow/$userId");
+  }
+
+  Future<NotificationResponse> getNotifications({
+    required int page,
+    required int limit,
+  }) async {
+    final jsonData = await get(
+      "notifications?page=$page&limit=$limit",
+      csrf: true,
+    );
+    return NotificationResponse.fromJson(jsonData);
+  }
+
+  Future<List<NotificationPost>> getGroupedPosts(
+    List<int> notificationIds,
+  ) async {
+    final jsonData = await get(
+      "notifications/grouped-posts?notificationIds=${notificationIds.join(",")}",
+    );
+    return (jsonData["posts"] as List<dynamic>)
+        .map((e) => NotificationPost.fromJson(e as Map<String, Object?>))
+        .toList();
   }
 }

@@ -586,7 +586,7 @@ as String,
 /// @nodoc
 mixin _$User {
 
- int? get avatarFrameId; String? get avatarUrl; String get displayName; int get id; bool get isPrivate; bool get isBotAccount; bool get isParodyAccount; List<String> get officialMark; String get username; int? get pinnedPostId; String? get headerUrl; String get bio; String? get birthday; BirthdayVisibility get birthdayVisibility; bool get birthdayBalloonsEnabled; bool get hideProfileFromMinors; String? get websiteUrl; String? get location; OnlineStatus get onlineStatus; int get followersCount; int get followingCount; int get postsCount; bool get isPremium; DateTime get createdAt; List<String> get userBadges; int? get age; List<String> get badges;
+ int? get avatarFrameId; String? get avatarUrl; String get displayName; int get id; bool get isPrivate; bool get isBotAccount; bool get isParodyAccount; List<String> get officialMark; String get username; int? get pinnedPostId; String? get headerUrl; String? get bio; String? get birthday; BirthdayVisibility get birthdayVisibility; bool get birthdayBalloonsEnabled; bool get hideProfileFromMinors; String? get websiteUrl; String? get location; OnlineStatus get onlineStatus; int get followersCount; int get followingCount; int get postsCount; bool get isPremium; DateTime get createdAt; List<String> get userBadges; int? get age; List<String> get badges;
 /// Create a copy of User
 /// with the given fields replaced by the non-null parameter values.
 @JsonKey(includeFromJson: false, includeToJson: false)
@@ -619,7 +619,7 @@ abstract mixin class $UserCopyWith<$Res>  {
   factory $UserCopyWith(User value, $Res Function(User) _then) = _$UserCopyWithImpl;
 @useResult
 $Res call({
- int? avatarFrameId, String? avatarUrl, String displayName, int id, bool isPrivate, bool isBotAccount, bool isParodyAccount, List<String> officialMark, String username, int? pinnedPostId, String? headerUrl, String bio, String? birthday, BirthdayVisibility birthdayVisibility, bool birthdayBalloonsEnabled, bool hideProfileFromMinors, String? websiteUrl, String? location, OnlineStatus onlineStatus, int followersCount, int followingCount, int postsCount, bool isPremium, DateTime createdAt, List<String> userBadges, int? age, List<String> badges
+ int? avatarFrameId, String? avatarUrl, String displayName, int id, bool isPrivate, bool isBotAccount, bool isParodyAccount, List<String> officialMark, String username, int? pinnedPostId, String? headerUrl, String? bio, String? birthday, BirthdayVisibility birthdayVisibility, bool birthdayBalloonsEnabled, bool hideProfileFromMinors, String? websiteUrl, String? location, OnlineStatus onlineStatus, int followersCount, int followingCount, int postsCount, bool isPremium, DateTime createdAt, List<String> userBadges, int? age, List<String> badges
 });
 
 
@@ -636,7 +636,7 @@ class _$UserCopyWithImpl<$Res>
 
 /// Create a copy of User
 /// with the given fields replaced by the non-null parameter values.
-@pragma('vm:prefer-inline') @override $Res call({Object? avatarFrameId = freezed,Object? avatarUrl = freezed,Object? displayName = null,Object? id = null,Object? isPrivate = null,Object? isBotAccount = null,Object? isParodyAccount = null,Object? officialMark = null,Object? username = null,Object? pinnedPostId = freezed,Object? headerUrl = freezed,Object? bio = null,Object? birthday = freezed,Object? birthdayVisibility = null,Object? birthdayBalloonsEnabled = null,Object? hideProfileFromMinors = null,Object? websiteUrl = freezed,Object? location = freezed,Object? onlineStatus = null,Object? followersCount = null,Object? followingCount = null,Object? postsCount = null,Object? isPremium = null,Object? createdAt = null,Object? userBadges = null,Object? age = freezed,Object? badges = null,}) {
+@pragma('vm:prefer-inline') @override $Res call({Object? avatarFrameId = freezed,Object? avatarUrl = freezed,Object? displayName = null,Object? id = null,Object? isPrivate = null,Object? isBotAccount = null,Object? isParodyAccount = null,Object? officialMark = null,Object? username = null,Object? pinnedPostId = freezed,Object? headerUrl = freezed,Object? bio = freezed,Object? birthday = freezed,Object? birthdayVisibility = null,Object? birthdayBalloonsEnabled = null,Object? hideProfileFromMinors = null,Object? websiteUrl = freezed,Object? location = freezed,Object? onlineStatus = null,Object? followersCount = null,Object? followingCount = null,Object? postsCount = null,Object? isPremium = null,Object? createdAt = null,Object? userBadges = null,Object? age = freezed,Object? badges = null,}) {
   return _then(_self.copyWith(
 avatarFrameId: freezed == avatarFrameId ? _self.avatarFrameId : avatarFrameId // ignore: cast_nullable_to_non_nullable
 as int?,avatarUrl: freezed == avatarUrl ? _self.avatarUrl : avatarUrl // ignore: cast_nullable_to_non_nullable
@@ -649,8 +649,8 @@ as bool,officialMark: null == officialMark ? _self.officialMark : officialMark /
 as List<String>,username: null == username ? _self.username : username // ignore: cast_nullable_to_non_nullable
 as String,pinnedPostId: freezed == pinnedPostId ? _self.pinnedPostId : pinnedPostId // ignore: cast_nullable_to_non_nullable
 as int?,headerUrl: freezed == headerUrl ? _self.headerUrl : headerUrl // ignore: cast_nullable_to_non_nullable
-as String?,bio: null == bio ? _self.bio : bio // ignore: cast_nullable_to_non_nullable
-as String,birthday: freezed == birthday ? _self.birthday : birthday // ignore: cast_nullable_to_non_nullable
+as String?,bio: freezed == bio ? _self.bio : bio // ignore: cast_nullable_to_non_nullable
+as String?,birthday: freezed == birthday ? _self.birthday : birthday // ignore: cast_nullable_to_non_nullable
 as String?,birthdayVisibility: null == birthdayVisibility ? _self.birthdayVisibility : birthdayVisibility // ignore: cast_nullable_to_non_nullable
 as BirthdayVisibility,birthdayBalloonsEnabled: null == birthdayBalloonsEnabled ? _self.birthdayBalloonsEnabled : birthdayBalloonsEnabled // ignore: cast_nullable_to_non_nullable
 as bool,hideProfileFromMinors: null == hideProfileFromMinors ? _self.hideProfileFromMinors : hideProfileFromMinors // ignore: cast_nullable_to_non_nullable
@@ -750,7 +750,7 @@ return $default(_that);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( int? avatarFrameId,  String? avatarUrl,  String displayName,  int id,  bool isPrivate,  bool isBotAccount,  bool isParodyAccount,  List<String> officialMark,  String username,  int? pinnedPostId,  String? headerUrl,  String bio,  String? birthday,  BirthdayVisibility birthdayVisibility,  bool birthdayBalloonsEnabled,  bool hideProfileFromMinors,  String? websiteUrl,  String? location,  OnlineStatus onlineStatus,  int followersCount,  int followingCount,  int postsCount,  bool isPremium,  DateTime createdAt,  List<String> userBadges,  int? age,  List<String> badges)?  $default,{required TResult orElse(),}) {final _that = this;
+@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( int? avatarFrameId,  String? avatarUrl,  String displayName,  int id,  bool isPrivate,  bool isBotAccount,  bool isParodyAccount,  List<String> officialMark,  String username,  int? pinnedPostId,  String? headerUrl,  String? bio,  String? birthday,  BirthdayVisibility birthdayVisibility,  bool birthdayBalloonsEnabled,  bool hideProfileFromMinors,  String? websiteUrl,  String? location,  OnlineStatus onlineStatus,  int followersCount,  int followingCount,  int postsCount,  bool isPremium,  DateTime createdAt,  List<String> userBadges,  int? age,  List<String> badges)?  $default,{required TResult orElse(),}) {final _that = this;
 switch (_that) {
 case _User() when $default != null:
 return $default(_that.avatarFrameId,_that.avatarUrl,_that.displayName,_that.id,_that.isPrivate,_that.isBotAccount,_that.isParodyAccount,_that.officialMark,_that.username,_that.pinnedPostId,_that.headerUrl,_that.bio,_that.birthday,_that.birthdayVisibility,_that.birthdayBalloonsEnabled,_that.hideProfileFromMinors,_that.websiteUrl,_that.location,_that.onlineStatus,_that.followersCount,_that.followingCount,_that.postsCount,_that.isPremium,_that.createdAt,_that.userBadges,_that.age,_that.badges);case _:
@@ -771,7 +771,7 @@ return $default(_that.avatarFrameId,_that.avatarUrl,_that.displayName,_that.id,_
 /// }
 /// ```
 
-@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( int? avatarFrameId,  String? avatarUrl,  String displayName,  int id,  bool isPrivate,  bool isBotAccount,  bool isParodyAccount,  List<String> officialMark,  String username,  int? pinnedPostId,  String? headerUrl,  String bio,  String? birthday,  BirthdayVisibility birthdayVisibility,  bool birthdayBalloonsEnabled,  bool hideProfileFromMinors,  String? websiteUrl,  String? location,  OnlineStatus onlineStatus,  int followersCount,  int followingCount,  int postsCount,  bool isPremium,  DateTime createdAt,  List<String> userBadges,  int? age,  List<String> badges)  $default,) {final _that = this;
+@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( int? avatarFrameId,  String? avatarUrl,  String displayName,  int id,  bool isPrivate,  bool isBotAccount,  bool isParodyAccount,  List<String> officialMark,  String username,  int? pinnedPostId,  String? headerUrl,  String? bio,  String? birthday,  BirthdayVisibility birthdayVisibility,  bool birthdayBalloonsEnabled,  bool hideProfileFromMinors,  String? websiteUrl,  String? location,  OnlineStatus onlineStatus,  int followersCount,  int followingCount,  int postsCount,  bool isPremium,  DateTime createdAt,  List<String> userBadges,  int? age,  List<String> badges)  $default,) {final _that = this;
 switch (_that) {
 case _User():
 return $default(_that.avatarFrameId,_that.avatarUrl,_that.displayName,_that.id,_that.isPrivate,_that.isBotAccount,_that.isParodyAccount,_that.officialMark,_that.username,_that.pinnedPostId,_that.headerUrl,_that.bio,_that.birthday,_that.birthdayVisibility,_that.birthdayBalloonsEnabled,_that.hideProfileFromMinors,_that.websiteUrl,_that.location,_that.onlineStatus,_that.followersCount,_that.followingCount,_that.postsCount,_that.isPremium,_that.createdAt,_that.userBadges,_that.age,_that.badges);case _:
@@ -791,7 +791,7 @@ return $default(_that.avatarFrameId,_that.avatarUrl,_that.displayName,_that.id,_
 /// }
 /// ```
 
-@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( int? avatarFrameId,  String? avatarUrl,  String displayName,  int id,  bool isPrivate,  bool isBotAccount,  bool isParodyAccount,  List<String> officialMark,  String username,  int? pinnedPostId,  String? headerUrl,  String bio,  String? birthday,  BirthdayVisibility birthdayVisibility,  bool birthdayBalloonsEnabled,  bool hideProfileFromMinors,  String? websiteUrl,  String? location,  OnlineStatus onlineStatus,  int followersCount,  int followingCount,  int postsCount,  bool isPremium,  DateTime createdAt,  List<String> userBadges,  int? age,  List<String> badges)?  $default,) {final _that = this;
+@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( int? avatarFrameId,  String? avatarUrl,  String displayName,  int id,  bool isPrivate,  bool isBotAccount,  bool isParodyAccount,  List<String> officialMark,  String username,  int? pinnedPostId,  String? headerUrl,  String? bio,  String? birthday,  BirthdayVisibility birthdayVisibility,  bool birthdayBalloonsEnabled,  bool hideProfileFromMinors,  String? websiteUrl,  String? location,  OnlineStatus onlineStatus,  int followersCount,  int followingCount,  int postsCount,  bool isPremium,  DateTime createdAt,  List<String> userBadges,  int? age,  List<String> badges)?  $default,) {final _that = this;
 switch (_that) {
 case _User() when $default != null:
 return $default(_that.avatarFrameId,_that.avatarUrl,_that.displayName,_that.id,_that.isPrivate,_that.isBotAccount,_that.isParodyAccount,_that.officialMark,_that.username,_that.pinnedPostId,_that.headerUrl,_that.bio,_that.birthday,_that.birthdayVisibility,_that.birthdayBalloonsEnabled,_that.hideProfileFromMinors,_that.websiteUrl,_that.location,_that.onlineStatus,_that.followersCount,_that.followingCount,_that.postsCount,_that.isPremium,_that.createdAt,_that.userBadges,_that.age,_that.badges);case _:
@@ -806,7 +806,7 @@ return $default(_that.avatarFrameId,_that.avatarUrl,_that.displayName,_that.id,_
 @JsonSerializable()
 
 class _User implements User {
-  const _User({this.avatarFrameId, this.avatarUrl, required this.displayName, required this.id, required this.isPrivate, required this.isBotAccount, required this.isParodyAccount, required final  List<String> officialMark, required this.username, this.pinnedPostId, this.headerUrl, required this.bio, this.birthday, required this.birthdayVisibility, required this.birthdayBalloonsEnabled, required this.hideProfileFromMinors, this.websiteUrl, this.location, required this.onlineStatus, required this.followersCount, required this.followingCount, required this.postsCount, required this.isPremium, required this.createdAt, required final  List<String> userBadges, this.age, required final  List<String> badges}): _officialMark = officialMark,_userBadges = userBadges,_badges = badges;
+  const _User({this.avatarFrameId, this.avatarUrl, required this.displayName, required this.id, required this.isPrivate, required this.isBotAccount, required this.isParodyAccount, required final  List<String> officialMark, required this.username, this.pinnedPostId, this.headerUrl, this.bio, this.birthday, required this.birthdayVisibility, required this.birthdayBalloonsEnabled, required this.hideProfileFromMinors, this.websiteUrl, this.location, required this.onlineStatus, required this.followersCount, required this.followingCount, required this.postsCount, required this.isPremium, required this.createdAt, required final  List<String> userBadges, this.age, required final  List<String> badges}): _officialMark = officialMark,_userBadges = userBadges,_badges = badges;
   factory _User.fromJson(Map<String, dynamic> json) => _$UserFromJson(json);
 
 @override final  int? avatarFrameId;
@@ -826,7 +826,7 @@ class _User implements User {
 @override final  String username;
 @override final  int? pinnedPostId;
 @override final  String? headerUrl;
-@override final  String bio;
+@override final  String? bio;
 @override final  String? birthday;
 @override final  BirthdayVisibility birthdayVisibility;
 @override final  bool birthdayBalloonsEnabled;
@@ -888,7 +888,7 @@ abstract mixin class _$UserCopyWith<$Res> implements $UserCopyWith<$Res> {
   factory _$UserCopyWith(_User value, $Res Function(_User) _then) = __$UserCopyWithImpl;
 @override @useResult
 $Res call({
- int? avatarFrameId, String? avatarUrl, String displayName, int id, bool isPrivate, bool isBotAccount, bool isParodyAccount, List<String> officialMark, String username, int? pinnedPostId, String? headerUrl, String bio, String? birthday, BirthdayVisibility birthdayVisibility, bool birthdayBalloonsEnabled, bool hideProfileFromMinors, String? websiteUrl, String? location, OnlineStatus onlineStatus, int followersCount, int followingCount, int postsCount, bool isPremium, DateTime createdAt, List<String> userBadges, int? age, List<String> badges
+ int? avatarFrameId, String? avatarUrl, String displayName, int id, bool isPrivate, bool isBotAccount, bool isParodyAccount, List<String> officialMark, String username, int? pinnedPostId, String? headerUrl, String? bio, String? birthday, BirthdayVisibility birthdayVisibility, bool birthdayBalloonsEnabled, bool hideProfileFromMinors, String? websiteUrl, String? location, OnlineStatus onlineStatus, int followersCount, int followingCount, int postsCount, bool isPremium, DateTime createdAt, List<String> userBadges, int? age, List<String> badges
 });
 
 
@@ -905,7 +905,7 @@ class __$UserCopyWithImpl<$Res>
 
 /// Create a copy of User
 /// with the given fields replaced by the non-null parameter values.
-@override @pragma('vm:prefer-inline') $Res call({Object? avatarFrameId = freezed,Object? avatarUrl = freezed,Object? displayName = null,Object? id = null,Object? isPrivate = null,Object? isBotAccount = null,Object? isParodyAccount = null,Object? officialMark = null,Object? username = null,Object? pinnedPostId = freezed,Object? headerUrl = freezed,Object? bio = null,Object? birthday = freezed,Object? birthdayVisibility = null,Object? birthdayBalloonsEnabled = null,Object? hideProfileFromMinors = null,Object? websiteUrl = freezed,Object? location = freezed,Object? onlineStatus = null,Object? followersCount = null,Object? followingCount = null,Object? postsCount = null,Object? isPremium = null,Object? createdAt = null,Object? userBadges = null,Object? age = freezed,Object? badges = null,}) {
+@override @pragma('vm:prefer-inline') $Res call({Object? avatarFrameId = freezed,Object? avatarUrl = freezed,Object? displayName = null,Object? id = null,Object? isPrivate = null,Object? isBotAccount = null,Object? isParodyAccount = null,Object? officialMark = null,Object? username = null,Object? pinnedPostId = freezed,Object? headerUrl = freezed,Object? bio = freezed,Object? birthday = freezed,Object? birthdayVisibility = null,Object? birthdayBalloonsEnabled = null,Object? hideProfileFromMinors = null,Object? websiteUrl = freezed,Object? location = freezed,Object? onlineStatus = null,Object? followersCount = null,Object? followingCount = null,Object? postsCount = null,Object? isPremium = null,Object? createdAt = null,Object? userBadges = null,Object? age = freezed,Object? badges = null,}) {
   return _then(_User(
 avatarFrameId: freezed == avatarFrameId ? _self.avatarFrameId : avatarFrameId // ignore: cast_nullable_to_non_nullable
 as int?,avatarUrl: freezed == avatarUrl ? _self.avatarUrl : avatarUrl // ignore: cast_nullable_to_non_nullable
@@ -918,8 +918,8 @@ as bool,officialMark: null == officialMark ? _self._officialMark : officialMark 
 as List<String>,username: null == username ? _self.username : username // ignore: cast_nullable_to_non_nullable
 as String,pinnedPostId: freezed == pinnedPostId ? _self.pinnedPostId : pinnedPostId // ignore: cast_nullable_to_non_nullable
 as int?,headerUrl: freezed == headerUrl ? _self.headerUrl : headerUrl // ignore: cast_nullable_to_non_nullable
-as String?,bio: null == bio ? _self.bio : bio // ignore: cast_nullable_to_non_nullable
-as String,birthday: freezed == birthday ? _self.birthday : birthday // ignore: cast_nullable_to_non_nullable
+as String?,bio: freezed == bio ? _self.bio : bio // ignore: cast_nullable_to_non_nullable
+as String?,birthday: freezed == birthday ? _self.birthday : birthday // ignore: cast_nullable_to_non_nullable
 as String?,birthdayVisibility: null == birthdayVisibility ? _self.birthdayVisibility : birthdayVisibility // ignore: cast_nullable_to_non_nullable
 as BirthdayVisibility,birthdayBalloonsEnabled: null == birthdayBalloonsEnabled ? _self.birthdayBalloonsEnabled : birthdayBalloonsEnabled // ignore: cast_nullable_to_non_nullable
 as bool,hideProfileFromMinors: null == hideProfileFromMinors ? _self.hideProfileFromMinors : hideProfileFromMinors // ignore: cast_nullable_to_non_nullable

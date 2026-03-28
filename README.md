@@ -1,6 +1,15 @@
 # karotator
 
-[Karotter](https://karotter.com/)の非公式クライアントアプリ。
+> [!CAUTION]
+> 本アプリは非公式です。Karotter及びかろんさんとは一切関係ありません。
+
+> [!CAUTION]
+>
+> ### Karotter運営の方へ：
+>
+> 本アプリの動作に問題がある場合、issueを建てるかKarotterでDMを送信してください。私のIDは**Fng1Popn**です。
+
+Karotterの**非公式**クライアントアプリ。
 
 ## インストール
 

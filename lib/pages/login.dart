@@ -1,12 +1,9 @@
-import "package:flutter/gestures.dart";
 import "package:flutter/material.dart";
 import "package:karotator/http.dart";
 import "package:karotator/pages/home.dart";
-import "package:karotator/pages/home/timeline.dart";
 import "package:karotator/ui/dialog.dart";
 import "package:karotator/ui/gender_select.dart";
 import "package:karotator/ui/unfocus.dart";
-import "package:karotator/utils.dart";
 
 class LoginPage extends StatefulWidget {
   const LoginPage({super.key});
@@ -43,9 +40,10 @@ class _LoginPageState extends State<LoginPage> {
 
       if (!mounted) return;
 
-      Navigator.pushReplacement(
+      Navigator.pushAndRemoveUntil(
         context,
-        MaterialPageRoute(builder: (context) => HomePage(body: TimeLine())),
+        MaterialPageRoute(builder: (context) => HomePage()),
+        (_) => false,
       );
     } catch (e, stackTrace) {
       debugPrint("$e\n$stackTrace");
@@ -59,6 +57,7 @@ class _LoginPageState extends State<LoginPage> {
   Widget build(BuildContext context) {
     return UnFocus(
       child: Scaffold(
+        resizeToAvoidBottomInset: false,
         body: Padding(
           padding: const EdgeInsets.all(16.0),
           child: Container(
@@ -80,16 +79,17 @@ class _LoginPageState extends State<LoginPage> {
                         shape: BoxShape.circle,
                         image: DecorationImage(
                           fit: BoxFit.fill,
-                          image: AssetImage('assets/images/karotter-log.png'),
+                          image: AssetImage('assets/images/icon.png'),
                         ),
                       ),
                     ),
                     const SizedBox(height: 16.0),
                     Text(
-                      "Karotterにログイン",
+                      "ログイン",
                       style: Theme.of(context).textTheme.headlineLarge,
                     ),
                     const SizedBox(height: 16.0),
+                    /*
                     RichText(
                       text: TextSpan(
                         children: [
@@ -109,6 +109,8 @@ class _LoginPageState extends State<LoginPage> {
                         ],
                       ),
                     ),
+                    */
+                    /*
                     const SizedBox(height: 16.0),
                     RichText(
                       text: TextSpan(
@@ -140,6 +142,7 @@ class _LoginPageState extends State<LoginPage> {
                       ),
                     ),
                     const SizedBox(height: 16.0),
+                    */
                     TextField(
                       controller: _usernameController,
                       decoration: const InputDecoration(
@@ -179,7 +182,13 @@ class _LoginPageState extends State<LoginPage> {
                           });
                         },
                         child: isLoading
-                            ? CircularProgressIndicator()
+                            ? SizedBox(
+                                width: 20,
+                                height: 20,
+                                child: CircularProgressIndicator(
+                                  strokeWidth: 2,
+                                ),
+                              )
                             : const Text('ログイン'),
                       ),
                     ),

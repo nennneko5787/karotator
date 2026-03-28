@@ -1,4 +1,5 @@
 import 'package:freezed_annotation/freezed_annotation.dart';
+import 'package:karotator/objects/notification.dart';
 import 'package:karotator/objects/post.dart';
 import 'package:karotator/objects/user.dart';
 
@@ -138,4 +139,42 @@ abstract class UserResponse with _$UserResponse {
 
   factory UserResponse.fromJson(Map<String, Object?> json) =>
       _$UserResponseFromJson(json);
+
+  factory UserResponse.empty() => UserResponse(
+    user: User.empty(),
+    pinnedPost: null,
+    isFollowing: false,
+    isFollowedBy: false,
+    isBlocked: false,
+    hasBlocked: false,
+    isBlockedBy: false,
+    isMuted: false,
+    hasPendingRequest: false,
+    mutualFollowersPreview: [],
+    mutualFollowersCount: 0,
+  );
+}
+
+@freezed
+abstract class NotificationPagination with _$NotificationPagination {
+  const factory NotificationPagination({
+    required bool hasMore,
+    required int limit,
+    required int nextPage,
+    required int page,
+  }) = _NotificationPagination;
+
+  factory NotificationPagination.fromJson(Map<String, Object?> json) =>
+      _$NotificationPaginationFromJson(json);
+}
+
+@freezed
+abstract class NotificationResponse with _$NotificationResponse {
+  const factory NotificationResponse({
+    required NotificationPagination pagination,
+    required List<Notification> notifications,
+  }) = _NotificationResponse;
+
+  factory NotificationResponse.fromJson(Map<String, Object?> json) =>
+      _$NotificationResponseFromJson(json);
 }

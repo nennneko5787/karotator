@@ -193,3 +193,39 @@ Map<String, dynamic> _$UserResponseToJson(_UserResponse instance) =>
       'mutualFollowersPreview': instance.mutualFollowersPreview,
       'mutualFollowersCount': instance.mutualFollowersCount,
     };
+
+_NotificationPagination _$NotificationPaginationFromJson(
+  Map<String, dynamic> json,
+) => _NotificationPagination(
+  hasMore: json['hasMore'] as bool,
+  limit: (json['limit'] as num).toInt(),
+  nextPage: (json['nextPage'] as num).toInt(),
+  page: (json['page'] as num).toInt(),
+);
+
+Map<String, dynamic> _$NotificationPaginationToJson(
+  _NotificationPagination instance,
+) => <String, dynamic>{
+  'hasMore': instance.hasMore,
+  'limit': instance.limit,
+  'nextPage': instance.nextPage,
+  'page': instance.page,
+};
+
+_NotificationResponse _$NotificationResponseFromJson(
+  Map<String, dynamic> json,
+) => _NotificationResponse(
+  pagination: NotificationPagination.fromJson(
+    json['pagination'] as Map<String, dynamic>,
+  ),
+  notifications: (json['notifications'] as List<dynamic>)
+      .map((e) => Notification.fromJson(e as Map<String, dynamic>))
+      .toList(),
+);
+
+Map<String, dynamic> _$NotificationResponseToJson(
+  _NotificationResponse instance,
+) => <String, dynamic>{
+  'pagination': instance.pagination,
+  'notifications': instance.notifications,
+};

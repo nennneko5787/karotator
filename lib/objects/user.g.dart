@@ -66,7 +66,7 @@ _User _$UserFromJson(Map<String, dynamic> json) => _User(
   username: json['username'] as String,
   pinnedPostId: (json['pinnedPostId'] as num?)?.toInt(),
   headerUrl: json['headerUrl'] as String?,
-  bio: json['bio'] as String,
+  bio: json['bio'] as String?,
   birthday: json['birthday'] as String?,
   birthdayVisibility: $enumDecode(
     _$BirthdayVisibilityEnumMap,

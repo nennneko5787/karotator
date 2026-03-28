@@ -18,10 +18,11 @@ import "package:material_symbols_icons/symbols.dart";
 import 'package:karotator/const.dart';
 
 class PostPage extends StatefulWidget {
-  const PostPage({super.key, this.post, this.type});
+  const PostPage({super.key, this.post, this.type, this.content = ""});
 
   final Post? post;
   final InternalPostType? type;
+  final String content;
 
   @override
   State<PostPage> createState() => _PostPageState();
@@ -43,8 +44,8 @@ class _PostPageState extends State<PostPage> {
   int? pollDurationHours;
 
   final _pageKey = GlobalKey<ScaffoldState>();
-  final HighlightTextEditingController _postController =
-      HighlightTextEditingController();
+  late final HighlightTextEditingController _postController =
+      HighlightTextEditingController()..text = widget.content;
   final ValueNotifier<bool> _isPostButtonEnabled = ValueNotifier(false);
   bool _openPollSetting = false;
 
@@ -61,6 +62,7 @@ class _PostPageState extends State<PostPage> {
         }),
       },
     );
+    HTTPClient().loadLoginResponse().then((response) => {setState(() {})});
     HTTPClient().getUserCircles().then((circles) => _circles = circles);
   }
 
@@ -112,27 +114,21 @@ class _PostPageState extends State<PostPage> {
             : null,
       );
 
-      if (messengerKey.currentState == null) return;
-      if (!messengerKey.currentState!.context.mounted) return;
+      if (!mounted) return;
 
       messengerKey.currentState!.showSnackBar(
         SnackBar(
           content: GestureDetector(
             onTap: () {
               Navigator.push(
-                messengerKey.currentState!.context,
+                context,
                 MaterialPageRoute(builder: (_) => PostDetailPage(post: post)),
               );
             },
             child: Row(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Icon(
-                  Icons.check_circle,
-                  color: Theme.of(
-                    messengerKey.currentState!.context,
-                  ).primaryColor,
-                ),
+                Icon(Icons.check_circle, color: Theme.of(context).primaryColor),
                 Text("投稿しました。"),
               ],
             ),
@@ -386,21 +382,7 @@ class _PostPageState extends State<PostPage> {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 spacing: 8,
                 children: [
-                  Container(
-                    width: 36,
-                    height: 36,
-                    decoration: BoxDecoration(
-                      shape: BoxShape.circle,
-                      image: DecorationImage(
-                        fit: BoxFit.fill,
-                        image: NetworkImage(
-                          _avatarUrl != null
-                              ? "https://karotter.com$_avatarUrl"
-                              : "https://karotter.com/default-avatar.png",
-                        ),
-                      ),
-                    ),
-                  ),
+                  postUserAvatarFactory(_avatarUrl),
                   Expanded(
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,

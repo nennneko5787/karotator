@@ -12,11 +12,10 @@ part of 'post.dart';
 @ProviderFor(PostNotifier)
 final postProvider = PostNotifierFamily._();
 
-final class PostNotifierProvider
-    extends $NotifierProvider<PostNotifier, PostState> {
+final class PostNotifierProvider extends $NotifierProvider<PostNotifier, Post> {
   PostNotifierProvider._({
     required PostNotifierFamily super.from,
-    required PostState super.argument,
+    required int super.argument,
   }) : super(
          retry: null,
          name: r'postProvider',
@@ -40,10 +39,10 @@ final class PostNotifierProvider
   PostNotifier create() => PostNotifier();
 
   /// {@macro riverpod.override_with_value}
-  Override overrideWithValue(PostState value) {
+  Override overrideWithValue(Post value) {
     return $ProviderOverride(
       origin: this,
-      providerOverride: $SyncValueProvider<PostState>(value),
+      providerOverride: $SyncValueProvider<Post>(value),
     );
   }
 
@@ -58,17 +57,10 @@ final class PostNotifierProvider
   }
 }
 
-String _$postNotifierHash() => r'a553869474dd75f8566c4ca86aec20b00a6db857';
+String _$postNotifierHash() => r'6a838695dda432ff2f78407e37589db546d7e85e';
 
 final class PostNotifierFamily extends $Family
-    with
-        $ClassFamilyOverride<
-          PostNotifier,
-          PostState,
-          PostState,
-          PostState,
-          PostState
-        > {
+    with $ClassFamilyOverride<PostNotifier, Post, Post, Post, int> {
   PostNotifierFamily._()
     : super(
         retry: null,
@@ -78,27 +70,27 @@ final class PostNotifierFamily extends $Family
         isAutoDispose: true,
       );
 
-  PostNotifierProvider call(PostState post) =>
-      PostNotifierProvider._(argument: post, from: this);
+  PostNotifierProvider call(int postId) =>
+      PostNotifierProvider._(argument: postId, from: this);
 
   @override
   String toString() => r'postProvider';
 }
 
-abstract class _$PostNotifier extends $Notifier<PostState> {
-  late final _$args = ref.$arg as PostState;
-  PostState get post => _$args;
+abstract class _$PostNotifier extends $Notifier<Post> {
+  late final _$args = ref.$arg as int;
+  int get postId => _$args;
 
-  PostState build(PostState post);
+  Post build(int postId);
   @$mustCallSuper
   @override
   void runBuild() {
-    final ref = this.ref as $Ref<PostState, PostState>;
+    final ref = this.ref as $Ref<Post, Post>;
     final element =
         ref.element
             as $ClassProviderElement<
-              AnyNotifier<PostState, PostState>,
-              PostState,
+              AnyNotifier<Post, Post>,
+              Post,
               Object?,
               Object?
             >;
