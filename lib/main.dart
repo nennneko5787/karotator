@@ -3,11 +3,9 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:karotator/const.dart';
 
 import 'package:karotator/pages/startup.dart';
-import 'package:media_kit/media_kit.dart';
 
 void main() {
   WidgetsFlutterBinding.ensureInitialized();
-  MediaKit.ensureInitialized();
   runApp(const Karotator());
 }
 
@@ -44,6 +42,16 @@ class Karotator extends StatelessWidget {
               ),
             ),
           ),
+          outlinedButtonTheme: OutlinedButtonThemeData(
+            style: ButtonStyle(
+              foregroundColor: WidgetStateProperty.all(
+                Color.fromARGB(255, 29, 78, 216),
+              ),
+              side: WidgetStateProperty.all(
+                BorderSide(color: Color.fromARGB(255, 29, 78, 216), width: 2),
+              ),
+            ),
+          ),
           textButtonTheme: TextButtonThemeData(
             style: ButtonStyle(
               foregroundColor: WidgetStateProperty.all(Colors.black),
@@ -73,6 +81,16 @@ class Karotator extends StatelessWidget {
             style: ButtonStyle(
               backgroundColor: WidgetStateProperty.all(
                 Color.fromARGB(255, 37, 99, 235),
+              ),
+            ),
+          ),
+          outlinedButtonTheme: OutlinedButtonThemeData(
+            style: ButtonStyle(
+              foregroundColor: WidgetStateProperty.all(
+                Color.fromARGB(255, 37, 99, 235),
+              ),
+              side: WidgetStateProperty.all(
+                BorderSide(color: Color.fromARGB(255, 37, 99, 235), width: 2),
               ),
             ),
           ),

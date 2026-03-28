@@ -36,11 +36,7 @@ class _GenderSelectMenuState extends State<GenderSelectMenu> {
             widget.onChanged?.call(value!);
           },
           isExpanded: true,
-          hint: const Text(
-            "性別（任意）",
-            style: TextStyle(color: Colors.black, fontSize: 15),
-            textAlign: TextAlign.center,
-          ),
+          hint: const Text("性別（任意）", textAlign: TextAlign.center),
         ),
       ),
     );

@@ -42,7 +42,7 @@ class _MediaSettingsState extends State<MediaSettings> {
             ),
           ),
           Row(
-            crossAxisAlignment: CrossAxisAlignment.start,
+            crossAxisAlignment: CrossAxisAlignment.center,
             children: [
               Checkbox(
                 value: _spoiler,
@@ -56,7 +56,7 @@ class _MediaSettingsState extends State<MediaSettings> {
             ],
           ),
           Row(
-            crossAxisAlignment: CrossAxisAlignment.start,
+            crossAxisAlignment: CrossAxisAlignment.center,
             children: [
               Checkbox(
                 value: _nsfw,

@@ -1,10 +1,6 @@
-import "dart:io";
-
 import "package:flutter/material.dart";
-import "package:karotator/http.dart";
-import "package:media_kit/media_kit.dart";
-import "package:media_kit_video/media_kit_video.dart";
-import "package:path_provider/path_provider.dart";
+import "package:video_player/video_player.dart";
+import 'package:flutter/services.dart';
 
 class MediaViewer extends StatefulWidget {
   final List<String> urls;
@@ -109,48 +105,35 @@ class _VideoPlayerItem extends StatefulWidget {
 }
 
 class _VideoPlayerItemState extends State<_VideoPlayerItem> {
-  late Player player;
-  late VideoController controller;
-  bool isLoading = true;
-  String ext = ".mp4";
+  late VideoPlayerController _controller;
+  bool _hasError = false;
 
   @override
   void initState() {
     super.initState();
 
-    player = Player();
-    controller = VideoController(player);
-    loadAndPlayVideo();
-  }
-
-  Future<void> loadAndPlayVideo() async {
-    // 1. APIからUint8Listとして取得
-    final response = await HTTPClient().http.get(Uri.parse(widget.url));
-    final videoBytes = response.bodyBytes; // Uint8List
-
-    final uri = Uri.parse(widget.url);
-    final pathSegments = uri.pathSegments;
-    final fileName = pathSegments.isNotEmpty ? pathSegments.last : '';
-    ext = fileName.contains('.') ? '.${fileName.split('.').last}' : '.mp4';
-
-    // 2. 一時ディレクトリに保存
-    final tempDir = await getTemporaryDirectory();
-    final tempFile = File('${tempDir.path}/temp_video.$ext');
-    await tempFile.writeAsBytes(videoBytes);
-
-    // 3. media_kitで再生
-    await player.open(Media(tempFile.path));
-
-    setState(() => isLoading = false);
+    _controller = VideoPlayerController.networkUrl(Uri.parse(widget.url))
+      ..initialize()
+          .then((_) {
+            // Ensure the first frame is shown after the video is initialized, even before the play button has been pressed.
+            setState(() {});
+          })
+          .catchError(
+            (e) {
+              if (e is MissingPluginException || e is UnimplementedError) {
+                setState(() {
+                  _hasError = true;
+                });
+              }
+            },
+            test: (e) =>
+                (e is MissingPluginException || e is UnimplementedError),
+          );
   }
 
   @override
   void dispose() {
-    player.dispose();
-    getTemporaryDirectory().then((dir) {
-      final tempFile = File('${dir.path}/temp_video.$ext');
-      if (tempFile.existsSync()) tempFile.deleteSync();
-    });
+    _controller.dispose();
     super.dispose();
   }
 
@@ -161,9 +144,14 @@ class _VideoPlayerItemState extends State<_VideoPlayerItem> {
         width: MediaQuery.of(context).size.width,
         height: MediaQuery.of(context).size.width * 9.0 / 16.0,
         // Use [Video] widget to display video output.
-        child: isLoading
-            ? const Center(child: CircularProgressIndicator())
-            : Video(controller: controller),
+        child: _hasError
+            ? Image.asset('assets/images/dummy_image.png')
+            : _controller.value.isInitialized
+            ? AspectRatio(
+                aspectRatio: _controller.value.aspectRatio,
+                child: VideoPlayer(_controller),
+              )
+            : const Center(child: CircularProgressIndicator()),
       ),
     );
   }

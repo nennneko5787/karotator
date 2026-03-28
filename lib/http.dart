@@ -7,6 +7,7 @@ import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:karotator/enum.dart';
 import 'package:karotator/objects/circle.dart';
 import 'package:karotator/objects/post.dart';
+import 'package:karotator/objects/user.dart';
 import 'package:karotator/utils.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:uuid/v4.dart';
@@ -26,7 +27,7 @@ class HTTPClient {
   final storage = const FlutterSecureStorage();
   bool initialized = false;
   String? nowAccountId;
-  final baseUrl = "https://karotter.com/api/";
+  final baseUrl = "https://api.karotter.com/api/";
 
   Future<void> initialize() async {
     final prefs = await SharedPreferences.getInstance();
@@ -345,9 +346,10 @@ class HTTPClient {
   Future<RecommendedResponse> getRecommended({
     required int page,
     required int limit,
+    required String mode,
   }) async {
     final jsonData = await get(
-      "posts/recommended?page=$page&limit=$limit&mode=algorithm",
+      "posts/recommended?page=$page&limit=$limit&mode=$mode",
     );
     return RecommendedResponse.fromJson(jsonData);
   }
@@ -572,5 +574,10 @@ class HTTPClient {
     return (jsonData["circles"] as List<dynamic>)
         .map((e) => Circle.fromJson(e as Map<String, Object?>))
         .toList();
+  }
+
+  Future<UserResponse> getUserByUsername(String username) async {
+    final jsonData = await get("users/$username");
+    return UserResponse.fromJson(jsonData);
   }
 }

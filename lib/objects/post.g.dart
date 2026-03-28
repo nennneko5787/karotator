@@ -118,10 +118,11 @@ Map<String, dynamic> _$HashTagsToJson(_HashTags instance) => <String, dynamic>{
 _QuotedPost _$QuotedPostFromJson(Map<String, dynamic> json) => _QuotedPost(
   id: (json['id'] as num).toInt(),
   content: json['content'] as String,
-  authorId: (json['authorId'] as num).toInt(),
   author: Author.fromJson(json['author'] as Map<String, dynamic>),
   createdAt: DateTime.parse(json['createdAt'] as String),
-  updatedAt: DateTime.parse(json['updatedAt'] as String),
+  updatedAt: json['updatedAt'] == null
+      ? null
+      : DateTime.parse(json['updatedAt'] as String),
   editedAt: json['editedAt'] == null
       ? null
       : DateTime.parse(json['editedAt'] as String),
@@ -156,25 +157,30 @@ _QuotedPost _$QuotedPostFromJson(Map<String, dynamic> json) => _QuotedPost(
   rekarotsCount: (json['rekarotsCount'] as num).toInt(),
   repliesCount: (json['repliesCount'] as num).toInt(),
   viewsCount: (json['viewsCount'] as num).toInt(),
-  excludedMentions: (json['excludedMentions'] as List<dynamic>)
-      .map((e) => (e as num).toInt())
-      .toList(),
-  replyRestriction: $enumDecode(
-    _$ReplyRestrictionEnumMap,
-    json['replyRestriction'],
-  ),
-  visibility: $enumDecode(_$PostVisibilityEnumMap, json['visibility']),
-  canView: json['canView'] as bool,
+  excludedMentions:
+      (json['excludedMentions'] as List<dynamic>?)
+          ?.map((e) => (e as num).toInt())
+          .toList() ??
+      const [],
+  replyRestriction:
+      $enumDecodeNullable(
+        _$ReplyRestrictionEnumMap,
+        json['replyRestriction'],
+      ) ??
+      ReplyRestriction.EVERYONE,
+  visibility:
+      $enumDecodeNullable(_$PostVisibilityEnumMap, json['visibility']) ??
+      PostVisibility.PUBLIC,
+  canView: json['canView'] as bool? ?? true,
 );
 
 Map<String, dynamic> _$QuotedPostToJson(_QuotedPost instance) =>
     <String, dynamic>{
       'id': instance.id,
       'content': instance.content,
-      'authorId': instance.authorId,
       'author': instance.author,
       'createdAt': instance.createdAt.toIso8601String(),
-      'updatedAt': instance.updatedAt.toIso8601String(),
+      'updatedAt': instance.updatedAt?.toIso8601String(),
       'editedAt': instance.editedAt?.toIso8601String(),
       'parentId': instance.parentId,
       'quotedPostId': instance.quotedPostId,

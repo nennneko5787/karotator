@@ -3,6 +3,7 @@ import "package:karotator/http.dart";
 import "package:karotator/objects/response.dart";
 import "package:karotator/objects/user.dart";
 import "package:karotator/pages/login.dart";
+import "package:karotator/pages/profile.dart";
 import "package:karotator/pages/startup.dart";
 
 class DrawerMenu extends StatefulWidget {
@@ -119,12 +120,14 @@ class _DrawerMenuState extends State<DrawerMenu> {
                     );
 
                     if (!context.mounted) return;
-                    Navigator.push(
-                      parentContext,
-                      MaterialPageRoute(
-                        builder: (parentContext) => StartUpPage(),
-                      ),
-                    );
+                    WidgetsBinding.instance.addPostFrameCallback((_) {
+                      Navigator.push(
+                        parentContext,
+                        MaterialPageRoute(
+                          builder: (parentContext) => StartUpPage(),
+                        ),
+                      );
+                    });
                   },
                 ),
             ],
@@ -153,7 +156,15 @@ class _DrawerMenuState extends State<DrawerMenu> {
             ListTile(
               leading: const Icon(Icons.person),
               title: const Text("プロフィール"),
-              onTap: () {},
+              onTap: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (parentContext) =>
+                        ProfilePage(username: user!.username),
+                  ),
+                );
+              },
             ),
             ListTile(
               leading: const Icon(Icons.bookmark),
@@ -191,31 +202,11 @@ class _DrawerMenuState extends State<DrawerMenu> {
               color: Theme.of(context).scaffoldBackgroundColor,
             ),
             accountName: user != null
-                ? Text(
-                    user!.displayName,
-                    style: TextStyle(
-                      color: Theme.of(context).colorScheme.onPrimary,
-                    ),
-                  )
-                : Text(
-                    "ログインしていません",
-                    style: TextStyle(
-                      color: Theme.of(context).colorScheme.onPrimary,
-                    ),
-                  ),
+                ? Text(user!.displayName)
+                : Text("ログインしていません"),
             accountEmail: user != null
-                ? Text(
-                    "@${user!.username}",
-                    style: TextStyle(
-                      color: Theme.of(context).colorScheme.onPrimary,
-                    ),
-                  )
-                : Text(
-                    "Karotterにログインして投稿を楽しみましょう",
-                    style: TextStyle(
-                      color: Theme.of(context).colorScheme.onPrimary,
-                    ),
-                  ),
+                ? Text("@${user!.username}")
+                : Text("Karotterにログインして投稿を楽しみましょう"),
             currentAccountPicture: CircleAvatar(
               backgroundImage: NetworkImage(
                 user?.avatarUrl != null

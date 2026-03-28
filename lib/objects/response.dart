@@ -119,3 +119,23 @@ abstract class RefreshResponse with _$RefreshResponse {
   factory RefreshResponse.fromJson(Map<String, Object?> json) =>
       _$RefreshResponseFromJson(json);
 }
+
+@freezed
+abstract class UserResponse with _$UserResponse {
+  const factory UserResponse({
+    required User user,
+    QuotedPost? pinnedPost,
+    required bool isFollowing,
+    required bool isFollowedBy,
+    required bool isBlocked,
+    required bool hasBlocked,
+    required bool isBlockedBy,
+    required bool isMuted,
+    required bool hasPendingRequest,
+    required List<Author> mutualFollowersPreview,
+    required int mutualFollowersCount,
+  }) = _UserResponse;
+
+  factory UserResponse.fromJson(Map<String, Object?> json) =>
+      _$UserResponseFromJson(json);
+}

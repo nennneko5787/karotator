@@ -1,8 +1,9 @@
-import 'dart:typed_data';
+import 'dart:io';
 
-import 'package:media_kit/media_kit.dart';
-import 'package:media_kit_video/media_kit_video.dart';
+import 'package:flutter/services.dart';
+import 'package:path_provider/path_provider.dart';
 import 'package:url_launcher/url_launcher_string.dart';
+import 'package:video_thumbnail/video_thumbnail.dart';
 
 Future<bool> openURL(String url) async {
   if (await canLaunchUrlString(url)) {
@@ -52,18 +53,27 @@ String getRemainingTime(DateTime dateTime) {
   return "残り${parts.join("と")}";
 }
 
+Future<Uint8List> getImageFileFromAssets(String path) async {
+  final byteData = await rootBundle.load('assets/$path');
+  return byteData.buffer.asUint8List();
+}
+
 Future<Uint8List?> getVideoThumbnail(String videoPath) async {
-  final player = Player();
-  final _ = VideoController(player);
-
-  await player.open(Media(videoPath));
-  // 少し待ってフレームが来るのを待つ
-  await Future.delayed(const Duration(milliseconds: 500));
-
-  final screenshot = await player.screenshot();
-
-  await player.dispose();
-  return screenshot;
+  try {
+    final thumbnailData = await VideoThumbnail.thumbnailData(
+      video: videoPath,
+      imageFormat: ImageFormat.JPEG,
+      maxWidth: 200,
+      quality: 75,
+    );
+    return thumbnailData;
+  } catch (e) {
+    if (e is MissingPluginException || e is UnimplementedError) {
+      return await getImageFileFromAssets("images/dummy_image.png");
+    } else {
+      rethrow;
+    }
+  }
 }
 
 String getMimeType(String path) {

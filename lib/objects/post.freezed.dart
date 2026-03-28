@@ -2206,7 +2206,7 @@ as int?,
 /// @nodoc
 mixin _$QuotedPost {
 
- int get id; String get content; int get authorId; Author get author; DateTime get createdAt; DateTime get updatedAt; DateTime? get editedAt; int? get parentId; int? get quotedPostId; List<String> get mediaUrls; List<String> get mediaTypes; List<String> get mediaAlts; List<bool> get mediaSpoilerFlags; List<bool> get mediaR18Flags; String? get embedUrl; String? get embedTitle; String? get embedDescription; String? get embedImage; int get likesCount; int get rekarotsCount; int get repliesCount; int get viewsCount; List<int> get excludedMentions; ReplyRestriction get replyRestriction; PostVisibility get visibility; bool get canView;
+ int get id; String get content; Author get author; DateTime get createdAt; DateTime? get updatedAt; DateTime? get editedAt; int? get parentId; int? get quotedPostId; List<String> get mediaUrls; List<String> get mediaTypes; List<String> get mediaAlts; List<bool> get mediaSpoilerFlags; List<bool> get mediaR18Flags; String? get embedUrl; String? get embedTitle; String? get embedDescription; String? get embedImage; int get likesCount; int get rekarotsCount; int get repliesCount; int get viewsCount; List<int> get excludedMentions; ReplyRestriction get replyRestriction; PostVisibility get visibility; bool get canView;
 /// Create a copy of QuotedPost
 /// with the given fields replaced by the non-null parameter values.
 @JsonKey(includeFromJson: false, includeToJson: false)
@@ -2219,16 +2219,16 @@ $QuotedPostCopyWith<QuotedPost> get copyWith => _$QuotedPostCopyWithImpl<QuotedP
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is QuotedPost&&(identical(other.id, id) || other.id == id)&&(identical(other.content, content) || other.content == content)&&(identical(other.authorId, authorId) || other.authorId == authorId)&&(identical(other.author, author) || other.author == author)&&(identical(other.createdAt, createdAt) || other.createdAt == createdAt)&&(identical(other.updatedAt, updatedAt) || other.updatedAt == updatedAt)&&(identical(other.editedAt, editedAt) || other.editedAt == editedAt)&&(identical(other.parentId, parentId) || other.parentId == parentId)&&(identical(other.quotedPostId, quotedPostId) || other.quotedPostId == quotedPostId)&&const DeepCollectionEquality().equals(other.mediaUrls, mediaUrls)&&const DeepCollectionEquality().equals(other.mediaTypes, mediaTypes)&&const DeepCollectionEquality().equals(other.mediaAlts, mediaAlts)&&const DeepCollectionEquality().equals(other.mediaSpoilerFlags, mediaSpoilerFlags)&&const DeepCollectionEquality().equals(other.mediaR18Flags, mediaR18Flags)&&(identical(other.embedUrl, embedUrl) || other.embedUrl == embedUrl)&&(identical(other.embedTitle, embedTitle) || other.embedTitle == embedTitle)&&(identical(other.embedDescription, embedDescription) || other.embedDescription == embedDescription)&&(identical(other.embedImage, embedImage) || other.embedImage == embedImage)&&(identical(other.likesCount, likesCount) || other.likesCount == likesCount)&&(identical(other.rekarotsCount, rekarotsCount) || other.rekarotsCount == rekarotsCount)&&(identical(other.repliesCount, repliesCount) || other.repliesCount == repliesCount)&&(identical(other.viewsCount, viewsCount) || other.viewsCount == viewsCount)&&const DeepCollectionEquality().equals(other.excludedMentions, excludedMentions)&&(identical(other.replyRestriction, replyRestriction) || other.replyRestriction == replyRestriction)&&(identical(other.visibility, visibility) || other.visibility == visibility)&&(identical(other.canView, canView) || other.canView == canView));
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is QuotedPost&&(identical(other.id, id) || other.id == id)&&(identical(other.content, content) || other.content == content)&&(identical(other.author, author) || other.author == author)&&(identical(other.createdAt, createdAt) || other.createdAt == createdAt)&&(identical(other.updatedAt, updatedAt) || other.updatedAt == updatedAt)&&(identical(other.editedAt, editedAt) || other.editedAt == editedAt)&&(identical(other.parentId, parentId) || other.parentId == parentId)&&(identical(other.quotedPostId, quotedPostId) || other.quotedPostId == quotedPostId)&&const DeepCollectionEquality().equals(other.mediaUrls, mediaUrls)&&const DeepCollectionEquality().equals(other.mediaTypes, mediaTypes)&&const DeepCollectionEquality().equals(other.mediaAlts, mediaAlts)&&const DeepCollectionEquality().equals(other.mediaSpoilerFlags, mediaSpoilerFlags)&&const DeepCollectionEquality().equals(other.mediaR18Flags, mediaR18Flags)&&(identical(other.embedUrl, embedUrl) || other.embedUrl == embedUrl)&&(identical(other.embedTitle, embedTitle) || other.embedTitle == embedTitle)&&(identical(other.embedDescription, embedDescription) || other.embedDescription == embedDescription)&&(identical(other.embedImage, embedImage) || other.embedImage == embedImage)&&(identical(other.likesCount, likesCount) || other.likesCount == likesCount)&&(identical(other.rekarotsCount, rekarotsCount) || other.rekarotsCount == rekarotsCount)&&(identical(other.repliesCount, repliesCount) || other.repliesCount == repliesCount)&&(identical(other.viewsCount, viewsCount) || other.viewsCount == viewsCount)&&const DeepCollectionEquality().equals(other.excludedMentions, excludedMentions)&&(identical(other.replyRestriction, replyRestriction) || other.replyRestriction == replyRestriction)&&(identical(other.visibility, visibility) || other.visibility == visibility)&&(identical(other.canView, canView) || other.canView == canView));
 }
 
 @JsonKey(includeFromJson: false, includeToJson: false)
 @override
-int get hashCode => Object.hashAll([runtimeType,id,content,authorId,author,createdAt,updatedAt,editedAt,parentId,quotedPostId,const DeepCollectionEquality().hash(mediaUrls),const DeepCollectionEquality().hash(mediaTypes),const DeepCollectionEquality().hash(mediaAlts),const DeepCollectionEquality().hash(mediaSpoilerFlags),const DeepCollectionEquality().hash(mediaR18Flags),embedUrl,embedTitle,embedDescription,embedImage,likesCount,rekarotsCount,repliesCount,viewsCount,const DeepCollectionEquality().hash(excludedMentions),replyRestriction,visibility,canView]);
+int get hashCode => Object.hashAll([runtimeType,id,content,author,createdAt,updatedAt,editedAt,parentId,quotedPostId,const DeepCollectionEquality().hash(mediaUrls),const DeepCollectionEquality().hash(mediaTypes),const DeepCollectionEquality().hash(mediaAlts),const DeepCollectionEquality().hash(mediaSpoilerFlags),const DeepCollectionEquality().hash(mediaR18Flags),embedUrl,embedTitle,embedDescription,embedImage,likesCount,rekarotsCount,repliesCount,viewsCount,const DeepCollectionEquality().hash(excludedMentions),replyRestriction,visibility,canView]);
 
 @override
 String toString() {
-  return 'QuotedPost(id: $id, content: $content, authorId: $authorId, author: $author, createdAt: $createdAt, updatedAt: $updatedAt, editedAt: $editedAt, parentId: $parentId, quotedPostId: $quotedPostId, mediaUrls: $mediaUrls, mediaTypes: $mediaTypes, mediaAlts: $mediaAlts, mediaSpoilerFlags: $mediaSpoilerFlags, mediaR18Flags: $mediaR18Flags, embedUrl: $embedUrl, embedTitle: $embedTitle, embedDescription: $embedDescription, embedImage: $embedImage, likesCount: $likesCount, rekarotsCount: $rekarotsCount, repliesCount: $repliesCount, viewsCount: $viewsCount, excludedMentions: $excludedMentions, replyRestriction: $replyRestriction, visibility: $visibility, canView: $canView)';
+  return 'QuotedPost(id: $id, content: $content, author: $author, createdAt: $createdAt, updatedAt: $updatedAt, editedAt: $editedAt, parentId: $parentId, quotedPostId: $quotedPostId, mediaUrls: $mediaUrls, mediaTypes: $mediaTypes, mediaAlts: $mediaAlts, mediaSpoilerFlags: $mediaSpoilerFlags, mediaR18Flags: $mediaR18Flags, embedUrl: $embedUrl, embedTitle: $embedTitle, embedDescription: $embedDescription, embedImage: $embedImage, likesCount: $likesCount, rekarotsCount: $rekarotsCount, repliesCount: $repliesCount, viewsCount: $viewsCount, excludedMentions: $excludedMentions, replyRestriction: $replyRestriction, visibility: $visibility, canView: $canView)';
 }
 
 
@@ -2239,7 +2239,7 @@ abstract mixin class $QuotedPostCopyWith<$Res>  {
   factory $QuotedPostCopyWith(QuotedPost value, $Res Function(QuotedPost) _then) = _$QuotedPostCopyWithImpl;
 @useResult
 $Res call({
- int id, String content, int authorId, Author author, DateTime createdAt, DateTime updatedAt, DateTime? editedAt, int? parentId, int? quotedPostId, List<String> mediaUrls, List<String> mediaTypes, List<String> mediaAlts, List<bool> mediaSpoilerFlags, List<bool> mediaR18Flags, String? embedUrl, String? embedTitle, String? embedDescription, String? embedImage, int likesCount, int rekarotsCount, int repliesCount, int viewsCount, List<int> excludedMentions, ReplyRestriction replyRestriction, PostVisibility visibility, bool canView
+ int id, String content, Author author, DateTime createdAt, DateTime? updatedAt, DateTime? editedAt, int? parentId, int? quotedPostId, List<String> mediaUrls, List<String> mediaTypes, List<String> mediaAlts, List<bool> mediaSpoilerFlags, List<bool> mediaR18Flags, String? embedUrl, String? embedTitle, String? embedDescription, String? embedImage, int likesCount, int rekarotsCount, int repliesCount, int viewsCount, List<int> excludedMentions, ReplyRestriction replyRestriction, PostVisibility visibility, bool canView
 });
 
 
@@ -2256,15 +2256,14 @@ class _$QuotedPostCopyWithImpl<$Res>
 
 /// Create a copy of QuotedPost
 /// with the given fields replaced by the non-null parameter values.
-@pragma('vm:prefer-inline') @override $Res call({Object? id = null,Object? content = null,Object? authorId = null,Object? author = null,Object? createdAt = null,Object? updatedAt = null,Object? editedAt = freezed,Object? parentId = freezed,Object? quotedPostId = freezed,Object? mediaUrls = null,Object? mediaTypes = null,Object? mediaAlts = null,Object? mediaSpoilerFlags = null,Object? mediaR18Flags = null,Object? embedUrl = freezed,Object? embedTitle = freezed,Object? embedDescription = freezed,Object? embedImage = freezed,Object? likesCount = null,Object? rekarotsCount = null,Object? repliesCount = null,Object? viewsCount = null,Object? excludedMentions = null,Object? replyRestriction = null,Object? visibility = null,Object? canView = null,}) {
+@pragma('vm:prefer-inline') @override $Res call({Object? id = null,Object? content = null,Object? author = null,Object? createdAt = null,Object? updatedAt = freezed,Object? editedAt = freezed,Object? parentId = freezed,Object? quotedPostId = freezed,Object? mediaUrls = null,Object? mediaTypes = null,Object? mediaAlts = null,Object? mediaSpoilerFlags = null,Object? mediaR18Flags = null,Object? embedUrl = freezed,Object? embedTitle = freezed,Object? embedDescription = freezed,Object? embedImage = freezed,Object? likesCount = null,Object? rekarotsCount = null,Object? repliesCount = null,Object? viewsCount = null,Object? excludedMentions = null,Object? replyRestriction = null,Object? visibility = null,Object? canView = null,}) {
   return _then(_self.copyWith(
 id: null == id ? _self.id : id // ignore: cast_nullable_to_non_nullable
 as int,content: null == content ? _self.content : content // ignore: cast_nullable_to_non_nullable
-as String,authorId: null == authorId ? _self.authorId : authorId // ignore: cast_nullable_to_non_nullable
-as int,author: null == author ? _self.author : author // ignore: cast_nullable_to_non_nullable
+as String,author: null == author ? _self.author : author // ignore: cast_nullable_to_non_nullable
 as Author,createdAt: null == createdAt ? _self.createdAt : createdAt // ignore: cast_nullable_to_non_nullable
-as DateTime,updatedAt: null == updatedAt ? _self.updatedAt : updatedAt // ignore: cast_nullable_to_non_nullable
-as DateTime,editedAt: freezed == editedAt ? _self.editedAt : editedAt // ignore: cast_nullable_to_non_nullable
+as DateTime,updatedAt: freezed == updatedAt ? _self.updatedAt : updatedAt // ignore: cast_nullable_to_non_nullable
+as DateTime?,editedAt: freezed == editedAt ? _self.editedAt : editedAt // ignore: cast_nullable_to_non_nullable
 as DateTime?,parentId: freezed == parentId ? _self.parentId : parentId // ignore: cast_nullable_to_non_nullable
 as int?,quotedPostId: freezed == quotedPostId ? _self.quotedPostId : quotedPostId // ignore: cast_nullable_to_non_nullable
 as int?,mediaUrls: null == mediaUrls ? _self.mediaUrls : mediaUrls // ignore: cast_nullable_to_non_nullable
@@ -2378,10 +2377,10 @@ return $default(_that);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( int id,  String content,  int authorId,  Author author,  DateTime createdAt,  DateTime updatedAt,  DateTime? editedAt,  int? parentId,  int? quotedPostId,  List<String> mediaUrls,  List<String> mediaTypes,  List<String> mediaAlts,  List<bool> mediaSpoilerFlags,  List<bool> mediaR18Flags,  String? embedUrl,  String? embedTitle,  String? embedDescription,  String? embedImage,  int likesCount,  int rekarotsCount,  int repliesCount,  int viewsCount,  List<int> excludedMentions,  ReplyRestriction replyRestriction,  PostVisibility visibility,  bool canView)?  $default,{required TResult orElse(),}) {final _that = this;
+@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( int id,  String content,  Author author,  DateTime createdAt,  DateTime? updatedAt,  DateTime? editedAt,  int? parentId,  int? quotedPostId,  List<String> mediaUrls,  List<String> mediaTypes,  List<String> mediaAlts,  List<bool> mediaSpoilerFlags,  List<bool> mediaR18Flags,  String? embedUrl,  String? embedTitle,  String? embedDescription,  String? embedImage,  int likesCount,  int rekarotsCount,  int repliesCount,  int viewsCount,  List<int> excludedMentions,  ReplyRestriction replyRestriction,  PostVisibility visibility,  bool canView)?  $default,{required TResult orElse(),}) {final _that = this;
 switch (_that) {
 case _QuotedPost() when $default != null:
-return $default(_that.id,_that.content,_that.authorId,_that.author,_that.createdAt,_that.updatedAt,_that.editedAt,_that.parentId,_that.quotedPostId,_that.mediaUrls,_that.mediaTypes,_that.mediaAlts,_that.mediaSpoilerFlags,_that.mediaR18Flags,_that.embedUrl,_that.embedTitle,_that.embedDescription,_that.embedImage,_that.likesCount,_that.rekarotsCount,_that.repliesCount,_that.viewsCount,_that.excludedMentions,_that.replyRestriction,_that.visibility,_that.canView);case _:
+return $default(_that.id,_that.content,_that.author,_that.createdAt,_that.updatedAt,_that.editedAt,_that.parentId,_that.quotedPostId,_that.mediaUrls,_that.mediaTypes,_that.mediaAlts,_that.mediaSpoilerFlags,_that.mediaR18Flags,_that.embedUrl,_that.embedTitle,_that.embedDescription,_that.embedImage,_that.likesCount,_that.rekarotsCount,_that.repliesCount,_that.viewsCount,_that.excludedMentions,_that.replyRestriction,_that.visibility,_that.canView);case _:
   return orElse();
 
 }
@@ -2399,10 +2398,10 @@ return $default(_that.id,_that.content,_that.authorId,_that.author,_that.created
 /// }
 /// ```
 
-@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( int id,  String content,  int authorId,  Author author,  DateTime createdAt,  DateTime updatedAt,  DateTime? editedAt,  int? parentId,  int? quotedPostId,  List<String> mediaUrls,  List<String> mediaTypes,  List<String> mediaAlts,  List<bool> mediaSpoilerFlags,  List<bool> mediaR18Flags,  String? embedUrl,  String? embedTitle,  String? embedDescription,  String? embedImage,  int likesCount,  int rekarotsCount,  int repliesCount,  int viewsCount,  List<int> excludedMentions,  ReplyRestriction replyRestriction,  PostVisibility visibility,  bool canView)  $default,) {final _that = this;
+@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( int id,  String content,  Author author,  DateTime createdAt,  DateTime? updatedAt,  DateTime? editedAt,  int? parentId,  int? quotedPostId,  List<String> mediaUrls,  List<String> mediaTypes,  List<String> mediaAlts,  List<bool> mediaSpoilerFlags,  List<bool> mediaR18Flags,  String? embedUrl,  String? embedTitle,  String? embedDescription,  String? embedImage,  int likesCount,  int rekarotsCount,  int repliesCount,  int viewsCount,  List<int> excludedMentions,  ReplyRestriction replyRestriction,  PostVisibility visibility,  bool canView)  $default,) {final _that = this;
 switch (_that) {
 case _QuotedPost():
-return $default(_that.id,_that.content,_that.authorId,_that.author,_that.createdAt,_that.updatedAt,_that.editedAt,_that.parentId,_that.quotedPostId,_that.mediaUrls,_that.mediaTypes,_that.mediaAlts,_that.mediaSpoilerFlags,_that.mediaR18Flags,_that.embedUrl,_that.embedTitle,_that.embedDescription,_that.embedImage,_that.likesCount,_that.rekarotsCount,_that.repliesCount,_that.viewsCount,_that.excludedMentions,_that.replyRestriction,_that.visibility,_that.canView);case _:
+return $default(_that.id,_that.content,_that.author,_that.createdAt,_that.updatedAt,_that.editedAt,_that.parentId,_that.quotedPostId,_that.mediaUrls,_that.mediaTypes,_that.mediaAlts,_that.mediaSpoilerFlags,_that.mediaR18Flags,_that.embedUrl,_that.embedTitle,_that.embedDescription,_that.embedImage,_that.likesCount,_that.rekarotsCount,_that.repliesCount,_that.viewsCount,_that.excludedMentions,_that.replyRestriction,_that.visibility,_that.canView);case _:
   throw StateError('Unexpected subclass');
 
 }
@@ -2419,10 +2418,10 @@ return $default(_that.id,_that.content,_that.authorId,_that.author,_that.created
 /// }
 /// ```
 
-@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( int id,  String content,  int authorId,  Author author,  DateTime createdAt,  DateTime updatedAt,  DateTime? editedAt,  int? parentId,  int? quotedPostId,  List<String> mediaUrls,  List<String> mediaTypes,  List<String> mediaAlts,  List<bool> mediaSpoilerFlags,  List<bool> mediaR18Flags,  String? embedUrl,  String? embedTitle,  String? embedDescription,  String? embedImage,  int likesCount,  int rekarotsCount,  int repliesCount,  int viewsCount,  List<int> excludedMentions,  ReplyRestriction replyRestriction,  PostVisibility visibility,  bool canView)?  $default,) {final _that = this;
+@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( int id,  String content,  Author author,  DateTime createdAt,  DateTime? updatedAt,  DateTime? editedAt,  int? parentId,  int? quotedPostId,  List<String> mediaUrls,  List<String> mediaTypes,  List<String> mediaAlts,  List<bool> mediaSpoilerFlags,  List<bool> mediaR18Flags,  String? embedUrl,  String? embedTitle,  String? embedDescription,  String? embedImage,  int likesCount,  int rekarotsCount,  int repliesCount,  int viewsCount,  List<int> excludedMentions,  ReplyRestriction replyRestriction,  PostVisibility visibility,  bool canView)?  $default,) {final _that = this;
 switch (_that) {
 case _QuotedPost() when $default != null:
-return $default(_that.id,_that.content,_that.authorId,_that.author,_that.createdAt,_that.updatedAt,_that.editedAt,_that.parentId,_that.quotedPostId,_that.mediaUrls,_that.mediaTypes,_that.mediaAlts,_that.mediaSpoilerFlags,_that.mediaR18Flags,_that.embedUrl,_that.embedTitle,_that.embedDescription,_that.embedImage,_that.likesCount,_that.rekarotsCount,_that.repliesCount,_that.viewsCount,_that.excludedMentions,_that.replyRestriction,_that.visibility,_that.canView);case _:
+return $default(_that.id,_that.content,_that.author,_that.createdAt,_that.updatedAt,_that.editedAt,_that.parentId,_that.quotedPostId,_that.mediaUrls,_that.mediaTypes,_that.mediaAlts,_that.mediaSpoilerFlags,_that.mediaR18Flags,_that.embedUrl,_that.embedTitle,_that.embedDescription,_that.embedImage,_that.likesCount,_that.rekarotsCount,_that.repliesCount,_that.viewsCount,_that.excludedMentions,_that.replyRestriction,_that.visibility,_that.canView);case _:
   return null;
 
 }
@@ -2434,15 +2433,14 @@ return $default(_that.id,_that.content,_that.authorId,_that.author,_that.created
 @JsonSerializable()
 
 class _QuotedPost implements QuotedPost {
-  const _QuotedPost({required this.id, required this.content, required this.authorId, required this.author, required this.createdAt, required this.updatedAt, this.editedAt, this.parentId, this.quotedPostId, final  List<String> mediaUrls = const [], final  List<String> mediaTypes = const [], final  List<String> mediaAlts = const [], final  List<bool> mediaSpoilerFlags = const [], final  List<bool> mediaR18Flags = const [], this.embedUrl, this.embedTitle, this.embedDescription, this.embedImage, required this.likesCount, required this.rekarotsCount, required this.repliesCount, required this.viewsCount, required final  List<int> excludedMentions, required this.replyRestriction, required this.visibility, required this.canView}): _mediaUrls = mediaUrls,_mediaTypes = mediaTypes,_mediaAlts = mediaAlts,_mediaSpoilerFlags = mediaSpoilerFlags,_mediaR18Flags = mediaR18Flags,_excludedMentions = excludedMentions;
+  const _QuotedPost({required this.id, required this.content, required this.author, required this.createdAt, this.updatedAt, this.editedAt, this.parentId, this.quotedPostId, final  List<String> mediaUrls = const [], final  List<String> mediaTypes = const [], final  List<String> mediaAlts = const [], final  List<bool> mediaSpoilerFlags = const [], final  List<bool> mediaR18Flags = const [], this.embedUrl, this.embedTitle, this.embedDescription, this.embedImage, required this.likesCount, required this.rekarotsCount, required this.repliesCount, required this.viewsCount, final  List<int> excludedMentions = const [], this.replyRestriction = ReplyRestriction.EVERYONE, this.visibility = PostVisibility.PUBLIC, this.canView = true}): _mediaUrls = mediaUrls,_mediaTypes = mediaTypes,_mediaAlts = mediaAlts,_mediaSpoilerFlags = mediaSpoilerFlags,_mediaR18Flags = mediaR18Flags,_excludedMentions = excludedMentions;
   factory _QuotedPost.fromJson(Map<String, dynamic> json) => _$QuotedPostFromJson(json);
 
 @override final  int id;
 @override final  String content;
-@override final  int authorId;
 @override final  Author author;
 @override final  DateTime createdAt;
-@override final  DateTime updatedAt;
+@override final  DateTime? updatedAt;
 @override final  DateTime? editedAt;
 @override final  int? parentId;
 @override final  int? quotedPostId;
@@ -2490,15 +2488,15 @@ class _QuotedPost implements QuotedPost {
 @override final  int repliesCount;
 @override final  int viewsCount;
  final  List<int> _excludedMentions;
-@override List<int> get excludedMentions {
+@override@JsonKey() List<int> get excludedMentions {
   if (_excludedMentions is EqualUnmodifiableListView) return _excludedMentions;
   // ignore: implicit_dynamic_type
   return EqualUnmodifiableListView(_excludedMentions);
 }
 
-@override final  ReplyRestriction replyRestriction;
-@override final  PostVisibility visibility;
-@override final  bool canView;
+@override@JsonKey() final  ReplyRestriction replyRestriction;
+@override@JsonKey() final  PostVisibility visibility;
+@override@JsonKey() final  bool canView;
 
 /// Create a copy of QuotedPost
 /// with the given fields replaced by the non-null parameter values.
@@ -2513,16 +2511,16 @@ Map<String, dynamic> toJson() {
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is _QuotedPost&&(identical(other.id, id) || other.id == id)&&(identical(other.content, content) || other.content == content)&&(identical(other.authorId, authorId) || other.authorId == authorId)&&(identical(other.author, author) || other.author == author)&&(identical(other.createdAt, createdAt) || other.createdAt == createdAt)&&(identical(other.updatedAt, updatedAt) || other.updatedAt == updatedAt)&&(identical(other.editedAt, editedAt) || other.editedAt == editedAt)&&(identical(other.parentId, parentId) || other.parentId == parentId)&&(identical(other.quotedPostId, quotedPostId) || other.quotedPostId == quotedPostId)&&const DeepCollectionEquality().equals(other._mediaUrls, _mediaUrls)&&const DeepCollectionEquality().equals(other._mediaTypes, _mediaTypes)&&const DeepCollectionEquality().equals(other._mediaAlts, _mediaAlts)&&const DeepCollectionEquality().equals(other._mediaSpoilerFlags, _mediaSpoilerFlags)&&const DeepCollectionEquality().equals(other._mediaR18Flags, _mediaR18Flags)&&(identical(other.embedUrl, embedUrl) || other.embedUrl == embedUrl)&&(identical(other.embedTitle, embedTitle) || other.embedTitle == embedTitle)&&(identical(other.embedDescription, embedDescription) || other.embedDescription == embedDescription)&&(identical(other.embedImage, embedImage) || other.embedImage == embedImage)&&(identical(other.likesCount, likesCount) || other.likesCount == likesCount)&&(identical(other.rekarotsCount, rekarotsCount) || other.rekarotsCount == rekarotsCount)&&(identical(other.repliesCount, repliesCount) || other.repliesCount == repliesCount)&&(identical(other.viewsCount, viewsCount) || other.viewsCount == viewsCount)&&const DeepCollectionEquality().equals(other._excludedMentions, _excludedMentions)&&(identical(other.replyRestriction, replyRestriction) || other.replyRestriction == replyRestriction)&&(identical(other.visibility, visibility) || other.visibility == visibility)&&(identical(other.canView, canView) || other.canView == canView));
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is _QuotedPost&&(identical(other.id, id) || other.id == id)&&(identical(other.content, content) || other.content == content)&&(identical(other.author, author) || other.author == author)&&(identical(other.createdAt, createdAt) || other.createdAt == createdAt)&&(identical(other.updatedAt, updatedAt) || other.updatedAt == updatedAt)&&(identical(other.editedAt, editedAt) || other.editedAt == editedAt)&&(identical(other.parentId, parentId) || other.parentId == parentId)&&(identical(other.quotedPostId, quotedPostId) || other.quotedPostId == quotedPostId)&&const DeepCollectionEquality().equals(other._mediaUrls, _mediaUrls)&&const DeepCollectionEquality().equals(other._mediaTypes, _mediaTypes)&&const DeepCollectionEquality().equals(other._mediaAlts, _mediaAlts)&&const DeepCollectionEquality().equals(other._mediaSpoilerFlags, _mediaSpoilerFlags)&&const DeepCollectionEquality().equals(other._mediaR18Flags, _mediaR18Flags)&&(identical(other.embedUrl, embedUrl) || other.embedUrl == embedUrl)&&(identical(other.embedTitle, embedTitle) || other.embedTitle == embedTitle)&&(identical(other.embedDescription, embedDescription) || other.embedDescription == embedDescription)&&(identical(other.embedImage, embedImage) || other.embedImage == embedImage)&&(identical(other.likesCount, likesCount) || other.likesCount == likesCount)&&(identical(other.rekarotsCount, rekarotsCount) || other.rekarotsCount == rekarotsCount)&&(identical(other.repliesCount, repliesCount) || other.repliesCount == repliesCount)&&(identical(other.viewsCount, viewsCount) || other.viewsCount == viewsCount)&&const DeepCollectionEquality().equals(other._excludedMentions, _excludedMentions)&&(identical(other.replyRestriction, replyRestriction) || other.replyRestriction == replyRestriction)&&(identical(other.visibility, visibility) || other.visibility == visibility)&&(identical(other.canView, canView) || other.canView == canView));
 }
 
 @JsonKey(includeFromJson: false, includeToJson: false)
 @override
-int get hashCode => Object.hashAll([runtimeType,id,content,authorId,author,createdAt,updatedAt,editedAt,parentId,quotedPostId,const DeepCollectionEquality().hash(_mediaUrls),const DeepCollectionEquality().hash(_mediaTypes),const DeepCollectionEquality().hash(_mediaAlts),const DeepCollectionEquality().hash(_mediaSpoilerFlags),const DeepCollectionEquality().hash(_mediaR18Flags),embedUrl,embedTitle,embedDescription,embedImage,likesCount,rekarotsCount,repliesCount,viewsCount,const DeepCollectionEquality().hash(_excludedMentions),replyRestriction,visibility,canView]);
+int get hashCode => Object.hashAll([runtimeType,id,content,author,createdAt,updatedAt,editedAt,parentId,quotedPostId,const DeepCollectionEquality().hash(_mediaUrls),const DeepCollectionEquality().hash(_mediaTypes),const DeepCollectionEquality().hash(_mediaAlts),const DeepCollectionEquality().hash(_mediaSpoilerFlags),const DeepCollectionEquality().hash(_mediaR18Flags),embedUrl,embedTitle,embedDescription,embedImage,likesCount,rekarotsCount,repliesCount,viewsCount,const DeepCollectionEquality().hash(_excludedMentions),replyRestriction,visibility,canView]);
 
 @override
 String toString() {
-  return 'QuotedPost(id: $id, content: $content, authorId: $authorId, author: $author, createdAt: $createdAt, updatedAt: $updatedAt, editedAt: $editedAt, parentId: $parentId, quotedPostId: $quotedPostId, mediaUrls: $mediaUrls, mediaTypes: $mediaTypes, mediaAlts: $mediaAlts, mediaSpoilerFlags: $mediaSpoilerFlags, mediaR18Flags: $mediaR18Flags, embedUrl: $embedUrl, embedTitle: $embedTitle, embedDescription: $embedDescription, embedImage: $embedImage, likesCount: $likesCount, rekarotsCount: $rekarotsCount, repliesCount: $repliesCount, viewsCount: $viewsCount, excludedMentions: $excludedMentions, replyRestriction: $replyRestriction, visibility: $visibility, canView: $canView)';
+  return 'QuotedPost(id: $id, content: $content, author: $author, createdAt: $createdAt, updatedAt: $updatedAt, editedAt: $editedAt, parentId: $parentId, quotedPostId: $quotedPostId, mediaUrls: $mediaUrls, mediaTypes: $mediaTypes, mediaAlts: $mediaAlts, mediaSpoilerFlags: $mediaSpoilerFlags, mediaR18Flags: $mediaR18Flags, embedUrl: $embedUrl, embedTitle: $embedTitle, embedDescription: $embedDescription, embedImage: $embedImage, likesCount: $likesCount, rekarotsCount: $rekarotsCount, repliesCount: $repliesCount, viewsCount: $viewsCount, excludedMentions: $excludedMentions, replyRestriction: $replyRestriction, visibility: $visibility, canView: $canView)';
 }
 
 
@@ -2533,7 +2531,7 @@ abstract mixin class _$QuotedPostCopyWith<$Res> implements $QuotedPostCopyWith<$
   factory _$QuotedPostCopyWith(_QuotedPost value, $Res Function(_QuotedPost) _then) = __$QuotedPostCopyWithImpl;
 @override @useResult
 $Res call({
- int id, String content, int authorId, Author author, DateTime createdAt, DateTime updatedAt, DateTime? editedAt, int? parentId, int? quotedPostId, List<String> mediaUrls, List<String> mediaTypes, List<String> mediaAlts, List<bool> mediaSpoilerFlags, List<bool> mediaR18Flags, String? embedUrl, String? embedTitle, String? embedDescription, String? embedImage, int likesCount, int rekarotsCount, int repliesCount, int viewsCount, List<int> excludedMentions, ReplyRestriction replyRestriction, PostVisibility visibility, bool canView
+ int id, String content, Author author, DateTime createdAt, DateTime? updatedAt, DateTime? editedAt, int? parentId, int? quotedPostId, List<String> mediaUrls, List<String> mediaTypes, List<String> mediaAlts, List<bool> mediaSpoilerFlags, List<bool> mediaR18Flags, String? embedUrl, String? embedTitle, String? embedDescription, String? embedImage, int likesCount, int rekarotsCount, int repliesCount, int viewsCount, List<int> excludedMentions, ReplyRestriction replyRestriction, PostVisibility visibility, bool canView
 });
 
 
@@ -2550,15 +2548,14 @@ class __$QuotedPostCopyWithImpl<$Res>
 
 /// Create a copy of QuotedPost
 /// with the given fields replaced by the non-null parameter values.
-@override @pragma('vm:prefer-inline') $Res call({Object? id = null,Object? content = null,Object? authorId = null,Object? author = null,Object? createdAt = null,Object? updatedAt = null,Object? editedAt = freezed,Object? parentId = freezed,Object? quotedPostId = freezed,Object? mediaUrls = null,Object? mediaTypes = null,Object? mediaAlts = null,Object? mediaSpoilerFlags = null,Object? mediaR18Flags = null,Object? embedUrl = freezed,Object? embedTitle = freezed,Object? embedDescription = freezed,Object? embedImage = freezed,Object? likesCount = null,Object? rekarotsCount = null,Object? repliesCount = null,Object? viewsCount = null,Object? excludedMentions = null,Object? replyRestriction = null,Object? visibility = null,Object? canView = null,}) {
+@override @pragma('vm:prefer-inline') $Res call({Object? id = null,Object? content = null,Object? author = null,Object? createdAt = null,Object? updatedAt = freezed,Object? editedAt = freezed,Object? parentId = freezed,Object? quotedPostId = freezed,Object? mediaUrls = null,Object? mediaTypes = null,Object? mediaAlts = null,Object? mediaSpoilerFlags = null,Object? mediaR18Flags = null,Object? embedUrl = freezed,Object? embedTitle = freezed,Object? embedDescription = freezed,Object? embedImage = freezed,Object? likesCount = null,Object? rekarotsCount = null,Object? repliesCount = null,Object? viewsCount = null,Object? excludedMentions = null,Object? replyRestriction = null,Object? visibility = null,Object? canView = null,}) {
   return _then(_QuotedPost(
 id: null == id ? _self.id : id // ignore: cast_nullable_to_non_nullable
 as int,content: null == content ? _self.content : content // ignore: cast_nullable_to_non_nullable
-as String,authorId: null == authorId ? _self.authorId : authorId // ignore: cast_nullable_to_non_nullable
-as int,author: null == author ? _self.author : author // ignore: cast_nullable_to_non_nullable
+as String,author: null == author ? _self.author : author // ignore: cast_nullable_to_non_nullable
 as Author,createdAt: null == createdAt ? _self.createdAt : createdAt // ignore: cast_nullable_to_non_nullable
-as DateTime,updatedAt: null == updatedAt ? _self.updatedAt : updatedAt // ignore: cast_nullable_to_non_nullable
-as DateTime,editedAt: freezed == editedAt ? _self.editedAt : editedAt // ignore: cast_nullable_to_non_nullable
+as DateTime,updatedAt: freezed == updatedAt ? _self.updatedAt : updatedAt // ignore: cast_nullable_to_non_nullable
+as DateTime?,editedAt: freezed == editedAt ? _self.editedAt : editedAt // ignore: cast_nullable_to_non_nullable
 as DateTime?,parentId: freezed == parentId ? _self.parentId : parentId // ignore: cast_nullable_to_non_nullable
 as int?,quotedPostId: freezed == quotedPostId ? _self.quotedPostId : quotedPostId // ignore: cast_nullable_to_non_nullable
 as int?,mediaUrls: null == mediaUrls ? _self._mediaUrls : mediaUrls // ignore: cast_nullable_to_non_nullable

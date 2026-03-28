@@ -2,6 +2,7 @@ import "package:flutter/gestures.dart";
 import "package:flutter/material.dart";
 import "package:flutter_riverpod/flutter_riverpod.dart";
 import "package:karotator/enum.dart";
+import "package:karotator/pages/profile.dart";
 import "package:karotator/ui/post/poll.dart";
 import "package:karotator/http.dart";
 import "package:karotator/objects/post.dart";
@@ -32,25 +33,41 @@ Widget postRekarotedByFactory(Post post) {
   );
 }
 
-Widget postUserAvatarFactory(String? avatarUrl) {
-  return Wrap(
-    children: [
-      Container(
-        width: 32,
-        height: 32,
-        decoration: BoxDecoration(
-          shape: BoxShape.circle,
-          image: DecorationImage(
-            fit: BoxFit.fill,
-            image: NetworkImage(
-              avatarUrl != null
-                  ? "https://karotter.com$avatarUrl"
-                  : "https://karotter.com/default-avatar.png",
+Widget postUserAvatarFactory(
+  String? avatarUrl, {
+  BuildContext? context,
+  String? username,
+}) {
+  return GestureDetector(
+    onTap: (context == null)
+        ? null
+        : () {
+            Navigator.push(
+              context,
+              MaterialPageRoute(
+                builder: (context) => ProfilePage(username: username!),
+              ),
+            );
+          },
+    child: Wrap(
+      children: [
+        Container(
+          width: 32,
+          height: 32,
+          decoration: BoxDecoration(
+            shape: BoxShape.circle,
+            image: DecorationImage(
+              fit: BoxFit.fill,
+              image: NetworkImage(
+                avatarUrl != null
+                    ? "https://karotter.com$avatarUrl"
+                    : "https://karotter.com/default-avatar.png",
+              ),
             ),
           ),
         ),
-      ),
-    ],
+      ],
+    ),
   );
 }
 
@@ -120,7 +137,16 @@ Widget postContentFactory(
               TextSpan(
                 text: "@${threadParentAuthor.username}",
                 style: TextStyle(color: Colors.blue, fontSize: fontSize),
-                recognizer: TapGestureRecognizer()..onTap = () async {},
+                recognizer: TapGestureRecognizer()
+                  ..onTap = () async {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) =>
+                            ProfilePage(username: threadParentAuthor!.username),
+                      ),
+                    );
+                  },
               ),
             ],
           ),

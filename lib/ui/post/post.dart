@@ -72,7 +72,11 @@ class _PostWidgetState extends State<PostWidget> {
                 child: ListTile(
                   shape: RoundedRectangleBorder(borderRadius: radius),
                   titleAlignment: ListTileTitleAlignment.top,
-                  leading: postUserAvatarFactory(post.author.avatarUrl),
+                  leading: postUserAvatarFactory(
+                    post.author.avatarUrl,
+                    context: context,
+                    username: post.author.username,
+                  ),
                   title: postUserDetailFactory(
                     post,
                     context,

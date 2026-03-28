@@ -159,3 +159,37 @@ Map<String, dynamic> _$RefreshResponseToJson(_RefreshResponse instance) =>
       'accessToken': instance.accessToken,
       'sessionId': instance.sessionId,
     };
+
+_UserResponse _$UserResponseFromJson(Map<String, dynamic> json) =>
+    _UserResponse(
+      user: User.fromJson(json['user'] as Map<String, dynamic>),
+      pinnedPost: json['pinnedPost'] == null
+          ? null
+          : QuotedPost.fromJson(json['pinnedPost'] as Map<String, dynamic>),
+      isFollowing: json['isFollowing'] as bool,
+      isFollowedBy: json['isFollowedBy'] as bool,
+      isBlocked: json['isBlocked'] as bool,
+      hasBlocked: json['hasBlocked'] as bool,
+      isBlockedBy: json['isBlockedBy'] as bool,
+      isMuted: json['isMuted'] as bool,
+      hasPendingRequest: json['hasPendingRequest'] as bool,
+      mutualFollowersPreview: (json['mutualFollowersPreview'] as List<dynamic>)
+          .map((e) => Author.fromJson(e as Map<String, dynamic>))
+          .toList(),
+      mutualFollowersCount: (json['mutualFollowersCount'] as num).toInt(),
+    );
+
+Map<String, dynamic> _$UserResponseToJson(_UserResponse instance) =>
+    <String, dynamic>{
+      'user': instance.user,
+      'pinnedPost': instance.pinnedPost,
+      'isFollowing': instance.isFollowing,
+      'isFollowedBy': instance.isFollowedBy,
+      'isBlocked': instance.isBlocked,
+      'hasBlocked': instance.hasBlocked,
+      'isBlockedBy': instance.isBlockedBy,
+      'isMuted': instance.isMuted,
+      'hasPendingRequest': instance.hasPendingRequest,
+      'mutualFollowersPreview': instance.mutualFollowersPreview,
+      'mutualFollowersCount': instance.mutualFollowersCount,
+    };

@@ -108,7 +108,7 @@ abstract interface class AbstractPost {
   int? get quotedPostId;
 
   DateTime get createdAt;
-  DateTime get updatedAt;
+  DateTime? get updatedAt;
   DateTime? get editedAt;
 
   String? get embedUrl;
@@ -137,11 +137,10 @@ abstract class QuotedPost with _$QuotedPost implements AbstractPost {
   const factory QuotedPost({
     required int id,
     required String content,
-    required int authorId,
     required Author author,
 
     required DateTime createdAt,
-    required DateTime updatedAt,
+    DateTime? updatedAt,
     DateTime? editedAt,
 
     int? parentId,
@@ -163,11 +162,11 @@ abstract class QuotedPost with _$QuotedPost implements AbstractPost {
     required int repliesCount,
     required int viewsCount,
 
-    required List<int> excludedMentions,
-    required ReplyRestriction replyRestriction,
-    required PostVisibility visibility,
+    @Default([]) List<int> excludedMentions,
+    @Default(ReplyRestriction.EVERYONE) ReplyRestriction replyRestriction,
+    @Default(PostVisibility.PUBLIC) PostVisibility visibility,
 
-    required bool canView,
+    @Default(true) bool canView,
   }) = _QuotedPost;
 
   factory QuotedPost.fromJson(Map<String, Object?> json) =>

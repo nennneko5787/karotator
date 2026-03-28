@@ -2806,4 +2806,345 @@ as String,
 
 }
 
+
+/// @nodoc
+mixin _$UserResponse {
+
+ User get user; QuotedPost? get pinnedPost; bool get isFollowing; bool get isFollowedBy; bool get isBlocked; bool get hasBlocked; bool get isBlockedBy; bool get isMuted; bool get hasPendingRequest; List<Author> get mutualFollowersPreview; int get mutualFollowersCount;
+/// Create a copy of UserResponse
+/// with the given fields replaced by the non-null parameter values.
+@JsonKey(includeFromJson: false, includeToJson: false)
+@pragma('vm:prefer-inline')
+$UserResponseCopyWith<UserResponse> get copyWith => _$UserResponseCopyWithImpl<UserResponse>(this as UserResponse, _$identity);
+
+  /// Serializes this UserResponse to a JSON map.
+  Map<String, dynamic> toJson();
+
+
+@override
+bool operator ==(Object other) {
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is UserResponse&&(identical(other.user, user) || other.user == user)&&(identical(other.pinnedPost, pinnedPost) || other.pinnedPost == pinnedPost)&&(identical(other.isFollowing, isFollowing) || other.isFollowing == isFollowing)&&(identical(other.isFollowedBy, isFollowedBy) || other.isFollowedBy == isFollowedBy)&&(identical(other.isBlocked, isBlocked) || other.isBlocked == isBlocked)&&(identical(other.hasBlocked, hasBlocked) || other.hasBlocked == hasBlocked)&&(identical(other.isBlockedBy, isBlockedBy) || other.isBlockedBy == isBlockedBy)&&(identical(other.isMuted, isMuted) || other.isMuted == isMuted)&&(identical(other.hasPendingRequest, hasPendingRequest) || other.hasPendingRequest == hasPendingRequest)&&const DeepCollectionEquality().equals(other.mutualFollowersPreview, mutualFollowersPreview)&&(identical(other.mutualFollowersCount, mutualFollowersCount) || other.mutualFollowersCount == mutualFollowersCount));
+}
+
+@JsonKey(includeFromJson: false, includeToJson: false)
+@override
+int get hashCode => Object.hash(runtimeType,user,pinnedPost,isFollowing,isFollowedBy,isBlocked,hasBlocked,isBlockedBy,isMuted,hasPendingRequest,const DeepCollectionEquality().hash(mutualFollowersPreview),mutualFollowersCount);
+
+@override
+String toString() {
+  return 'UserResponse(user: $user, pinnedPost: $pinnedPost, isFollowing: $isFollowing, isFollowedBy: $isFollowedBy, isBlocked: $isBlocked, hasBlocked: $hasBlocked, isBlockedBy: $isBlockedBy, isMuted: $isMuted, hasPendingRequest: $hasPendingRequest, mutualFollowersPreview: $mutualFollowersPreview, mutualFollowersCount: $mutualFollowersCount)';
+}
+
+
+}
+
+/// @nodoc
+abstract mixin class $UserResponseCopyWith<$Res>  {
+  factory $UserResponseCopyWith(UserResponse value, $Res Function(UserResponse) _then) = _$UserResponseCopyWithImpl;
+@useResult
+$Res call({
+ User user, QuotedPost? pinnedPost, bool isFollowing, bool isFollowedBy, bool isBlocked, bool hasBlocked, bool isBlockedBy, bool isMuted, bool hasPendingRequest, List<Author> mutualFollowersPreview, int mutualFollowersCount
+});
+
+
+$UserCopyWith<$Res> get user;$QuotedPostCopyWith<$Res>? get pinnedPost;
+
+}
+/// @nodoc
+class _$UserResponseCopyWithImpl<$Res>
+    implements $UserResponseCopyWith<$Res> {
+  _$UserResponseCopyWithImpl(this._self, this._then);
+
+  final UserResponse _self;
+  final $Res Function(UserResponse) _then;
+
+/// Create a copy of UserResponse
+/// with the given fields replaced by the non-null parameter values.
+@pragma('vm:prefer-inline') @override $Res call({Object? user = null,Object? pinnedPost = freezed,Object? isFollowing = null,Object? isFollowedBy = null,Object? isBlocked = null,Object? hasBlocked = null,Object? isBlockedBy = null,Object? isMuted = null,Object? hasPendingRequest = null,Object? mutualFollowersPreview = null,Object? mutualFollowersCount = null,}) {
+  return _then(_self.copyWith(
+user: null == user ? _self.user : user // ignore: cast_nullable_to_non_nullable
+as User,pinnedPost: freezed == pinnedPost ? _self.pinnedPost : pinnedPost // ignore: cast_nullable_to_non_nullable
+as QuotedPost?,isFollowing: null == isFollowing ? _self.isFollowing : isFollowing // ignore: cast_nullable_to_non_nullable
+as bool,isFollowedBy: null == isFollowedBy ? _self.isFollowedBy : isFollowedBy // ignore: cast_nullable_to_non_nullable
+as bool,isBlocked: null == isBlocked ? _self.isBlocked : isBlocked // ignore: cast_nullable_to_non_nullable
+as bool,hasBlocked: null == hasBlocked ? _self.hasBlocked : hasBlocked // ignore: cast_nullable_to_non_nullable
+as bool,isBlockedBy: null == isBlockedBy ? _self.isBlockedBy : isBlockedBy // ignore: cast_nullable_to_non_nullable
+as bool,isMuted: null == isMuted ? _self.isMuted : isMuted // ignore: cast_nullable_to_non_nullable
+as bool,hasPendingRequest: null == hasPendingRequest ? _self.hasPendingRequest : hasPendingRequest // ignore: cast_nullable_to_non_nullable
+as bool,mutualFollowersPreview: null == mutualFollowersPreview ? _self.mutualFollowersPreview : mutualFollowersPreview // ignore: cast_nullable_to_non_nullable
+as List<Author>,mutualFollowersCount: null == mutualFollowersCount ? _self.mutualFollowersCount : mutualFollowersCount // ignore: cast_nullable_to_non_nullable
+as int,
+  ));
+}
+/// Create a copy of UserResponse
+/// with the given fields replaced by the non-null parameter values.
+@override
+@pragma('vm:prefer-inline')
+$UserCopyWith<$Res> get user {
+  
+  return $UserCopyWith<$Res>(_self.user, (value) {
+    return _then(_self.copyWith(user: value));
+  });
+}/// Create a copy of UserResponse
+/// with the given fields replaced by the non-null parameter values.
+@override
+@pragma('vm:prefer-inline')
+$QuotedPostCopyWith<$Res>? get pinnedPost {
+    if (_self.pinnedPost == null) {
+    return null;
+  }
+
+  return $QuotedPostCopyWith<$Res>(_self.pinnedPost!, (value) {
+    return _then(_self.copyWith(pinnedPost: value));
+  });
+}
+}
+
+
+/// Adds pattern-matching-related methods to [UserResponse].
+extension UserResponsePatterns on UserResponse {
+/// A variant of `map` that fallback to returning `orElse`.
+///
+/// It is equivalent to doing:
+/// ```dart
+/// switch (sealedClass) {
+///   case final Subclass value:
+///     return ...;
+///   case _:
+///     return orElse();
+/// }
+/// ```
+
+@optionalTypeArgs TResult maybeMap<TResult extends Object?>(TResult Function( _UserResponse value)?  $default,{required TResult orElse(),}){
+final _that = this;
+switch (_that) {
+case _UserResponse() when $default != null:
+return $default(_that);case _:
+  return orElse();
+
+}
+}
+/// A `switch`-like method, using callbacks.
+///
+/// Callbacks receives the raw object, upcasted.
+/// It is equivalent to doing:
+/// ```dart
+/// switch (sealedClass) {
+///   case final Subclass value:
+///     return ...;
+///   case final Subclass2 value:
+///     return ...;
+/// }
+/// ```
+
+@optionalTypeArgs TResult map<TResult extends Object?>(TResult Function( _UserResponse value)  $default,){
+final _that = this;
+switch (_that) {
+case _UserResponse():
+return $default(_that);case _:
+  throw StateError('Unexpected subclass');
+
+}
+}
+/// A variant of `map` that fallback to returning `null`.
+///
+/// It is equivalent to doing:
+/// ```dart
+/// switch (sealedClass) {
+///   case final Subclass value:
+///     return ...;
+///   case _:
+///     return null;
+/// }
+/// ```
+
+@optionalTypeArgs TResult? mapOrNull<TResult extends Object?>(TResult? Function( _UserResponse value)?  $default,){
+final _that = this;
+switch (_that) {
+case _UserResponse() when $default != null:
+return $default(_that);case _:
+  return null;
+
+}
+}
+/// A variant of `when` that fallback to an `orElse` callback.
+///
+/// It is equivalent to doing:
+/// ```dart
+/// switch (sealedClass) {
+///   case Subclass(:final field):
+///     return ...;
+///   case _:
+///     return orElse();
+/// }
+/// ```
+
+@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( User user,  QuotedPost? pinnedPost,  bool isFollowing,  bool isFollowedBy,  bool isBlocked,  bool hasBlocked,  bool isBlockedBy,  bool isMuted,  bool hasPendingRequest,  List<Author> mutualFollowersPreview,  int mutualFollowersCount)?  $default,{required TResult orElse(),}) {final _that = this;
+switch (_that) {
+case _UserResponse() when $default != null:
+return $default(_that.user,_that.pinnedPost,_that.isFollowing,_that.isFollowedBy,_that.isBlocked,_that.hasBlocked,_that.isBlockedBy,_that.isMuted,_that.hasPendingRequest,_that.mutualFollowersPreview,_that.mutualFollowersCount);case _:
+  return orElse();
+
+}
+}
+/// A `switch`-like method, using callbacks.
+///
+/// As opposed to `map`, this offers destructuring.
+/// It is equivalent to doing:
+/// ```dart
+/// switch (sealedClass) {
+///   case Subclass(:final field):
+///     return ...;
+///   case Subclass2(:final field2):
+///     return ...;
+/// }
+/// ```
+
+@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( User user,  QuotedPost? pinnedPost,  bool isFollowing,  bool isFollowedBy,  bool isBlocked,  bool hasBlocked,  bool isBlockedBy,  bool isMuted,  bool hasPendingRequest,  List<Author> mutualFollowersPreview,  int mutualFollowersCount)  $default,) {final _that = this;
+switch (_that) {
+case _UserResponse():
+return $default(_that.user,_that.pinnedPost,_that.isFollowing,_that.isFollowedBy,_that.isBlocked,_that.hasBlocked,_that.isBlockedBy,_that.isMuted,_that.hasPendingRequest,_that.mutualFollowersPreview,_that.mutualFollowersCount);case _:
+  throw StateError('Unexpected subclass');
+
+}
+}
+/// A variant of `when` that fallback to returning `null`
+///
+/// It is equivalent to doing:
+/// ```dart
+/// switch (sealedClass) {
+///   case Subclass(:final field):
+///     return ...;
+///   case _:
+///     return null;
+/// }
+/// ```
+
+@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( User user,  QuotedPost? pinnedPost,  bool isFollowing,  bool isFollowedBy,  bool isBlocked,  bool hasBlocked,  bool isBlockedBy,  bool isMuted,  bool hasPendingRequest,  List<Author> mutualFollowersPreview,  int mutualFollowersCount)?  $default,) {final _that = this;
+switch (_that) {
+case _UserResponse() when $default != null:
+return $default(_that.user,_that.pinnedPost,_that.isFollowing,_that.isFollowedBy,_that.isBlocked,_that.hasBlocked,_that.isBlockedBy,_that.isMuted,_that.hasPendingRequest,_that.mutualFollowersPreview,_that.mutualFollowersCount);case _:
+  return null;
+
+}
+}
+
+}
+
+/// @nodoc
+@JsonSerializable()
+
+class _UserResponse implements UserResponse {
+  const _UserResponse({required this.user, this.pinnedPost, required this.isFollowing, required this.isFollowedBy, required this.isBlocked, required this.hasBlocked, required this.isBlockedBy, required this.isMuted, required this.hasPendingRequest, required final  List<Author> mutualFollowersPreview, required this.mutualFollowersCount}): _mutualFollowersPreview = mutualFollowersPreview;
+  factory _UserResponse.fromJson(Map<String, dynamic> json) => _$UserResponseFromJson(json);
+
+@override final  User user;
+@override final  QuotedPost? pinnedPost;
+@override final  bool isFollowing;
+@override final  bool isFollowedBy;
+@override final  bool isBlocked;
+@override final  bool hasBlocked;
+@override final  bool isBlockedBy;
+@override final  bool isMuted;
+@override final  bool hasPendingRequest;
+ final  List<Author> _mutualFollowersPreview;
+@override List<Author> get mutualFollowersPreview {
+  if (_mutualFollowersPreview is EqualUnmodifiableListView) return _mutualFollowersPreview;
+  // ignore: implicit_dynamic_type
+  return EqualUnmodifiableListView(_mutualFollowersPreview);
+}
+
+@override final  int mutualFollowersCount;
+
+/// Create a copy of UserResponse
+/// with the given fields replaced by the non-null parameter values.
+@override @JsonKey(includeFromJson: false, includeToJson: false)
+@pragma('vm:prefer-inline')
+_$UserResponseCopyWith<_UserResponse> get copyWith => __$UserResponseCopyWithImpl<_UserResponse>(this, _$identity);
+
+@override
+Map<String, dynamic> toJson() {
+  return _$UserResponseToJson(this, );
+}
+
+@override
+bool operator ==(Object other) {
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is _UserResponse&&(identical(other.user, user) || other.user == user)&&(identical(other.pinnedPost, pinnedPost) || other.pinnedPost == pinnedPost)&&(identical(other.isFollowing, isFollowing) || other.isFollowing == isFollowing)&&(identical(other.isFollowedBy, isFollowedBy) || other.isFollowedBy == isFollowedBy)&&(identical(other.isBlocked, isBlocked) || other.isBlocked == isBlocked)&&(identical(other.hasBlocked, hasBlocked) || other.hasBlocked == hasBlocked)&&(identical(other.isBlockedBy, isBlockedBy) || other.isBlockedBy == isBlockedBy)&&(identical(other.isMuted, isMuted) || other.isMuted == isMuted)&&(identical(other.hasPendingRequest, hasPendingRequest) || other.hasPendingRequest == hasPendingRequest)&&const DeepCollectionEquality().equals(other._mutualFollowersPreview, _mutualFollowersPreview)&&(identical(other.mutualFollowersCount, mutualFollowersCount) || other.mutualFollowersCount == mutualFollowersCount));
+}
+
+@JsonKey(includeFromJson: false, includeToJson: false)
+@override
+int get hashCode => Object.hash(runtimeType,user,pinnedPost,isFollowing,isFollowedBy,isBlocked,hasBlocked,isBlockedBy,isMuted,hasPendingRequest,const DeepCollectionEquality().hash(_mutualFollowersPreview),mutualFollowersCount);
+
+@override
+String toString() {
+  return 'UserResponse(user: $user, pinnedPost: $pinnedPost, isFollowing: $isFollowing, isFollowedBy: $isFollowedBy, isBlocked: $isBlocked, hasBlocked: $hasBlocked, isBlockedBy: $isBlockedBy, isMuted: $isMuted, hasPendingRequest: $hasPendingRequest, mutualFollowersPreview: $mutualFollowersPreview, mutualFollowersCount: $mutualFollowersCount)';
+}
+
+
+}
+
+/// @nodoc
+abstract mixin class _$UserResponseCopyWith<$Res> implements $UserResponseCopyWith<$Res> {
+  factory _$UserResponseCopyWith(_UserResponse value, $Res Function(_UserResponse) _then) = __$UserResponseCopyWithImpl;
+@override @useResult
+$Res call({
+ User user, QuotedPost? pinnedPost, bool isFollowing, bool isFollowedBy, bool isBlocked, bool hasBlocked, bool isBlockedBy, bool isMuted, bool hasPendingRequest, List<Author> mutualFollowersPreview, int mutualFollowersCount
+});
+
+
+@override $UserCopyWith<$Res> get user;@override $QuotedPostCopyWith<$Res>? get pinnedPost;
+
+}
+/// @nodoc
+class __$UserResponseCopyWithImpl<$Res>
+    implements _$UserResponseCopyWith<$Res> {
+  __$UserResponseCopyWithImpl(this._self, this._then);
+
+  final _UserResponse _self;
+  final $Res Function(_UserResponse) _then;
+
+/// Create a copy of UserResponse
+/// with the given fields replaced by the non-null parameter values.
+@override @pragma('vm:prefer-inline') $Res call({Object? user = null,Object? pinnedPost = freezed,Object? isFollowing = null,Object? isFollowedBy = null,Object? isBlocked = null,Object? hasBlocked = null,Object? isBlockedBy = null,Object? isMuted = null,Object? hasPendingRequest = null,Object? mutualFollowersPreview = null,Object? mutualFollowersCount = null,}) {
+  return _then(_UserResponse(
+user: null == user ? _self.user : user // ignore: cast_nullable_to_non_nullable
+as User,pinnedPost: freezed == pinnedPost ? _self.pinnedPost : pinnedPost // ignore: cast_nullable_to_non_nullable
+as QuotedPost?,isFollowing: null == isFollowing ? _self.isFollowing : isFollowing // ignore: cast_nullable_to_non_nullable
+as bool,isFollowedBy: null == isFollowedBy ? _self.isFollowedBy : isFollowedBy // ignore: cast_nullable_to_non_nullable
+as bool,isBlocked: null == isBlocked ? _self.isBlocked : isBlocked // ignore: cast_nullable_to_non_nullable
+as bool,hasBlocked: null == hasBlocked ? _self.hasBlocked : hasBlocked // ignore: cast_nullable_to_non_nullable
+as bool,isBlockedBy: null == isBlockedBy ? _self.isBlockedBy : isBlockedBy // ignore: cast_nullable_to_non_nullable
+as bool,isMuted: null == isMuted ? _self.isMuted : isMuted // ignore: cast_nullable_to_non_nullable
+as bool,hasPendingRequest: null == hasPendingRequest ? _self.hasPendingRequest : hasPendingRequest // ignore: cast_nullable_to_non_nullable
+as bool,mutualFollowersPreview: null == mutualFollowersPreview ? _self._mutualFollowersPreview : mutualFollowersPreview // ignore: cast_nullable_to_non_nullable
+as List<Author>,mutualFollowersCount: null == mutualFollowersCount ? _self.mutualFollowersCount : mutualFollowersCount // ignore: cast_nullable_to_non_nullable
+as int,
+  ));
+}
+
+/// Create a copy of UserResponse
+/// with the given fields replaced by the non-null parameter values.
+@override
+@pragma('vm:prefer-inline')
+$UserCopyWith<$Res> get user {
+  
+  return $UserCopyWith<$Res>(_self.user, (value) {
+    return _then(_self.copyWith(user: value));
+  });
+}/// Create a copy of UserResponse
+/// with the given fields replaced by the non-null parameter values.
+@override
+@pragma('vm:prefer-inline')
+$QuotedPostCopyWith<$Res>? get pinnedPost {
+    if (_self.pinnedPost == null) {
+    return null;
+  }
+
+  return $QuotedPostCopyWith<$Res>(_self.pinnedPost!, (value) {
+    return _then(_self.copyWith(pinnedPost: value));
+  });
+}
+}
+
 // dart format on

@@ -11,6 +11,7 @@ import "package:karotator/objects/state.dart";
 import "package:karotator/pages/post_detail.dart";
 import "package:karotator/ui/create_post/highlight_text_editing_controller.dart";
 import "package:karotator/ui/create_post/media_settings.dart";
+import "package:karotator/ui/create_post/poll_settings.dart";
 import "package:karotator/ui/datetime.dart";
 import "package:karotator/utils.dart";
 import "package:material_symbols_icons/symbols.dart";
@@ -38,11 +39,14 @@ class _PostPageState extends State<PostPage> {
   bool isPromotional = false;
   bool isR18 = false;
   bool hideFromMinors = false;
+  List<String>? pollOptions;
+  int? pollDurationHours;
 
   final _pageKey = GlobalKey<ScaffoldState>();
   final HighlightTextEditingController _postController =
       HighlightTextEditingController();
   final ValueNotifier<bool> _isPostButtonEnabled = ValueNotifier(false);
+  bool _openPollSetting = false;
 
   List<Circle> _circles = [];
 
@@ -97,6 +101,8 @@ class _PostPageState extends State<PostPage> {
         isPromotional: isPromotional,
         hideFromMinors: hideFromMinors,
         isR18: isR18,
+        pollOptions: pollOptions,
+        pollDurationHours: pollDurationHours,
         parentId: (widget.post != null && widget.type == InternalPostType.reply)
             ? widget.post?.id
             : null,
@@ -105,18 +111,30 @@ class _PostPageState extends State<PostPage> {
             ? widget.post?.id
             : null,
       );
-      messengerKey.currentState?.showSnackBar(
+
+      if (messengerKey.currentState == null) return;
+      if (!messengerKey.currentState!.context.mounted) return;
+
+      messengerKey.currentState!.showSnackBar(
         SnackBar(
           content: GestureDetector(
             onTap: () {
               Navigator.push(
-                context,
+                messengerKey.currentState!.context,
                 MaterialPageRoute(builder: (_) => PostDetailPage(post: post)),
               );
             },
             child: Row(
               crossAxisAlignment: CrossAxisAlignment.start,
-              children: [const Icon(Icons.check_circle), Text("投稿しました。")],
+              children: [
+                Icon(
+                  Icons.check_circle,
+                  color: Theme.of(
+                    messengerKey.currentState!.context,
+                  ).primaryColor,
+                ),
+                Text("投稿しました。"),
+              ],
             ),
           ),
         ),
@@ -131,7 +149,7 @@ class _PostPageState extends State<PostPage> {
 
   void openSetting<T>(
     T variable,
-    void Function(T value, Circle? circle) onChanged, { // Circleに固定
+    void Function(T value, Circle? circle) onChanged, {
     required List<Map<String, Object>> items,
   }) {
     showModalBottomSheet(
@@ -239,7 +257,6 @@ class _PostPageState extends State<PostPage> {
       context: context,
       builder: (BuildContext context) {
         return StatefulBuilder(
-          // ← 追加
           builder: (context, setDialogState) {
             return AlertDialog(
               title: Text("コンテンツ開示の設定"),
@@ -248,22 +265,21 @@ class _PostPageState extends State<PostPage> {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Row(
-                    crossAxisAlignment: CrossAxisAlignment.start,
+                    crossAxisAlignment: CrossAxisAlignment.center,
                     children: [
                       Checkbox(
                         value: isAiGenerated,
                         onChanged: (bool? value) {
                           setDialogState(() {
-                            // ← setDialogStateに変更
                             isAiGenerated = value!;
                           });
                         },
                       ),
-                      const Text("このカロートはAIで作成した内容を含む"),
+                      const Expanded(child: Text("このカロートはAIで作成した内容を含む")),
                     ],
                   ),
                   Row(
-                    crossAxisAlignment: CrossAxisAlignment.start,
+                    crossAxisAlignment: CrossAxisAlignment.center,
                     children: [
                       Checkbox(
                         value: isPromotional,
@@ -273,11 +289,11 @@ class _PostPageState extends State<PostPage> {
                           });
                         },
                       ),
-                      const Text("このカロートはブランドまたはビジネスの宣伝である"),
+                      const Expanded(child: Text("このカロートはブランドまたはビジネスの宣伝である")),
                     ],
                   ),
                   Row(
-                    crossAxisAlignment: CrossAxisAlignment.start,
+                    crossAxisAlignment: CrossAxisAlignment.center,
                     children: [
                       Checkbox(
                         value: isR18,
@@ -287,11 +303,11 @@ class _PostPageState extends State<PostPage> {
                           });
                         },
                       ),
-                      const Text("投稿全体をR18として扱う"),
+                      const Expanded(child: Text("投稿全体をR18として扱う")),
                     ],
                   ),
                   Row(
-                    crossAxisAlignment: CrossAxisAlignment.start,
+                    crossAxisAlignment: CrossAxisAlignment.center,
                     children: [
                       Checkbox(
                         value: hideFromMinors,
@@ -301,7 +317,7 @@ class _PostPageState extends State<PostPage> {
                           });
                         },
                       ),
-                      const Text("未成年ユーザーにはこの投稿を表示しない"),
+                      const Expanded(child: Text("未成年ユーザーにはこの投稿を表示しない")),
                     ],
                   ),
                 ],
@@ -398,6 +414,15 @@ class _PostPageState extends State<PostPage> {
                             border: InputBorder.none,
                           ),
                         ),
+                        if (_openPollSetting)
+                          PollSettings(
+                            onChanged: (options) {
+                              pollOptions = options;
+                            },
+                            onDurationChanged: (duration) {
+                              pollDurationHours = duration;
+                            },
+                          ),
                         SingleChildScrollView(
                           scrollDirection: Axis.horizontal,
                           child: Row(
@@ -611,7 +636,19 @@ class _PostPageState extends State<PostPage> {
                         icon: const Icon(Icons.movie),
                       ),
                       IconButton(
-                        onPressed: () {},
+                        onPressed: () {
+                          setState(() {
+                            if (_openPollSetting == true) {
+                              pollOptions = null;
+                              pollDurationHours = null;
+                              _openPollSetting = false;
+                            } else {
+                              pollOptions = [];
+                              pollDurationHours = 1;
+                              _openPollSetting = true;
+                            }
+                          });
+                        },
                         tooltip: "投票",
                         icon: const Icon(Icons.how_to_vote),
                       ),

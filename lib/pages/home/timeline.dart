@@ -1,6 +1,7 @@
 import "package:flutter/material.dart";
 import "package:karotator/http.dart";
 import "package:karotator/ui/timeline_tab.dart";
+import "package:material_symbols_icons/symbols.dart";
 
 class TimeLine extends StatefulWidget {
   const TimeLine({super.key});
@@ -80,6 +81,17 @@ class _TimeLineState extends State<TimeLine> {
                   Navigator.pop(context);
                 },
               ),
+              ListTile(
+                leading: const Icon(Symbols.labs),
+                title: const Text("ベータ"),
+                trailing: _recommendMode == "beta"
+                    ? const Icon(Icons.check)
+                    : null,
+                onTap: () {
+                  setState(() => _recommendMode = "beta");
+                  Navigator.pop(context);
+                },
+              ),
             ],
           ),
         );
@@ -124,6 +136,8 @@ class _TimeLineState extends State<TimeLine> {
                       Icon(
                         _recommendMode == "latest"
                             ? Icons.schedule
+                            : _recommendMode == "beta"
+                            ? Symbols.labs
                             : Icons.analytics,
                         size: 14,
                       ),
@@ -152,7 +166,11 @@ class _TimeLineState extends State<TimeLine> {
                           cursor: page,
                           limit: limit,
                         )
-                      : HTTPClient().getRecommended(page: page!, limit: limit),
+                      : HTTPClient().getRecommended(
+                          page: page!,
+                          limit: limit,
+                          mode: _recommendMode,
+                        ),
                 ),
               ],
             ),
