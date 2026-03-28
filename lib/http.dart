@@ -506,7 +506,7 @@ class HTTPClient {
     );
   }
 
-  Future<void> unReact(int postId, {required String emoji}) async {
+  Future<void> unreact(int postId, {required String emoji}) async {
     final _ = await delete("posts/$postId/react/$emoji");
   }
 
