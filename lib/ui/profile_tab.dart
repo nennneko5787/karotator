@@ -97,7 +97,7 @@ class _ProfileTabState extends State<ProfileTab>
   @override
   void didUpdateWidget(ProfileTab oldWidget) {
     super.didUpdateWidget(oldWidget);
-    if (oldWidget.fetcher != widget.fetcher) {
+    if (oldWidget.selectedTab != widget.selectedTab) {
       page = 1;
       hasMore = true;
       initPostsData = refreshPosts();
