@@ -154,7 +154,7 @@ class PostNotifier extends _$PostNotifier {
     );
 
     try {
-      await HTTPClient().react(current.id, emoji: emoji);
+      await HTTPClient().unreact(current.id, emoji: emoji);
     } catch (e) {
       state = current; // ロールバック
       rethrow;
