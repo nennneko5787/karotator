@@ -102,6 +102,10 @@ class _PostDetailPageState extends State<PostDetailPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(title: const Text("カロート"), centerTitle: true),
+      bottomNavigationBar: Padding(
+        padding: MediaQuery.of(context).viewInsets,
+        child: _ReplyInput(postId: widget.post.id, onPosted: refreshPosts),
+      ),
       body: RefreshIndicator(
         onRefresh: refreshPosts,
         child: FutureBuilder(
@@ -114,16 +118,16 @@ class _PostDetailPageState extends State<PostDetailPage> {
               return Center(child: Text('Error: ${snapshot.error}'));
             }
 
-            // ヘッダーをリストの先頭に含める
             final allItems = [?parentPost, widget.post, ...posts];
 
             return ListView.builder(
               controller: controller,
               padding: const EdgeInsets.all(8),
               physics: const AlwaysScrollableScrollPhysics(),
-              itemCount: allItems.length + 1, // +1はローディング用
+              itemCount: allItems.length + 1,
               itemBuilder: (context, index) {
-                // ローディング or 終端
+                final mainPostIndex = parentPost != null ? 1 : 0;
+
                 if (index == allItems.length) {
                   return hasMore
                       ? const Padding(
@@ -134,26 +138,121 @@ class _PostDetailPageState extends State<PostDetailPage> {
                 }
 
                 final post = allItems[index];
-                final headerIndex = parentPost != null ? 0 : 1;
-                final isHeader = index == headerIndex;
-                final isFirst = index == headerIndex;
-                final isLast = index == allItems.length - 1;
+                final isParent = parentPost != null && index == 0;
+                final isHeader = index == mainPostIndex;
 
-                return Padding(
-                  padding: EdgeInsets.only(bottom: isHeader ? 8 : 0),
-                  child: PostWidget(
-                    key: ValueKey('post_${post.id}_${allItems.length}'),
-                    post: post,
-                    isFirst: isFirst,
-                    isLast: isLast,
-                    fontSize: isHeader ? 14 : 12,
-                    disablePageTransition: isHeader,
-                  ),
+                // グループA: parent + メイン投稿
+                final groupAFirst = index == 0;
+                final groupALast = index == mainPostIndex;
+                // グループB: 返信
+                final groupBFirst = index == mainPostIndex + 1;
+                final groupBLast = index == allItems.length - 1;
+
+                final computedIsFirst = (isHeader || isParent)
+                    ? groupAFirst
+                    : false;
+                final computedIsLast = (isHeader || isParent)
+                    ? (isHeader ? false : groupALast)
+                    : groupBLast;
+
+                final child = PostWidget(
+                  key: ValueKey('post_${post.id}_${allItems.length}'),
+                  post: post,
+                  isFirst: computedIsFirst,
+                  isLast: computedIsLast,
+                  fontSize: isHeader ? 14 : 12,
+                  disablePageTransition: isHeader,
                 );
+
+                // 返信の先頭に区切り線
+                if (groupBFirst) {
+                  return Column(
+                    mainAxisSize: MainAxisSize.min,
+                    children: [const Divider(height: 1, thickness: 1), child],
+                  );
+                }
+
+                return child;
               },
             );
           },
         ),
+      ),
+    );
+  }
+}
+
+class _ReplyInput extends StatefulWidget {
+  const _ReplyInput({required this.postId, required this.onPosted});
+
+  final int postId;
+  final VoidCallback onPosted;
+
+  @override
+  State<_ReplyInput> createState() => _ReplyInputState();
+}
+
+class _ReplyInputState extends State<_ReplyInput> {
+  final TextEditingController _controller = TextEditingController();
+  bool _isPosting = false;
+
+  @override
+  void dispose() {
+    _controller.dispose();
+    super.dispose();
+  }
+
+  Future<void> _post() async {
+    final text = _controller.text.trim();
+    if (text.isEmpty || _isPosting) return;
+
+    setState(() => _isPosting = true);
+    try {
+      await HTTPClient().createPost(text, parentId: widget.postId);
+      _controller.clear();
+      widget.onPosted();
+    } catch (e, stackTrace) {
+      debugPrint("$e\n$stackTrace");
+      if (!mounted) return;
+      showAlert(context, e: e);
+    } finally {
+      if (mounted) setState(() => _isPosting = false);
+    }
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Padding(
+      padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 8),
+      child: Row(
+        crossAxisAlignment: CrossAxisAlignment.end,
+        children: [
+          Expanded(
+            child: TextField(
+              controller: _controller,
+              maxLines: null,
+              minLines: 1,
+              decoration: const InputDecoration(
+                hintText: "返信を入力...",
+                border: OutlineInputBorder(),
+                contentPadding: EdgeInsets.symmetric(
+                  horizontal: 12,
+                  vertical: 10,
+                ),
+              ),
+            ),
+          ),
+          const SizedBox(width: 8),
+          _isPosting
+              ? const Padding(
+                  padding: EdgeInsets.all(12),
+                  child: CircularProgressIndicator(strokeWidth: 2),
+                )
+              : IconButton.filled(
+                  onPressed: _post,
+                  icon: const Icon(Icons.send),
+                ),
+        ],
       ),
     );
   }

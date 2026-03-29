@@ -13,6 +13,7 @@ import "package:karotator/pages/post_detail.dart";
 import "package:karotator/providers/post.dart";
 import "package:karotator/ui/post/media_viewer.dart";
 import "package:karotator/ui/post/reaction.dart";
+import "package:karotator/ui/text_agent.dart";
 import "package:karotator/utils.dart";
 import "package:material_symbols_icons/symbols.dart";
 import 'package:share_plus/share_plus.dart';
@@ -155,7 +156,13 @@ Widget postContentFactory(
             ],
           ),
         ),
-      Text(post.content, style: TextStyle(fontSize: fontSize)),
+      RichText(
+        text: TextAgent.generate(
+          post.content,
+          context,
+          style: TextStyle(fontSize: fontSize),
+        ),
+      ),
       if (post.mediaUrls.isNotEmpty) postMediaFactory(post, context),
       if ((post is Post) && (post.poll != null)) PollWidget(post: post),
       if ((post is Post) && (post.quotedPost != null))

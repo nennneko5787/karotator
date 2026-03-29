@@ -8,6 +8,7 @@ import "package:karotator/pages/login.dart";
 import "package:karotator/pages/post.dart";
 import "package:karotator/providers/user.dart";
 import "package:karotator/ui/profile_tab.dart";
+import "package:karotator/ui/text_agent.dart";
 import "package:karotator/utils.dart";
 import "package:material_symbols_icons/symbols.dart";
 
@@ -23,6 +24,7 @@ class ProfilePage extends StatefulWidget {
 class _ProfilePageState extends State<ProfilePage> {
   User? user;
   UserResponse? response;
+  String? errorMessage;
 
   @override
   void initState() {
@@ -31,11 +33,17 @@ class _ProfilePageState extends State<ProfilePage> {
   }
 
   Future<void> refresh() async {
-    final response = await HTTPClient().getUserByUsername(widget.username);
-    setState(() {
-      this.response = response;
-      user = response.user;
-    });
+    try {
+      final response = await HTTPClient().getUserByUsername(widget.username);
+      setState(() {
+        this.response = response;
+        user = response.user;
+      });
+    } catch (e) {
+      setState(() {
+        errorMessage = e.toString();
+      });
+    }
   }
 
   @override
@@ -57,7 +65,9 @@ class _ProfilePageState extends State<ProfilePage> {
                   ],
                 ),
         ),
-        body: (user == null && response == null)
+        body: (errorMessage != null)
+            ? Center(child: Text(errorMessage!))
+            : (user == null && response == null)
             ? const Center(child: CircularProgressIndicator())
             : _ProfileBody(user: user!, response: response!),
         floatingActionButton: FloatingActionButton(
@@ -270,7 +280,8 @@ class _ProfileBodyState extends ConsumerState<_ProfileBody> {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                if (user.bio != null) Text(user.bio!),
+                if (user.bio != null)
+                  RichText(text: TextAgent.generate(user.bio!, context)),
                 const SizedBox(height: 8),
                 Wrap(
                   spacing: 8,
