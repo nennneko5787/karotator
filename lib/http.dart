@@ -507,7 +507,8 @@ class HTTPClient {
   }
 
   Future<void> unreact(int postId, {required String emoji}) async {
-    final _ = await delete("posts/$postId/react/$emoji");
+		final encodedEmoji = Uri.encodeComponent(emoji);
+    final _ = await delete("posts/$postId/react/$encodedEmoji");
   }
 
   Future<Poll> poll(int postId, {required int optionId}) async {
