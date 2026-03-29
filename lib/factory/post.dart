@@ -1,3 +1,5 @@
+import "dart:typed_data";
+
 import "package:flutter/gestures.dart";
 import "package:flutter/material.dart";
 import "package:flutter_riverpod/flutter_riverpod.dart";
@@ -236,19 +238,7 @@ Widget postMedia(
       );
     },
     child: isVideos[index]
-        ? Stack(
-            fit: StackFit.expand,
-            children: [
-              Container(color: Colors.black),
-              const Center(
-                child: Icon(
-                  Icons.play_circle_outline,
-                  color: Colors.white,
-                  size: 48,
-                ),
-              ),
-            ],
-          )
+        ? _VideoThumbnail(url: urls[index])
         : Image.network(urls[index], fit: BoxFit.cover),
   );
 }
@@ -320,6 +310,47 @@ double getAspectRatio(int count) {
   if (count == 1) return 16 / 9;
   if (count == 2) return 16 / 9;
   return 1;
+}
+
+class _VideoThumbnail extends StatefulWidget {
+  const _VideoThumbnail({required this.url});
+  final String url;
+
+  @override
+  State<_VideoThumbnail> createState() => _VideoThumbnailState();
+}
+
+class _VideoThumbnailState extends State<_VideoThumbnail> {
+  Uint8List? _thumbnail;
+
+  @override
+  void initState() {
+    super.initState();
+    _loadThumbnail();
+  }
+
+  Future<void> _loadThumbnail() async {
+    final data = await getVideoThumbnail(widget.url);
+    if (mounted) {
+      setState(() => _thumbnail = data);
+    }
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Stack(
+      fit: StackFit.expand,
+      children: [
+        if (_thumbnail != null)
+          Image.memory(_thumbnail!, fit: BoxFit.cover)
+        else
+          Container(color: Colors.black),
+        const Center(
+          child: Icon(Icons.play_circle_outline, color: Colors.white, size: 48),
+        ),
+      ],
+    );
+  }
 }
 
 class PostActionsWidget extends ConsumerStatefulWidget {
