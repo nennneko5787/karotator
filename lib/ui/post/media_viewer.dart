@@ -1,6 +1,7 @@
 import "package:flutter/material.dart";
 import "package:video_player/video_player.dart";
 import 'package:flutter/services.dart';
+import 'package:chewie/chewie.dart';
 
 class MediaViewer extends StatefulWidget {
   final List<String> urls;
@@ -105,53 +106,52 @@ class _VideoPlayerItem extends StatefulWidget {
 }
 
 class _VideoPlayerItemState extends State<_VideoPlayerItem> {
-  late VideoPlayerController _controller;
+  late VideoPlayerController _videoController;
+  ChewieController? _chewieController;
   bool _hasError = false;
 
   @override
   void initState() {
     super.initState();
+    _initPlayer();
+  }
 
-    _controller = VideoPlayerController.networkUrl(Uri.parse(widget.url))
-      ..initialize()
-          .then((_) {
-            // Ensure the first frame is shown after the video is initialized, even before the play button has been pressed.
-            setState(() {});
-          })
-          .catchError(
-            (e) {
-              if (e is MissingPluginException || e is UnimplementedError) {
-                setState(() {
-                  _hasError = true;
-                });
-              }
-            },
-            test: (e) =>
-                (e is MissingPluginException || e is UnimplementedError),
-          );
+  Future<void> _initPlayer() async {
+    _videoController = VideoPlayerController.networkUrl(Uri.parse(widget.url));
+    try {
+      await _videoController.initialize();
+      _chewieController = ChewieController(
+        videoPlayerController: _videoController,
+        autoPlay: true,
+        looping: true,
+      );
+      setState(() {});
+    } on MissingPluginException {
+      setState(() => _hasError = true);
+    } on UnimplementedError {
+      setState(() => _hasError = true);
+    }
   }
 
   @override
   void dispose() {
-    _controller.dispose();
+    _chewieController?.dispose();
+    _videoController.dispose();
     super.dispose();
   }
 
   @override
   Widget build(BuildContext context) {
+    if (_hasError) {
+      return Center(child: Image.asset('assets/images/dummy_image.png'));
+    }
+    if (_chewieController == null) {
+      return const Center(child: CircularProgressIndicator());
+    }
     return Center(
-      child: SizedBox(
-        width: MediaQuery.of(context).size.width,
-        height: MediaQuery.of(context).size.width * 9.0 / 16.0,
-        // Use [Video] widget to display video output.
-        child: _hasError
-            ? Image.asset('assets/images/dummy_image.png')
-            : _controller.value.isInitialized
-            ? AspectRatio(
-                aspectRatio: _controller.value.aspectRatio,
-                child: VideoPlayer(_controller),
-              )
-            : const Center(child: CircularProgressIndicator()),
+      child: AspectRatio(
+        aspectRatio: _videoController.value.aspectRatio,
+        child: Chewie(controller: _chewieController!),
       ),
     );
   }
