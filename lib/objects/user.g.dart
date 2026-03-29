@@ -16,7 +16,7 @@ _Author _$AuthorFromJson(Map<String, dynamic> json) => _Author(
   isParodyAccount: json['isParodyAccount'] as bool? ?? false,
   officialMark:
       (json['officialMark'] as List<dynamic>?)
-          ?.map((e) => e as String)
+          ?.map((e) => $enumDecode(_$OfficialMarkEnumMap, e))
           .toList() ??
       const [],
   username: json['username'] as String,
@@ -30,8 +30,20 @@ Map<String, dynamic> _$AuthorToJson(_Author instance) => <String, dynamic>{
   'isPrivate': instance.isPrivate,
   'isBotAccount': instance.isBotAccount,
   'isParodyAccount': instance.isParodyAccount,
-  'officialMark': instance.officialMark,
+  'officialMark': instance.officialMark
+      .map((e) => _$OfficialMarkEnumMap[e]!)
+      .toList(),
   'username': instance.username,
+};
+
+const _$OfficialMarkEnumMap = {
+  OfficialMark.PURPLE: 'PURPLE',
+  OfficialMark.BLACK: 'BLACK',
+  OfficialMark.RED: 'RED',
+  OfficialMark.ORANGE: 'ORANGE',
+  OfficialMark.GREEN: 'GREEN',
+  OfficialMark.BLUE: 'BLUE',
+  OfficialMark.YELLOW: 'YELLOW',
 };
 
 _AuthUser _$AuthUserFromJson(Map<String, dynamic> json) => _AuthUser(
@@ -61,7 +73,7 @@ _User _$UserFromJson(Map<String, dynamic> json) => _User(
   isBotAccount: json['isBotAccount'] as bool,
   isParodyAccount: json['isParodyAccount'] as bool,
   officialMark: (json['officialMark'] as List<dynamic>)
-      .map((e) => e as String)
+      .map((e) => $enumDecode(_$OfficialMarkEnumMap, e))
       .toList(),
   username: json['username'] as String,
   pinnedPostId: (json['pinnedPostId'] as num?)?.toInt(),
@@ -97,7 +109,9 @@ Map<String, dynamic> _$UserToJson(_User instance) => <String, dynamic>{
   'isPrivate': instance.isPrivate,
   'isBotAccount': instance.isBotAccount,
   'isParodyAccount': instance.isParodyAccount,
-  'officialMark': instance.officialMark,
+  'officialMark': instance.officialMark
+      .map((e) => _$OfficialMarkEnumMap[e]!)
+      .toList(),
   'username': instance.username,
   'pinnedPostId': instance.pinnedPostId,
   'headerUrl': instance.headerUrl,

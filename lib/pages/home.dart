@@ -1,10 +1,13 @@
 import "package:flutter/material.dart";
 import "package:karotator/http.dart";
+import "package:karotator/pages/home/dm.dart";
 import "package:karotator/pages/home/notification.dart";
+import "package:karotator/pages/home/search.dart";
 import "package:karotator/pages/home/timeline.dart";
 import "package:karotator/pages/login.dart";
 import "package:karotator/pages/post.dart";
 import "package:karotator/ui/drawer.dart";
+import 'package:badges/badges.dart' as badges;
 
 class HomePage extends StatefulWidget {
   const HomePage({super.key});
@@ -17,12 +20,13 @@ class _HomePageState extends State<HomePage> {
   final pageKey = GlobalKey<ScaffoldState>();
   String? avatarUrl;
   int _currentIndex = 0;
+  int unReadCount = 0;
 
   static const List<Widget> _pages = [
     TimeLine(),
-    TimeLine(),
+    Search(),
     NotificationsPage(),
-    NotificationsPage(),
+    DM(),
   ];
 
   @override
@@ -35,6 +39,13 @@ class _HomePageState extends State<HomePage> {
         }),
       },
     );
+    if (HTTPClient().nowAccountId != null) {
+      HTTPClient().getUnreadNotificationCount().then((count) {
+        setState(() {
+          unReadCount = count;
+        });
+      });
+    }
   }
 
   @override
@@ -80,17 +91,29 @@ class _HomePageState extends State<HomePage> {
           setState(() {
             _currentIndex = index;
           });
-          // 通知タブ(index == 2 など)の場合の処理
           if (index == 2) {
-            // 通知画面への遷移など
+            HTTPClient().getUnreadNotificationCount().then((count) {
+              setState(() {
+                unReadCount = count;
+              });
+            });
           }
         },
         type: BottomNavigationBarType.fixed,
         items: [
           const BottomNavigationBarItem(icon: Icon(Icons.home), label: 'ホーム'),
           const BottomNavigationBarItem(icon: Icon(Icons.search), label: '検索'),
-          const BottomNavigationBarItem(
-            icon: Icon(Icons.notifications),
+          BottomNavigationBarItem(
+            icon: unReadCount > 0
+                ? badges.Badge(
+                    // notificationCountが0より大きい場合のみバッジを表示
+                    badgeContent: Text(unReadCount.toString()),
+                    badgeStyle: const badges.BadgeStyle(
+                      badgeColor: Colors.blue,
+                    ),
+                    child: const Icon(Icons.notifications),
+                  )
+                : const Icon(Icons.notifications),
             label: '通知',
           ),
           const BottomNavigationBarItem(

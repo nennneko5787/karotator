@@ -19,3 +19,6 @@ enum NotificationContext { OWN_POST, OTHER }
 
 // ignore: constant_identifier_names
 enum NotificationType { LIKE, FOLLOW, QUOTE, REPLY, REACTION, REKAROT }
+
+// ignore: constant_identifier_names
+enum OfficialMark { PURPLE, BLACK, RED, ORANGE, GREEN, BLUE, YELLOW }

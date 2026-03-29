@@ -26,7 +26,7 @@ class _StartUpPageState extends State<StartUpPage> {
       }
 
       if (HTTPClient().nowAccountId != null) {
-        await HTTPClient().refresh();
+        await HTTPClient().switchSession();
       }
     } catch (e, stackTrace) {
       debugPrint("$e\n$stackTrace");

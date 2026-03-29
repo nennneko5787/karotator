@@ -59,7 +59,7 @@ final class UserResponseNotifierProvider
 }
 
 String _$userResponseNotifierHash() =>
-    r'f77027774842521df0dbfc453177d1d06bf74b62';
+    r'dfc8cfaa911cfd968f2109ca8c1a5fe262c7ed4e';
 
 final class UserResponseNotifierFamily extends $Family
     with

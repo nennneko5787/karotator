@@ -4,8 +4,20 @@ import 'package:karotator/enum.dart';
 part 'user.freezed.dart';
 part 'user.g.dart';
 
+abstract interface class AbstractUser {
+  int? get avatarFrameId;
+  String? get avatarUrl;
+  String get displayName;
+  int get id;
+  bool get isPrivate;
+  bool get isBotAccount;
+  bool get isParodyAccount;
+  List<OfficialMark> get officialMark;
+  String get username;
+}
+
 @freezed
-abstract class Author with _$Author {
+abstract class Author with _$Author implements AbstractUser {
   const factory Author({
     int? avatarFrameId,
     String? avatarUrl,
@@ -14,7 +26,7 @@ abstract class Author with _$Author {
     @Default(false) bool isPrivate,
     @Default(false) bool isBotAccount,
     @Default(false) bool isParodyAccount,
-    @Default([]) List<String> officialMark,
+    @Default([]) List<OfficialMark> officialMark,
     required String username,
   }) = _Author;
 
@@ -39,7 +51,7 @@ abstract class AuthUser with _$AuthUser {
 }
 
 @freezed
-abstract class User with _$User {
+abstract class User with _$User implements AbstractUser {
   const factory User({
     int? avatarFrameId,
     String? avatarUrl,
@@ -48,7 +60,7 @@ abstract class User with _$User {
     required bool isPrivate,
     required bool isBotAccount,
     required bool isParodyAccount,
-    required List<String> officialMark,
+    required List<OfficialMark> officialMark,
     required String username,
     int? pinnedPostId,
     String? headerUrl,

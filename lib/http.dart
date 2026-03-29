@@ -375,7 +375,6 @@ class HTTPClient {
   }) async {
     final jsonData = await get(
       "posts/timeline?page=$page&limit=$limit&mode=$mode",
-      csrf: true,
     );
     return TimeLineResponse.fromJson(jsonData);
   }
@@ -385,10 +384,7 @@ class HTTPClient {
     required int page,
     required int limit,
   }) async {
-    final jsonData = await get(
-      "users/$userId/posts?page=$page&limit=$limit",
-      csrf: true,
-    );
+    final jsonData = await get("users/$userId/posts?page=$page&limit=$limit");
     return RecommendedResponse.fromJson(jsonData);
   }
 
@@ -397,10 +393,7 @@ class HTTPClient {
     required int page,
     required int limit,
   }) async {
-    final jsonData = await get(
-      "users/$userId/replies?page=$page&limit=$limit",
-      csrf: true,
-    );
+    final jsonData = await get("users/$userId/replies?page=$page&limit=$limit");
     return RecommendedResponse.fromJson(jsonData);
   }
 
@@ -409,10 +402,7 @@ class HTTPClient {
     required int page,
     required int limit,
   }) async {
-    final jsonData = await get(
-      "users/$userId/media?page=$page&limit=$limit",
-      csrf: true,
-    );
+    final jsonData = await get("users/$userId/media?page=$page&limit=$limit");
     return RecommendedResponse.fromJson(jsonData);
   }
 
@@ -421,10 +411,7 @@ class HTTPClient {
     required int page,
     required int limit,
   }) async {
-    final jsonData = await get(
-      "users/$userId/likes?page=$page&limit=$limit",
-      csrf: true,
-    );
+    final jsonData = await get("users/$userId/likes?page=$page&limit=$limit");
     return RecommendedResponse.fromJson(jsonData);
   }
 
@@ -462,6 +449,25 @@ class HTTPClient {
     final jsonData = await post(
       "auth/refresh",
       headers: {"content-type": "application/json"},
+      csrf: true,
+    );
+    final response = RefreshResponse.fromJson(jsonData);
+    await modifyLoginResponse(response);
+    return response;
+  }
+
+  Future<RefreshResponse> switchSession() async {
+    final loginResponse = await loadLoginResponse();
+    final jsonData = await post(
+      "auth/switch-session",
+      headers: {"Content-Type": "application/json"},
+      body: jsonEncode({
+        "clientType": "unofficial_app",
+        "deviceName": "Karotator on ${Platform.operatingSystem}",
+        "deviceId": loginResponse!.deviceId,
+        "sessionId": loginResponse.sessionId,
+        "userId": loginResponse.user.id,
+      }),
       csrf: true,
     );
     final response = RefreshResponse.fromJson(jsonData);
@@ -654,14 +660,16 @@ class HTTPClient {
     final _ = await delete("follow/$userId");
   }
 
+  Future<int> getUnreadNotificationCount() async {
+    final jsonData = await get("notifications/unread/count");
+    return jsonData["count"] as int;
+  }
+
   Future<NotificationResponse> getNotifications({
     required int page,
     required int limit,
   }) async {
-    final jsonData = await get(
-      "notifications?page=$page&limit=$limit",
-      csrf: true,
-    );
+    final jsonData = await get("notifications?page=$page&limit=$limit");
     return NotificationResponse.fromJson(jsonData);
   }
 

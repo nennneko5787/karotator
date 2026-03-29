@@ -57,7 +57,19 @@ class _ProfilePageState extends State<ProfilePage> {
               : Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    Text(user!.displayName),
+                    Row(
+                      spacing: 4,
+                      children: [
+                        Text(user!.displayName),
+                        if (user!.isBotAccount) Icon(Icons.smart_toy),
+                        if (user!.isParodyAccount) Icon(Icons.theater_comedy),
+                        for (var officialMark in user!.officialMark)
+                          Icon(
+                            Icons.verified,
+                            color: getOfficialMarkColor(officialMark),
+                          ),
+                      ],
+                    ),
                     Text(
                       "${user!.postsCount} カロート",
                       style: Theme.of(context).textTheme.bodySmall,
@@ -219,11 +231,34 @@ class _ProfileBodyState extends ConsumerState<_ProfileBody> {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     const SizedBox(height: 20),
-                    Text(
-                      user.displayName,
-                      style: Theme.of(
-                        context,
-                      ).textTheme.headlineSmall!.apply(fontWeightDelta: 50),
+                    Row(
+                      children: [
+                        Text(
+                          user.displayName,
+                          style: Theme.of(
+                            context,
+                          ).textTheme.headlineSmall!.apply(fontWeightDelta: 50),
+                        ),
+                        SizedBox(width: 4),
+                        Flexible(
+                          child: SingleChildScrollView(
+                            scrollDirection: Axis.horizontal,
+                            child: Row(
+                              spacing: 4,
+                              children: [
+                                if (user.isBotAccount) Icon(Icons.smart_toy),
+                                if (user.isParodyAccount)
+                                  Icon(Icons.theater_comedy),
+                                for (var officialMark in user.officialMark)
+                                  Icon(
+                                    Icons.verified,
+                                    color: getOfficialMarkColor(officialMark),
+                                  ),
+                              ],
+                            ),
+                          ),
+                        ),
+                      ],
                     ),
                     Row(
                       crossAxisAlignment: CrossAxisAlignment.start,

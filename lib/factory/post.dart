@@ -87,29 +87,28 @@ Widget postUserDetailFactory(
     color: Theme.of(context).secondaryHeaderColor,
     fontSize: fontSize - 1,
   );
-  return Column(
+  final icons = getUserPrimaryMark(post.author, size: fontSize + 2);
+
+  return Row(
+    spacing: 4,
     children: [
-      Row(
-        children: [
-          Flexible(
-            child: Text(
-              post.author.displayName,
-              overflow: TextOverflow.ellipsis,
-              style: TextStyle(fontSize: fontSize),
-            ),
-          ),
-          Text(" ", style: subStyle),
-          Flexible(
-            child: Text(
-              "@${post.author.username}",
-              style: subStyle,
-              overflow: TextOverflow.ellipsis,
-            ),
-          ),
-          Text(" · ", style: subStyle),
-          Text(getLocalizedDateTime(post.createdAt), style: subStyle),
-        ],
+      Flexible(
+        child: Text(
+          post.author.displayName,
+          overflow: TextOverflow.ellipsis,
+          style: TextStyle(fontSize: fontSize),
+        ),
       ),
+      ...icons,
+      Flexible(
+        child: Text(
+          "@${post.author.username}",
+          style: subStyle,
+          overflow: TextOverflow.ellipsis,
+        ),
+      ),
+      Text("·", style: subStyle),
+      Text(getLocalizedDateTime(post.createdAt), style: subStyle),
     ],
   );
 }

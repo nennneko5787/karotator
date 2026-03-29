@@ -188,77 +188,82 @@ class _NotificationsState extends State<NotificationsPage> {
               }
 
               final notification = notifications[index];
+              final isLast = index == notifications.length - 1;
 
-              return ListTile(
-                leading: GestureDetector(
-                  onTap: () {
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                        builder: (context) =>
-                            ProfilePage(username: notification.actor.username),
-                      ),
-                    );
-                  },
-                  child: SizedBox(
-                    width: 40,
-                    height: 40,
-                    child: Stack(
-                      clipBehavior: Clip.none,
-                      children: [
-                        CircleAvatar(
-                          radius: 20,
-                          backgroundImage:
-                              (notification.actor.avatarUrl == null)
-                              ? AssetImage("assets/images/default-avatar.png")
-                              : NetworkImage(
-                                  "https://karotter.com${notification.actor.avatarUrl!}",
-                                ),
-                        ),
-                        Positioned(
-                          right: -4,
-                          bottom: -4,
-                          child: Container(
-                            width: 24,
-                            height: 24,
-                            decoration: BoxDecoration(
-                              color: Colors.white,
-                              shape: BoxShape.circle,
-                              border: Border.all(
-                                color: Colors.white,
-                                width: 1.5,
-                              ),
-                            ),
-                            child: Icon(
-                              switch (notification.type) {
-                                NotificationType.LIKE => Icons.favorite,
-                                NotificationType.REPLY => Icons.comment,
-                                NotificationType.REKAROT => Icons.repeat,
-                                NotificationType.QUOTE => Icons.format_quote,
-                                NotificationType.FOLLOW => Icons.person_add,
-                                _ => Icons.auto_awesome,
-                              },
-                              color: switch (notification.type) {
-                                NotificationType.LIKE => Colors.red,
-                                NotificationType.REPLY => Colors.blue,
-                                NotificationType.REKAROT => Colors.green,
-                                NotificationType.QUOTE => Colors.lightGreen,
-                                NotificationType.FOLLOW => Colors.blue,
-                                _ => Colors.orange,
-                              },
-                              size: 20,
+              return Column(
+                children: [
+                  ListTile(
+                    leading: GestureDetector(
+                      onTap: () {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => ProfilePage(
+                              username: notification.actor.username,
                             ),
                           ),
+                        );
+                      },
+                      child: SizedBox(
+                        width: 40,
+                        height: 40,
+                        child: Stack(
+                          clipBehavior: Clip.none,
+                          children: [
+                            CircleAvatar(
+                              radius: 20,
+                              backgroundImage:
+                                  (notification.actor.avatarUrl == null)
+                                  ? AssetImage(
+                                      "assets/images/default-avatar.png",
+                                    )
+                                  : NetworkImage(
+                                      "https://karotter.com${notification.actor.avatarUrl!}",
+                                    ),
+                            ),
+                            Positioned(
+                              right: -4,
+                              bottom: -4,
+                              child: Container(
+                                width: 24,
+                                height: 24,
+                                decoration: BoxDecoration(
+                                  color: Colors.white,
+                                  shape: BoxShape.circle,
+                                  border: Border.all(
+                                    color: Colors.white,
+                                    width: 1.5,
+                                  ),
+                                ),
+                                child: Icon(
+                                  switch (notification.type) {
+                                    NotificationType.LIKE => Icons.favorite,
+                                    NotificationType.REPLY => Icons.comment,
+                                    NotificationType.REKAROT => Icons.repeat,
+                                    NotificationType.QUOTE =>
+                                      Icons.format_quote,
+                                    NotificationType.FOLLOW => Icons.person_add,
+                                    _ => Icons.auto_awesome,
+                                  },
+                                  color: switch (notification.type) {
+                                    NotificationType.LIKE => Colors.red,
+                                    NotificationType.REPLY => Colors.blue,
+                                    NotificationType.REKAROT => Colors.green,
+                                    NotificationType.QUOTE => Colors.lightGreen,
+                                    NotificationType.FOLLOW => Colors.blue,
+                                    _ => Colors.orange,
+                                  },
+                                  size: 20,
+                                ),
+                              ),
+                            ),
+                          ],
                         ),
-                      ],
+                      ),
                     ),
-                  ),
-                ),
-                title: buildNotificationTitle(notification),
-                subtitle: (notification.post == null)
-                    ? null
-                    : GestureDetector(
-                        onTap: () async {
+                    title: GestureDetector(
+                      onTap: () async {
+                        if (notification.type != NotificationType.FOLLOW) {
                           if (notification.postCount <= 1) {
                             final post = await HTTPClient().getPostById(
                               notification.post!.id,
@@ -282,16 +287,50 @@ class _NotificationsState extends State<NotificationsPage> {
                               ),
                             );
                           }
-                        },
-                        child: Text(
-                          notification.post!.content,
-                          style: TextStyle(fontSize: fontSize - 1),
-                        ),
-                      ),
-                trailing: Text(
-                  getLocalizedDateTime(notification.createdAt),
-                  style: TextStyle(fontSize: fontSize - 2),
-                ),
+                        }
+                      },
+                      child: buildNotificationTitle(notification),
+                    ),
+                    subtitle: (notification.post == null)
+                        ? null
+                        : GestureDetector(
+                            onTap: () async {
+                              if (notification.postCount <= 1) {
+                                final post = await HTTPClient().getPostById(
+                                  notification.post!.id,
+                                );
+
+                                if (!context.mounted) return;
+                                Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                    builder: (context) =>
+                                        PostDetailPage(post: post),
+                                  ),
+                                );
+                              } else {
+                                Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                    builder: (context) => NotificationPostsPage(
+                                      notification: notification,
+                                    ),
+                                  ),
+                                );
+                              }
+                            },
+                            child: Text(
+                              notification.post!.content,
+                              style: TextStyle(fontSize: fontSize - 1),
+                            ),
+                          ),
+                    trailing: Text(
+                      getLocalizedDateTime(notification.createdAt),
+                      style: TextStyle(fontSize: fontSize - 2),
+                    ),
+                  ),
+                  if (!isLast) const Divider(height: 1),
+                ],
               );
             },
           ),
