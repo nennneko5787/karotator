@@ -29,20 +29,18 @@ jobs:
         run: flutter analyze --no-fatal-warnings --no-fatal-infos
 
       - name: Build APK
-        run: flutter build apk --release --split-per-abi
-
-      - name: Rename APKs
+        run: flutter build apk --release
+      
+      - name: Rename APK
         run: |
           cd build/app/outputs/flutter-apk/
-          mv app-arm64-v8a-release.apk   karotator-arm64-v8a.apk
-          mv app-armeabi-v7a-release.apk karotator-armeabi-v7a.apk
-          mv app-x86_64-release.apk      karotator-x86_64.apk
-
-      - name: Upload APK artifacts
+          mv app-release.apk karotator.apk
+      
+      - name: Upload APK artifact
         uses: actions/upload-artifact@v4
         with:
           name: apk-files
-          path: build/app/outputs/flutter-apk/karotator-*.apk
+          path: build/app/outputs/flutter-apk/karotator.apk
 
   build-ios:
     name: Build iOS
