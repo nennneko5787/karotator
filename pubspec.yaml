@@ -101,7 +101,7 @@ flutter:
   fonts:
     - family: NotoColorEmoji
       fonts:
-        - asset: assets/fonts/NotoColorEmoji-regular.ttf
+        - asset: assets/fonts/NotoColorEmoji-Regular.ttf
   #
   # For details regarding fonts from package dependencies,
   # see https://flutter.dev/to/font-from-package
