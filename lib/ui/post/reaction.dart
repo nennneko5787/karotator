@@ -55,6 +55,8 @@ class _ReactionWidgetState extends ConsumerState<ReactionWidget> {
           config: Config(
             height: 350,
             checkPlatformCompatibility: true,
+            locale: Locale("ja", "JP"),
+            emojiTextStyle: TextStyle(fontFamily: "NotoColorEmoji"),
             emojiViewConfig: EmojiViewConfig(
               emojiSizeMax:
                   28 *
@@ -126,7 +128,10 @@ class _ReactionWidgetState extends ConsumerState<ReactionWidget> {
               crossAxisAlignment: CrossAxisAlignment.center,
               spacing: 4,
               children: [
-                Text(reaction.emoji),
+                Text(
+                  reaction.emoji,
+                  style: TextStyle(fontFamily: "NotoColorEmoji"),
+                ),
                 Text(reaction.count.toString(), style: TextStyle(fontSize: 12)),
               ],
             ),

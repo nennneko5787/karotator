@@ -20,7 +20,6 @@ class Karotator extends StatelessWidget {
         title: 'Karotator',
         scaffoldMessengerKey: messengerKey,
         theme: ThemeData(
-          fontFamilyFallback: ['NotoColorEmoji'],
           brightness: Brightness.light,
           secondaryHeaderColor: Color.fromARGB(255, 120, 153, 181),
           scaffoldBackgroundColor: Color.fromARGB(255, 238, 243, 248),
@@ -61,7 +60,6 @@ class Karotator extends StatelessWidget {
           dividerColor: Color.fromARGB(255, 229, 231, 235),
         ),
         darkTheme: ThemeData(
-          fontFamilyFallback: ['NotoColorEmoji'],
           brightness: Brightness.dark,
           secondaryHeaderColor: Color.fromARGB(255, 120, 153, 181),
           scaffoldBackgroundColor: Color.fromARGB(255, 10, 23, 38),
