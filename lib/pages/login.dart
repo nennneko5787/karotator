@@ -58,42 +58,46 @@ class _LoginPageState extends State<LoginPage> {
     return UnFocus(
       child: Scaffold(
         resizeToAvoidBottomInset: false,
-        body: Padding(
-          padding: const EdgeInsets.all(16.0),
-          child: Container(
-            decoration: BoxDecoration(
-              border: Border.all(color: Color.fromARGB(71, 152, 168, 187)),
-              borderRadius: BorderRadius.circular(50),
-              color: Theme.of(context).bottomNavigationBarTheme.backgroundColor,
-            ),
-            child: AutofillGroup(
-              child: Padding(
-                padding: const EdgeInsets.all(16.0),
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: <Widget>[
-                    Container(
-                      width: 128,
-                      height: 128,
-                      decoration: BoxDecoration(
-                        shape: BoxShape.circle,
-                        image: DecorationImage(
-                          fit: BoxFit.fill,
-                          image: AssetImage('assets/images/icon.png'),
+        body: Stack(
+          children: [
+            Padding(
+              padding: const EdgeInsets.all(16.0),
+              child: Container(
+                decoration: BoxDecoration(
+                  border: Border.all(color: Color.fromARGB(71, 152, 168, 187)),
+                  borderRadius: BorderRadius.circular(50),
+                  color: Theme.of(
+                    context,
+                  ).bottomNavigationBarTheme.backgroundColor,
+                ),
+                child: AutofillGroup(
+                  child: Padding(
+                    padding: const EdgeInsets.all(16.0),
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: <Widget>[
+                        Container(
+                          width: 128,
+                          height: 128,
+                          decoration: BoxDecoration(
+                            shape: BoxShape.circle,
+                            image: DecorationImage(
+                              fit: BoxFit.fill,
+                              image: AssetImage('assets/images/icon.png'),
+                            ),
+                          ),
                         ),
-                      ),
-                    ),
-                    const SizedBox(height: 16.0),
-                    Text(
-                      "ログイン",
-                      style: Theme.of(context).textTheme.headlineLarge,
-                    ),
-                    const SizedBox(height: 16.0),
-                    /*
-                    RichText(
+                        const SizedBox(height: 16.0),
+                        Text(
+                          "ログイン",
+                          style: Theme.of(context).textTheme.headlineLarge,
+                        ),
+                        const SizedBox(height: 16.0),
+                        /*
+                    Text.rich(
                       text: TextSpan(
                         children: [
-                          TextSpan(text: "または "),
+                          TextSpan(text: "または ", style: defaultStyle),
                           TextSpan(
                             text: "新しいアカウントを作成",
                             style: TextStyle(color: Colors.blue),
@@ -110,13 +114,14 @@ class _LoginPageState extends State<LoginPage> {
                       ),
                     ),
                     */
-                    /*
+                        /*
                     const SizedBox(height: 16.0),
-                    RichText(
+                    Text.rich(
                       text: TextSpan(
                         children: [
                           TextSpan(
                             text: "利用規約",
+                            style: defaultStyle,
                             recognizer: TapGestureRecognizer()
                               ..onTap = () async {
                                 final url = "https://karotter.com/terms";
@@ -143,60 +148,71 @@ class _LoginPageState extends State<LoginPage> {
                     ),
                     const SizedBox(height: 16.0),
                     */
-                    TextField(
-                      controller: _usernameController,
-                      decoration: const InputDecoration(
-                        border: OutlineInputBorder(),
-                        labelText: 'メールアドレスまたはユーザー名',
-                      ),
-                      autofillHints: const [AutofillHints.username],
+                        TextField(
+                          controller: _usernameController,
+                          decoration: const InputDecoration(
+                            border: OutlineInputBorder(),
+                            labelText: 'メールアドレスまたはユーザー名',
+                          ),
+                          autofillHints: const [AutofillHints.username],
+                        ),
+                        const SizedBox(height: 16.0),
+                        TextField(
+                          controller: _passwordController,
+                          decoration: const InputDecoration(
+                            border: OutlineInputBorder(),
+                            labelText: 'パスワード',
+                          ),
+                          autofillHints: const [AutofillHints.password],
+                          obscureText: true,
+                        ),
+                        const SizedBox(height: 16.0),
+                        SizedBox(
+                          child: GenderSelectMenu(
+                            onChanged: (value) =>
+                                setState(() => gender = value),
+                          ),
+                        ),
+                        const SizedBox(height: 16.0),
+                        SizedBox(
+                          width: double.infinity,
+                          child: ElevatedButton(
+                            onPressed: () async {
+                              if (!context.mounted || isLoading) return;
+                              setState(() {
+                                isLoading = true;
+                              });
+                              await login();
+                              setState(() {
+                                isLoading = false;
+                              });
+                            },
+                            child: isLoading
+                                ? SizedBox(
+                                    width: 20,
+                                    height: 20,
+                                    child: CircularProgressIndicator(
+                                      strokeWidth: 2,
+                                    ),
+                                  )
+                                : const Text('ログイン'),
+                          ),
+                        ),
+                      ],
                     ),
-                    const SizedBox(height: 16.0),
-                    TextField(
-                      controller: _passwordController,
-                      decoration: const InputDecoration(
-                        border: OutlineInputBorder(),
-                        labelText: 'パスワード',
-                      ),
-                      autofillHints: const [AutofillHints.password],
-                      obscureText: true,
-                    ),
-                    const SizedBox(height: 16.0),
-                    SizedBox(
-                      child: GenderSelectMenu(
-                        onChanged: (value) => setState(() => gender = value),
-                      ),
-                    ),
-                    const SizedBox(height: 16.0),
-                    SizedBox(
-                      width: double.infinity,
-                      child: ElevatedButton(
-                        onPressed: () async {
-                          if (!context.mounted || isLoading) return;
-                          setState(() {
-                            isLoading = true;
-                          });
-                          await login();
-                          setState(() {
-                            isLoading = false;
-                          });
-                        },
-                        child: isLoading
-                            ? SizedBox(
-                                width: 20,
-                                height: 20,
-                                child: CircularProgressIndicator(
-                                  strokeWidth: 2,
-                                ),
-                              )
-                            : const Text('ログイン'),
-                      ),
-                    ),
-                  ],
+                  ),
                 ),
               ),
             ),
-          ),
+            Positioned(
+              top: 32,
+              left: 32,
+              child: IconButton(
+                icon: const Icon(Icons.close),
+                onPressed: () => Navigator.pop(context),
+              ),
+            ),
+          ],
         ),
       ),
     );

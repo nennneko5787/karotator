@@ -27,6 +27,8 @@ class _TimeLineTabState extends State<TimeLineTab> {
   bool isLoadingMore = false;
   bool hasMore = true;
 
+  int _generation = 0;
+
   @override
   void initState() {
     super.initState();
@@ -36,10 +38,31 @@ class _TimeLineTabState extends State<TimeLineTab> {
     initPostsData = refreshPosts();
   }
 
+  @override
+  void didUpdateWidget(TimeLineTab oldWidget) {
+    super.didUpdateWidget(oldWidget);
+    if (oldWidget.fetcher != widget.fetcher ||
+        oldWidget.isRecLatest != widget.isRecLatest) {
+      _generation++;
+      page = 1;
+      cursor = null;
+      hasMore = true;
+      isLoadingMore = false;
+      initPostsData = refreshPosts();
+    }
+  }
+
+  @override
+  void dispose() {
+    _generation++;
+    controller.removeListener(onScroll);
+    controller.dispose();
+    super.dispose();
+  }
+
   void onScroll() {
     if (!controller.hasClients || isLoadingMore || !hasMore) return;
-
-    final threshold = 200.0; // 下から200pxで発火
+    const threshold = 200.0;
     if (controller.position.pixels >=
         controller.position.maxScrollExtent - threshold) {
       loadMore();
@@ -47,63 +70,67 @@ class _TimeLineTabState extends State<TimeLineTab> {
   }
 
   Future<void> loadMore() async {
+    final gen = _generation;
     try {
       isLoadingMore = true;
       page++;
 
       if (widget.isRecLatest) {
         RecommendedResponseLatest response = await widget.fetcher(cursor, 12);
-
+        if (!mounted || gen != _generation) return;
         setState(() {
           posts.addAll(response.posts);
           cursor = response.pagination.nextCursor;
           hasMore = response.pagination.hasNext;
+          isLoadingMore = false;
         });
       } else {
         final response = await widget.fetcher(page, 12);
-
+        if (!mounted || gen != _generation) return;
         setState(() {
           if (response.posts.isEmpty) {
             hasMore = false;
           } else {
             posts.addAll(response.posts);
           }
+          isLoadingMore = false;
         });
       }
-
-      isLoadingMore = false;
     } catch (e, stackTrace) {
       debugPrint("$e\n$stackTrace");
-
-      if (!mounted) return;
+      if (!mounted || gen != _generation) return;
+      isLoadingMore = false;
       showAlert(context, e: e);
     }
   }
 
   Future<void> refreshPosts() async {
+    final gen = _generation;
     try {
       isLoadingMore = true;
 
       if (widget.isRecLatest) {
         RecommendedResponseLatest response = await widget.fetcher(cursor, 12);
+        if (!mounted || gen != _generation) return;
         setState(() {
           posts = List<Post>.from(response.posts);
           cursor = response.pagination.nextCursor;
           hasMore = response.pagination.hasNext;
+          isLoadingMore = false;
         });
       } else {
         final response = await widget.fetcher(1, 12);
+        if (!mounted || gen != _generation) return;
         setState(() {
           posts = List<Post>.from(response.posts);
           hasMore = response.posts.length >= 12;
+          isLoadingMore = false;
         });
       }
-
-      isLoadingMore = false;
     } catch (e, stackTrace) {
       debugPrint("$e\n$stackTrace");
-
-      if (!mounted) return;
+      if (!mounted || gen != _generation) return;
+      isLoadingMore = false;
       showAlert(context, e: e);
     }
   }

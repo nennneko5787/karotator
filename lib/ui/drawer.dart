@@ -4,6 +4,7 @@ import "package:karotator/objects/response.dart";
 import "package:karotator/objects/user.dart";
 import "package:karotator/pages/login.dart";
 import "package:karotator/pages/profile.dart";
+import "package:karotator/pages/settings.dart";
 import "package:karotator/pages/startup.dart";
 
 class DrawerMenu extends StatefulWidget {
@@ -146,6 +147,16 @@ class _DrawerMenuState extends State<DrawerMenu> {
                 );
               },
             ),
+            ListTile(
+              leading: const Icon(Icons.settings),
+              title: const Text("設定"),
+              onTap: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (context) => SettingsPage()),
+                );
+              },
+            ),
           ]
         : [
             ListTile(
@@ -185,7 +196,12 @@ class _DrawerMenuState extends State<DrawerMenu> {
             ListTile(
               leading: const Icon(Icons.settings),
               title: const Text("設定"),
-              onTap: () {},
+              onTap: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (context) => SettingsPage()),
+                );
+              },
             ),
           ];
 
@@ -198,11 +214,31 @@ class _DrawerMenuState extends State<DrawerMenu> {
               color: Theme.of(context).scaffoldBackgroundColor,
             ),
             accountName: user != null
-                ? Text(user!.displayName)
-                : Text("ログインしていません"),
+                ? Text(
+                    user!.displayName,
+                    style: TextStyle(
+                      color: Theme.of(context).colorScheme.onSurface,
+                    ),
+                  )
+                : Text(
+                    "ログインしていません",
+                    style: TextStyle(
+                      color: Theme.of(context).colorScheme.onSurface,
+                    ),
+                  ),
             accountEmail: user != null
-                ? Text("@${user!.username}")
-                : Text("Karotterにログインして投稿を楽しみましょう"),
+                ? Text(
+                    "@${user!.username}",
+                    style: TextStyle(
+                      color: Theme.of(context).colorScheme.onSurface,
+                    ),
+                  )
+                : Text(
+                    "Karotterにログインして投稿を楽しみましょう",
+                    style: TextStyle(
+                      color: Theme.of(context).colorScheme.onSurface,
+                    ),
+                  ),
             currentAccountPicture: CircleAvatar(
               backgroundImage: NetworkImage(
                 user?.avatarUrl != null

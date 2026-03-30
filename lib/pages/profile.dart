@@ -301,7 +301,14 @@ class _ProfileBodyState extends ConsumerState<_ProfileBody> {
                   )
                 : ElevatedButton(
                     onPressed: () async {
-                      await notifier.toggleFollow();
+                      if (HTTPClient().nowAccountId == null) {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(builder: (context) => LoginPage()),
+                        );
+                      } else {
+                        await notifier.toggleFollow();
+                      }
                     },
                     child: const Text("フォロー"),
                   ),
@@ -316,7 +323,7 @@ class _ProfileBodyState extends ConsumerState<_ProfileBody> {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 if (user.bio != null)
-                  RichText(text: TextAgent.generate(user.bio!, context)),
+                  Text.rich(TextAgent.generate(user.bio!, context)),
                 const SizedBox(height: 8),
                 Wrap(
                   spacing: 8,
@@ -346,8 +353,8 @@ class _ProfileBodyState extends ConsumerState<_ProfileBody> {
                             Icons.link,
                             color: Theme.of(context).secondaryHeaderColor,
                           ),
-                          RichText(
-                            text: TextSpan(
+                          Text.rich(
+                            TextSpan(
                               text: " ${user.websiteUrl!}",
                               style: const TextStyle(color: Colors.blue),
                               recognizer: TapGestureRecognizer()

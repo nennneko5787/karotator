@@ -130,8 +130,8 @@ Widget postContentFactory(
     spacing: 10,
     children: [
       if (threadParentAuthor != null)
-        RichText(
-          text: TextSpan(
+        Text.rich(
+          TextSpan(
             children: [
               if (hideReplyTo != true)
                 TextSpan(
@@ -157,8 +157,8 @@ Widget postContentFactory(
             ],
           ),
         ),
-      RichText(
-        text: TextAgent.generate(
+      Text.rich(
+        TextAgent.generate(
           post.content,
           context,
           style: TextStyle(fontSize: fontSize),

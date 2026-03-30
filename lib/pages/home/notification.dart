@@ -55,6 +55,10 @@ class _NotificationsState extends State<NotificationsPage> {
         limit: 15,
       );
 
+      if (!response.pagination.hasMore) {
+        await HTTPClient().markUnReadNotificationsAsRead();
+      }
+
       setState(() {
         hasMore = response.pagination.hasMore;
         notifications.addAll(response.notifications as Iterable<Notification>);
@@ -149,12 +153,7 @@ class _NotificationsState extends State<NotificationsPage> {
         break;
     }
 
-    return RichText(
-      text: TextSpan(
-        style: DefaultTextStyle.of(context).style,
-        children: spans,
-      ),
-    );
+    return Text.rich(TextSpan(children: spans));
   }
 
   @override

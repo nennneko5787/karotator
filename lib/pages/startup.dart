@@ -1,16 +1,21 @@
 import "package:flutter/material.dart";
+import "package:flutter_riverpod/flutter_riverpod.dart";
 import "package:karotator/http.dart";
 import "package:karotator/pages/home.dart";
+import "package:karotator/preferences.dart";
+import "package:karotator/providers/font.dart";
+import "package:karotator/providers/font_size.dart";
+import "package:karotator/providers/theme.dart";
 import "package:karotator/ui/dialog.dart";
 
-class StartUpPage extends StatefulWidget {
+class StartUpPage extends ConsumerStatefulWidget {
   const StartUpPage({super.key});
 
   @override
-  State<StartUpPage> createState() => _StartUpPageState();
+  ConsumerState<StartUpPage> createState() => _StartUpPageState();
 }
 
-class _StartUpPageState extends State<StartUpPage> {
+class _StartUpPageState extends ConsumerState<StartUpPage> {
   @override
   void initState() {
     super.initState();
@@ -20,7 +25,18 @@ class _StartUpPageState extends State<StartUpPage> {
   }
 
   Future<void> _initialize() async {
+    final themeNotifier = ref.read(themeModeProvider.notifier);
+    final fontNotifier = ref.read(fontProvider.notifier);
+    final fontSizeNotifier = ref.read(fontSizeProvider.notifier);
+
     try {
+      if (!Preferences().initialized) {
+        await Preferences().initialize();
+        themeNotifier.setThemeMode(Preferences().getThemeMode());
+        fontNotifier.setFont(Preferences().getFont());
+        fontSizeNotifier.setFontSize(Preferences().getFontSize());
+      }
+
       if (!HTTPClient().initialized) {
         await HTTPClient().initialize();
       }

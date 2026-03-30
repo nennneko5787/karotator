@@ -55,6 +55,7 @@ dependencies:
   flutter_launcher_icons: ^0.14.4
   chewie: ^1.13.0
   badges: ^3.1.2
+  system_fonts: ^1.0.1
 
 dev_dependencies:
   flutter_test:

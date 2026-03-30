@@ -303,6 +303,50 @@ class HTTPClient {
     return jsonDecode(utf8.decode(response.bodyBytes)) as Map<String, Object?>;
   }
 
+  Future<Map<String, Object?>> patch(
+    String url, {
+    Map<String, String>? headers,
+    Object? body,
+    bool csrf = false,
+  }) async {
+    final deviceId = await getDeviceIdHeader();
+
+    final login = await loadLoginResponse();
+    Map authorization = {};
+    if (login != null) {
+      authorization = {"Authorization": "Bearer ${login.accessToken}"};
+    }
+
+    Map csrfHeader = {};
+    if (csrf) {
+      csrfHeader = {"x-csrf-token": await fetchCsrfToken()};
+    }
+
+    final cookies = await cookieHeaders();
+
+    final response = await http.post(
+      Uri.parse("$baseUrl$url"),
+      headers: {
+        ...cookies,
+        ...deviceId,
+        ...authorization,
+        ...csrfHeader,
+        ...?headers,
+        "x-client-type": "unofficial_app",
+      },
+      body: body,
+    );
+
+    debugPrint(
+      "req-headers: ${{...cookies, ...deviceId, ...authorization, ...csrfHeader, ...?headers, "x-client-type": "unofficial_app"}}",
+    );
+    debugPrint("status: ${response.statusCode}");
+    debugPrint("body: ${utf8.decode(response.bodyBytes)}");
+
+    await afterRequest(response);
+    return jsonDecode(utf8.decode(response.bodyBytes)) as Map<String, Object?>;
+  }
+
   Future<Map<String, Object?>> delete(
     String url, {
     Map<String, String>? headers,
@@ -663,6 +707,10 @@ class HTTPClient {
   Future<int> getUnreadNotificationCount() async {
     final jsonData = await get("notifications/unread/count");
     return jsonData["count"] as int;
+  }
+
+  Future<void> markUnReadNotificationsAsRead() async {
+    final _ = await patch("notifications/read-all");
   }
 
   Future<NotificationResponse> getNotifications({

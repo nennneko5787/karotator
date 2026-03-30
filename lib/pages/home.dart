@@ -88,9 +88,18 @@ class _HomePageState extends State<HomePage> {
       bottomNavigationBar: BottomNavigationBar(
         currentIndex: _currentIndex,
         onTap: (index) {
+          if (index != 0 && HTTPClient().nowAccountId == null) {
+            Navigator.push(
+              context,
+              MaterialPageRoute(builder: (context) => LoginPage()),
+            );
+            return;
+          }
+
           setState(() {
             _currentIndex = index;
           });
+
           if (index == 2) {
             HTTPClient().getUnreadNotificationCount().then((count) {
               setState(() {
