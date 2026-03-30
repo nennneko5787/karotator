@@ -513,7 +513,7 @@ class _PostActionsWidgetState extends ConsumerState<PostActionsWidget> {
           onPressed: () async {
             await SharePlus.instance.share(
               ShareParams(
-                uri: Uri.https("karotter.com", "posts/${post.id.toString()}"),
+                uri: Uri.https("karotter.com", "${post.author.username}/status/${post.id.toString()}/share"),
               ),
             );
           },
