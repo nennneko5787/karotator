@@ -55,9 +55,7 @@ class _NotificationsState extends State<NotificationsPage> {
         limit: 15,
       );
 
-      if (!response.pagination.hasMore) {
-        await HTTPClient().markUnReadNotificationsAsRead();
-      }
+      await HTTPClient().markUnReadNotificationsAsRead();
 
       setState(() {
         hasMore = response.pagination.hasMore;
