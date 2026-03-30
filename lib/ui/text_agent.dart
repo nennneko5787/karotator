@@ -79,7 +79,7 @@ class TextAgent {
         return '';
       },
       onNonMatch: (String text) {
-        final commonSpan = TextSpan(text: text, style: style);
+        final commonSpan = TextSpan(text: text, style: style.apply(color: Theme.of(context).colorScheme.onSurface));
         textSpans.add(commonSpan);
         return '';
       },
