@@ -324,7 +324,7 @@ class HTTPClient {
 
     final cookies = await cookieHeaders();
 
-    final response = await http.post(
+    final response = await http.patch(
       Uri.parse("$baseUrl$url"),
       headers: {
         ...cookies,
