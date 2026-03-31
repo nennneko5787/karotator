@@ -20,7 +20,7 @@ final class FontSizeNotifierProvider
         argument: null,
         retry: null,
         name: r'fontSizeProvider',
-        isAutoDispose: false,
+        isAutoDispose: true,
         dependencies: null,
         $allTransitiveDependencies: null,
       );
@@ -41,7 +41,7 @@ final class FontSizeNotifierProvider
   }
 }
 
-String _$fontSizeNotifierHash() => r'5376a9c8a18e619b2dbc2cdcff7fbcf8ae430895';
+String _$fontSizeNotifierHash() => r'1d530033ea62de222aeb74b592fd3494bdc66297';
 
 abstract class _$FontSizeNotifier extends $Notifier<double> {
   double build();

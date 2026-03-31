@@ -1,4 +1,6 @@
 import "package:flutter/material.dart";
+import "package:karotator/http.dart";
+import "package:karotator/pages/login.dart";
 import "package:karotator/pages/settings/account.dart";
 import "package:karotator/pages/settings/appearance.dart";
 import "package:karotator/pages/settings/credit.dart";
@@ -27,7 +29,11 @@ class _SettingsPageState extends State<SettingsPage> {
             onTap: () {
               Navigator.push(
                 context,
-                MaterialPageRoute(builder: (context) => AccountSettings()),
+                MaterialPageRoute(
+                  builder: (context) => (HTTPClient().nowAccountId == null)
+                      ? LoginPage()
+                      : AccountSettings(),
+                ),
               );
             },
           ),

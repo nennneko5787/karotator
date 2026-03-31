@@ -126,8 +126,6 @@ class _PostDetailPageState extends State<PostDetailPage> {
               physics: const AlwaysScrollableScrollPhysics(),
               itemCount: allItems.length + 1,
               itemBuilder: (context, index) {
-                final mainPostIndex = parentPost != null ? 1 : 0;
-
                 if (index == allItems.length) {
                   return hasMore
                       ? const Padding(
@@ -138,34 +136,19 @@ class _PostDetailPageState extends State<PostDetailPage> {
                 }
 
                 final post = allItems[index];
-                final isParent = parentPost != null && index == 0;
+                final mainPostIndex = parentPost != null ? 1 : 0;
                 final isHeader = index == mainPostIndex;
-
-                // グループA: parent + メイン投稿
-                final groupAFirst = index == 0;
-                final groupALast = index == mainPostIndex;
-                // グループB: 返信
-                final groupBFirst = index == mainPostIndex + 1;
-                final groupBLast = index == allItems.length - 1;
-
-                final computedIsFirst = (isHeader || isParent)
-                    ? groupAFirst
-                    : false;
-                final computedIsLast = (isHeader || isParent)
-                    ? (isHeader ? false : groupALast)
-                    : groupBLast;
 
                 final child = PostWidget(
                   key: ValueKey('post_${post.id}_${allItems.length}'),
                   post: post,
-                  isFirst: computedIsFirst,
-                  isLast: computedIsLast,
+                  isFirst: index == 0,
+                  isLast: index == allItems.length - 1,
                   fontSize: isHeader ? 14 : 12,
                   disablePageTransition: isHeader,
                 );
 
-                // 返信の先頭に区切り線
-                if (groupBFirst) {
+                if (index == mainPostIndex + 1) {
                   return Column(
                     mainAxisSize: MainAxisSize.min,
                     children: [const Divider(height: 1, thickness: 1), child],

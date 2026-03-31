@@ -6,8 +6,8 @@ import "package:karotator/providers/theme.dart";
 import "package:karotator/ui/settings/font_size.dart";
 import "package:karotator/ui/settings/settings_list.dart";
 import "package:karotator/ui/settings/settings_section.dart";
+import "package:karotator/utils.dart";
 import "package:material_symbols_icons/symbols.dart";
-import "package:system_fonts/system_fonts.dart";
 
 class AppearanceSettings extends ConsumerStatefulWidget {
   const AppearanceSettings({super.key});
@@ -17,16 +17,9 @@ class AppearanceSettings extends ConsumerStatefulWidget {
 }
 
 class _AppearanceSettingsState extends ConsumerState<AppearanceSettings> {
-  List<String>? allFonts;
-
   @override
   void initState() {
     super.initState();
-    getAllFonts();
-  }
-
-  Future<void> getAllFonts() async {
-    allFonts = await SystemFonts().loadAllFonts();
   }
 
   void showThemeSettingMenu(
@@ -86,8 +79,6 @@ class _AppearanceSettingsState extends ConsumerState<AppearanceSettings> {
     required String? font,
     required FontNotifier notifier,
   }) {
-    if (allFonts == null) return;
-
     showModalBottomSheet(
       context: context,
       builder: (context) {
@@ -105,7 +96,7 @@ class _AppearanceSettingsState extends ConsumerState<AppearanceSettings> {
                     Navigator.pop(context);
                   },
                 ),
-                for (var fontName in allFonts!)
+                for (var fontName in fonts)
                   ListTile(
                     leading: const Icon(Icons.font_download),
                     title: Text(
@@ -170,12 +161,6 @@ class _AppearanceSettingsState extends ConsumerState<AppearanceSettings> {
             subtitle: "お気に入りのフォントで、快適に。",
             trailing: Text(font ?? "デフォルト", style: TextStyle(fontFamily: font)),
             onTap: () {
-              if (allFonts == null) {
-                ScaffoldMessenger.of(
-                  context,
-                ).showSnackBar(const SnackBar(content: Text("フォントをロード中...")));
-                return;
-              }
               showFontSettingMenu(context, font: font, notifier: fontNotifier);
             },
           ),

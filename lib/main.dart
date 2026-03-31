@@ -25,6 +25,7 @@ class Karotator extends ConsumerWidget {
     return MaterialApp(
       title: 'Karotator',
       scaffoldMessengerKey: messengerKey,
+      navigatorKey: navigatorKey,
       builder: (context, child) {
         return MediaQuery(
           data: MediaQuery.of(

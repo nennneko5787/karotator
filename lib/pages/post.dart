@@ -83,6 +83,8 @@ class _PostPageState extends State<PostPage> {
   Future<void> _createPost() async {
     final content = _postController.text;
 
+    Navigator.pop(context);
+
     messengerKey.currentState?.showSnackBar(
       SnackBar(content: Text("投稿しています...")),
     );
@@ -116,17 +118,18 @@ class _PostPageState extends State<PostPage> {
 
       if (!mounted) return;
 
-      messengerKey.currentState!.showSnackBar(
+      messengerKey.currentState?.showSnackBar(
         SnackBar(
           content: GestureDetector(
             onTap: () {
               Navigator.push(
-                context,
+                navigatorKey.currentState!.context,
                 MaterialPageRoute(builder: (_) => PostDetailPage(post: post)),
               );
             },
             child: Row(
               crossAxisAlignment: CrossAxisAlignment.start,
+              spacing: 8,
               children: [
                 Icon(Icons.check_circle, color: Theme.of(context).primaryColor),
                 Text("投稿しました。"),
@@ -137,6 +140,7 @@ class _PostPageState extends State<PostPage> {
       );
     } catch (e, stackTrace) {
       debugPrint("$e\n$stackTrace");
+      if (!mounted) return;
       messengerKey.currentState?.showSnackBar(
         SnackBar(content: Text("Error: $e")),
       );
@@ -350,7 +354,6 @@ class _PostPageState extends State<PostPage> {
               return ElevatedButton(
                 onPressed: isEnabled
                     ? () async {
-                        Navigator.pop(context);
                         await _createPost();
                       }
                     : null,

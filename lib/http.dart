@@ -5,6 +5,7 @@ import 'package:flutter/rendering.dart';
 import 'package:http/http.dart' as httpx;
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:karotator/enum.dart';
+import 'package:karotator/objects/board.dart';
 import 'package:karotator/objects/circle.dart';
 import 'package:karotator/objects/post.dart';
 import 'package:karotator/utils.dart';
@@ -480,6 +481,7 @@ class HTTPClient {
         }),
       );
       final response = LoginResponse.fromJson(jsonData);
+      nowUserId = response.user.id;
       await saveLoginResponse(response);
       return response;
     } catch (e, stackTrace) {
@@ -517,6 +519,21 @@ class HTTPClient {
     final response = RefreshResponse.fromJson(jsonData);
     await modifyLoginResponse(response);
     return response;
+  }
+
+  Future<void> changePassword(
+    String currentPassword,
+    String newPassword,
+  ) async {
+    final _ = await patch(
+      "users/password",
+      headers: {"Content-Type": "application/json"},
+      body: jsonEncode({
+        "currentPassword": currentPassword,
+        "newPassword": newPassword,
+      }),
+      csrf: true,
+    );
   }
 
   Future<Post> getPostById(int postId) async {
@@ -729,6 +746,30 @@ class HTTPClient {
     );
     return (jsonData["posts"] as List<dynamic>)
         .map((e) => NotificationPost.fromJson(e as Map<String, Object?>))
+        .toList();
+  }
+
+  Future<List<Board>> getBoards() async {
+    final jsonData = await get("boards");
+    return (jsonData["boards"] as List<dynamic>)
+        .map((e) => Board.fromJson(e as Map<String, Object?>))
+        .toList();
+  }
+
+  Future<List<Thread>> getThreads({required String slug}) async {
+    final jsonData = await get("boards/$slug");
+    return (jsonData["threads"] as List<dynamic>)
+        .map((e) => Thread.fromJson(e as Map<String, Object?>))
+        .toList();
+  }
+
+  Future<List<ThreadReply>> getThreadReplies({
+    required String slug,
+    required int threadId,
+  }) async {
+    final jsonData = await get("boards/$slug/threads/$threadId");
+    return (jsonData["replies"] as List<dynamic>)
+        .map((e) => ThreadReply.fromJson(e as Map<String, Object?>))
         .toList();
   }
 }

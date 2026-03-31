@@ -20,7 +20,7 @@ final class FontNotifierProvider
         argument: null,
         retry: null,
         name: r'fontProvider',
-        isAutoDispose: false,
+        isAutoDispose: true,
         dependencies: null,
         $allTransitiveDependencies: null,
       );
@@ -41,7 +41,7 @@ final class FontNotifierProvider
   }
 }
 
-String _$fontNotifierHash() => r'48963c3daf82c04c911aa77b100e5aa998c4de46';
+String _$fontNotifierHash() => r'738a7002decb05c634c4a7996ae8d16e12feddba';
 
 abstract class _$FontNotifier extends $Notifier<String?> {
   String? build();

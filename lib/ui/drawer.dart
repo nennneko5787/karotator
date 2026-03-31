@@ -2,6 +2,7 @@ import "package:flutter/material.dart";
 import "package:karotator/http.dart";
 import "package:karotator/objects/response.dart";
 import "package:karotator/objects/user.dart";
+import "package:karotator/pages/boards.dart";
 import "package:karotator/pages/login.dart";
 import "package:karotator/pages/profile.dart";
 import "package:karotator/pages/settings.dart";
@@ -182,6 +183,16 @@ class _DrawerMenuState extends State<DrawerMenu> {
               leading: const Icon(Icons.people),
               title: const Text("サークル/リスト"),
               onTap: () {},
+            ),
+            ListTile(
+              leading: const Icon(Icons.bookmark),
+              title: const Text("掲示板"),
+              onTap: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (parentContext) => BoardsPage()),
+                );
+              },
             ),
             ListTile(
               leading: const Icon(Icons.brush),

@@ -1,7 +1,10 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:karotator/enum.dart';
 import 'package:karotator/objects/user.dart';
+import 'package:system_fonts/system_fonts.dart';
 import 'package:url_launcher/url_launcher_string.dart';
 import 'package:video_thumbnail/video_thumbnail.dart';
 
@@ -150,4 +153,17 @@ List<Icon> getUserPrimaryMark(AbstractUser user, {double? size}) {
           ),
         ]
       : [];
+}
+
+List<String> fonts = [];
+const _channel = MethodChannel('net.nennneko5787.karotator/fonts');
+
+Future<void> loadAllFonts() async {
+  if (Platform.isIOS) {
+    fonts = (await _channel.invokeListMethod<String>('getSystemFonts')) ?? [];
+  } else if (Platform.isAndroid) {
+    fonts = [];
+  } else {
+    fonts = await SystemFonts().loadAllFonts();
+  }
 }

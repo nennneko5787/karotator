@@ -7,6 +7,7 @@ import "package:karotator/providers/font.dart";
 import "package:karotator/providers/font_size.dart";
 import "package:karotator/providers/theme.dart";
 import "package:karotator/ui/dialog.dart";
+import "package:karotator/utils.dart";
 
 class StartUpPage extends ConsumerStatefulWidget {
   const StartUpPage({super.key});
@@ -30,6 +31,8 @@ class _StartUpPageState extends ConsumerState<StartUpPage> {
     final fontSizeNotifier = ref.read(fontSizeProvider.notifier);
 
     try {
+      await loadAllFonts();
+
       if (!Preferences().initialized) {
         await Preferences().initialize();
         themeNotifier.setThemeMode(Preferences().getThemeMode());
@@ -42,6 +45,7 @@ class _StartUpPageState extends ConsumerState<StartUpPage> {
       }
 
       if (HTTPClient().nowAccountId != null) {
+        await HTTPClient().refresh();
         await HTTPClient().switchSession();
       }
     } catch (e, stackTrace) {

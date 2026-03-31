@@ -20,7 +20,7 @@ final class ThemeModeNotifierProvider
         argument: null,
         retry: null,
         name: r'themeModeProvider',
-        isAutoDispose: false,
+        isAutoDispose: true,
         dependencies: null,
         $allTransitiveDependencies: null,
       );
@@ -41,7 +41,7 @@ final class ThemeModeNotifierProvider
   }
 }
 
-String _$themeModeNotifierHash() => r'e891dbc9899744f07fccc35ed19b09b75eb3eaa0';
+String _$themeModeNotifierHash() => r'21b2098e24b55b173ac8f0a7a51220a359b3ee39';
 
 abstract class _$ThemeModeNotifier extends $Notifier<ThemeMode> {
   ThemeMode build();
