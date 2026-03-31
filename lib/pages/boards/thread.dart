@@ -2,7 +2,6 @@ import "package:flutter/material.dart";
 import "package:karotator/http.dart";
 import "package:karotator/objects/board.dart";
 import "package:karotator/ui/dialog.dart";
-import "package:karotator/utils.dart";
 
 class ThreadPage extends StatefulWidget {
   const ThreadPage({super.key, required this.thread, required this.board});
