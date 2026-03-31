@@ -47,7 +47,7 @@ class _ThreadPageState extends State<ThreadPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: Text(board.title)),
+      appBar: AppBar(title: Text("${thread.title} - ${board.title}")),
       body: RefreshIndicator(
         onRefresh: refreshThread,
         child: FutureBuilder(
