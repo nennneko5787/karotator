@@ -70,6 +70,19 @@ abstract class Thread with _$Thread {
 }
 
 @freezed
+abstract class ReplyAuthor with _$ReplyAuthor {
+  const factory ReplyAuthor({
+    required int id,
+    required String username,
+    required String displayName,
+    String? avatarUrl,
+  }) = _ReplyAuthor;
+
+  factory ReplyAuthor.fromJson(Map<String, Object?> json) =>
+      _$ReplyAuthorFromJson(json);
+}
+
+@freezed
 abstract class ThreadReply with _$ThreadReply {
   const factory ThreadReply({
     required int id,
@@ -84,7 +97,7 @@ abstract class ThreadReply with _$ThreadReply {
     DateTime? lastReplyAt,
     required DateTime createdAt,
     required DateTime updatedAt,
-    required ThreadAuthor author,
+    required ReplyAuthor author,
     required List<ReactionSummary> reactionSummary,
   }) = _ThreadReply;
 

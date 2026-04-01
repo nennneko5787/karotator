@@ -1,6 +1,7 @@
 import "package:flutter/material.dart";
 import "package:karotator/http.dart";
 import "package:karotator/objects/board.dart";
+import "package:karotator/pages/boards/post.dart";
 import "package:karotator/pages/boards/thread.dart";
 import "package:karotator/ui/dialog.dart";
 import "package:karotator/utils.dart";
@@ -44,6 +45,16 @@ class _ThreadsPageState extends State<ThreadsPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(title: Text(board.title)),
+      floatingActionButton: FloatingActionButton(
+        onPressed: () => {
+          Navigator.push(
+            context,
+            MaterialPageRoute(builder: (context) => PostThread()),
+          ),
+        },
+        shape: const CircleBorder(),
+        child: const Icon(Icons.add),
+      ),
       body: RefreshIndicator(
         onRefresh: refreshThreads,
         child: FutureBuilder(
@@ -67,7 +78,7 @@ class _ThreadsPageState extends State<ThreadsPage> {
                   return "${thread.createdAt.year}/${thread.createdAt.month}/${thread.createdAt.day} ${thread.createdAt.hour}:${thread.createdAt.minute}";
                 }
 
-                return ListTile(
+                final child = ListTile(
                   title: Text(thread.title),
                   subtitle: Text(
                     "${thread.replyCount}件　${thread.author.displayName}　投稿日 ${getYMD()}　最終返信 ${getLocalizedDateTime(thread.lastReplyAt)}",
@@ -82,6 +93,15 @@ class _ThreadsPageState extends State<ThreadsPage> {
                     );
                   },
                 );
+
+                if (index != 0 && index != threads.length) {
+                  return Column(
+                    mainAxisSize: MainAxisSize.min,
+                    children: [const Divider(height: 1, thickness: 1), child],
+                  );
+                }
+
+                return child;
               },
             );
           },

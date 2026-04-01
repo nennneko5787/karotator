@@ -772,4 +772,59 @@ class HTTPClient {
         .map((e) => ThreadReply.fromJson(e as Map<String, Object?>))
         .toList();
   }
+
+  Future<ThreadReply> replyThread(
+    String content, {
+    List<File>? medias,
+    required String slug,
+    required int threadId,
+  }) async {
+    final request = httpx.MultipartRequest(
+      'POST',
+      Uri.parse("${baseUrl}boards/$slug/threads/$threadId/replies"),
+    );
+
+    final deviceId = await getDeviceIdHeader();
+
+    final login = await loadLoginResponse();
+    final cookies = await cookieHeaders();
+
+    final headers = <String, String>{
+      ...cookies,
+      ...deviceId,
+      "Authorization": "Bearer ${login!.accessToken}",
+      "x-csrf-token": await fetchCsrfToken(),
+      "x-client-type": "unofficial_app",
+    };
+    request.headers.addAll(headers);
+
+    Map<String, String> data = {"content": content};
+
+    request.fields.addAll(data);
+
+    if (medias != null) {
+      for (var media in medias) {
+        request.files.add(
+          httpx.MultipartFile.fromBytes(
+            "media",
+            await media.readAsBytes(),
+            filename: media.path.split(Platform.pathSeparator).last,
+            contentType: httpx.MediaType.parse(getMimeType(media.path)),
+          ),
+        );
+      }
+    }
+
+    final response = await request.send();
+    final bodyString = await response.stream.bytesToString();
+
+    debugPrint("req-headers: $headers");
+    debugPrint("status: ${response.statusCode}");
+    debugPrint("body: $bodyString");
+
+    await afterRequestStreamed(response, bodyString);
+
+    final jsonData = jsonDecode(bodyString) as Map<String, dynamic>;
+    return ThreadReply.fromJson(jsonData["reply"] as Map<String, dynamic>);
+  }
 }

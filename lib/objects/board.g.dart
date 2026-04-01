@@ -102,6 +102,21 @@ Map<String, dynamic> _$ThreadToJson(_Thread instance) => <String, dynamic>{
   'followed': instance.followed,
 };
 
+_ReplyAuthor _$ReplyAuthorFromJson(Map<String, dynamic> json) => _ReplyAuthor(
+  id: (json['id'] as num).toInt(),
+  username: json['username'] as String,
+  displayName: json['displayName'] as String,
+  avatarUrl: json['avatarUrl'] as String?,
+);
+
+Map<String, dynamic> _$ReplyAuthorToJson(_ReplyAuthor instance) =>
+    <String, dynamic>{
+      'id': instance.id,
+      'username': instance.username,
+      'displayName': instance.displayName,
+      'avatarUrl': instance.avatarUrl,
+    };
+
 _ThreadReply _$ThreadReplyFromJson(Map<String, dynamic> json) => _ThreadReply(
   id: (json['id'] as num).toInt(),
   boardId: (json['boardId'] as num).toInt(),
@@ -121,7 +136,7 @@ _ThreadReply _$ThreadReplyFromJson(Map<String, dynamic> json) => _ThreadReply(
       : DateTime.parse(json['lastReplyAt'] as String),
   createdAt: DateTime.parse(json['createdAt'] as String),
   updatedAt: DateTime.parse(json['updatedAt'] as String),
-  author: ThreadAuthor.fromJson(json['author'] as Map<String, dynamic>),
+  author: ReplyAuthor.fromJson(json['author'] as Map<String, dynamic>),
   reactionSummary: (json['reactionSummary'] as List<dynamic>)
       .map((e) => ReactionSummary.fromJson(e as Map<String, dynamic>))
       .toList(),

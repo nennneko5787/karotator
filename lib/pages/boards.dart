@@ -60,7 +60,7 @@ class _BoardsPageState extends State<BoardsPage> {
               itemBuilder: (context, index) {
                 final board = boards[index];
 
-                return ListTile(
+                final child = ListTile(
                   title: Text(board.title),
                   subtitle: Text(
                     "${board.threadCount}スレ ${board.replyCount}レス ${getLocalizedDateTime(board.lastPostAt)}",
@@ -74,6 +74,15 @@ class _BoardsPageState extends State<BoardsPage> {
                     );
                   },
                 );
+
+                if (index != 0 && index != boards.length) {
+                  return Column(
+                    mainAxisSize: MainAxisSize.min,
+                    children: [const Divider(height: 1, thickness: 1), child],
+                  );
+                }
+
+                return child;
               },
             );
           },

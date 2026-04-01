@@ -1200,9 +1200,281 @@ $ThreadAuthorCopyWith<$Res> get author {
 
 
 /// @nodoc
+mixin _$ReplyAuthor {
+
+ int get id; String get username; String get displayName; String? get avatarUrl;
+/// Create a copy of ReplyAuthor
+/// with the given fields replaced by the non-null parameter values.
+@JsonKey(includeFromJson: false, includeToJson: false)
+@pragma('vm:prefer-inline')
+$ReplyAuthorCopyWith<ReplyAuthor> get copyWith => _$ReplyAuthorCopyWithImpl<ReplyAuthor>(this as ReplyAuthor, _$identity);
+
+  /// Serializes this ReplyAuthor to a JSON map.
+  Map<String, dynamic> toJson();
+
+
+@override
+bool operator ==(Object other) {
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is ReplyAuthor&&(identical(other.id, id) || other.id == id)&&(identical(other.username, username) || other.username == username)&&(identical(other.displayName, displayName) || other.displayName == displayName)&&(identical(other.avatarUrl, avatarUrl) || other.avatarUrl == avatarUrl));
+}
+
+@JsonKey(includeFromJson: false, includeToJson: false)
+@override
+int get hashCode => Object.hash(runtimeType,id,username,displayName,avatarUrl);
+
+@override
+String toString() {
+  return 'ReplyAuthor(id: $id, username: $username, displayName: $displayName, avatarUrl: $avatarUrl)';
+}
+
+
+}
+
+/// @nodoc
+abstract mixin class $ReplyAuthorCopyWith<$Res>  {
+  factory $ReplyAuthorCopyWith(ReplyAuthor value, $Res Function(ReplyAuthor) _then) = _$ReplyAuthorCopyWithImpl;
+@useResult
+$Res call({
+ int id, String username, String displayName, String? avatarUrl
+});
+
+
+
+
+}
+/// @nodoc
+class _$ReplyAuthorCopyWithImpl<$Res>
+    implements $ReplyAuthorCopyWith<$Res> {
+  _$ReplyAuthorCopyWithImpl(this._self, this._then);
+
+  final ReplyAuthor _self;
+  final $Res Function(ReplyAuthor) _then;
+
+/// Create a copy of ReplyAuthor
+/// with the given fields replaced by the non-null parameter values.
+@pragma('vm:prefer-inline') @override $Res call({Object? id = null,Object? username = null,Object? displayName = null,Object? avatarUrl = freezed,}) {
+  return _then(_self.copyWith(
+id: null == id ? _self.id : id // ignore: cast_nullable_to_non_nullable
+as int,username: null == username ? _self.username : username // ignore: cast_nullable_to_non_nullable
+as String,displayName: null == displayName ? _self.displayName : displayName // ignore: cast_nullable_to_non_nullable
+as String,avatarUrl: freezed == avatarUrl ? _self.avatarUrl : avatarUrl // ignore: cast_nullable_to_non_nullable
+as String?,
+  ));
+}
+
+}
+
+
+/// Adds pattern-matching-related methods to [ReplyAuthor].
+extension ReplyAuthorPatterns on ReplyAuthor {
+/// A variant of `map` that fallback to returning `orElse`.
+///
+/// It is equivalent to doing:
+/// ```dart
+/// switch (sealedClass) {
+///   case final Subclass value:
+///     return ...;
+///   case _:
+///     return orElse();
+/// }
+/// ```
+
+@optionalTypeArgs TResult maybeMap<TResult extends Object?>(TResult Function( _ReplyAuthor value)?  $default,{required TResult orElse(),}){
+final _that = this;
+switch (_that) {
+case _ReplyAuthor() when $default != null:
+return $default(_that);case _:
+  return orElse();
+
+}
+}
+/// A `switch`-like method, using callbacks.
+///
+/// Callbacks receives the raw object, upcasted.
+/// It is equivalent to doing:
+/// ```dart
+/// switch (sealedClass) {
+///   case final Subclass value:
+///     return ...;
+///   case final Subclass2 value:
+///     return ...;
+/// }
+/// ```
+
+@optionalTypeArgs TResult map<TResult extends Object?>(TResult Function( _ReplyAuthor value)  $default,){
+final _that = this;
+switch (_that) {
+case _ReplyAuthor():
+return $default(_that);case _:
+  throw StateError('Unexpected subclass');
+
+}
+}
+/// A variant of `map` that fallback to returning `null`.
+///
+/// It is equivalent to doing:
+/// ```dart
+/// switch (sealedClass) {
+///   case final Subclass value:
+///     return ...;
+///   case _:
+///     return null;
+/// }
+/// ```
+
+@optionalTypeArgs TResult? mapOrNull<TResult extends Object?>(TResult? Function( _ReplyAuthor value)?  $default,){
+final _that = this;
+switch (_that) {
+case _ReplyAuthor() when $default != null:
+return $default(_that);case _:
+  return null;
+
+}
+}
+/// A variant of `when` that fallback to an `orElse` callback.
+///
+/// It is equivalent to doing:
+/// ```dart
+/// switch (sealedClass) {
+///   case Subclass(:final field):
+///     return ...;
+///   case _:
+///     return orElse();
+/// }
+/// ```
+
+@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( int id,  String username,  String displayName,  String? avatarUrl)?  $default,{required TResult orElse(),}) {final _that = this;
+switch (_that) {
+case _ReplyAuthor() when $default != null:
+return $default(_that.id,_that.username,_that.displayName,_that.avatarUrl);case _:
+  return orElse();
+
+}
+}
+/// A `switch`-like method, using callbacks.
+///
+/// As opposed to `map`, this offers destructuring.
+/// It is equivalent to doing:
+/// ```dart
+/// switch (sealedClass) {
+///   case Subclass(:final field):
+///     return ...;
+///   case Subclass2(:final field2):
+///     return ...;
+/// }
+/// ```
+
+@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( int id,  String username,  String displayName,  String? avatarUrl)  $default,) {final _that = this;
+switch (_that) {
+case _ReplyAuthor():
+return $default(_that.id,_that.username,_that.displayName,_that.avatarUrl);case _:
+  throw StateError('Unexpected subclass');
+
+}
+}
+/// A variant of `when` that fallback to returning `null`
+///
+/// It is equivalent to doing:
+/// ```dart
+/// switch (sealedClass) {
+///   case Subclass(:final field):
+///     return ...;
+///   case _:
+///     return null;
+/// }
+/// ```
+
+@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( int id,  String username,  String displayName,  String? avatarUrl)?  $default,) {final _that = this;
+switch (_that) {
+case _ReplyAuthor() when $default != null:
+return $default(_that.id,_that.username,_that.displayName,_that.avatarUrl);case _:
+  return null;
+
+}
+}
+
+}
+
+/// @nodoc
+@JsonSerializable()
+
+class _ReplyAuthor implements ReplyAuthor {
+  const _ReplyAuthor({required this.id, required this.username, required this.displayName, this.avatarUrl});
+  factory _ReplyAuthor.fromJson(Map<String, dynamic> json) => _$ReplyAuthorFromJson(json);
+
+@override final  int id;
+@override final  String username;
+@override final  String displayName;
+@override final  String? avatarUrl;
+
+/// Create a copy of ReplyAuthor
+/// with the given fields replaced by the non-null parameter values.
+@override @JsonKey(includeFromJson: false, includeToJson: false)
+@pragma('vm:prefer-inline')
+_$ReplyAuthorCopyWith<_ReplyAuthor> get copyWith => __$ReplyAuthorCopyWithImpl<_ReplyAuthor>(this, _$identity);
+
+@override
+Map<String, dynamic> toJson() {
+  return _$ReplyAuthorToJson(this, );
+}
+
+@override
+bool operator ==(Object other) {
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is _ReplyAuthor&&(identical(other.id, id) || other.id == id)&&(identical(other.username, username) || other.username == username)&&(identical(other.displayName, displayName) || other.displayName == displayName)&&(identical(other.avatarUrl, avatarUrl) || other.avatarUrl == avatarUrl));
+}
+
+@JsonKey(includeFromJson: false, includeToJson: false)
+@override
+int get hashCode => Object.hash(runtimeType,id,username,displayName,avatarUrl);
+
+@override
+String toString() {
+  return 'ReplyAuthor(id: $id, username: $username, displayName: $displayName, avatarUrl: $avatarUrl)';
+}
+
+
+}
+
+/// @nodoc
+abstract mixin class _$ReplyAuthorCopyWith<$Res> implements $ReplyAuthorCopyWith<$Res> {
+  factory _$ReplyAuthorCopyWith(_ReplyAuthor value, $Res Function(_ReplyAuthor) _then) = __$ReplyAuthorCopyWithImpl;
+@override @useResult
+$Res call({
+ int id, String username, String displayName, String? avatarUrl
+});
+
+
+
+
+}
+/// @nodoc
+class __$ReplyAuthorCopyWithImpl<$Res>
+    implements _$ReplyAuthorCopyWith<$Res> {
+  __$ReplyAuthorCopyWithImpl(this._self, this._then);
+
+  final _ReplyAuthor _self;
+  final $Res Function(_ReplyAuthor) _then;
+
+/// Create a copy of ReplyAuthor
+/// with the given fields replaced by the non-null parameter values.
+@override @pragma('vm:prefer-inline') $Res call({Object? id = null,Object? username = null,Object? displayName = null,Object? avatarUrl = freezed,}) {
+  return _then(_ReplyAuthor(
+id: null == id ? _self.id : id // ignore: cast_nullable_to_non_nullable
+as int,username: null == username ? _self.username : username // ignore: cast_nullable_to_non_nullable
+as String,displayName: null == displayName ? _self.displayName : displayName // ignore: cast_nullable_to_non_nullable
+as String,avatarUrl: freezed == avatarUrl ? _self.avatarUrl : avatarUrl // ignore: cast_nullable_to_non_nullable
+as String?,
+  ));
+}
+
+
+}
+
+
+/// @nodoc
 mixin _$ThreadReply {
 
- int get id; int get boardId; int get threadId; int get authorId; int get replyNumber; String get content; List<String> get imageUrls; List<String> get imageTypes; int? get replyCount; DateTime? get lastReplyAt; DateTime get createdAt; DateTime get updatedAt; ThreadAuthor get author; List<ReactionSummary> get reactionSummary;
+ int get id; int get boardId; int get threadId; int get authorId; int get replyNumber; String get content; List<String> get imageUrls; List<String> get imageTypes; int? get replyCount; DateTime? get lastReplyAt; DateTime get createdAt; DateTime get updatedAt; ReplyAuthor get author; List<ReactionSummary> get reactionSummary;
 /// Create a copy of ThreadReply
 /// with the given fields replaced by the non-null parameter values.
 @JsonKey(includeFromJson: false, includeToJson: false)
@@ -1235,11 +1507,11 @@ abstract mixin class $ThreadReplyCopyWith<$Res>  {
   factory $ThreadReplyCopyWith(ThreadReply value, $Res Function(ThreadReply) _then) = _$ThreadReplyCopyWithImpl;
 @useResult
 $Res call({
- int id, int boardId, int threadId, int authorId, int replyNumber, String content, List<String> imageUrls, List<String> imageTypes, int? replyCount, DateTime? lastReplyAt, DateTime createdAt, DateTime updatedAt, ThreadAuthor author, List<ReactionSummary> reactionSummary
+ int id, int boardId, int threadId, int authorId, int replyNumber, String content, List<String> imageUrls, List<String> imageTypes, int? replyCount, DateTime? lastReplyAt, DateTime createdAt, DateTime updatedAt, ReplyAuthor author, List<ReactionSummary> reactionSummary
 });
 
 
-$ThreadAuthorCopyWith<$Res> get author;
+$ReplyAuthorCopyWith<$Res> get author;
 
 }
 /// @nodoc
@@ -1267,7 +1539,7 @@ as int?,lastReplyAt: freezed == lastReplyAt ? _self.lastReplyAt : lastReplyAt //
 as DateTime?,createdAt: null == createdAt ? _self.createdAt : createdAt // ignore: cast_nullable_to_non_nullable
 as DateTime,updatedAt: null == updatedAt ? _self.updatedAt : updatedAt // ignore: cast_nullable_to_non_nullable
 as DateTime,author: null == author ? _self.author : author // ignore: cast_nullable_to_non_nullable
-as ThreadAuthor,reactionSummary: null == reactionSummary ? _self.reactionSummary : reactionSummary // ignore: cast_nullable_to_non_nullable
+as ReplyAuthor,reactionSummary: null == reactionSummary ? _self.reactionSummary : reactionSummary // ignore: cast_nullable_to_non_nullable
 as List<ReactionSummary>,
   ));
 }
@@ -1275,9 +1547,9 @@ as List<ReactionSummary>,
 /// with the given fields replaced by the non-null parameter values.
 @override
 @pragma('vm:prefer-inline')
-$ThreadAuthorCopyWith<$Res> get author {
+$ReplyAuthorCopyWith<$Res> get author {
   
-  return $ThreadAuthorCopyWith<$Res>(_self.author, (value) {
+  return $ReplyAuthorCopyWith<$Res>(_self.author, (value) {
     return _then(_self.copyWith(author: value));
   });
 }
@@ -1362,7 +1634,7 @@ return $default(_that);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( int id,  int boardId,  int threadId,  int authorId,  int replyNumber,  String content,  List<String> imageUrls,  List<String> imageTypes,  int? replyCount,  DateTime? lastReplyAt,  DateTime createdAt,  DateTime updatedAt,  ThreadAuthor author,  List<ReactionSummary> reactionSummary)?  $default,{required TResult orElse(),}) {final _that = this;
+@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( int id,  int boardId,  int threadId,  int authorId,  int replyNumber,  String content,  List<String> imageUrls,  List<String> imageTypes,  int? replyCount,  DateTime? lastReplyAt,  DateTime createdAt,  DateTime updatedAt,  ReplyAuthor author,  List<ReactionSummary> reactionSummary)?  $default,{required TResult orElse(),}) {final _that = this;
 switch (_that) {
 case _ThreadReply() when $default != null:
 return $default(_that.id,_that.boardId,_that.threadId,_that.authorId,_that.replyNumber,_that.content,_that.imageUrls,_that.imageTypes,_that.replyCount,_that.lastReplyAt,_that.createdAt,_that.updatedAt,_that.author,_that.reactionSummary);case _:
@@ -1383,7 +1655,7 @@ return $default(_that.id,_that.boardId,_that.threadId,_that.authorId,_that.reply
 /// }
 /// ```
 
-@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( int id,  int boardId,  int threadId,  int authorId,  int replyNumber,  String content,  List<String> imageUrls,  List<String> imageTypes,  int? replyCount,  DateTime? lastReplyAt,  DateTime createdAt,  DateTime updatedAt,  ThreadAuthor author,  List<ReactionSummary> reactionSummary)  $default,) {final _that = this;
+@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( int id,  int boardId,  int threadId,  int authorId,  int replyNumber,  String content,  List<String> imageUrls,  List<String> imageTypes,  int? replyCount,  DateTime? lastReplyAt,  DateTime createdAt,  DateTime updatedAt,  ReplyAuthor author,  List<ReactionSummary> reactionSummary)  $default,) {final _that = this;
 switch (_that) {
 case _ThreadReply():
 return $default(_that.id,_that.boardId,_that.threadId,_that.authorId,_that.replyNumber,_that.content,_that.imageUrls,_that.imageTypes,_that.replyCount,_that.lastReplyAt,_that.createdAt,_that.updatedAt,_that.author,_that.reactionSummary);case _:
@@ -1403,7 +1675,7 @@ return $default(_that.id,_that.boardId,_that.threadId,_that.authorId,_that.reply
 /// }
 /// ```
 
-@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( int id,  int boardId,  int threadId,  int authorId,  int replyNumber,  String content,  List<String> imageUrls,  List<String> imageTypes,  int? replyCount,  DateTime? lastReplyAt,  DateTime createdAt,  DateTime updatedAt,  ThreadAuthor author,  List<ReactionSummary> reactionSummary)?  $default,) {final _that = this;
+@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( int id,  int boardId,  int threadId,  int authorId,  int replyNumber,  String content,  List<String> imageUrls,  List<String> imageTypes,  int? replyCount,  DateTime? lastReplyAt,  DateTime createdAt,  DateTime updatedAt,  ReplyAuthor author,  List<ReactionSummary> reactionSummary)?  $default,) {final _that = this;
 switch (_that) {
 case _ThreadReply() when $default != null:
 return $default(_that.id,_that.boardId,_that.threadId,_that.authorId,_that.replyNumber,_that.content,_that.imageUrls,_that.imageTypes,_that.replyCount,_that.lastReplyAt,_that.createdAt,_that.updatedAt,_that.author,_that.reactionSummary);case _:
@@ -1445,7 +1717,7 @@ class _ThreadReply implements ThreadReply {
 @override final  DateTime? lastReplyAt;
 @override final  DateTime createdAt;
 @override final  DateTime updatedAt;
-@override final  ThreadAuthor author;
+@override final  ReplyAuthor author;
  final  List<ReactionSummary> _reactionSummary;
 @override List<ReactionSummary> get reactionSummary {
   if (_reactionSummary is EqualUnmodifiableListView) return _reactionSummary;
@@ -1487,11 +1759,11 @@ abstract mixin class _$ThreadReplyCopyWith<$Res> implements $ThreadReplyCopyWith
   factory _$ThreadReplyCopyWith(_ThreadReply value, $Res Function(_ThreadReply) _then) = __$ThreadReplyCopyWithImpl;
 @override @useResult
 $Res call({
- int id, int boardId, int threadId, int authorId, int replyNumber, String content, List<String> imageUrls, List<String> imageTypes, int? replyCount, DateTime? lastReplyAt, DateTime createdAt, DateTime updatedAt, ThreadAuthor author, List<ReactionSummary> reactionSummary
+ int id, int boardId, int threadId, int authorId, int replyNumber, String content, List<String> imageUrls, List<String> imageTypes, int? replyCount, DateTime? lastReplyAt, DateTime createdAt, DateTime updatedAt, ReplyAuthor author, List<ReactionSummary> reactionSummary
 });
 
 
-@override $ThreadAuthorCopyWith<$Res> get author;
+@override $ReplyAuthorCopyWith<$Res> get author;
 
 }
 /// @nodoc
@@ -1519,7 +1791,7 @@ as int?,lastReplyAt: freezed == lastReplyAt ? _self.lastReplyAt : lastReplyAt //
 as DateTime?,createdAt: null == createdAt ? _self.createdAt : createdAt // ignore: cast_nullable_to_non_nullable
 as DateTime,updatedAt: null == updatedAt ? _self.updatedAt : updatedAt // ignore: cast_nullable_to_non_nullable
 as DateTime,author: null == author ? _self.author : author // ignore: cast_nullable_to_non_nullable
-as ThreadAuthor,reactionSummary: null == reactionSummary ? _self._reactionSummary : reactionSummary // ignore: cast_nullable_to_non_nullable
+as ReplyAuthor,reactionSummary: null == reactionSummary ? _self._reactionSummary : reactionSummary // ignore: cast_nullable_to_non_nullable
 as List<ReactionSummary>,
   ));
 }
@@ -1528,9 +1800,9 @@ as List<ReactionSummary>,
 /// with the given fields replaced by the non-null parameter values.
 @override
 @pragma('vm:prefer-inline')
-$ThreadAuthorCopyWith<$Res> get author {
+$ReplyAuthorCopyWith<$Res> get author {
   
-  return $ThreadAuthorCopyWith<$Res>(_self.author, (value) {
+  return $ReplyAuthorCopyWith<$Res>(_self.author, (value) {
     return _then(_self.copyWith(author: value));
   });
 }
