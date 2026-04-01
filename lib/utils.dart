@@ -156,14 +156,9 @@ List<Icon> getUserPrimaryMark(AbstractUser user, {double? size}) {
 }
 
 List<String> fonts = [];
-const _channel = MethodChannel('net.nennneko5787.karotator/fonts');
 
 Future<void> loadAllFonts() async {
-  if (Platform.isIOS) {
-    fonts = (await _channel.invokeListMethod<String>('getSystemFonts')) ?? [];
-  } else if (Platform.isAndroid) {
-    fonts = [];
-  } else {
+  if (!Platform.isAndroid && !Platform.isIOS) {
     fonts = await SystemFonts().loadAllFonts();
   }
 }

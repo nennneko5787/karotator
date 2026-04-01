@@ -6,6 +6,7 @@ Future<void> showAlert(
   Object? e,
   String? title,
   String? content,
+  void Function()? onOk,
 }) async {
   if (e != null) {
     if ((title == null) && (content == null)) {
@@ -36,6 +37,9 @@ Future<void> showAlert(
             child: Text('OK'),
             onPressed: () {
               Navigator.of(context).pop();
+              if (onOk != null) {
+                onOk();
+              }
             },
           ),
         ],

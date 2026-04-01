@@ -51,12 +51,23 @@ class _StartUpPageState extends ConsumerState<StartUpPage> {
     } catch (e, stackTrace) {
       debugPrint("$e\n$stackTrace");
       if (!mounted) return;
-      showAlert(context, e: e);
+      showAlert(
+        context,
+        e: e,
+        onOk: () {
+          if (!mounted) return;
+          Navigator.pushReplacement(
+            context,
+            MaterialPageRoute(builder: (context) => HomePage()),
+          );
+        },
+      );
 
       final accountId = HTTPClient().nowAccountId;
       if (accountId != null) {
         await HTTPClient().removeAccountId(accountId);
       }
+      return;
     }
 
     if (!mounted) return;
