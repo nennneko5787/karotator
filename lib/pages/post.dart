@@ -62,7 +62,6 @@ class _PostPageState extends State<PostPage> {
         }),
       },
     );
-    HTTPClient().loadLoginResponse().then((response) => {setState(() {})});
     HTTPClient().getUserCircles().then((circles) => _circles = circles);
   }
 
