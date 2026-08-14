@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:karotator/exceptions.dart';
-import 'package:karotator/http.dart';
+import 'package:karotator/api/exceptions.dart';
+import 'package:karotator/providers/api.dart';
 import 'package:karotator/objects/response.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 
@@ -27,9 +27,9 @@ class UserResponseNotifier extends _$UserResponseNotifier {
 
     try {
       if (!current.isFollowing) {
-        await HTTPClient().follow(current.user.id);
+        await ref.read(usersApiProvider).follow(current.user.id);
       } else {
-        await HTTPClient().unfollow(current.user.id);
+        await ref.read(usersApiProvider).unfollow(current.user.id);
       }
     } catch (e, stackTrace) {
       debugPrint("$e\n$stackTrace");

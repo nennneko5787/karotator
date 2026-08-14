@@ -1,5 +1,5 @@
 import "package:flutter/material.dart" hide Notification;
-import "package:karotator/http.dart";
+import "package:karotator/api/karotter_api.dart";
 import "package:karotator/objects/post.dart";
 import "package:karotator/ui/dialog.dart";
 import "package:karotator/objects/notification.dart";
@@ -29,13 +29,13 @@ class _NotificationPostsPageState extends State<NotificationPostsPage> {
 
   Future<void> fetchPosts() async {
     try {
-      final notificationPosts = await HTTPClient().getGroupedPosts(
+      final notificationPosts = await KarotterApi().notifications.groupedPosts(
         notification.notificationIds,
       );
 
       List<Post> posts = [
         for (var post in notificationPosts)
-          await HTTPClient().getPostById(post.id),
+          await KarotterApi().posts.byId(post.id),
       ];
       setState(() {
         this.posts = posts;

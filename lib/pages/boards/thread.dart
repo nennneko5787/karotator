@@ -1,5 +1,6 @@
+import "package:karotator/const.dart";
 import "package:flutter/material.dart";
-import "package:karotator/http.dart";
+import "package:karotator/api/karotter_api.dart";
 import "package:karotator/objects/board.dart";
 import "package:karotator/pages/profile.dart";
 import "package:karotator/ui/dialog.dart";
@@ -28,7 +29,7 @@ class _ThreadPageState extends State<ThreadPage> {
 
   Future<void> refreshThread() async {
     try {
-      final repliesList = await HTTPClient().getThreadReplies(
+      final repliesList = await KarotterApi().boards.replies(
         slug: board.slug,
         threadId: thread.id,
       );
@@ -103,9 +104,7 @@ class _ThreadPageState extends State<ThreadPage> {
                         icon: CircleAvatar(
                           radius: 10,
                           backgroundImage: NetworkImage(
-                            reply.author.avatarUrl != null
-                                ? "https://karotter.com${reply.author.avatarUrl}"
-                                : "https://karotter.com/default-avatar.png",
+                            avatarUrlOf(reply.author.avatarUrl),
                           ),
                         ),
                       ),
@@ -175,7 +174,7 @@ class _ReplyInputState extends State<_ReplyInput> {
 
     setState(() => _isPosting = true);
     try {
-      await HTTPClient().replyThread(
+      await KarotterApi().boards.reply(
         text,
         slug: widget.board.slug,
         threadId: widget.thread.id,

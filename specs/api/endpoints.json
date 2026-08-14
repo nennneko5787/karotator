@@ -1,0 +1,2331 @@
+{
+  "origin": "https://karotter.com",
+  "generatedBy": "tool/fetch_api_spec.dart",
+  "note": "JS バンドルからのヒューリスティックな抽出結果。公式ドキュメントではない。",
+  "count": 297,
+  "endpoints": [
+    {
+      "method": "DELETE",
+      "path": "/apikeys/{}",
+      "chunks": [
+        "settings-BPvwKrKG.js"
+      ]
+    },
+    {
+      "method": "DELETE",
+      "path": "/auth/oauth/{}",
+      "chunks": [
+        "settings-BPvwKrKG.js"
+      ]
+    },
+    {
+      "method": "DELETE",
+      "path": "/auth/sessions/others",
+      "chunks": [
+        "settings-BPvwKrKG.js"
+      ]
+    },
+    {
+      "method": "DELETE",
+      "path": "/auth/sessions/{}",
+      "chunks": [
+        "settings-BPvwKrKG.js"
+      ]
+    },
+    {
+      "method": "DELETE",
+      "path": "/boards/{}",
+      "chunks": [
+        "BoardsPage-CjSeLAab.js"
+      ]
+    },
+    {
+      "method": "DELETE",
+      "path": "/boards/{}/follow",
+      "chunks": [
+        "BoardsPage-CjSeLAab.js",
+        "boards._slug.threads._threadId-nFQoPas-.js"
+      ]
+    },
+    {
+      "method": "DELETE",
+      "path": "/boards/{}/threads/{}",
+      "chunks": [
+        "BoardsPage-CjSeLAab.js",
+        "boards._slug.threads._threadId-nFQoPas-.js"
+      ]
+    },
+    {
+      "method": "DELETE",
+      "path": "/boards/{}/threads/{}/follow",
+      "chunks": [
+        "BoardsPage-CjSeLAab.js",
+        "boards._slug.threads._threadId-nFQoPas-.js"
+      ]
+    },
+    {
+      "method": "DELETE",
+      "path": "/channels/messages/{}",
+      "chunks": [
+        "GuildsPage-DhICBXly.js"
+      ]
+    },
+    {
+      "method": "DELETE",
+      "path": "/channels/{}",
+      "chunks": [
+        "GuildsPage-DhICBXly.js"
+      ]
+    },
+    {
+      "method": "DELETE",
+      "path": "/channels/{}/stage",
+      "chunks": [
+        "GuildsPage-DhICBXly.js"
+      ]
+    },
+    {
+      "method": "DELETE",
+      "path": "/communities/{}",
+      "chunks": [
+        "CommunitiesPage-bMjGeQoS.js"
+      ]
+    },
+    {
+      "method": "DELETE",
+      "path": "/communities/{}/home-timeline",
+      "chunks": [
+        "CommunitiesPage-bMjGeQoS.js"
+      ]
+    },
+    {
+      "method": "DELETE",
+      "path": "/communities/{}/members/{}",
+      "chunks": [
+        "CommunitiesPage-bMjGeQoS.js"
+      ]
+    },
+    {
+      "method": "DELETE",
+      "path": "/dm/groups/{}/members/{}",
+      "chunks": [
+        "dm._groupId-ql6whgdC.js"
+      ]
+    },
+    {
+      "method": "DELETE",
+      "path": "/dm/messages/{}",
+      "chunks": [
+        "dm._groupId-ql6whgdC.js"
+      ]
+    },
+    {
+      "method": "DELETE",
+      "path": "/draw/rooms/{}",
+      "chunks": [
+        "draw-chat.rooms._roomId-ePXE29YC.js"
+      ]
+    },
+    {
+      "method": "DELETE",
+      "path": "/follow/block/{}",
+      "chunks": [
+        "KaroatCard-BMwc0wOt.js",
+        "profile._username-Bln5ZRtE.js",
+        "settings-BPvwKrKG.js"
+      ]
+    },
+    {
+      "method": "DELETE",
+      "path": "/follow/follower/${null==ct",
+      "query": [
+        "void 0:ct.user.id}"
+      ],
+      "chunks": [
+        "profile._username-Bln5ZRtE.js"
+      ]
+    },
+    {
+      "method": "DELETE",
+      "path": "/follow/hide-rekarots/{}",
+      "chunks": [
+        "KaroatCard-BMwc0wOt.js",
+        "profile._username-Bln5ZRtE.js"
+      ]
+    },
+    {
+      "method": "DELETE",
+      "path": "/follow/mute/{}",
+      "chunks": [
+        "KaroatCard-BMwc0wOt.js",
+        "profile._username-Bln5ZRtE.js",
+        "settings-BPvwKrKG.js"
+      ]
+    },
+    {
+      "method": "DELETE",
+      "path": "/follow/{}",
+      "chunks": [
+        "KaroatCard-BMwc0wOt.js",
+        "profile._username-Bln5ZRtE.js",
+        "profile._username._type-CwScZRJR.js",
+        "search-CQtJulIC.js"
+      ]
+    },
+    {
+      "method": "DELETE",
+      "path": "/follow/{}/post-notify",
+      "chunks": [
+        "profile._username-Bln5ZRtE.js"
+      ]
+    },
+    {
+      "method": "DELETE",
+      "path": "/guild-bots/applications/{}",
+      "chunks": [
+        "settings-BPvwKrKG.js"
+      ]
+    },
+    {
+      "method": "DELETE",
+      "path": "/guilds/{}",
+      "chunks": [
+        "GuildsPage-DhICBXly.js"
+      ]
+    },
+    {
+      "method": "DELETE",
+      "path": "/guilds/{}/bans/{}",
+      "chunks": [
+        "GuildsPage-DhICBXly.js"
+      ]
+    },
+    {
+      "method": "DELETE",
+      "path": "/guilds/{}/events/{}",
+      "chunks": [
+        "GuildsPage-DhICBXly.js"
+      ]
+    },
+    {
+      "method": "DELETE",
+      "path": "/guilds/{}/invites/{}",
+      "chunks": [
+        "GuildsPage-DhICBXly.js"
+      ]
+    },
+    {
+      "method": "DELETE",
+      "path": "/guilds/{}/members/${null==Cs",
+      "query": [
+        "void 0:Cs.id}"
+      ],
+      "chunks": [
+        "GuildsPage-DhICBXly.js"
+      ]
+    },
+    {
+      "method": "DELETE",
+      "path": "/guilds/{}/members/${null==tn",
+      "query": [
+        "void 0:tn.userId}",
+        "void 0:tn.userId}/roles/{}"
+      ],
+      "chunks": [
+        "GuildsPage-DhICBXly.js"
+      ]
+    },
+    {
+      "method": "DELETE",
+      "path": "/guilds/{}/roles/{}",
+      "chunks": [
+        "GuildsPage-DhICBXly.js"
+      ]
+    },
+    {
+      "method": "DELETE",
+      "path": "/news/{}",
+      "chunks": [
+        "news.studio-DaXvXZlV.js"
+      ]
+    },
+    {
+      "method": "DELETE",
+      "path": "/news/{}/comments/{}",
+      "chunks": [
+        "news._slug-BWIaliBa.js"
+      ]
+    },
+    {
+      "method": "DELETE",
+      "path": "/news/{}/like",
+      "chunks": [
+        "news._slug-BWIaliBa.js"
+      ]
+    },
+    {
+      "method": "DELETE",
+      "path": "/oauth/clients/{}",
+      "chunks": [
+        "settings-BPvwKrKG.js"
+      ]
+    },
+    {
+      "method": "DELETE",
+      "path": "/posts/me/bookmark-folders/{}",
+      "chunks": [
+        "bookmarks-B6n_WaWa.js"
+      ]
+    },
+    {
+      "method": "DELETE",
+      "path": "/posts/scheduled/{}",
+      "chunks": [
+        "KaroatModal-BFA8itSU.js"
+      ]
+    },
+    {
+      "method": "DELETE",
+      "path": "/posts/{}",
+      "chunks": [
+        "KaroatCard-BMwc0wOt.js"
+      ]
+    },
+    {
+      "method": "DELETE",
+      "path": "/posts/{}/bookmark",
+      "chunks": [
+        "KaroatCard-BMwc0wOt.js"
+      ]
+    },
+    {
+      "method": "DELETE",
+      "path": "/posts/{}/like",
+      "chunks": [
+        "KaroatCard-BMwc0wOt.js"
+      ]
+    },
+    {
+      "method": "DELETE",
+      "path": "/posts/{}/react/{}",
+      "chunks": [
+        "KaroatCard-BMwc0wOt.js"
+      ]
+    },
+    {
+      "method": "DELETE",
+      "path": "/posts/{}/rekarot",
+      "chunks": [
+        "KaroatCard-BMwc0wOt.js"
+      ]
+    },
+    {
+      "method": "DELETE",
+      "path": "/radio/{}/participants/{}/invite-speaker",
+      "chunks": [
+        "spaces._spaceId-CkOnQ1DH.js"
+      ]
+    },
+    {
+      "method": "DELETE",
+      "path": "/social/circles/{}",
+      "chunks": [
+        "social-B9Ic_gN6.js"
+      ]
+    },
+    {
+      "method": "DELETE",
+      "path": "/social/circles/{}/members/{}",
+      "chunks": [
+        "social-B9Ic_gN6.js"
+      ]
+    },
+    {
+      "method": "DELETE",
+      "path": "/social/lists/{}",
+      "chunks": [
+        "social-B9Ic_gN6.js"
+      ]
+    },
+    {
+      "method": "DELETE",
+      "path": "/social/lists/{}/members/{}",
+      "chunks": [
+        "social-B9Ic_gN6.js"
+      ]
+    },
+    {
+      "method": "DELETE",
+      "path": "/social/questions/{}",
+      "chunks": [
+        "questions-Ck2TUCOV.js"
+      ]
+    },
+    {
+      "method": "DELETE",
+      "path": "/social/stories/{}",
+      "chunks": [
+        "StoriesStrip-BwXl2bk6.js"
+      ]
+    },
+    {
+      "method": "DELETE",
+      "path": "/social/stories/{}/like",
+      "chunks": [
+        "StoriesStrip-BwXl2bk6.js"
+      ]
+    },
+    {
+      "method": "DELETE",
+      "path": "/users/account",
+      "chunks": [
+        "settings-BPvwKrKG.js"
+      ]
+    },
+    {
+      "method": "GET",
+      "path": "/apikeys",
+      "chunks": [
+        "settings-BPvwKrKG.js"
+      ]
+    },
+    {
+      "method": "GET",
+      "path": "/auth/2fa/setup",
+      "chunks": [
+        "settings-BPvwKrKG.js"
+      ]
+    },
+    {
+      "method": "GET",
+      "path": "/auth/csrf-token",
+      "chunks": [
+        "AuthContext-PQA9CcfF.js",
+        "register-dQfIIesZ.js"
+      ]
+    },
+    {
+      "method": "GET",
+      "path": "/auth/legal-quiz",
+      "chunks": [
+        "legal-quiz-yMCmC4GA.js"
+      ]
+    },
+    {
+      "method": "GET",
+      "path": "/auth/me",
+      "chunks": [
+        "AuthContext-PQA9CcfF.js",
+        "login-BGqwUCyI.js"
+      ]
+    },
+    {
+      "method": "GET",
+      "path": "/auth/sessions",
+      "chunks": [
+        "settings-BPvwKrKG.js"
+      ]
+    },
+    {
+      "method": "GET",
+      "path": "/boards",
+      "chunks": [
+        "BoardIndexPage-ZWdv4CJ0.js"
+      ]
+    },
+    {
+      "method": "GET",
+      "path": "/boards/following",
+      "chunks": [
+        "BoardIndexPage-ZWdv4CJ0.js",
+        "BoardsPage-CjSeLAab.js",
+        "boards._slug.threads._threadId-nFQoPas-.js"
+      ]
+    },
+    {
+      "method": "GET",
+      "path": "/boards/{}",
+      "chunks": [
+        "BoardsPage-CjSeLAab.js"
+      ]
+    },
+    {
+      "method": "GET",
+      "path": "/boards/{}/threads/{}",
+      "chunks": [
+        "boards._slug.threads._threadId-nFQoPas-.js"
+      ]
+    },
+    {
+      "method": "GET",
+      "path": "/channels/{}/forum-posts",
+      "query": [
+        "limit"
+      ],
+      "chunks": [
+        "GuildsPage-DhICBXly.js"
+      ]
+    },
+    {
+      "method": "GET",
+      "path": "/channels/{}/forum-posts/{}",
+      "query": [
+        "limit"
+      ],
+      "chunks": [
+        "GuildsPage-DhICBXly.js"
+      ]
+    },
+    {
+      "method": "GET",
+      "path": "/channels/{}/messages",
+      "query": [
+        "limit"
+      ],
+      "chunks": [
+        "GuildsPage-DhICBXly.js"
+      ]
+    },
+    {
+      "method": "GET",
+      "path": "/communities",
+      "query": [
+        "q"
+      ],
+      "chunks": [
+        "CommunitiesPage-bMjGeQoS.js",
+        "KaroatModal-BFA8itSU.js",
+        "routes-D2ILjfqY.js"
+      ]
+    },
+    {
+      "method": "GET",
+      "path": "/communities/home-timelines",
+      "chunks": [
+        "CommunitiesPage-bMjGeQoS.js",
+        "routes-D2ILjfqY.js"
+      ]
+    },
+    {
+      "method": "GET",
+      "path": "/communities/{}",
+      "query": [
+        "tab"
+      ],
+      "chunks": [
+        "CommunitiesPage-bMjGeQoS.js"
+      ]
+    },
+    {
+      "method": "GET",
+      "path": "/communities/{}/members",
+      "chunks": [
+        "CommunitiesPage-bMjGeQoS.js"
+      ]
+    },
+    {
+      "method": "GET",
+      "path": "/communities/{}/posts",
+      "query": [
+        "e",
+        "limit",
+        "page",
+        "tab"
+      ],
+      "chunks": [
+        "CommunitiesPage-bMjGeQoS.js",
+        "routes-D2ILjfqY.js"
+      ]
+    },
+    {
+      "method": "GET",
+      "path": "/communities/{}/reports",
+      "chunks": [
+        "CommunitiesPage-bMjGeQoS.js"
+      ]
+    },
+    {
+      "method": "GET",
+      "path": "/dm/groups",
+      "query": [
+        "limit",
+        "n",
+        "page",
+        "t"
+      ],
+      "chunks": [
+        "api-CKtNoiOP.js"
+      ]
+    },
+    {
+      "method": "GET",
+      "path": "/dm/groups/{}",
+      "query": [
+        "limit",
+        "n",
+        "page",
+        "r"
+      ],
+      "chunks": [
+        "api-CKtNoiOP.js"
+      ]
+    },
+    {
+      "method": "GET",
+      "path": "/dm/groups/{}/messages",
+      "query": [
+        "limit",
+        "n",
+        "page",
+        "r"
+      ],
+      "chunks": [
+        "api-CKtNoiOP.js"
+      ]
+    },
+    {
+      "method": "GET",
+      "path": "/dm/unread/count",
+      "query": [
+        "limit",
+        "n",
+        "page",
+        "t"
+      ],
+      "chunks": [
+        "api-CKtNoiOP.js"
+      ]
+    },
+    {
+      "method": "GET",
+      "path": "/draw/rooms",
+      "query": [
+        "limit",
+        "page"
+      ],
+      "chunks": [
+        "DrawChatLobbyPage-DKtIgqFW.js"
+      ]
+    },
+    {
+      "method": "GET",
+      "path": "/draw/rooms/{}",
+      "chunks": [
+        "draw-chat.rooms._roomId-ePXE29YC.js"
+      ]
+    },
+    {
+      "method": "GET",
+      "path": "/draw/rooms/{}/realtime-token",
+      "chunks": [
+        "draw-chat.rooms._roomId-ePXE29YC.js"
+      ]
+    },
+    {
+      "method": "GET",
+      "path": "/follow/block",
+      "chunks": [
+        "settings-BPvwKrKG.js"
+      ]
+    },
+    {
+      "method": "GET",
+      "path": "/follow/mute",
+      "chunks": [
+        "settings-BPvwKrKG.js"
+      ]
+    },
+    {
+      "method": "GET",
+      "path": "/follow/requests/pending",
+      "chunks": [
+        "Layout-ks-UAyo2.js",
+        "follow-requests-BO4l0zB9.js"
+      ]
+    },
+    {
+      "method": "GET",
+      "path": "/guild-bots/applications",
+      "chunks": [
+        "settings-BPvwKrKG.js"
+      ]
+    },
+    {
+      "method": "GET",
+      "path": "/guilds",
+      "chunks": [
+        "GuildsPage-DhICBXly.js"
+      ]
+    },
+    {
+      "method": "GET",
+      "path": "/guilds/{}/audit-logs",
+      "query": [
+        "limit"
+      ],
+      "chunks": [
+        "GuildsPage-DhICBXly.js"
+      ]
+    },
+    {
+      "method": "GET",
+      "path": "/guilds/{}/bans",
+      "chunks": [
+        "GuildsPage-DhICBXly.js"
+      ]
+    },
+    {
+      "method": "GET",
+      "path": "/guilds/{}/channels",
+      "chunks": [
+        "GuildsPage-DhICBXly.js"
+      ]
+    },
+    {
+      "method": "GET",
+      "path": "/guilds/{}/events",
+      "chunks": [
+        "GuildsPage-DhICBXly.js"
+      ]
+    },
+    {
+      "method": "GET",
+      "path": "/guilds/{}/invites",
+      "chunks": [
+        "GuildsPage-DhICBXly.js"
+      ]
+    },
+    {
+      "method": "GET",
+      "path": "/guilds/{}/members",
+      "query": [
+        "limit"
+      ],
+      "chunks": [
+        "GuildsPage-DhICBXly.js"
+      ]
+    },
+    {
+      "method": "GET",
+      "path": "/guilds/{}/messages/search",
+      "chunks": [
+        "GuildsPage-DhICBXly.js"
+      ]
+    },
+    {
+      "method": "GET",
+      "path": "/guilds/{}/roles",
+      "query": [
+        "limit"
+      ],
+      "chunks": [
+        "GuildsPage-DhICBXly.js"
+      ]
+    },
+    {
+      "method": "GET",
+      "path": "/guilds/{}/voice-states",
+      "chunks": [
+        "GuildsPage-DhICBXly.js"
+      ]
+    },
+    {
+      "method": "GET",
+      "path": "/news",
+      "query": [
+        "limit"
+      ],
+      "chunks": [
+        "AppRuntime-Cq1X-zgP.js",
+        "NewsPage-DuoS858h.js"
+      ]
+    },
+    {
+      "method": "GET",
+      "path": "/news/${null==ie",
+      "query": [
+        "void 0:ie.id}/comments"
+      ],
+      "chunks": [
+        "news._slug-BWIaliBa.js"
+      ]
+    },
+    {
+      "method": "GET",
+      "path": "/news/admin/list",
+      "chunks": [
+        "news.studio-DaXvXZlV.js"
+      ]
+    },
+    {
+      "method": "GET",
+      "path": "/news/me",
+      "chunks": [
+        "news.studio-DaXvXZlV.js"
+      ]
+    },
+    {
+      "method": "GET",
+      "path": "/news/{}",
+      "chunks": [
+        "news._slug-BWIaliBa.js"
+      ]
+    },
+    {
+      "method": "GET",
+      "path": "/notifications",
+      "chunks": [
+        "Layout-ks-UAyo2.js",
+        "Notifications-C03a13Is.js"
+      ]
+    },
+    {
+      "method": "GET",
+      "path": "/notifications/grouped-posts",
+      "query": [
+        "notificationIds"
+      ],
+      "chunks": [
+        "notifications.grouped-posts-D890jdsQ.js"
+      ]
+    },
+    {
+      "method": "GET",
+      "path": "/notifications/unread/count",
+      "chunks": [
+        "Layout-ks-UAyo2.js"
+      ]
+    },
+    {
+      "method": "GET",
+      "path": "/oauth/clients",
+      "chunks": [
+        "settings-BPvwKrKG.js"
+      ]
+    },
+    {
+      "method": "GET",
+      "path": "/posts/me/bookmark-folders",
+      "chunks": [
+        "KaroatCard-BMwc0wOt.js",
+        "bookmarks-B6n_WaWa.js"
+      ]
+    },
+    {
+      "method": "GET",
+      "path": "/posts/me/bookmarks",
+      "query": [
+        "limit",
+        "page"
+      ],
+      "chunks": [
+        "bookmarks-B6n_WaWa.js"
+      ]
+    },
+    {
+      "method": "GET",
+      "path": "/posts/recommended",
+      "query": [
+        "limit",
+        "mode"
+      ],
+      "chunks": [
+        "routes-D2ILjfqY.js",
+        "search-CQtJulIC.js"
+      ]
+    },
+    {
+      "method": "GET",
+      "path": "/posts/scheduled/me",
+      "chunks": [
+        "KaroatModal-BFA8itSU.js"
+      ]
+    },
+    {
+      "method": "GET",
+      "path": "/posts/timeline",
+      "query": [
+        "limit",
+        "mode"
+      ],
+      "chunks": [
+        "routes-D2ILjfqY.js"
+      ]
+    },
+    {
+      "method": "GET",
+      "path": "/posts/{}",
+      "query": [
+        "includeMutedOrBlocked",
+        "includeUnavailableReference",
+        "limit"
+      ],
+      "chunks": [
+        "KaroatCard-BMwc0wOt.js",
+        "KaroatModal-BFA8itSU.js",
+        "Post-B6q9Pi0b.js",
+        "_username.status._id._engagementType-Buo6tRa5.js",
+        "notifications.grouped-posts-D890jdsQ.js"
+      ]
+    },
+    {
+      "method": "GET",
+      "path": "/posts/{}/analytics",
+      "chunks": [
+        "KaroatCard-BMwc0wOt.js"
+      ]
+    },
+    {
+      "method": "GET",
+      "path": "/posts/{}/likes",
+      "query": [
+        "limit"
+      ],
+      "chunks": [
+        "KaroatCard-BMwc0wOt.js",
+        "_username.status._id._engagementType-Buo6tRa5.js"
+      ]
+    },
+    {
+      "method": "GET",
+      "path": "/posts/{}/poll/options/{}/voters",
+      "query": [
+        "limit"
+      ],
+      "chunks": [
+        "KaroatCard-BMwc0wOt.js"
+      ]
+    },
+    {
+      "method": "GET",
+      "path": "/posts/{}/quotes",
+      "query": [
+        "limit"
+      ],
+      "chunks": [
+        "_username.status._id._engagementType-Buo6tRa5.js"
+      ]
+    },
+    {
+      "method": "GET",
+      "path": "/posts/{}/react/{}/users",
+      "query": [
+        "limit"
+      ],
+      "chunks": [
+        "KaroatCard-BMwc0wOt.js"
+      ]
+    },
+    {
+      "method": "GET",
+      "path": "/posts/{}/rekarots",
+      "query": [
+        "limit"
+      ],
+      "chunks": [
+        "_username.status._id._engagementType-Buo6tRa5.js"
+      ]
+    },
+    {
+      "method": "GET",
+      "path": "/posts/{}/replies",
+      "query": [
+        "limit",
+        "page"
+      ],
+      "chunks": [
+        "Post-B6q9Pi0b.js"
+      ]
+    },
+    {
+      "method": "GET",
+      "path": "/posts/{}/reply-targets",
+      "chunks": [
+        "KaroatModal-BFA8itSU.js"
+      ]
+    },
+    {
+      "method": "GET",
+      "path": "/radio/active",
+      "chunks": [
+        "RightSidebar-Sc9eSsNd.js",
+        "SpacesPage-YnZnSRvr.js"
+      ]
+    },
+    {
+      "method": "GET",
+      "path": "/radio/ice-servers",
+      "chunks": [
+        "realtimeMediaSession-BgiyhWIv.js"
+      ]
+    },
+    {
+      "method": "GET",
+      "path": "/radio/{}",
+      "chunks": [
+        "SpaceContext-Co-aPyos.js",
+        "spaces._spaceId-CkOnQ1DH.js"
+      ]
+    },
+    {
+      "method": "GET",
+      "path": "/radio/{}/messages",
+      "chunks": [
+        "spaces._spaceId-CkOnQ1DH.js"
+      ]
+    },
+    {
+      "method": "GET",
+      "path": "/radio/{}/realtime-token",
+      "chunks": [
+        "SpaceContext-Co-aPyos.js"
+      ]
+    },
+    {
+      "method": "GET",
+      "path": "/search/communities",
+      "query": [
+        "q"
+      ],
+      "chunks": [
+        "CommunitiesPage-bMjGeQoS.js"
+      ]
+    },
+    {
+      "method": "GET",
+      "path": "/search/hashtags",
+      "query": [
+        "q"
+      ],
+      "chunks": [
+        "KaroatModal-BFA8itSU.js"
+      ]
+    },
+    {
+      "method": "GET",
+      "path": "/search/trending/topics",
+      "query": [
+        "limit"
+      ],
+      "chunks": [
+        "RightSidebar-Sc9eSsNd.js",
+        "search-CQtJulIC.js"
+      ]
+    },
+    {
+      "method": "GET",
+      "path": "/search/users",
+      "query": [
+        "compact",
+        "limit",
+        "q"
+      ],
+      "chunks": [
+        "KaroatModal-BFA8itSU.js",
+        "RightSidebar-Sc9eSsNd.js",
+        "dm-C1Bx0OBf.js",
+        "dm._groupId-ql6whgdC.js",
+        "search-CQtJulIC.js",
+        "social-B9Ic_gN6.js"
+      ]
+    },
+    {
+      "method": "GET",
+      "path": "/social/circles",
+      "query": [
+        "limit",
+        "q"
+      ],
+      "chunks": [
+        "KaroatModal-BFA8itSU.js",
+        "StoriesStrip-BwXl2bk6.js",
+        "social-B9Ic_gN6.js"
+      ]
+    },
+    {
+      "method": "GET",
+      "path": "/social/link-preview",
+      "query": [
+        "url"
+      ],
+      "chunks": [
+        "LinkPreview-Bo8twVGZ.js"
+      ]
+    },
+    {
+      "method": "GET",
+      "path": "/social/lists",
+      "query": [
+        "limit",
+        "q"
+      ],
+      "chunks": [
+        "routes-D2ILjfqY.js",
+        "social-B9Ic_gN6.js"
+      ]
+    },
+    {
+      "method": "GET",
+      "path": "/social/lists/{}/posts",
+      "query": [
+        "limit"
+      ],
+      "chunks": [
+        "routes-D2ILjfqY.js"
+      ]
+    },
+    {
+      "method": "GET",
+      "path": "/social/questions/inbox",
+      "chunks": [
+        "profile._username-Bln5ZRtE.js",
+        "questions-Ck2TUCOV.js"
+      ]
+    },
+    {
+      "method": "GET",
+      "path": "/social/stories",
+      "chunks": [
+        "StoriesStrip-BwXl2bk6.js"
+      ]
+    },
+    {
+      "method": "GET",
+      "path": "/social/stories/user/{}",
+      "chunks": [
+        "StoriesStrip-BwXl2bk6.js"
+      ]
+    },
+    {
+      "method": "GET",
+      "path": "/social/stories/{}/comments",
+      "chunks": [
+        "StoriesStrip-BwXl2bk6.js"
+      ]
+    },
+    {
+      "method": "GET",
+      "path": "/social/stories/{}/viewers",
+      "chunks": [
+        "StoriesStrip-BwXl2bk6.js"
+      ]
+    },
+    {
+      "method": "GET",
+      "path": "/subscriptions/gifts/received",
+      "chunks": [
+        "SubscriptionGiftRequestPage-eqjHYnbu.js",
+        "subscription-C22ZHDKq.js"
+      ]
+    },
+    {
+      "method": "GET",
+      "path": "/subscriptions/gifts/{}",
+      "chunks": [
+        "SubscriptionGiftRequestPage-eqjHYnbu.js"
+      ]
+    },
+    {
+      "method": "GET",
+      "path": "/subscriptions/me",
+      "chunks": [
+        "settings-BPvwKrKG.js"
+      ]
+    },
+    {
+      "method": "GET",
+      "path": "/subscriptions/plans",
+      "chunks": [
+        "subscription-C22ZHDKq.js"
+      ]
+    },
+    {
+      "method": "GET",
+      "path": "/users/level-ranking",
+      "query": [
+        "limit"
+      ],
+      "chunks": [
+        "ranking-CDDnoF_O.js"
+      ]
+    },
+    {
+      "method": "GET",
+      "path": "/users/recommended",
+      "query": [
+        "limit"
+      ],
+      "chunks": [
+        "RightSidebar-Sc9eSsNd.js",
+        "search-CQtJulIC.js"
+      ]
+    },
+    {
+      "method": "GET",
+      "path": "/users/username/quota",
+      "chunks": [
+        "settings-BPvwKrKG.js"
+      ]
+    },
+    {
+      "method": "GET",
+      "path": "/users/{}",
+      "query": [
+        "limit"
+      ],
+      "chunks": [
+        "KaroatCard-BMwc0wOt.js",
+        "profile._username-Bln5ZRtE.js",
+        "profile._username._type-CwScZRJR.js"
+      ]
+    },
+    {
+      "method": "GET",
+      "path": "/users/{}/{}",
+      "query": [
+        "limit"
+      ],
+      "chunks": [
+        "profile._username._type-CwScZRJR.js"
+      ]
+    },
+    {
+      "method": "GET",
+      "path": "/v2/feed/public",
+      "query": [
+        "kind",
+        "limit",
+        "mode"
+      ],
+      "chunks": [
+        "routes-D2ILjfqY.js"
+      ]
+    },
+    {
+      "method": "PATCH",
+      "path": "/channels/messages/{}",
+      "chunks": [
+        "GuildsPage-DhICBXly.js"
+      ]
+    },
+    {
+      "method": "PATCH",
+      "path": "/channels/{}",
+      "chunks": [
+        "GuildsPage-DhICBXly.js"
+      ]
+    },
+    {
+      "method": "PATCH",
+      "path": "/channels/{}/stage",
+      "chunks": [
+        "GuildsPage-DhICBXly.js"
+      ]
+    },
+    {
+      "method": "PATCH",
+      "path": "/channels/{}/stage/me",
+      "chunks": [
+        "GuildsPage-DhICBXly.js"
+      ]
+    },
+    {
+      "method": "PATCH",
+      "path": "/channels/{}/stage/participants/{}",
+      "chunks": [
+        "GuildsPage-DhICBXly.js"
+      ]
+    },
+    {
+      "method": "PATCH",
+      "path": "/communities/{}",
+      "chunks": [
+        "CommunitiesPage-bMjGeQoS.js"
+      ]
+    },
+    {
+      "method": "PATCH",
+      "path": "/communities/{}/members/{}/role",
+      "chunks": [
+        "CommunitiesPage-bMjGeQoS.js"
+      ]
+    },
+    {
+      "method": "PATCH",
+      "path": "/communities/{}/reports/{}",
+      "chunks": [
+        "CommunitiesPage-bMjGeQoS.js"
+      ]
+    },
+    {
+      "method": "PATCH",
+      "path": "/dm/messages/{}",
+      "chunks": [
+        "dm._groupId-ql6whgdC.js"
+      ]
+    },
+    {
+      "method": "PATCH",
+      "path": "/guilds/{}",
+      "chunks": [
+        "GuildsPage-DhICBXly.js"
+      ]
+    },
+    {
+      "method": "PATCH",
+      "path": "/guilds/{}/events/{}",
+      "chunks": [
+        "GuildsPage-DhICBXly.js"
+      ]
+    },
+    {
+      "method": "PATCH",
+      "path": "/guilds/{}/members/${null==tn",
+      "query": [
+        "void 0:tn.userId}"
+      ],
+      "chunks": [
+        "GuildsPage-DhICBXly.js"
+      ]
+    },
+    {
+      "method": "PATCH",
+      "path": "/guilds/{}/roles/{}",
+      "chunks": [
+        "GuildsPage-DhICBXly.js"
+      ]
+    },
+    {
+      "method": "PATCH",
+      "path": "/news/admin/{}/review",
+      "chunks": [
+        "news.studio-DaXvXZlV.js"
+      ]
+    },
+    {
+      "method": "PATCH",
+      "path": "/news/{}/comments/{}",
+      "chunks": [
+        "news._slug-BWIaliBa.js"
+      ]
+    },
+    {
+      "method": "PATCH",
+      "path": "/notifications/read-all",
+      "chunks": [
+        "Notifications-C03a13Is.js"
+      ]
+    },
+    {
+      "method": "PATCH",
+      "path": "/posts/me/bookmark-folders/{}",
+      "chunks": [
+        "bookmarks-B6n_WaWa.js"
+      ]
+    },
+    {
+      "method": "PATCH",
+      "path": "/radio/{}/participants/{}/mute",
+      "chunks": [
+        "spaces._spaceId-CkOnQ1DH.js"
+      ]
+    },
+    {
+      "method": "PATCH",
+      "path": "/radio/{}/participants/{}/role",
+      "chunks": [
+        "spaces._spaceId-CkOnQ1DH.js"
+      ]
+    },
+    {
+      "method": "PATCH",
+      "path": "/radio/{}/settings",
+      "chunks": [
+        "spaces._spaceId-CkOnQ1DH.js"
+      ]
+    },
+    {
+      "method": "PATCH",
+      "path": "/social/circles/{}",
+      "chunks": [
+        "social-B9Ic_gN6.js"
+      ]
+    },
+    {
+      "method": "PATCH",
+      "path": "/social/lists/{}",
+      "chunks": [
+        "social-B9Ic_gN6.js"
+      ]
+    },
+    {
+      "method": "PATCH",
+      "path": "/subscriptions/preferences",
+      "chunks": [
+        "settings-BPvwKrKG.js"
+      ]
+    },
+    {
+      "method": "PATCH",
+      "path": "/users/password",
+      "chunks": [
+        "settings-BPvwKrKG.js"
+      ]
+    },
+    {
+      "method": "PATCH",
+      "path": "/users/profile",
+      "chunks": [
+        "complete-birthday-zH_V1Y6G.js",
+        "settings-BPvwKrKG.js"
+      ]
+    },
+    {
+      "method": "PATCH",
+      "path": "/users/profile/pinned-post",
+      "chunks": [
+        "KaroatCard-BMwc0wOt.js"
+      ]
+    },
+    {
+      "method": "PATCH",
+      "path": "/users/settings",
+      "chunks": [
+        "Layout-ks-UAyo2.js",
+        "settings-BPvwKrKG.js"
+      ]
+    },
+    {
+      "method": "PATCH",
+      "path": "/users/status",
+      "chunks": [
+        "settings-BPvwKrKG.js"
+      ]
+    },
+    {
+      "method": "PATCH",
+      "path": "/users/username",
+      "chunks": [
+        "settings-BPvwKrKG.js"
+      ]
+    },
+    {
+      "method": "POST",
+      "path": "/apikeys",
+      "chunks": [
+        "settings-BPvwKrKG.js"
+      ]
+    },
+    {
+      "method": "POST",
+      "path": "/audio",
+      "chunks": [
+        "KaroatModal-BFA8itSU.js"
+      ]
+    },
+    {
+      "method": "POST",
+      "path": "/auth/2fa/disable",
+      "chunks": [
+        "settings-BPvwKrKG.js"
+      ]
+    },
+    {
+      "method": "POST",
+      "path": "/auth/2fa/enable",
+      "chunks": [
+        "settings-BPvwKrKG.js"
+      ]
+    },
+    {
+      "method": "POST",
+      "path": "/auth/forgot-password",
+      "chunks": [
+        "forgot-password-CoXPd9Du.js"
+      ]
+    },
+    {
+      "method": "POST",
+      "path": "/auth/legal-quiz/grade",
+      "chunks": [
+        "legal-quiz-yMCmC4GA.js"
+      ]
+    },
+    {
+      "method": "POST",
+      "path": "/auth/login",
+      "chunks": [
+        "login-BGqwUCyI.js"
+      ]
+    },
+    {
+      "method": "POST",
+      "path": "/auth/login/2fa",
+      "chunks": [
+        "login-BGqwUCyI.js"
+      ]
+    },
+    {
+      "method": "POST",
+      "path": "/auth/logout",
+      "chunks": [
+        "AuthContext-PQA9CcfF.js"
+      ]
+    },
+    {
+      "method": "POST",
+      "path": "/auth/me/email",
+      "chunks": [
+        "settings-BPvwKrKG.js"
+      ]
+    },
+    {
+      "method": "POST",
+      "path": "/auth/me/email/resend",
+      "chunks": [
+        "Layout-ks-UAyo2.js",
+        "settings-BPvwKrKG.js"
+      ]
+    },
+    {
+      "method": "POST",
+      "path": "/auth/register",
+      "chunks": [
+        "register-dQfIIesZ.js"
+      ]
+    },
+    {
+      "method": "POST",
+      "path": "/auth/reset-password",
+      "chunks": [
+        "reset-password-CjapgqyZ.js"
+      ]
+    },
+    {
+      "method": "POST",
+      "path": "/auth/session-unread-snapshots",
+      "chunks": [
+        "Layout-ks-UAyo2.js"
+      ]
+    },
+    {
+      "method": "POST",
+      "path": "/auth/switch-session",
+      "chunks": [
+        "AuthContext-PQA9CcfF.js"
+      ]
+    },
+    {
+      "method": "POST",
+      "path": "/auth/verify-email",
+      "chunks": [
+        "verify-email-DgRnXHZJ.js"
+      ]
+    },
+    {
+      "method": "POST",
+      "path": "/boards",
+      "chunks": [
+        "BoardIndexPage-ZWdv4CJ0.js"
+      ]
+    },
+    {
+      "method": "POST",
+      "path": "/boards/{}/follow",
+      "chunks": [
+        "BoardsPage-CjSeLAab.js",
+        "boards._slug.threads._threadId-nFQoPas-.js"
+      ]
+    },
+    {
+      "method": "POST",
+      "path": "/boards/{}/replies/{}/reactions",
+      "chunks": [
+        "boards._slug.threads._threadId-nFQoPas-.js"
+      ]
+    },
+    {
+      "method": "POST",
+      "path": "/boards/{}/threads",
+      "chunks": [
+        "BoardsPage-CjSeLAab.js"
+      ]
+    },
+    {
+      "method": "POST",
+      "path": "/boards/{}/threads/{}/follow",
+      "chunks": [
+        "BoardsPage-CjSeLAab.js",
+        "boards._slug.threads._threadId-nFQoPas-.js"
+      ]
+    },
+    {
+      "method": "POST",
+      "path": "/boards/{}/threads/{}/reactions",
+      "chunks": [
+        "boards._slug.threads._threadId-nFQoPas-.js"
+      ]
+    },
+    {
+      "method": "POST",
+      "path": "/boards/{}/threads/{}/replies",
+      "chunks": [
+        "boards._slug.threads._threadId-nFQoPas-.js"
+      ]
+    },
+    {
+      "method": "POST",
+      "path": "/channels/messages/{}/reactions",
+      "chunks": [
+        "GuildsPage-DhICBXly.js"
+      ]
+    },
+    {
+      "method": "POST",
+      "path": "/channels/{}/forum-posts",
+      "chunks": [
+        "GuildsPage-DhICBXly.js"
+      ]
+    },
+    {
+      "method": "POST",
+      "path": "/channels/{}/forum-posts/{}/replies",
+      "chunks": [
+        "GuildsPage-DhICBXly.js"
+      ]
+    },
+    {
+      "method": "POST",
+      "path": "/channels/{}/messages",
+      "chunks": [
+        "GuildsPage-DhICBXly.js"
+      ]
+    },
+    {
+      "method": "POST",
+      "path": "/channels/{}/stage",
+      "chunks": [
+        "GuildsPage-DhICBXly.js"
+      ]
+    },
+    {
+      "method": "POST",
+      "path": "/channels/{}/voice/join",
+      "chunks": [
+        "GuildsPage-DhICBXly.js"
+      ]
+    },
+    {
+      "method": "POST",
+      "path": "/channels/{}/voice/leave",
+      "chunks": [
+        "GuildsPage-DhICBXly.js",
+        "mediaSessionCoordinator-DiKdfsMr.js"
+      ]
+    },
+    {
+      "method": "POST",
+      "path": "/communities",
+      "chunks": [
+        "CommunitiesPage-bMjGeQoS.js"
+      ]
+    },
+    {
+      "method": "POST",
+      "path": "/communities/{}/home-timeline",
+      "chunks": [
+        "CommunitiesPage-bMjGeQoS.js"
+      ]
+    },
+    {
+      "method": "POST",
+      "path": "/communities/{}/invite",
+      "chunks": [
+        "CommunitiesPage-bMjGeQoS.js"
+      ]
+    },
+    {
+      "method": "POST",
+      "path": "/communities/{}/join",
+      "chunks": [
+        "CommunitiesPage-bMjGeQoS.js"
+      ]
+    },
+    {
+      "method": "POST",
+      "path": "/communities/{}/leave",
+      "chunks": [
+        "CommunitiesPage-bMjGeQoS.js"
+      ]
+    },
+    {
+      "method": "POST",
+      "path": "/communities/{}/owner-transfer",
+      "chunks": [
+        "CommunitiesPage-bMjGeQoS.js"
+      ]
+    },
+    {
+      "method": "POST",
+      "path": "/communities/{}/posts/{}/hide",
+      "chunks": [
+        "CommunitiesPage-bMjGeQoS.js"
+      ]
+    },
+    {
+      "method": "POST",
+      "path": "/contact",
+      "chunks": [
+        "contact-6rqymqIS.js"
+      ]
+    },
+    {
+      "method": "POST",
+      "path": "/dm/groups",
+      "chunks": [
+        "dm-C1Bx0OBf.js"
+      ]
+    },
+    {
+      "method": "POST",
+      "path": "/dm/groups/{}/call/join",
+      "chunks": [
+        "CallContext-Da_jCK_9.js"
+      ]
+    },
+    {
+      "method": "POST",
+      "path": "/dm/groups/{}/call/leave",
+      "chunks": [
+        "CallContext-Da_jCK_9.js",
+        "mediaSessionCoordinator-DiKdfsMr.js"
+      ]
+    },
+    {
+      "method": "POST",
+      "path": "/dm/groups/{}/call/start",
+      "chunks": [
+        "CallContext-Da_jCK_9.js"
+      ]
+    },
+    {
+      "method": "POST",
+      "path": "/dm/groups/{}/clear",
+      "chunks": [
+        "dm._groupId-ql6whgdC.js"
+      ]
+    },
+    {
+      "method": "POST",
+      "path": "/dm/groups/{}/leave",
+      "chunks": [
+        "dm._groupId-ql6whgdC.js"
+      ]
+    },
+    {
+      "method": "POST",
+      "path": "/dm/groups/{}/members",
+      "chunks": [
+        "dm._groupId-ql6whgdC.js"
+      ]
+    },
+    {
+      "method": "POST",
+      "path": "/dm/groups/{}/messages",
+      "chunks": [
+        "api-CKtNoiOP.js"
+      ]
+    },
+    {
+      "method": "POST",
+      "path": "/dm/groups/{}/read",
+      "chunks": [
+        "api-CKtNoiOP.js"
+      ]
+    },
+    {
+      "method": "POST",
+      "path": "/dm/messages/{}/poll/vote",
+      "chunks": [
+        "dm._groupId-ql6whgdC.js"
+      ]
+    },
+    {
+      "method": "POST",
+      "path": "/dm/messages/{}/reactions",
+      "chunks": [
+        "dm._groupId-ql6whgdC.js"
+      ]
+    },
+    {
+      "method": "POST",
+      "path": "/dm/start",
+      "chunks": [
+        "profile._username-Bln5ZRtE.js"
+      ]
+    },
+    {
+      "method": "POST",
+      "path": "/draw/rooms",
+      "chunks": [
+        "DrawChatLobbyPage-DKtIgqFW.js"
+      ]
+    },
+    {
+      "method": "POST",
+      "path": "/draw/rooms/{}/chat",
+      "chunks": [
+        "draw-chat.rooms._roomId-ePXE29YC.js"
+      ]
+    },
+    {
+      "method": "POST",
+      "path": "/draw/rooms/{}/invite/rotate",
+      "chunks": [
+        "draw-chat.rooms._roomId-ePXE29YC.js"
+      ]
+    },
+    {
+      "method": "POST",
+      "path": "/draw/rooms/{}/join",
+      "chunks": [
+        "DrawChatLobbyPage-DKtIgqFW.js",
+        "draw-chat.rooms._roomId-ePXE29YC.js"
+      ]
+    },
+    {
+      "method": "POST",
+      "path": "/follow/block/${null==ct",
+      "query": [
+        "void 0:ct.user.id}"
+      ],
+      "chunks": [
+        "profile._username-Bln5ZRtE.js"
+      ]
+    },
+    {
+      "method": "POST",
+      "path": "/follow/block/{}",
+      "chunks": [
+        "KaroatCard-BMwc0wOt.js"
+      ]
+    },
+    {
+      "method": "POST",
+      "path": "/follow/hide-rekarots/${null==ft",
+      "query": [
+        "void 0:ft.user.id}"
+      ],
+      "chunks": [
+        "profile._username-Bln5ZRtE.js"
+      ]
+    },
+    {
+      "method": "POST",
+      "path": "/follow/hide-rekarots/{}",
+      "chunks": [
+        "KaroatCard-BMwc0wOt.js"
+      ]
+    },
+    {
+      "method": "POST",
+      "path": "/follow/mute/${null==ct",
+      "query": [
+        "void 0:ct.user.id}"
+      ],
+      "chunks": [
+        "profile._username-Bln5ZRtE.js"
+      ]
+    },
+    {
+      "method": "POST",
+      "path": "/follow/mute/{}",
+      "chunks": [
+        "KaroatCard-BMwc0wOt.js"
+      ]
+    },
+    {
+      "method": "POST",
+      "path": "/follow/requests/{}/{}",
+      "chunks": [
+        "follow-requests-BO4l0zB9.js"
+      ]
+    },
+    {
+      "method": "POST",
+      "path": "/follow/{}",
+      "chunks": [
+        "KaroatCard-BMwc0wOt.js",
+        "profile._username-Bln5ZRtE.js",
+        "profile._username._type-CwScZRJR.js",
+        "search-CQtJulIC.js"
+      ]
+    },
+    {
+      "method": "POST",
+      "path": "/follow/{}/post-notify",
+      "chunks": [
+        "profile._username-Bln5ZRtE.js"
+      ]
+    },
+    {
+      "method": "POST",
+      "path": "/guild-bots/applications",
+      "chunks": [
+        "settings-BPvwKrKG.js"
+      ]
+    },
+    {
+      "method": "POST",
+      "path": "/guild-bots/applications/{}/token",
+      "chunks": [
+        "settings-BPvwKrKG.js"
+      ]
+    },
+    {
+      "method": "POST",
+      "path": "/guilds",
+      "chunks": [
+        "GuildsPage-DhICBXly.js"
+      ]
+    },
+    {
+      "method": "POST",
+      "path": "/guilds/{}/bans/${null==tn",
+      "query": [
+        "void 0:tn.userId}"
+      ],
+      "chunks": [
+        "GuildsPage-DhICBXly.js"
+      ]
+    },
+    {
+      "method": "POST",
+      "path": "/guilds/{}/channels",
+      "chunks": [
+        "GuildsPage-DhICBXly.js"
+      ]
+    },
+    {
+      "method": "POST",
+      "path": "/guilds/{}/events",
+      "chunks": [
+        "GuildsPage-DhICBXly.js"
+      ]
+    },
+    {
+      "method": "POST",
+      "path": "/guilds/{}/invites",
+      "chunks": [
+        "GuildsPage-DhICBXly.js"
+      ]
+    },
+    {
+      "method": "POST",
+      "path": "/guilds/{}/members/${null==tn",
+      "query": [
+        "void 0:tn.userId}/transfer-ownership"
+      ],
+      "chunks": [
+        "GuildsPage-DhICBXly.js"
+      ]
+    },
+    {
+      "method": "POST",
+      "path": "/guilds/{}/roles",
+      "chunks": [
+        "GuildsPage-DhICBXly.js"
+      ]
+    },
+    {
+      "method": "POST",
+      "path": "/invites/{}",
+      "chunks": [
+        "GuildsPage-DhICBXly.js"
+      ]
+    },
+    {
+      "method": "POST",
+      "path": "/news",
+      "chunks": [
+        "news.studio-DaXvXZlV.js"
+      ]
+    },
+    {
+      "method": "POST",
+      "path": "/news/uploads",
+      "chunks": [
+        "news.studio-DaXvXZlV.js"
+      ]
+    },
+    {
+      "method": "POST",
+      "path": "/news/{}/comments",
+      "chunks": [
+        "news._slug-BWIaliBa.js"
+      ]
+    },
+    {
+      "method": "POST",
+      "path": "/news/{}/like",
+      "chunks": [
+        "news._slug-BWIaliBa.js"
+      ]
+    },
+    {
+      "method": "POST",
+      "path": "/notifications/push/register",
+      "chunks": [
+        "pushNotifications-DOdh5H00.js"
+      ]
+    },
+    {
+      "method": "POST",
+      "path": "/notifications/push/unregister",
+      "chunks": [
+        "pushNotifications-DOdh5H00.js"
+      ]
+    },
+    {
+      "method": "POST",
+      "path": "/oauth/clients",
+      "chunks": [
+        "settings-BPvwKrKG.js"
+      ]
+    },
+    {
+      "method": "POST",
+      "path": "/oauth/clients/{}/secret",
+      "chunks": [
+        "settings-BPvwKrKG.js"
+      ]
+    },
+    {
+      "method": "POST",
+      "path": "/posts",
+      "chunks": [
+        "KaroatModal-BFA8itSU.js"
+      ]
+    },
+    {
+      "method": "POST",
+      "path": "/posts/batch-views",
+      "chunks": [
+        "routes-D2ILjfqY.js"
+      ]
+    },
+    {
+      "method": "POST",
+      "path": "/posts/feedback/beta-survey",
+      "chunks": [
+        "routes-D2ILjfqY.js"
+      ]
+    },
+    {
+      "method": "POST",
+      "path": "/posts/me/bookmark-folders",
+      "chunks": [
+        "bookmarks-B6n_WaWa.js"
+      ]
+    },
+    {
+      "method": "POST",
+      "path": "/posts/{}/bookmark",
+      "chunks": [
+        "KaroatCard-BMwc0wOt.js"
+      ]
+    },
+    {
+      "method": "POST",
+      "path": "/posts/{}/conversation/leave",
+      "chunks": [
+        "KaroatCard-BMwc0wOt.js"
+      ]
+    },
+    {
+      "method": "POST",
+      "path": "/posts/{}/like",
+      "chunks": [
+        "KaroatCard-BMwc0wOt.js"
+      ]
+    },
+    {
+      "method": "POST",
+      "path": "/posts/{}/poll/vote",
+      "chunks": [
+        "KaroatCard-BMwc0wOt.js"
+      ]
+    },
+    {
+      "method": "POST",
+      "path": "/posts/{}/react",
+      "chunks": [
+        "KaroatCard-BMwc0wOt.js"
+      ]
+    },
+    {
+      "method": "POST",
+      "path": "/posts/{}/rekarot",
+      "chunks": [
+        "KaroatCard-BMwc0wOt.js"
+      ]
+    },
+    {
+      "method": "POST",
+      "path": "/posts/{}/translate",
+      "chunks": [
+        "KaroatCard-BMwc0wOt.js"
+      ]
+    },
+    {
+      "method": "POST",
+      "path": "/radio",
+      "chunks": [
+        "SpacesPage-YnZnSRvr.js"
+      ]
+    },
+    {
+      "method": "POST",
+      "path": "/radio/{}/accept-speaker-invite",
+      "chunks": [
+        "spaces._spaceId-CkOnQ1DH.js"
+      ]
+    },
+    {
+      "method": "POST",
+      "path": "/radio/{}/end",
+      "chunks": [
+        "SpaceContext-Co-aPyos.js"
+      ]
+    },
+    {
+      "method": "POST",
+      "path": "/radio/{}/join",
+      "chunks": [
+        "SpaceContext-Co-aPyos.js"
+      ]
+    },
+    {
+      "method": "POST",
+      "path": "/radio/{}/leave",
+      "chunks": [
+        "SpaceContext-Co-aPyos.js",
+        "mediaSessionCoordinator-DiKdfsMr.js"
+      ]
+    },
+    {
+      "method": "POST",
+      "path": "/radio/{}/messages",
+      "chunks": [
+        "spaces._spaceId-CkOnQ1DH.js"
+      ]
+    },
+    {
+      "method": "POST",
+      "path": "/radio/{}/participants/{}/invite-speaker",
+      "chunks": [
+        "spaces._spaceId-CkOnQ1DH.js"
+      ]
+    },
+    {
+      "method": "POST",
+      "path": "/radio/{}/participants/{}/transfer-host",
+      "chunks": [
+        "spaces._spaceId-CkOnQ1DH.js"
+      ]
+    },
+    {
+      "method": "POST",
+      "path": "/radio/{}/request-speaker",
+      "chunks": [
+        "spaces._spaceId-CkOnQ1DH.js"
+      ]
+    },
+    {
+      "method": "POST",
+      "path": "/reports",
+      "chunks": [
+        "Report-DcG3nFKE.js"
+      ]
+    },
+    {
+      "method": "POST",
+      "path": "/social/circles",
+      "chunks": [
+        "social-B9Ic_gN6.js"
+      ]
+    },
+    {
+      "method": "POST",
+      "path": "/social/circles/{}/members",
+      "chunks": [
+        "social-B9Ic_gN6.js"
+      ]
+    },
+    {
+      "method": "POST",
+      "path": "/social/lists",
+      "chunks": [
+        "social-B9Ic_gN6.js"
+      ]
+    },
+    {
+      "method": "POST",
+      "path": "/social/lists/{}/members",
+      "chunks": [
+        "social-B9Ic_gN6.js"
+      ]
+    },
+    {
+      "method": "POST",
+      "path": "/social/questions/${null==pt",
+      "query": [
+        "void 0:pt.username}"
+      ],
+      "chunks": [
+        "profile._username-Bln5ZRtE.js"
+      ]
+    },
+    {
+      "method": "POST",
+      "path": "/social/stories",
+      "chunks": [
+        "StoriesStrip-BwXl2bk6.js"
+      ]
+    },
+    {
+      "method": "POST",
+      "path": "/social/stories/{}/comments",
+      "chunks": [
+        "StoriesStrip-BwXl2bk6.js"
+      ]
+    },
+    {
+      "method": "POST",
+      "path": "/social/stories/{}/like",
+      "chunks": [
+        "StoriesStrip-BwXl2bk6.js"
+      ]
+    },
+    {
+      "method": "POST",
+      "path": "/social/stories/{}/views",
+      "chunks": [
+        "StoriesStrip-BwXl2bk6.js"
+      ]
+    },
+    {
+      "method": "POST",
+      "path": "/subscriptions/checkout",
+      "chunks": [
+        "settings-BPvwKrKG.js",
+        "subscription-C22ZHDKq.js"
+      ]
+    },
+    {
+      "method": "POST",
+      "path": "/subscriptions/gifts/checkout",
+      "chunks": [
+        "subscription-C22ZHDKq.js"
+      ]
+    },
+    {
+      "method": "POST",
+      "path": "/subscriptions/gifts/{}/response",
+      "chunks": [
+        "SubscriptionGiftRequestPage-eqjHYnbu.js",
+        "subscription-C22ZHDKq.js"
+      ]
+    },
+    {
+      "method": "POST",
+      "path": "/subscriptions/portal",
+      "chunks": [
+        "settings-BPvwKrKG.js"
+      ]
+    },
+    {
+      "method": "POST",
+      "path": "/v2/feed/views",
+      "chunks": [
+        "routes-D2ILjfqY.js"
+      ]
+    },
+    {
+      "method": "PUT",
+      "path": "/channels/{}/permissions/{}/{}",
+      "chunks": [
+        "GuildsPage-DhICBXly.js"
+      ]
+    },
+    {
+      "method": "PUT",
+      "path": "/communities/home-timelines/reorder",
+      "chunks": [
+        "routes-D2ILjfqY.js"
+      ]
+    },
+    {
+      "method": "PUT",
+      "path": "/communities/{}/rules",
+      "chunks": [
+        "CommunitiesPage-bMjGeQoS.js"
+      ]
+    },
+    {
+      "method": "PUT",
+      "path": "/draw/rooms/{}/layers",
+      "chunks": [
+        "draw-chat.rooms._roomId-ePXE29YC.js"
+      ]
+    },
+    {
+      "method": "PUT",
+      "path": "/guilds/{}/channels/reorder",
+      "chunks": [
+        "GuildsPage-DhICBXly.js"
+      ]
+    },
+    {
+      "method": "PUT",
+      "path": "/guilds/{}/members/${null==tn",
+      "query": [
+        "void 0:tn.userId}/roles/{}"
+      ],
+      "chunks": [
+        "GuildsPage-DhICBXly.js"
+      ]
+    },
+    {
+      "method": "PUT",
+      "path": "/news/{}",
+      "chunks": [
+        "news.studio-DaXvXZlV.js"
+      ]
+    },
+    {
+      "method": "PUT",
+      "path": "/posts/${null==ne",
+      "query": [
+        "void 0:ne.id}"
+      ],
+      "chunks": [
+        "KaroatModal-BFA8itSU.js"
+      ]
+    },
+    {
+      "method": "PUT",
+      "path": "/posts/scheduled/{}",
+      "chunks": [
+        "KaroatModal-BFA8itSU.js"
+      ]
+    },
+    {
+      "method": "PUT",
+      "path": "/posts/{}/bookmark-folders",
+      "chunks": [
+        "bookmarks-B6n_WaWa.js"
+      ]
+    }
+  ]
+}

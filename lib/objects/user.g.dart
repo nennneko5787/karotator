@@ -14,12 +14,44 @@ _Author _$AuthorFromJson(Map<String, dynamic> json) => _Author(
   isPrivate: json['isPrivate'] as bool? ?? false,
   isBotAccount: json['isBotAccount'] as bool? ?? false,
   isParodyAccount: json['isParodyAccount'] as bool? ?? false,
-  officialMark:
-      (json['officialMark'] as List<dynamic>?)
-          ?.map((e) => $enumDecode(_$OfficialMarkEnumMap, e))
+  adminForceParody: json['adminForceParody'] as bool? ?? false,
+  adminForceBot: json['adminForceBot'] as bool? ?? false,
+  officialMark: json['officialMark'] == null
+      ? const []
+      : const OfficialMarkListConverter().fromJson(json['officialMark']),
+  username: json['username'] as String,
+  bio: json['bio'] as String?,
+  isBanned: json['isBanned'] as bool? ?? false,
+  hideProfileFromMinors: json['hideProfileFromMinors'] as bool? ?? false,
+  profileMinimumAge: (json['profileMinimumAge'] as num?)?.toInt(),
+  profileMaximumAge: (json['profileMaximumAge'] as num?)?.toInt(),
+  followersCount: (json['followersCount'] as num?)?.toInt() ?? 0,
+  followingCount: (json['followingCount'] as num?)?.toInt() ?? 0,
+  mutualFollowersCount: (json['mutualFollowersCount'] as num?)?.toInt() ?? 0,
+  isFollowingByViewer: json['isFollowingByViewer'] as bool? ?? false,
+  isFollowing: json['is_following'] as bool? ?? false,
+  isFollowedBy: json['is_followed_by'] as bool? ?? false,
+  followRequestSent: json['follow_request_sent'] as bool? ?? false,
+  cardAccentColor: json['cardAccentColor'] as String?,
+  profileAccentColor: json['profileAccentColor'] as String?,
+  premiumBadgeColor: json['premiumBadgeColor'] as String? ?? '',
+  subscriptionBadgeColors:
+      (json['subscriptionBadgeColors'] as List<dynamic>?)
+          ?.map((e) => e as String)
           .toList() ??
       const [],
-  username: json['username'] as String,
+  subscriptionPlan: json['subscriptionPlan'] as String? ?? '',
+  subscriptionStatus: json['subscriptionStatus'] as String? ?? '',
+  subscriptionActiveUntil: json['subscriptionActiveUntil'] == null
+      ? null
+      : DateTime.parse(json['subscriptionActiveUntil'] as String),
+  showCardDecoration: json['showCardDecoration'] as bool? ?? false,
+  showProfileDecoration: json['showProfileDecoration'] as bool? ?? false,
+  showSubscriptionBadges: json['showSubscriptionBadges'] as bool? ?? false,
+  showGreenBadge: json['showGreenBadge'] as bool? ?? false,
+  showPlusBadge: json['showPlusBadge'] as bool? ?? false,
+  showProBadge: json['showProBadge'] as bool? ?? false,
+  showRedBadge: json['showRedBadge'] as bool? ?? false,
 );
 
 Map<String, dynamic> _$AuthorToJson(_Author instance) => <String, dynamic>{
@@ -30,38 +62,39 @@ Map<String, dynamic> _$AuthorToJson(_Author instance) => <String, dynamic>{
   'isPrivate': instance.isPrivate,
   'isBotAccount': instance.isBotAccount,
   'isParodyAccount': instance.isParodyAccount,
-  'officialMark': instance.officialMark
-      .map((e) => _$OfficialMarkEnumMap[e]!)
-      .toList(),
+  'adminForceParody': instance.adminForceParody,
+  'adminForceBot': instance.adminForceBot,
+  'officialMark': const OfficialMarkListConverter().toJson(
+    instance.officialMark,
+  ),
   'username': instance.username,
-};
-
-const _$OfficialMarkEnumMap = {
-  OfficialMark.PURPLE: 'PURPLE',
-  OfficialMark.BLACK: 'BLACK',
-  OfficialMark.RED: 'RED',
-  OfficialMark.ORANGE: 'ORANGE',
-  OfficialMark.GREEN: 'GREEN',
-  OfficialMark.BLUE: 'BLUE',
-  OfficialMark.YELLOW: 'YELLOW',
-};
-
-_AuthUser _$AuthUserFromJson(Map<String, dynamic> json) => _AuthUser(
-  avatarUrl: json['avatarUrl'] as String?,
-  displayName: json['displayName'] as String,
-  id: (json['id'] as num).toInt(),
-  email: json['email'] as String?,
-  emailVerified: json['emailVerified'] as bool,
-  username: json['username'] as String,
-);
-
-Map<String, dynamic> _$AuthUserToJson(_AuthUser instance) => <String, dynamic>{
-  'avatarUrl': instance.avatarUrl,
-  'displayName': instance.displayName,
-  'id': instance.id,
-  'email': instance.email,
-  'emailVerified': instance.emailVerified,
-  'username': instance.username,
+  'bio': instance.bio,
+  'isBanned': instance.isBanned,
+  'hideProfileFromMinors': instance.hideProfileFromMinors,
+  'profileMinimumAge': instance.profileMinimumAge,
+  'profileMaximumAge': instance.profileMaximumAge,
+  'followersCount': instance.followersCount,
+  'followingCount': instance.followingCount,
+  'mutualFollowersCount': instance.mutualFollowersCount,
+  'isFollowingByViewer': instance.isFollowingByViewer,
+  'is_following': instance.isFollowing,
+  'is_followed_by': instance.isFollowedBy,
+  'follow_request_sent': instance.followRequestSent,
+  'cardAccentColor': instance.cardAccentColor,
+  'profileAccentColor': instance.profileAccentColor,
+  'premiumBadgeColor': instance.premiumBadgeColor,
+  'subscriptionBadgeColors': instance.subscriptionBadgeColors,
+  'subscriptionPlan': instance.subscriptionPlan,
+  'subscriptionStatus': instance.subscriptionStatus,
+  'subscriptionActiveUntil': instance.subscriptionActiveUntil
+      ?.toIso8601String(),
+  'showCardDecoration': instance.showCardDecoration,
+  'showProfileDecoration': instance.showProfileDecoration,
+  'showSubscriptionBadges': instance.showSubscriptionBadges,
+  'showGreenBadge': instance.showGreenBadge,
+  'showPlusBadge': instance.showPlusBadge,
+  'showProBadge': instance.showProBadge,
+  'showRedBadge': instance.showRedBadge,
 };
 
 _User _$UserFromJson(Map<String, dynamic> json) => _User(
@@ -72,9 +105,11 @@ _User _$UserFromJson(Map<String, dynamic> json) => _User(
   isPrivate: json['isPrivate'] as bool,
   isBotAccount: json['isBotAccount'] as bool,
   isParodyAccount: json['isParodyAccount'] as bool,
-  officialMark: (json['officialMark'] as List<dynamic>)
-      .map((e) => $enumDecode(_$OfficialMarkEnumMap, e))
-      .toList(),
+  adminForceParody: json['adminForceParody'] as bool? ?? false,
+  adminForceBot: json['adminForceBot'] as bool? ?? false,
+  officialMark: json['officialMark'] == null
+      ? const []
+      : const OfficialMarkListConverter().fromJson(json['officialMark']),
   username: json['username'] as String,
   pinnedPostId: (json['pinnedPostId'] as num?)?.toInt(),
   headerUrl: json['headerUrl'] as String?,
@@ -83,12 +118,17 @@ _User _$UserFromJson(Map<String, dynamic> json) => _User(
   birthdayVisibility: $enumDecode(
     _$BirthdayVisibilityEnumMap,
     json['birthdayVisibility'],
+    unknownValue: BirthdayVisibility.UNKNOWN,
   ),
   birthdayBalloonsEnabled: json['birthdayBalloonsEnabled'] as bool,
   hideProfileFromMinors: json['hideProfileFromMinors'] as bool,
   websiteUrl: json['websiteUrl'] as String?,
   location: json['location'] as String?,
-  onlineStatus: $enumDecode(_$OnlineStatusEnumMap, json['onlineStatus']),
+  onlineStatus: $enumDecode(
+    _$OnlineStatusEnumMap,
+    json['onlineStatus'],
+    unknownValue: OnlineStatus.UNKNOWN,
+  ),
   followersCount: (json['followersCount'] as num).toInt(),
   followingCount: (json['followingCount'] as num).toInt(),
   postsCount: (json['postsCount'] as num).toInt(),
@@ -99,6 +139,51 @@ _User _$UserFromJson(Map<String, dynamic> json) => _User(
       .toList(),
   age: (json['age'] as num?)?.toInt(),
   badges: (json['badges'] as List<dynamic>).map((e) => e as String).toList(),
+  isBanned: json['isBanned'] as bool? ?? false,
+  statusMessage: json['statusMessage'] as String?,
+  displayBirthday: json['displayBirthday'] as String?,
+  onlineStatusVisibility: json['onlineStatusVisibility'] as String? ?? '',
+  profileMinimumAge: (json['profileMinimumAge'] as num?)?.toInt(),
+  profileMaximumAge: (json['profileMaximumAge'] as num?)?.toInt(),
+  pinnedPostIds:
+      (json['pinnedPostIds'] as List<dynamic>?)
+          ?.map((e) => (e as num).toInt())
+          .toList() ??
+      const [],
+  pinnedPostLimit: (json['pinnedPostLimit'] as num?)?.toInt() ?? 0,
+  questionsEnabled: json['questionsEnabled'] as bool? ?? false,
+  showLikedPosts: json['showLikedPosts'] as bool? ?? false,
+  showReadReceipts: json['showReadReceipts'] as bool? ?? false,
+  levelEnabled: json['levelEnabled'] as bool? ?? false,
+  level: (json['level'] as num?)?.toInt() ?? 0,
+  levelProgress: (json['levelProgress'] as num?)?.toInt() ?? 0,
+  experience: (json['experience'] as num?)?.toInt() ?? 0,
+  experienceInLevel: (json['experienceInLevel'] as num?)?.toInt() ?? 0,
+  experienceToNextLevel: (json['experienceToNextLevel'] as num?)?.toInt() ?? 0,
+  experienceRequiredForNextLevel:
+      (json['experienceRequiredForNextLevel'] as num?)?.toInt() ?? 0,
+  cardAccentColor: json['cardAccentColor'] as String?,
+  profileAccentColor: json['profileAccentColor'] as String?,
+  premiumBadgeColor: json['premiumBadgeColor'] as String? ?? '',
+  subscriptionBadgeColors:
+      (json['subscriptionBadgeColors'] as List<dynamic>?)
+          ?.map((e) => e as String)
+          .toList() ??
+      const [],
+  subscriptionPlan: json['subscriptionPlan'] as String? ?? '',
+  subscriptionStatus: json['subscriptionStatus'] as String? ?? '',
+  subscriptionActiveUntil: json['subscriptionActiveUntil'] == null
+      ? null
+      : DateTime.parse(json['subscriptionActiveUntil'] as String),
+  subscriptionCancelAtPeriodEnd:
+      json['subscriptionCancelAtPeriodEnd'] as bool? ?? false,
+  showCardDecoration: json['showCardDecoration'] as bool? ?? false,
+  showProfileDecoration: json['showProfileDecoration'] as bool? ?? false,
+  showSubscriptionBadges: json['showSubscriptionBadges'] as bool? ?? false,
+  showGreenBadge: json['showGreenBadge'] as bool? ?? false,
+  showPlusBadge: json['showPlusBadge'] as bool? ?? false,
+  showProBadge: json['showProBadge'] as bool? ?? false,
+  showRedBadge: json['showRedBadge'] as bool? ?? false,
 );
 
 Map<String, dynamic> _$UserToJson(_User instance) => <String, dynamic>{
@@ -109,9 +194,11 @@ Map<String, dynamic> _$UserToJson(_User instance) => <String, dynamic>{
   'isPrivate': instance.isPrivate,
   'isBotAccount': instance.isBotAccount,
   'isParodyAccount': instance.isParodyAccount,
-  'officialMark': instance.officialMark
-      .map((e) => _$OfficialMarkEnumMap[e]!)
-      .toList(),
+  'adminForceParody': instance.adminForceParody,
+  'adminForceBot': instance.adminForceBot,
+  'officialMark': const OfficialMarkListConverter().toJson(
+    instance.officialMark,
+  ),
   'username': instance.username,
   'pinnedPostId': instance.pinnedPostId,
   'headerUrl': instance.headerUrl,
@@ -132,12 +219,47 @@ Map<String, dynamic> _$UserToJson(_User instance) => <String, dynamic>{
   'userBadges': instance.userBadges,
   'age': instance.age,
   'badges': instance.badges,
+  'isBanned': instance.isBanned,
+  'statusMessage': instance.statusMessage,
+  'displayBirthday': instance.displayBirthday,
+  'onlineStatusVisibility': instance.onlineStatusVisibility,
+  'profileMinimumAge': instance.profileMinimumAge,
+  'profileMaximumAge': instance.profileMaximumAge,
+  'pinnedPostIds': instance.pinnedPostIds,
+  'pinnedPostLimit': instance.pinnedPostLimit,
+  'questionsEnabled': instance.questionsEnabled,
+  'showLikedPosts': instance.showLikedPosts,
+  'showReadReceipts': instance.showReadReceipts,
+  'levelEnabled': instance.levelEnabled,
+  'level': instance.level,
+  'levelProgress': instance.levelProgress,
+  'experience': instance.experience,
+  'experienceInLevel': instance.experienceInLevel,
+  'experienceToNextLevel': instance.experienceToNextLevel,
+  'experienceRequiredForNextLevel': instance.experienceRequiredForNextLevel,
+  'cardAccentColor': instance.cardAccentColor,
+  'profileAccentColor': instance.profileAccentColor,
+  'premiumBadgeColor': instance.premiumBadgeColor,
+  'subscriptionBadgeColors': instance.subscriptionBadgeColors,
+  'subscriptionPlan': instance.subscriptionPlan,
+  'subscriptionStatus': instance.subscriptionStatus,
+  'subscriptionActiveUntil': instance.subscriptionActiveUntil
+      ?.toIso8601String(),
+  'subscriptionCancelAtPeriodEnd': instance.subscriptionCancelAtPeriodEnd,
+  'showCardDecoration': instance.showCardDecoration,
+  'showProfileDecoration': instance.showProfileDecoration,
+  'showSubscriptionBadges': instance.showSubscriptionBadges,
+  'showGreenBadge': instance.showGreenBadge,
+  'showPlusBadge': instance.showPlusBadge,
+  'showProBadge': instance.showProBadge,
+  'showRedBadge': instance.showRedBadge,
 };
 
 const _$BirthdayVisibilityEnumMap = {
   BirthdayVisibility.FULL_DATE: 'FULL_DATE',
   BirthdayVisibility.MONTH_DAY: 'MONTH_DAY',
   BirthdayVisibility.PRIVATE: 'PRIVATE',
+  BirthdayVisibility.UNKNOWN: 'UNKNOWN',
 };
 
 const _$OnlineStatusEnumMap = {
@@ -145,4 +267,240 @@ const _$OnlineStatusEnumMap = {
   OnlineStatus.IDLE: 'IDLE',
   OnlineStatus.DND: 'DND',
   OnlineStatus.OFFLINE: 'OFFLINE',
+  OnlineStatus.UNKNOWN: 'UNKNOWN',
+};
+
+_AuthUser _$AuthUserFromJson(Map<String, dynamic> json) => _AuthUser(
+  id: (json['id'] as num).toInt(),
+  username: json['username'] as String,
+  displayName: json['displayName'] as String,
+  avatarUrl: json['avatarUrl'] as String?,
+  avatarFrameId: (json['avatarFrameId'] as num?)?.toInt(),
+  headerUrl: json['headerUrl'] as String?,
+  bio: json['bio'] as String?,
+  location: json['location'] as String?,
+  websiteUrl: json['websiteUrl'] as String?,
+  statusMessage: json['statusMessage'] as String?,
+  email: json['email'] as String?,
+  emailVerified: json['emailVerified'] as bool? ?? false,
+  emailHash: json['emailHash'] as String? ?? '',
+  hasPassword: json['hasPassword'] as bool? ?? false,
+  twoFactorEnabled: json['twoFactorEnabled'] as bool? ?? false,
+  linkedOAuthProviders:
+      (json['linkedOAuthProviders'] as List<dynamic>?)
+          ?.map((e) => e as String)
+          .toList() ??
+      const [],
+  isPrivate: json['isPrivate'] as bool? ?? false,
+  isBotAccount: json['isBotAccount'] as bool? ?? false,
+  isParodyAccount: json['isParodyAccount'] as bool? ?? false,
+  adminForceParody: json['adminForceParody'] as bool? ?? false,
+  adminForceBot: json['adminForceBot'] as bool? ?? false,
+  adminForceR18: json['adminForceR18'] as bool? ?? false,
+  adminForceHidden: json['adminForceHidden'] as bool? ?? false,
+  adminForceProfileMinimumAge: (json['adminForceProfileMinimumAge'] as num?)
+      ?.toInt(),
+  adminForceProfileMaximumAge: (json['adminForceProfileMaximumAge'] as num?)
+      ?.toInt(),
+  officialMark: json['officialMark'] == null
+      ? const []
+      : const OfficialMarkListConverter().fromJson(json['officialMark']),
+  isAdmin: json['isAdmin'] as bool? ?? false,
+  isBanned: json['isBanned'] as bool? ?? false,
+  isRestricted: json['isRestricted'] as bool? ?? false,
+  banReason: json['banReason'] as String?,
+  bannedUntil: json['bannedUntil'] == null
+      ? null
+      : DateTime.parse(json['bannedUntil'] as String),
+  birthday: json['birthday'] == null
+      ? null
+      : DateTime.parse(json['birthday'] as String),
+  displayBirthday: json['displayBirthday'] as String?,
+  birthdayVisibility: json['birthdayVisibility'] as String? ?? '',
+  birthdayBalloonsEnabled: json['birthdayBalloonsEnabled'] as bool? ?? false,
+  gender: json['gender'] as String? ?? '',
+  createdAt: json['createdAt'] == null
+      ? null
+      : DateTime.parse(json['createdAt'] as String),
+  followersCount: (json['followersCount'] as num?)?.toInt() ?? 0,
+  followingCount: (json['followingCount'] as num?)?.toInt() ?? 0,
+  postsCount: (json['postsCount'] as num?)?.toInt() ?? 0,
+  points: (json['points'] as num?)?.toInt() ?? 0,
+  experience: (json['experience'] as num?)?.toInt() ?? 0,
+  levelEnabled: json['levelEnabled'] as bool? ?? false,
+  isPremium: json['isPremium'] as bool? ?? false,
+  premiumUntil: json['premiumUntil'] == null
+      ? null
+      : DateTime.parse(json['premiumUntil'] as String),
+  hideProfileFromMinors: json['hideProfileFromMinors'] as bool? ?? false,
+  profileMinimumAge: (json['profileMinimumAge'] as num?)?.toInt(),
+  profileMaximumAge: (json['profileMaximumAge'] as num?)?.toInt(),
+  onlineStatus: json['onlineStatus'] as String? ?? '',
+  onlineStatusVisibility: json['onlineStatusVisibility'] as String? ?? '',
+  questionsEnabled: json['questionsEnabled'] as bool? ?? false,
+  giftsEnabled: json['giftsEnabled'] as bool? ?? false,
+  showLikedPosts: json['showLikedPosts'] as bool? ?? false,
+  showReadReceipts: json['showReadReceipts'] as bool? ?? false,
+  directMessagesEnabled: json['directMessagesEnabled'] as bool? ?? false,
+  dmRequestPolicy: json['dmRequestPolicy'] as String? ?? '',
+  showR18Content: json['showR18Content'] as bool? ?? false,
+  showHiddenPosts: json['showHiddenPosts'] as bool? ?? false,
+  showBotAccounts: json['showBotAccounts'] as bool? ?? false,
+  showParodyAccounts: json['showParodyAccounts'] as bool? ?? false,
+  showReactions: json['showReactions'] as bool? ?? false,
+  showRepliesInTimeline: json['showRepliesInTimeline'] as bool? ?? false,
+  showRekarotsInTimeline: json['showRekarotsInTimeline'] as bool? ?? false,
+  hideUnfollowedRekarotsInTimeline:
+      json['hideUnfollowedRekarotsInTimeline'] as bool? ?? false,
+  mutedKeywords:
+      (json['mutedKeywords'] as List<dynamic>?)
+          ?.map((e) => e as String)
+          .toList() ??
+      const [],
+  defaultExcludeReplyTargets:
+      json['defaultExcludeReplyTargets'] as bool? ?? false,
+  notifyLikes: json['notifyLikes'] as bool? ?? false,
+  notifyReplies: json['notifyReplies'] as bool? ?? false,
+  notifyRekarots: json['notifyRekarots'] as bool? ?? false,
+  notifyQuotes: json['notifyQuotes'] as bool? ?? false,
+  notifyMentions: json['notifyMentions'] as bool? ?? false,
+  notifyFollows: json['notifyFollows'] as bool? ?? false,
+  notifyReactions: json['notifyReactions'] as bool? ?? false,
+  notifyDMs: json['notifyDMs'] as bool? ?? false,
+  notifyBoardActivity: json['notifyBoardActivity'] as bool? ?? false,
+  notifyNewsOnLaunch: json['notifyNewsOnLaunch'] as bool? ?? false,
+  notificationMuteNewAccounts:
+      json['notificationMuteNewAccounts'] as bool? ?? false,
+  notificationMuteNoAvatar: json['notificationMuteNoAvatar'] as bool? ?? false,
+  notificationMuteNonFollowers:
+      json['notificationMuteNonFollowers'] as bool? ?? false,
+  notificationMuteNonFollowing:
+      json['notificationMuteNonFollowing'] as bool? ?? false,
+  legalQuizPassed: json['legalQuizPassed'] as bool? ?? false,
+  legalNoticeSeenVersion: json['legalNoticeSeenVersion'] as String?,
+  cardAccentColor: json['cardAccentColor'] as String?,
+  profileAccentColor: json['profileAccentColor'] as String?,
+  premiumBadgeColor: json['premiumBadgeColor'] as String? ?? '',
+  subscriptionBadgeColors:
+      (json['subscriptionBadgeColors'] as List<dynamic>?)
+          ?.map((e) => e as String)
+          .toList() ??
+      const [],
+  subscriptionPlan: json['subscriptionPlan'] as String? ?? '',
+  subscriptionStatus: json['subscriptionStatus'] as String? ?? '',
+  subscriptionActiveUntil: json['subscriptionActiveUntil'] == null
+      ? null
+      : DateTime.parse(json['subscriptionActiveUntil'] as String),
+  subscriptionCancelAtPeriodEnd:
+      json['subscriptionCancelAtPeriodEnd'] as bool? ?? false,
+  showCardDecoration: json['showCardDecoration'] as bool? ?? false,
+  showProfileDecoration: json['showProfileDecoration'] as bool? ?? false,
+  showSubscriptionBadges: json['showSubscriptionBadges'] as bool? ?? false,
+  showGreenBadge: json['showGreenBadge'] as bool? ?? false,
+  showPlusBadge: json['showPlusBadge'] as bool? ?? false,
+  showProBadge: json['showProBadge'] as bool? ?? false,
+  showRedBadge: json['showRedBadge'] as bool? ?? false,
+);
+
+Map<String, dynamic> _$AuthUserToJson(_AuthUser instance) => <String, dynamic>{
+  'id': instance.id,
+  'username': instance.username,
+  'displayName': instance.displayName,
+  'avatarUrl': instance.avatarUrl,
+  'avatarFrameId': instance.avatarFrameId,
+  'headerUrl': instance.headerUrl,
+  'bio': instance.bio,
+  'location': instance.location,
+  'websiteUrl': instance.websiteUrl,
+  'statusMessage': instance.statusMessage,
+  'email': instance.email,
+  'emailVerified': instance.emailVerified,
+  'emailHash': instance.emailHash,
+  'hasPassword': instance.hasPassword,
+  'twoFactorEnabled': instance.twoFactorEnabled,
+  'linkedOAuthProviders': instance.linkedOAuthProviders,
+  'isPrivate': instance.isPrivate,
+  'isBotAccount': instance.isBotAccount,
+  'isParodyAccount': instance.isParodyAccount,
+  'adminForceParody': instance.adminForceParody,
+  'adminForceBot': instance.adminForceBot,
+  'adminForceR18': instance.adminForceR18,
+  'adminForceHidden': instance.adminForceHidden,
+  'adminForceProfileMinimumAge': instance.adminForceProfileMinimumAge,
+  'adminForceProfileMaximumAge': instance.adminForceProfileMaximumAge,
+  'officialMark': const OfficialMarkListConverter().toJson(
+    instance.officialMark,
+  ),
+  'isAdmin': instance.isAdmin,
+  'isBanned': instance.isBanned,
+  'isRestricted': instance.isRestricted,
+  'banReason': instance.banReason,
+  'bannedUntil': instance.bannedUntil?.toIso8601String(),
+  'birthday': instance.birthday?.toIso8601String(),
+  'displayBirthday': instance.displayBirthday,
+  'birthdayVisibility': instance.birthdayVisibility,
+  'birthdayBalloonsEnabled': instance.birthdayBalloonsEnabled,
+  'gender': instance.gender,
+  'createdAt': instance.createdAt?.toIso8601String(),
+  'followersCount': instance.followersCount,
+  'followingCount': instance.followingCount,
+  'postsCount': instance.postsCount,
+  'points': instance.points,
+  'experience': instance.experience,
+  'levelEnabled': instance.levelEnabled,
+  'isPremium': instance.isPremium,
+  'premiumUntil': instance.premiumUntil?.toIso8601String(),
+  'hideProfileFromMinors': instance.hideProfileFromMinors,
+  'profileMinimumAge': instance.profileMinimumAge,
+  'profileMaximumAge': instance.profileMaximumAge,
+  'onlineStatus': instance.onlineStatus,
+  'onlineStatusVisibility': instance.onlineStatusVisibility,
+  'questionsEnabled': instance.questionsEnabled,
+  'giftsEnabled': instance.giftsEnabled,
+  'showLikedPosts': instance.showLikedPosts,
+  'showReadReceipts': instance.showReadReceipts,
+  'directMessagesEnabled': instance.directMessagesEnabled,
+  'dmRequestPolicy': instance.dmRequestPolicy,
+  'showR18Content': instance.showR18Content,
+  'showHiddenPosts': instance.showHiddenPosts,
+  'showBotAccounts': instance.showBotAccounts,
+  'showParodyAccounts': instance.showParodyAccounts,
+  'showReactions': instance.showReactions,
+  'showRepliesInTimeline': instance.showRepliesInTimeline,
+  'showRekarotsInTimeline': instance.showRekarotsInTimeline,
+  'hideUnfollowedRekarotsInTimeline': instance.hideUnfollowedRekarotsInTimeline,
+  'mutedKeywords': instance.mutedKeywords,
+  'defaultExcludeReplyTargets': instance.defaultExcludeReplyTargets,
+  'notifyLikes': instance.notifyLikes,
+  'notifyReplies': instance.notifyReplies,
+  'notifyRekarots': instance.notifyRekarots,
+  'notifyQuotes': instance.notifyQuotes,
+  'notifyMentions': instance.notifyMentions,
+  'notifyFollows': instance.notifyFollows,
+  'notifyReactions': instance.notifyReactions,
+  'notifyDMs': instance.notifyDMs,
+  'notifyBoardActivity': instance.notifyBoardActivity,
+  'notifyNewsOnLaunch': instance.notifyNewsOnLaunch,
+  'notificationMuteNewAccounts': instance.notificationMuteNewAccounts,
+  'notificationMuteNoAvatar': instance.notificationMuteNoAvatar,
+  'notificationMuteNonFollowers': instance.notificationMuteNonFollowers,
+  'notificationMuteNonFollowing': instance.notificationMuteNonFollowing,
+  'legalQuizPassed': instance.legalQuizPassed,
+  'legalNoticeSeenVersion': instance.legalNoticeSeenVersion,
+  'cardAccentColor': instance.cardAccentColor,
+  'profileAccentColor': instance.profileAccentColor,
+  'premiumBadgeColor': instance.premiumBadgeColor,
+  'subscriptionBadgeColors': instance.subscriptionBadgeColors,
+  'subscriptionPlan': instance.subscriptionPlan,
+  'subscriptionStatus': instance.subscriptionStatus,
+  'subscriptionActiveUntil': instance.subscriptionActiveUntil
+      ?.toIso8601String(),
+  'subscriptionCancelAtPeriodEnd': instance.subscriptionCancelAtPeriodEnd,
+  'showCardDecoration': instance.showCardDecoration,
+  'showProfileDecoration': instance.showProfileDecoration,
+  'showSubscriptionBadges': instance.showSubscriptionBadges,
+  'showGreenBadge': instance.showGreenBadge,
+  'showPlusBadge': instance.showPlusBadge,
+  'showProBadge': instance.showProBadge,
+  'showRedBadge': instance.showRedBadge,
 };

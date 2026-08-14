@@ -26,6 +26,7 @@ abstract class PollOption with _$PollOption {
   const factory PollOption({
     required int id,
     required String text,
+    String? imageUrl,
     required int position,
     required int votesCount,
     required int percentage,
@@ -42,6 +43,10 @@ abstract class Poll with _$Poll {
     required int id,
     required DateTime expiresAt,
     required bool isExpired,
+
+    /// 誰が何に入れたかを見せない投票。
+    @Default(false) bool isAnonymous,
+
     required int totalVotes,
     int? ownVoteOptionId,
     required List<PollOption> options,
@@ -71,15 +76,23 @@ abstract class Reaction with _$Reaction {
       _$ReactionFromJson(json);
 }
 
+/// カロートに埋め込まれる返信先。
+///
+/// `user` 以外は返ってこないことがある（開発者 API の例がそう）。
+/// `posts/{id}/reply-targets` が返す `candidates` はこれとは別物で、
+/// 素の [Author] が並ぶ。
 @freezed
 abstract class ReplyTarget with _$ReplyTarget {
   const factory ReplyTarget({
-    required DateTime createdAt,
-    required int id,
-    required int postId,
-    required String source,
     required Author user,
-    required int userId,
+
+    /// `PARENT_AUTHOR` / `THREAD_PARTICIPANT` など。
+    @Default('') String source,
+
+    int? id,
+    int? postId,
+    int? userId,
+    DateTime? createdAt,
   }) = _ReplyTarget;
 
   factory ReplyTarget.fromJson(Map<String, Object?> json) =>
@@ -93,10 +106,36 @@ abstract class HashTags with _$HashTags {
     required String? name,
     required int? usageCount,
     required int? trendScore,
+    DateTime? createdAt,
+    DateTime? updatedAt,
   }) = _HashTags;
 
   factory HashTags.fromJson(Map<String, Object?> json) =>
       _$HashTagsFromJson(json);
+}
+
+/// トレンド 1 件。`GET search/trending/topics` の `trends`。
+///
+/// ハッシュタグ以外（単語など）も混ざるので [type] で分かれる。
+@freezed
+abstract class Trend with _$Trend {
+  const factory Trend({
+    /// 検索に投げる文字列。ハッシュタグなら `#` を含まない。
+    @Default('') String token,
+
+    /// 画面に出す文字列。
+    @Default('') String label,
+
+    /// `HASHTAG` / `KEYWORD` など。
+    @Default('') String type,
+
+    @Default(0) int postCount,
+    @Default(0) int authorCount,
+    @Default(0) int usageCount,
+    @Default(0) double trendScore,
+  }) = _Trend;
+
+  factory Trend.fromJson(Map<String, Object?> json) => _$TrendFromJson(json);
 }
 
 @freezed
@@ -141,6 +180,22 @@ abstract interface class AbstractPost {
   List<int> get excludedMentions;
   ReplyRestriction get replyRestriction;
   PostVisibility get visibility;
+
+  /// 年齢・センシティブ関連。引用元も同じ判定が要るのでここに置く。
+  bool get isR18;
+  bool get hideFromMinors;
+  bool get adminForceR18;
+  bool get adminForceHidden;
+  int? get minimumAge;
+  int? get maximumAge;
+}
+
+extension AbstractPostX on AbstractPost {
+  /// 運営の強制設定を加味した最終的な R18 判定。表示前にこれで伏せる。
+  bool get effectiveR18 => isR18 || adminForceR18;
+
+  /// 運営に非表示にされている。
+  bool get effectiveHidden => adminForceHidden;
 }
 
 @freezed
@@ -174,8 +229,19 @@ abstract class QuotedPost with _$QuotedPost implements AbstractPost {
     required int viewsCount,
 
     @Default([]) List<int> excludedMentions,
-    @Default(ReplyRestriction.EVERYONE) ReplyRestriction replyRestriction,
-    @Default(PostVisibility.PUBLIC) PostVisibility visibility,
+    @JsonKey(unknownEnumValue: ReplyRestriction.UNKNOWN)
+    @Default(ReplyRestriction.EVERYONE)
+    ReplyRestriction replyRestriction,
+    @JsonKey(unknownEnumValue: PostVisibility.UNKNOWN)
+    @Default(PostVisibility.PUBLIC)
+    PostVisibility visibility,
+
+    @Default(false) bool isR18,
+    @Default(false) bool hideFromMinors,
+    @Default(false) bool adminForceR18,
+    @Default(false) bool adminForceHidden,
+    int? minimumAge,
+    int? maximumAge,
 
     @Default(true) bool canView,
   }) = _QuotedPost;
@@ -187,8 +253,14 @@ abstract class QuotedPost with _$QuotedPost implements AbstractPost {
 @freezed
 abstract class Post with _$Post implements AbstractPost {
   const factory Post({
+    /// 運営が強制的に非表示にした。作者本人の設定より優先される。
+    @Default(false) bool adminForceHidden,
+
+    /// 運営が強制的に R18 扱いにした。作者の [isR18] より優先される。
+    @Default(false) bool adminForceR18,
+
     required Author author,
-    // required int authorId,
+    int? authorId,
     required bool bookmarked,
     //required List<Id> bookmarks,
     required int bookmarksCount,
@@ -205,11 +277,36 @@ abstract class Post with _$Post implements AbstractPost {
     @Default([]) List<int> excludedMentions,
     @Default(true) bool hasBlockedAuthor,
     @Default([]) List<HashTags> hashtags,
+
+    /// 未成年に見せない。
+    @Default(false) bool hideFromMinors,
+
     required int id,
     required bool isAiGenerated,
     @Default(false) bool isBlockedByAuthor,
     @Default(false) bool isMutedByViewer,
     required bool isPromotional,
+
+    /// 作者が R18 として投稿した。表示前に伏せること。
+    @Default(false) bool isR18,
+
+    /// 閲覧可能な年齢の上限。null なら制限無し。
+    int? maximumAge,
+
+    /// 運営が上書きした年齢制限。
+    int? adminForceMinimumAge,
+    int? adminForceMaximumAge,
+
+    /// 作者の設定と運営の上書きをサーバー側で合成した結果。
+    /// 年齢制限の判定はこちらを使う（[effectiveR18] と違い自前で計算しない）。
+    int? effectiveMinimumAge,
+    int? effectiveMaximumAge,
+
+    /// コミュニティに投稿されたカロート。karotator はまだ画面を持たない。
+    int? communityId,
+
+    /// 期限付きカロートの消滅時刻。
+    DateTime? expiresAt,
     // required String itemId,
     @Default(false) bool liked,
     // required List<Id> likes,
@@ -220,9 +317,15 @@ abstract class Post with _$Post implements AbstractPost {
     required List<String> mediaTypes,
     required List<String> mediaUrls,
     @Default([]) List<MentionId> mentions,
+
+    /// 閲覧可能な年齢の下限。null なら制限無し。
+    int? minimumAge,
+
     int? parentId,
     Poll? poll,
+    /// 引用した人数。エンドポイントによっては [quotePostsCount] で返る。
     @Default(0) int quoteUsersCount,
+    @Default(0) int quotePostsCount,
     QuotedPost? quotedPost,
     int? quotedPostId,
     @Default([]) List<ReactionSummary> reactionSummary,
@@ -234,7 +337,9 @@ abstract class Post with _$Post implements AbstractPost {
     required int repliesCount,
     Circle? replyCircle,
     int? replyCircleId,
-    @Default(ReplyRestriction.EVERYONE) ReplyRestriction replyRestriction,
+    @JsonKey(unknownEnumValue: ReplyRestriction.UNKNOWN)
+    @Default(ReplyRestriction.EVERYONE)
+    ReplyRestriction replyRestriction,
     @Default([]) List<ReplyTarget> replyTargets,
     @Default([]) List<Author> replyToUsers,
     // required DateTime time,
@@ -243,7 +348,9 @@ abstract class Post with _$Post implements AbstractPost {
     Circle? viewerCircle,
     int? viewerCircleId,
     required int viewsCount,
-    @Default(PostVisibility.PUBLIC) PostVisibility visibility,
+    @JsonKey(unknownEnumValue: PostVisibility.UNKNOWN)
+    @Default(PostVisibility.PUBLIC)
+    PostVisibility visibility,
   }) = _Post;
 
   factory Post.fromJson(Map<String, Object?> json) => _$PostFromJson(json);

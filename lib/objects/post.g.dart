@@ -22,6 +22,7 @@ Map<String, dynamic> _$MentionIdToJson(_MentionId instance) =>
 _PollOption _$PollOptionFromJson(Map<String, dynamic> json) => _PollOption(
   id: (json['id'] as num).toInt(),
   text: json['text'] as String,
+  imageUrl: json['imageUrl'] as String?,
   position: (json['position'] as num).toInt(),
   votesCount: (json['votesCount'] as num).toInt(),
   percentage: (json['percentage'] as num).toInt(),
@@ -32,6 +33,7 @@ Map<String, dynamic> _$PollOptionToJson(_PollOption instance) =>
     <String, dynamic>{
       'id': instance.id,
       'text': instance.text,
+      'imageUrl': instance.imageUrl,
       'position': instance.position,
       'votesCount': instance.votesCount,
       'percentage': instance.percentage,
@@ -42,6 +44,7 @@ _Poll _$PollFromJson(Map<String, dynamic> json) => _Poll(
   id: (json['id'] as num).toInt(),
   expiresAt: DateTime.parse(json['expiresAt'] as String),
   isExpired: json['isExpired'] as bool,
+  isAnonymous: json['isAnonymous'] as bool? ?? false,
   totalVotes: (json['totalVotes'] as num).toInt(),
   ownVoteOptionId: (json['ownVoteOptionId'] as num?)?.toInt(),
   options: (json['options'] as List<dynamic>)
@@ -53,6 +56,7 @@ Map<String, dynamic> _$PollToJson(_Poll instance) => <String, dynamic>{
   'id': instance.id,
   'expiresAt': instance.expiresAt.toIso8601String(),
   'isExpired': instance.isExpired,
+  'isAnonymous': instance.isAnonymous,
   'totalVotes': instance.totalVotes,
   'ownVoteOptionId': instance.ownVoteOptionId,
   'options': instance.options,
@@ -83,22 +87,24 @@ Map<String, dynamic> _$ReactionToJson(_Reaction instance) => <String, dynamic>{
 };
 
 _ReplyTarget _$ReplyTargetFromJson(Map<String, dynamic> json) => _ReplyTarget(
-  createdAt: DateTime.parse(json['createdAt'] as String),
-  id: (json['id'] as num).toInt(),
-  postId: (json['postId'] as num).toInt(),
-  source: json['source'] as String,
   user: Author.fromJson(json['user'] as Map<String, dynamic>),
-  userId: (json['userId'] as num).toInt(),
+  source: json['source'] as String? ?? '',
+  id: (json['id'] as num?)?.toInt(),
+  postId: (json['postId'] as num?)?.toInt(),
+  userId: (json['userId'] as num?)?.toInt(),
+  createdAt: json['createdAt'] == null
+      ? null
+      : DateTime.parse(json['createdAt'] as String),
 );
 
 Map<String, dynamic> _$ReplyTargetToJson(_ReplyTarget instance) =>
     <String, dynamic>{
-      'createdAt': instance.createdAt.toIso8601String(),
+      'user': instance.user,
+      'source': instance.source,
       'id': instance.id,
       'postId': instance.postId,
-      'source': instance.source,
-      'user': instance.user,
       'userId': instance.userId,
+      'createdAt': instance.createdAt?.toIso8601String(),
     };
 
 _HashTags _$HashTagsFromJson(Map<String, dynamic> json) => _HashTags(
@@ -106,11 +112,39 @@ _HashTags _$HashTagsFromJson(Map<String, dynamic> json) => _HashTags(
   name: json['name'] as String?,
   usageCount: (json['usageCount'] as num?)?.toInt(),
   trendScore: (json['trendScore'] as num?)?.toInt(),
+  createdAt: json['createdAt'] == null
+      ? null
+      : DateTime.parse(json['createdAt'] as String),
+  updatedAt: json['updatedAt'] == null
+      ? null
+      : DateTime.parse(json['updatedAt'] as String),
 );
 
 Map<String, dynamic> _$HashTagsToJson(_HashTags instance) => <String, dynamic>{
   'id': instance.id,
   'name': instance.name,
+  'usageCount': instance.usageCount,
+  'trendScore': instance.trendScore,
+  'createdAt': instance.createdAt?.toIso8601String(),
+  'updatedAt': instance.updatedAt?.toIso8601String(),
+};
+
+_Trend _$TrendFromJson(Map<String, dynamic> json) => _Trend(
+  token: json['token'] as String? ?? '',
+  label: json['label'] as String? ?? '',
+  type: json['type'] as String? ?? '',
+  postCount: (json['postCount'] as num?)?.toInt() ?? 0,
+  authorCount: (json['authorCount'] as num?)?.toInt() ?? 0,
+  usageCount: (json['usageCount'] as num?)?.toInt() ?? 0,
+  trendScore: (json['trendScore'] as num?)?.toDouble() ?? 0,
+);
+
+Map<String, dynamic> _$TrendToJson(_Trend instance) => <String, dynamic>{
+  'token': instance.token,
+  'label': instance.label,
+  'type': instance.type,
+  'postCount': instance.postCount,
+  'authorCount': instance.authorCount,
   'usageCount': instance.usageCount,
   'trendScore': instance.trendScore,
 };
@@ -194,11 +228,22 @@ _QuotedPost _$QuotedPostFromJson(Map<String, dynamic> json) => _QuotedPost(
       $enumDecodeNullable(
         _$ReplyRestrictionEnumMap,
         json['replyRestriction'],
+        unknownValue: ReplyRestriction.UNKNOWN,
       ) ??
       ReplyRestriction.EVERYONE,
   visibility:
-      $enumDecodeNullable(_$PostVisibilityEnumMap, json['visibility']) ??
+      $enumDecodeNullable(
+        _$PostVisibilityEnumMap,
+        json['visibility'],
+        unknownValue: PostVisibility.UNKNOWN,
+      ) ??
       PostVisibility.PUBLIC,
+  isR18: json['isR18'] as bool? ?? false,
+  hideFromMinors: json['hideFromMinors'] as bool? ?? false,
+  adminForceR18: json['adminForceR18'] as bool? ?? false,
+  adminForceHidden: json['adminForceHidden'] as bool? ?? false,
+  minimumAge: (json['minimumAge'] as num?)?.toInt(),
+  maximumAge: (json['maximumAge'] as num?)?.toInt(),
   canView: json['canView'] as bool? ?? true,
 );
 
@@ -228,6 +273,12 @@ Map<String, dynamic> _$QuotedPostToJson(_QuotedPost instance) =>
       'excludedMentions': instance.excludedMentions,
       'replyRestriction': _$ReplyRestrictionEnumMap[instance.replyRestriction]!,
       'visibility': _$PostVisibilityEnumMap[instance.visibility]!,
+      'isR18': instance.isR18,
+      'hideFromMinors': instance.hideFromMinors,
+      'adminForceR18': instance.adminForceR18,
+      'adminForceHidden': instance.adminForceHidden,
+      'minimumAge': instance.minimumAge,
+      'maximumAge': instance.maximumAge,
       'canView': instance.canView,
     };
 
@@ -236,15 +287,22 @@ const _$ReplyRestrictionEnumMap = {
   ReplyRestriction.FOLLOWING: 'FOLLOWING',
   ReplyRestriction.MENTIONED: 'MENTIONED',
   ReplyRestriction.CIRCLE: 'CIRCLE',
+  ReplyRestriction.UNKNOWN: 'UNKNOWN',
 };
 
 const _$PostVisibilityEnumMap = {
   PostVisibility.PUBLIC: 'PUBLIC',
   PostVisibility.CIRCLE: 'CIRCLE',
+  PostVisibility.FOLLOWERS: 'FOLLOWERS',
+  PostVisibility.PRIVATE: 'PRIVATE',
+  PostVisibility.UNKNOWN: 'UNKNOWN',
 };
 
 _Post _$PostFromJson(Map<String, dynamic> json) => _Post(
+  adminForceHidden: json['adminForceHidden'] as bool? ?? false,
+  adminForceR18: json['adminForceR18'] as bool? ?? false,
   author: Author.fromJson(json['author'] as Map<String, dynamic>),
+  authorId: (json['authorId'] as num?)?.toInt(),
   bookmarked: json['bookmarked'] as bool,
   bookmarksCount: (json['bookmarksCount'] as num).toInt(),
   canInteract: json['canInteract'] as bool? ?? true,
@@ -270,11 +328,22 @@ _Post _$PostFromJson(Map<String, dynamic> json) => _Post(
           ?.map((e) => HashTags.fromJson(e as Map<String, dynamic>))
           .toList() ??
       const [],
+  hideFromMinors: json['hideFromMinors'] as bool? ?? false,
   id: (json['id'] as num).toInt(),
   isAiGenerated: json['isAiGenerated'] as bool,
   isBlockedByAuthor: json['isBlockedByAuthor'] as bool? ?? false,
   isMutedByViewer: json['isMutedByViewer'] as bool? ?? false,
   isPromotional: json['isPromotional'] as bool,
+  isR18: json['isR18'] as bool? ?? false,
+  maximumAge: (json['maximumAge'] as num?)?.toInt(),
+  adminForceMinimumAge: (json['adminForceMinimumAge'] as num?)?.toInt(),
+  adminForceMaximumAge: (json['adminForceMaximumAge'] as num?)?.toInt(),
+  effectiveMinimumAge: (json['effectiveMinimumAge'] as num?)?.toInt(),
+  effectiveMaximumAge: (json['effectiveMaximumAge'] as num?)?.toInt(),
+  communityId: (json['communityId'] as num?)?.toInt(),
+  expiresAt: json['expiresAt'] == null
+      ? null
+      : DateTime.parse(json['expiresAt'] as String),
   liked: json['liked'] as bool? ?? false,
   likesCount: (json['likesCount'] as num).toInt(),
   mediaAlts: (json['mediaAlts'] as List<dynamic>)
@@ -297,11 +366,13 @@ _Post _$PostFromJson(Map<String, dynamic> json) => _Post(
           ?.map((e) => MentionId.fromJson(e as Map<String, dynamic>))
           .toList() ??
       const [],
+  minimumAge: (json['minimumAge'] as num?)?.toInt(),
   parentId: (json['parentId'] as num?)?.toInt(),
   poll: json['poll'] == null
       ? null
       : Poll.fromJson(json['poll'] as Map<String, dynamic>),
   quoteUsersCount: (json['quoteUsersCount'] as num?)?.toInt() ?? 0,
+  quotePostsCount: (json['quotePostsCount'] as num?)?.toInt() ?? 0,
   quotedPost: json['quotedPost'] == null
       ? null
       : QuotedPost.fromJson(json['quotedPost'] as Map<String, dynamic>),
@@ -330,6 +401,7 @@ _Post _$PostFromJson(Map<String, dynamic> json) => _Post(
       $enumDecodeNullable(
         _$ReplyRestrictionEnumMap,
         json['replyRestriction'],
+        unknownValue: ReplyRestriction.UNKNOWN,
       ) ??
       ReplyRestriction.EVERYONE,
   replyTargets:
@@ -351,12 +423,19 @@ _Post _$PostFromJson(Map<String, dynamic> json) => _Post(
   viewerCircleId: (json['viewerCircleId'] as num?)?.toInt(),
   viewsCount: (json['viewsCount'] as num).toInt(),
   visibility:
-      $enumDecodeNullable(_$PostVisibilityEnumMap, json['visibility']) ??
+      $enumDecodeNullable(
+        _$PostVisibilityEnumMap,
+        json['visibility'],
+        unknownValue: PostVisibility.UNKNOWN,
+      ) ??
       PostVisibility.PUBLIC,
 );
 
 Map<String, dynamic> _$PostToJson(_Post instance) => <String, dynamic>{
+  'adminForceHidden': instance.adminForceHidden,
+  'adminForceR18': instance.adminForceR18,
   'author': instance.author,
+  'authorId': instance.authorId,
   'bookmarked': instance.bookmarked,
   'bookmarksCount': instance.bookmarksCount,
   'canInteract': instance.canInteract,
@@ -372,11 +451,20 @@ Map<String, dynamic> _$PostToJson(_Post instance) => <String, dynamic>{
   'excludedMentions': instance.excludedMentions,
   'hasBlockedAuthor': instance.hasBlockedAuthor,
   'hashtags': instance.hashtags,
+  'hideFromMinors': instance.hideFromMinors,
   'id': instance.id,
   'isAiGenerated': instance.isAiGenerated,
   'isBlockedByAuthor': instance.isBlockedByAuthor,
   'isMutedByViewer': instance.isMutedByViewer,
   'isPromotional': instance.isPromotional,
+  'isR18': instance.isR18,
+  'maximumAge': instance.maximumAge,
+  'adminForceMinimumAge': instance.adminForceMinimumAge,
+  'adminForceMaximumAge': instance.adminForceMaximumAge,
+  'effectiveMinimumAge': instance.effectiveMinimumAge,
+  'effectiveMaximumAge': instance.effectiveMaximumAge,
+  'communityId': instance.communityId,
+  'expiresAt': instance.expiresAt?.toIso8601String(),
   'liked': instance.liked,
   'likesCount': instance.likesCount,
   'mediaAlts': instance.mediaAlts,
@@ -385,9 +473,11 @@ Map<String, dynamic> _$PostToJson(_Post instance) => <String, dynamic>{
   'mediaTypes': instance.mediaTypes,
   'mediaUrls': instance.mediaUrls,
   'mentions': instance.mentions,
+  'minimumAge': instance.minimumAge,
   'parentId': instance.parentId,
   'poll': instance.poll,
   'quoteUsersCount': instance.quoteUsersCount,
+  'quotePostsCount': instance.quotePostsCount,
   'quotedPost': instance.quotedPost,
   'quotedPostId': instance.quotedPostId,
   'reactionSummary': instance.reactionSummary,

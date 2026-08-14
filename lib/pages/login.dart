@@ -1,9 +1,12 @@
 import "package:flutter/material.dart";
-import "package:karotator/http.dart";
+import "package:karotator/api/karotter_api.dart";
+import "package:karotator/const.dart";
 import "package:karotator/pages/home.dart";
+import "package:karotator/pages/legal.dart";
 import "package:karotator/ui/dialog.dart";
 import "package:karotator/ui/gender_select.dart";
 import "package:karotator/ui/unfocus.dart";
+import "package:karotator/utils.dart";
 
 class LoginPage extends StatefulWidget {
   const LoginPage({super.key});
@@ -18,21 +21,12 @@ class _LoginPageState extends State<LoginPage> {
   String gender = "OTHER";
   bool isLoading = false;
 
-  Future<void> failedOpenLink(BuildContext context) async {
-    ScaffoldMessenger.of(context).showSnackBar(
-      SnackBar(
-        content: const Text('このURLは開けませんでした'),
-        action: SnackBarAction(label: '戻る', onPressed: () {}),
-      ),
-    );
-  }
-
   Future<void> login() async {
     final identifier = _usernameController.text;
     final password = _passwordController.text;
 
     try {
-      final _ = await HTTPClient().login(
+      final _ = await KarotterApi().auth.login(
         identifier: identifier,
         password: password,
         gender: gender,
@@ -93,61 +87,9 @@ class _LoginPageState extends State<LoginPage> {
                           style: Theme.of(context).textTheme.headlineLarge,
                         ),
                         const SizedBox(height: 16.0),
-                        /*
-                    Text.rich(
-                      text: TextSpan(
-                        children: [
-                          TextSpan(text: "または ", style: defaultStyle),
-                          TextSpan(
-                            text: "新しいアカウントを作成",
-                            style: TextStyle(color: Colors.blue),
-                            recognizer: TapGestureRecognizer()
-                              ..onTap = () async {
-                                final url = "https://karotter.com/register";
-                                if (!await openURL(url)) {
-                                  if (!context.mounted) return;
-                                  await failedOpenLink(context);
-                                }
-                              },
-                          ),
-                        ],
-                      ),
-                    ),
-                    */
-                        /*
-                    const SizedBox(height: 16.0),
-                    Text.rich(
-                      text: TextSpan(
-                        children: [
-                          TextSpan(
-                            text: "利用規約",
-                            style: defaultStyle,
-                            recognizer: TapGestureRecognizer()
-                              ..onTap = () async {
-                                final url = "https://karotter.com/terms";
-                                if (!await openURL(url)) {
-                                  if (!context.mounted) return;
-                                  await failedOpenLink(context);
-                                }
-                              },
-                          ),
-                          TextSpan(text: " · "),
-                          TextSpan(
-                            text: "プライバシーポリシー",
-                            recognizer: TapGestureRecognizer()
-                              ..onTap = () async {
-                                final url = "https://karotter.com/privacy";
-                                if (!await openURL(url)) {
-                                  if (!context.mounted) return;
-                                  await failedOpenLink(context);
-                                }
-                              },
-                          ),
-                        ],
-                      ),
-                    ),
-                    const SizedBox(height: 16.0),
-                    */
+                        const _RegisterLink(),
+                        const _LegalLinks(),
+                        const SizedBox(height: 16.0),
                         TextField(
                           controller: _usernameController,
                           decoration: const InputDecoration(
@@ -216,6 +158,73 @@ class _LoginPageState extends State<LoginPage> {
           ],
         ),
       ),
+    );
+  }
+}
+
+/// ログイン画面の規約リンク。
+///
+/// 本文はアプリ内で開く（`GET /legal/{id}` から取れる）。
+/// 全文の目次は設定 → 規約・ポリシー。
+class _LegalLinks extends StatelessWidget {
+  const _LegalLinks();
+
+  @override
+  Widget build(BuildContext context) {
+    final style = Theme.of(context).textTheme.bodySmall;
+    final linkStyle = style?.copyWith(
+      color: Theme.of(context).colorScheme.primary,
+    );
+
+    return Wrap(
+      alignment: WrapAlignment.center,
+      crossAxisAlignment: WrapCrossAlignment.center,
+      children: [
+        TextButton(
+          onPressed: () => openLegalDocumentById(context, "terms"),
+          child: Text("利用規約", style: linkStyle),
+        ),
+        Text("·", style: style),
+        TextButton(
+          onPressed: () => openLegalDocumentById(context, "privacy"),
+          child: Text("プライバシーポリシー", style: linkStyle),
+        ),
+        Text("·", style: style),
+        TextButton(
+          onPressed: () => Navigator.push(
+            context,
+            MaterialPageRoute(builder: (_) => const LegalPage()),
+          ),
+          child: Text("その他", style: linkStyle),
+        ),
+      ],
+    );
+  }
+}
+
+/// 新規登録への導線。
+///
+/// アプリ内では登録できない。`POST auth/register` は Cloudflare Turnstile の
+/// トークンを要求し、それは Karotter のドメイン上でしか発行されないため。
+/// ブラウザで登録してもらい、戻ってきてここからログインする。
+class _RegisterLink extends StatelessWidget {
+  const _RegisterLink();
+
+  Future<void> _open(BuildContext context) async {
+    final opened = await openURL(karotterUrl("/register"));
+    if (opened || !context.mounted) return;
+
+    ScaffoldMessenger.of(
+      context,
+    ).showSnackBar(const SnackBar(content: Text("ブラウザを開けませんでした")));
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return TextButton.icon(
+      onPressed: () => _open(context),
+      icon: const Icon(Icons.open_in_new, size: 16),
+      label: const Text("新しいアカウントを作成"),
     );
   }
 }

@@ -1,5 +1,6 @@
 import "package:flutter/material.dart";
-import "package:karotator/http.dart";
+import "package:karotator/api/karotter_api.dart";
+import "package:karotator/pages/legal.dart";
 import "package:karotator/pages/login.dart";
 import "package:karotator/pages/settings/account.dart";
 import "package:karotator/pages/settings/appearance.dart";
@@ -30,7 +31,7 @@ class _SettingsPageState extends State<SettingsPage> {
               Navigator.push(
                 context,
                 MaterialPageRoute(
-                  builder: (context) => (HTTPClient().nowAccountId == null)
+                  builder: (context) => (KarotterApi().session.accountId == null)
                       ? LoginPage()
                       : AccountSettings(),
                 ),
@@ -45,6 +46,17 @@ class _SettingsPageState extends State<SettingsPage> {
               Navigator.push(
                 context,
                 MaterialPageRoute(builder: (context) => AppearanceSettings()),
+              );
+            },
+          ),
+          SettingsSection(
+            leading: const Icon(Icons.gavel),
+            title: "規約・ポリシー",
+            subtitle: "Karotterの利用規約やプライバシーポリシーを確認できます。",
+            onTap: () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(builder: (context) => const LegalPage()),
               );
             },
           ),

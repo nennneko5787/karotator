@@ -3,8 +3,8 @@ import "dart:io";
 import "package:flutter/material.dart";
 import "package:image_picker/image_picker.dart";
 import "package:karotator/enum.dart";
-import "package:karotator/factory/post.dart";
-import "package:karotator/http.dart";
+import "package:karotator/ui/post/avatar.dart";
+import "package:karotator/api/karotter_api.dart";
 import "package:karotator/objects/state.dart";
 
 class PostThread extends StatefulWidget {
@@ -26,7 +26,7 @@ class _PostThreadState extends State<PostThread> {
   void initState() {
     super.initState();
     _postController.addListener(_onTextChanged);
-    HTTPClient().loadLoginResponse().then(
+    KarotterApi().session.login().then(
       (response) => {
         setState(() {
           _avatarUrl = response?.user.avatarUrl;
@@ -82,7 +82,7 @@ class _PostThreadState extends State<PostThread> {
             crossAxisAlignment: CrossAxisAlignment.start,
             spacing: 8,
             children: [
-              postUserAvatarFactory(_avatarUrl),
+              PostUserAvatar(avatarUrl: _avatarUrl),
               Expanded(
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,

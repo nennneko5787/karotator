@@ -7,7 +7,7 @@
 >
 > ### Karotter運営の方へ：
 >
-> 本アプリの動作に問題がある場合、issueを建てるかKarotterでDMを送信してください。私のIDは**Fng1Popn**です。
+> 本アプリの動作に問題がある場合、issueを建てるかKarotterでDMを送信してください。私のIDは [**@Fng1Popn**](https://karotter.com/profile/Fng1Popn) です。
 
 Karotterの**非公式**クライアントアプリ。
 
@@ -45,5 +45,3 @@ Karotterの**非公式**クライアントアプリ。
 
 - ~~iOSアプリは flutter v3.41.5 でビルドしないと失敗する。そういうバグなんかね~~
   コードがミスっててもApple Developer Program登録しろって弾かれるらしい。なんじゃそりゃ。
-- AI使ったコードにはコメントを残しています。8割Claude2割ChatGPT。
-- 他のサイトから拝借したファイルにはコメントを残しています。

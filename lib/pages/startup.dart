@@ -1,6 +1,6 @@
 import "package:flutter/material.dart";
 import "package:flutter_riverpod/flutter_riverpod.dart";
-import "package:karotator/http.dart";
+import "package:karotator/api/karotter_api.dart";
 import "package:karotator/pages/home.dart";
 import "package:karotator/preferences.dart";
 import "package:karotator/providers/font.dart";
@@ -40,13 +40,13 @@ class _StartUpPageState extends ConsumerState<StartUpPage> {
         fontSizeNotifier.setFontSize(Preferences().getFontSize());
       }
 
-      if (!HTTPClient().initialized) {
-        await HTTPClient().initialize();
+      if (!KarotterApi().initialized) {
+        await KarotterApi().initialize();
       }
 
-      if (HTTPClient().nowAccountId != null) {
-        await HTTPClient().refresh();
-        await HTTPClient().switchSession();
+      if (KarotterApi().session.accountId != null) {
+        await KarotterApi().auth.refresh();
+        await KarotterApi().auth.switchSession();
       }
     } catch (e, stackTrace) {
       debugPrint("$e\n$stackTrace");
@@ -63,9 +63,9 @@ class _StartUpPageState extends ConsumerState<StartUpPage> {
         },
       );
 
-      final accountId = HTTPClient().nowAccountId;
+      final accountId = KarotterApi().session.accountId;
       if (accountId != null) {
-        await HTTPClient().removeAccountId(accountId);
+        await KarotterApi().session.removeAccount(accountId);
       }
       return;
     }

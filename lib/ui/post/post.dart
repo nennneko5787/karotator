@@ -1,10 +1,16 @@
 import "package:flutter/material.dart";
-import "package:karotator/factory/post.dart";
-import "package:karotator/http.dart";
+import "package:karotator/api/karotter_api.dart";
 import "package:karotator/objects/post.dart";
 import "package:karotator/pages/post_detail.dart";
+import "package:karotator/ui/post/avatar.dart";
+import "package:karotator/ui/post/content.dart";
+import "package:karotator/ui/post/header.dart";
 
-class PostWidget extends StatefulWidget {
+/// 一覧に並ぶカロート 1 件。
+///
+/// 上下の角丸と区切り線は一覧の中での位置で決まるので、[isFirst] / [isLast] を
+/// 呼び出し側から渡してもらう。
+class PostWidget extends StatelessWidget {
   const PostWidget({
     super.key,
     required this.post,
@@ -19,20 +25,20 @@ class PostWidget extends StatefulWidget {
   final bool isFirst;
   final bool isLast;
   final double fontSize;
+
+  /// 詳細ページへ飛ばさない。詳細ページ自身で使う。
   final bool disablePageTransition;
   final bool pinned;
 
-  @override
-  State<PostWidget> createState() => _PostWidgetState();
-}
-
-class _PostWidgetState extends State<PostWidget> {
-  late final AbstractPost post = widget.post;
-  late final bool isFirst = widget.isFirst;
-  late final bool isLast = widget.isLast;
-  late final double fontSize = widget.fontSize;
-  late final bool disablePageTransition = widget.disablePageTransition;
-  late final bool pinned = widget.pinned;
+  Future<void> _openDetail(BuildContext context) async {
+    // 一覧のカロートは情報が欠けているので取り直す。
+    final full = await KarotterApi().posts.byId(post.id);
+    if (!context.mounted) return;
+    Navigator.push(
+      context,
+      MaterialPageRoute(builder: (_) => PostDetailPage(post: full)),
+    );
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -40,6 +46,7 @@ class _PostWidgetState extends State<PostWidget> {
       top: isFirst ? const Radius.circular(16) : Radius.zero,
       bottom: isLast ? const Radius.circular(16) : Radius.zero,
     );
+    final rekarotedBy = post is Post ? (post as Post).rekarotedBy : null;
 
     return Container(
       decoration: BoxDecoration(
@@ -61,44 +68,22 @@ class _PostWidgetState extends State<PostWidget> {
           ),
           child: Column(
             children: [
-              if (post is Post && (post as Post).rekarotedBy != null)
-                postRekarotedByFactory(post as Post),
-              if (pinned) postPinnedFactory(),
+              if (rekarotedBy != null)
+                PostRekarotedByLabel(rekarotedBy: rekarotedBy.displayName),
+              if (pinned) const PostPinnedLabel(),
               GestureDetector(
                 onTap: disablePageTransition
                     ? null
-                    : () async {
-                        final fullPost = await HTTPClient().getPostById(
-                          post.id,
-                        );
-
-                        if (!context.mounted) return;
-                        Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                            builder: (context) =>
-                                PostDetailPage(post: fullPost),
-                          ),
-                        );
-                      },
+                    : () => _openDetail(context),
                 child: ListTile(
                   shape: RoundedRectangleBorder(borderRadius: radius),
                   titleAlignment: ListTileTitleAlignment.top,
-                  leading: postUserAvatarFactory(
-                    post.author.avatarUrl,
-                    context: context,
+                  leading: PostUserAvatar(
+                    avatarUrl: post.author.avatarUrl,
                     username: post.author.username,
                   ),
-                  title: postUserDetailFactory(
-                    post,
-                    context,
-                    fontSize: fontSize,
-                  ),
-                  subtitle: postContentFactory(
-                    post,
-                    context,
-                    fontSize: fontSize,
-                  ),
+                  title: PostUserDetail(post: post, fontSize: fontSize),
+                  subtitle: PostContent(post: post, fontSize: fontSize),
                 ),
               ),
             ],

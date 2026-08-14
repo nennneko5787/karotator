@@ -1,5 +1,5 @@
 import "package:flutter/material.dart";
-import "package:karotator/http.dart";
+import "package:karotator/api/karotter_api.dart";
 import "package:karotator/objects/board.dart";
 import "package:karotator/pages/boards/threads.dart";
 import "package:karotator/ui/dialog.dart";
@@ -24,7 +24,7 @@ class _BoardsPageState extends State<BoardsPage> {
 
   Future<void> refreshBoards() async {
     try {
-      final boardsList = await HTTPClient().getBoards();
+      final boardsList = await KarotterApi().boards.boards();
 
       setState(() {
         boards.addAll(boardsList);

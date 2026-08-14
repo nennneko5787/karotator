@@ -2,24 +2,33 @@ import "dart:io";
 
 import "package:flutter/material.dart";
 import "package:image_picker/image_picker.dart";
+import "package:karotator/api/karotter_api.dart";
+import "package:karotator/const.dart";
 import "package:karotator/enum.dart";
-import "package:karotator/factory/post.dart";
-import "package:karotator/http.dart";
 import "package:karotator/objects/circle.dart";
 import "package:karotator/objects/post.dart";
 import "package:karotator/objects/state.dart";
 import "package:karotator/pages/post_detail.dart";
+import "package:karotator/ui/create_post/content_disclosure.dart";
 import "package:karotator/ui/create_post/highlight_text_editing_controller.dart";
-import "package:karotator/ui/create_post/media_settings.dart";
+import "package:karotator/ui/create_post/media_thumbnail.dart";
 import "package:karotator/ui/create_post/poll_settings.dart";
+import "package:karotator/ui/create_post/setting_choice.dart";
+import "package:karotator/ui/create_post/toolbar.dart";
 import "package:karotator/ui/datetime.dart";
+import "package:karotator/ui/post/avatar.dart";
+import "package:karotator/ui/post/content.dart";
+import "package:karotator/ui/post/header.dart";
 import "package:karotator/utils.dart";
 import "package:material_symbols_icons/symbols.dart";
-import 'package:karotator/const.dart';
+
+/// 本文の上限。超えると投稿ボタンが無効になる。
+const _maxLength = 200;
 
 class PostPage extends StatefulWidget {
   const PostPage({super.key, this.post, this.type, this.content = ""});
 
+  /// 返信元 / 引用元。新規投稿なら null。
   final Post? post;
   final InternalPostType? type;
   final String content;
@@ -30,337 +39,303 @@ class PostPage extends StatefulWidget {
 
 class _PostPageState extends State<PostPage> {
   String? _avatarUrl;
-  List<MediaState> medias = [];
-  PostVisibility visibility = PostVisibility.PUBLIC;
-  ReplyRestriction replyRestriction = ReplyRestriction.EVERYONE;
-  int? viewerCircleId;
-  int? replyCircleId;
-  DateTime? scheduledFor;
-  bool isAiGenerated = false;
-  bool isPromotional = false;
-  bool isR18 = false;
-  bool hideFromMinors = false;
-  List<String>? pollOptions;
-  int? pollDurationHours;
+  List<Circle> _circles = [];
 
-  final _pageKey = GlobalKey<ScaffoldState>();
+  final List<MediaState> _medias = [];
+  PostVisibility _visibility = PostVisibility.PUBLIC;
+  ReplyRestriction _replyRestriction = ReplyRestriction.EVERYONE;
+  int? _viewerCircleId;
+  int? _replyCircleId;
+  DateTime? _scheduledFor;
+  ContentDisclosure _disclosure = const ContentDisclosure();
+  List<String>? _pollOptions;
+  int? _pollDurationHours;
+  bool _pollOpen = false;
+
   late final HighlightTextEditingController _postController =
       HighlightTextEditingController()..text = widget.content;
-  final ValueNotifier<bool> _isPostButtonEnabled = ValueNotifier(false);
-  bool _openPollSetting = false;
+  final ValueNotifier<bool> _canPost = ValueNotifier(false);
 
-  List<Circle> _circles = [];
+  bool get _isReply => widget.post != null && widget.type == InternalPostType.reply;
+  bool get _isQuote =>
+      widget.post != null && widget.type == InternalPostType.rekarot;
 
   @override
   void initState() {
     super.initState();
     _postController.addListener(_onTextChanged);
-    HTTPClient().loadLoginResponse().then(
-      (response) => {
-        setState(() {
-          _avatarUrl = response?.user.avatarUrl;
-        }),
-      },
-    );
-    HTTPClient().getUserCircles().then((circles) => _circles = circles);
+
+    KarotterApi().session.login().then((response) {
+      if (!mounted) return;
+      setState(() => _avatarUrl = response?.user.avatarUrl);
+    });
+    KarotterApi().social.circles().then((circles) {
+      if (!mounted) return;
+      setState(() => _circles = circles);
+    });
   }
 
   @override
   void dispose() {
     _postController.removeListener(_onTextChanged);
     _postController.dispose();
-    _isPostButtonEnabled.dispose();
+    _canPost.dispose();
     super.dispose();
   }
 
   void _onTextChanged() {
     final length = _postController.text.length;
-    _isPostButtonEnabled.value = length > 0 && length <= 200;
-    setState(() {});
+    _canPost.value = length > 0 && length <= _maxLength;
+    // ここで setState を呼ばないこと。1 文字ごとに画面全体が作り直される。
+    // 本文に依存する表示は _postController を listenable にして局所的に更新する。
   }
 
+  // ---- 投稿 ----
+
+  /// 投稿する。
+  ///
+  /// 先に画面を閉じてしまうので、この先で `context` と `mounted` は使えない
+  /// （`mounted` は必ず false になり、結果の表示が丸ごと飛ぶ）。
+  /// 進捗と結果はグローバルな [messengerKey] / [navigatorKey] 経由で出す。
   Future<void> _createPost() async {
     final content = _postController.text;
 
     Navigator.pop(context);
 
     messengerKey.currentState?.showSnackBar(
-      SnackBar(content: Text("投稿しています...")),
+      const SnackBar(
+        content: Text("投稿しています..."),
+        duration: Duration(minutes: 1),
+      ),
     );
 
     try {
-      final post = await HTTPClient().createPost(
+      final post = await KarotterApi().posts.create(
         content,
-        visibility: visibility,
-        replyRestriction: replyRestriction,
-        viewerCircleId: viewerCircleId,
-        replyCircleId: replyCircleId,
-        medias: [for (var media in medias) media.file],
-        mediaAlts: [for (var media in medias) media.alt],
-        mediaSpoilerFlags: [for (var media in medias) media.spoiler],
-        mediaR18Flags: [for (var media in medias) media.nsfw],
-        scheduledFor: scheduledFor,
-        isAiGenerated: isAiGenerated,
-        isPromotional: isPromotional,
-        hideFromMinors: hideFromMinors,
-        isR18: isR18,
-        pollOptions: pollOptions,
-        pollDurationHours: pollDurationHours,
-        parentId: (widget.post != null && widget.type == InternalPostType.reply)
-            ? widget.post?.id
-            : null,
-        quotedPostId:
-            (widget.post != null && widget.type == InternalPostType.rekarot)
-            ? widget.post?.id
-            : null,
+        visibility: _visibility,
+        replyRestriction: _replyRestriction,
+        viewerCircleId: _viewerCircleId,
+        replyCircleId: _replyCircleId,
+        medias: [for (final media in _medias) media.file],
+        mediaAlts: [for (final media in _medias) media.alt],
+        mediaSpoilerFlags: [for (final media in _medias) media.spoiler],
+        mediaR18Flags: [for (final media in _medias) media.nsfw],
+        scheduledFor: _scheduledFor,
+        isAiGenerated: _disclosure.isAiGenerated,
+        isPromotional: _disclosure.isPromotional,
+        hideFromMinors: _disclosure.hideFromMinors,
+        isR18: _disclosure.isR18,
+        pollOptions: _pollOptions,
+        pollDurationHours: _pollDurationHours,
+        parentId: _isReply ? widget.post!.id : null,
+        quotedPostId: _isQuote ? widget.post!.id : null,
       );
 
-      if (!mounted) return;
-
-      messengerKey.currentState?.showSnackBar(
-        SnackBar(
-          content: GestureDetector(
-            onTap: () {
-              Navigator.push(
-                navigatorKey.currentState!.context,
-                MaterialPageRoute(builder: (_) => PostDetailPage(post: post)),
-              );
-            },
-            child: Row(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              spacing: 8,
-              children: [
-                Icon(Icons.check_circle, color: Theme.of(context).primaryColor),
-                Text("投稿しました。"),
-              ],
-            ),
-          ),
-        ),
-      );
+      _showResult(_postedSnackBar(post));
     } catch (e, stackTrace) {
       debugPrint("$e\n$stackTrace");
-      if (!mounted) return;
-      messengerKey.currentState?.showSnackBar(
-        SnackBar(content: Text("Error: $e")),
-      );
+      _showResult(SnackBar(content: Text("投稿に失敗しました: $e")));
     }
   }
 
-  void openSetting<T>(
-    T variable,
-    void Function(T value, Circle? circle) onChanged, {
-    required List<Map<String, Object>> items,
-  }) {
+  void _showResult(SnackBar snackBar) {
+    messengerKey.currentState
+      ?..hideCurrentSnackBar()
+      ..showSnackBar(snackBar);
+  }
+
+  SnackBar _postedSnackBar(Post post) {
+    final context = navigatorKey.currentContext;
+
+    return SnackBar(
+      content: GestureDetector(
+        onTap: () => navigatorKey.currentState?.push(
+          MaterialPageRoute(builder: (_) => PostDetailPage(post: post)),
+        ),
+        child: Row(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          spacing: 8,
+          children: [
+            Icon(
+              Icons.check_circle,
+              color: context == null ? null : Theme.of(context).primaryColor,
+            ),
+            const Text("投稿しました。タップで開く"),
+          ],
+        ),
+      ),
+    );
+  }
+
+  // ---- 設定 ----
+
+  /// 選択肢を並べたシートを開き、選ばれたものを反映する。
+  Future<void> _openChoiceSheet<T>(
+    List<PostSettingChoice<T>> choices, {
+    required bool Function(PostSettingChoice<T> choice) isSelected,
+    required void Function(PostSettingChoice<T> choice) onSelected,
+  }) async {
+    final choice = await showModalBottomSheet<PostSettingChoice<T>>(
+      context: context,
+      builder: (context) => SafeArea(
+        child: Column(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            for (final choice in choices)
+              ListTile(
+                leading: Icon(choice.icon),
+                title: Text(choice.label),
+                trailing: isSelected(choice) ? const Icon(Icons.check) : null,
+                onTap: () => Navigator.pop(context, choice),
+              ),
+          ],
+        ),
+      ),
+    );
+
+    if (choice == null || !mounted) return;
+    setState(() => onSelected(choice));
+  }
+
+  void _openVisibilitySetting() {
+    _openChoiceSheet<PostVisibility>(
+      [
+        const PostSettingChoice(
+          label: "全体",
+          icon: Symbols.globe,
+          value: PostVisibility.PUBLIC,
+        ),
+        for (final circle in _circles)
+          PostSettingChoice(
+            label: "サークル限定: ${circle.name}",
+            icon: Symbols.group,
+            value: PostVisibility.CIRCLE,
+            circle: circle,
+          ),
+      ],
+      isSelected: (choice) =>
+          choice.value == _visibility &&
+          (choice.circle == null || choice.circle!.id == _viewerCircleId),
+      onSelected: (choice) {
+        _visibility = choice.value;
+        _viewerCircleId = choice.circle?.id;
+      },
+    );
+  }
+
+  void _openReplyRestrictionSetting() {
+    _openChoiceSheet<ReplyRestriction>(
+      [
+        const PostSettingChoice(
+          label: "全員",
+          icon: Symbols.globe,
+          value: ReplyRestriction.EVERYONE,
+        ),
+        const PostSettingChoice(
+          label: "フォロー中",
+          icon: Icons.person_add,
+          value: ReplyRestriction.FOLLOWING,
+        ),
+        const PostSettingChoice(
+          label: "メンションのみ",
+          icon: Icons.alternate_email,
+          value: ReplyRestriction.MENTIONED,
+        ),
+        for (final circle in _circles)
+          PostSettingChoice(
+            label: "サークル限定: ${circle.name}",
+            icon: Symbols.group,
+            value: ReplyRestriction.CIRCLE,
+            circle: circle,
+          ),
+      ],
+      isSelected: (choice) =>
+          choice.value == _replyRestriction &&
+          (choice.circle == null || choice.circle!.id == _replyCircleId),
+      onSelected: (choice) {
+        _replyRestriction = choice.value;
+        _replyCircleId = choice.circle?.id;
+      },
+    );
+  }
+
+  Future<void> _openContentDisclosure() async {
+    final result = await showContentDisclosureDialog(context, _disclosure);
+    if (result == null || !mounted) return;
+    setState(() => _disclosure = result);
+  }
+
+  void _openSchedule() {
     showModalBottomSheet(
       context: context,
-      builder: (context) {
-        return SafeArea(
-          child: Column(
-            mainAxisSize: MainAxisSize.min,
-            children: [
-              for (var item in items)
-                ListTile(
-                  leading: Icon(item["icon"] as IconData),
-                  title: Text(item["label"] as String),
-                  trailing: _isSelected(variable, item)
-                      ? const Icon(Icons.check)
-                      : null,
-                  onTap: () {
-                    Navigator.pop(context);
-                    setState(
-                      () => onChanged(
-                        item["value"] as T,
-                        item["circle"] as Circle?,
-                      ),
-                    );
-                  },
-                ),
-            ],
-          ),
-        );
-      },
+      builder: (context) => DateTimeSelector(
+        dateTime: _scheduledFor,
+        onConfirm: (dt) => setState(() => _scheduledFor = dt),
+        onDelete: () => setState(() => _scheduledFor = null),
+      ),
     );
   }
 
-  bool _isSelected<T>(T variable, Map<String, Object> item) {
-    if (variable != item["value"]) return false;
+  void _togglePoll() {
+    setState(() {
+      _pollOpen = !_pollOpen;
+      _pollOptions = _pollOpen ? [] : null;
+      _pollDurationHours = _pollOpen ? 1 : null;
+    });
+  }
 
-    final circle = item["circle"] as Circle?;
-    if (circle != null) {
-      return (((variable is PostVisibility) && (viewerCircleId == circle.id)) ||
-          ((variable is ReplyRestriction) && (replyCircleId == circle.id)));
+  // ---- 添付 ----
+
+  Future<void> _pickImages() async {
+    final results = await ImagePicker().pickMultiImage();
+
+    for (final result in results) {
+      final file = File(result.path);
+      final state = MediaState(
+        file: file,
+        thumbnail: await file.readAsBytes(),
+        type: MediaType.image,
+      );
+      if (!mounted) return;
+      setState(() => _medias.add(state));
     }
-    return true;
   }
 
-  void openVisibilitySetting() {
-    openSetting<PostVisibility>(
-      visibility,
-      (value, circle) {
-        visibility = value;
-        if (visibility == PostVisibility.CIRCLE) {
-          viewerCircleId = circle!.id;
-        }
-      },
-      items: [
-        {"label": "全体", "icon": Symbols.globe, "value": PostVisibility.PUBLIC},
-        for (var circle in _circles)
-          {
-            "label": "サークル限定: ${circle.name}",
-            "icon": Symbols.group,
-            "value": PostVisibility.CIRCLE,
-            "circle": circle,
-          },
-      ],
+  Future<void> _pickVideo() async {
+    final result = await ImagePicker().pickVideo(source: ImageSource.gallery);
+    if (result == null) return;
+
+    final file = File(result.path);
+    final thumbnail = await getVideoThumbnail(file.path);
+    if (thumbnail == null || !mounted) return;
+
+    setState(
+      () => _medias.add(
+        MediaState(file: file, thumbnail: thumbnail, type: MediaType.video),
+      ),
     );
   }
 
-  void openReplyRestrictionSetting() {
-    openSetting<ReplyRestriction>(
-      replyRestriction,
-      (value, circle) {
-        replyRestriction = value;
-        if (replyRestriction == ReplyRestriction.CIRCLE) {
-          replyCircleId = circle!.id;
-        }
-      },
-      items: [
-        {
-          "label": "全員",
-          "icon": Symbols.globe,
-          "value": ReplyRestriction.EVERYONE,
-        },
-        {
-          "label": "フォロー中",
-          "icon": Icons.person_add,
-          "value": ReplyRestriction.FOLLOWING,
-        },
-        {
-          "label": "メンションのみ",
-          "icon": Icons.alternate_email,
-          "value": ReplyRestriction.MENTIONED,
-        },
-        for (var circle in _circles)
-          {
-            "label": "サークル限定: ${circle.name}",
-            "icon": Symbols.group,
-            "value": ReplyRestriction.CIRCLE,
-            "circle": circle,
-          },
-      ],
-    );
-  }
-
-  Future<void> openContentDisclosureSetting() async {
-    return showDialog<void>(
-      context: context,
-      builder: (BuildContext context) {
-        return StatefulBuilder(
-          builder: (context, setDialogState) {
-            return AlertDialog(
-              title: Text("コンテンツ開示の設定"),
-              content: Column(
-                mainAxisSize: MainAxisSize.min,
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Row(
-                    crossAxisAlignment: CrossAxisAlignment.center,
-                    children: [
-                      Checkbox(
-                        value: isAiGenerated,
-                        onChanged: (bool? value) {
-                          setDialogState(() {
-                            isAiGenerated = value!;
-                          });
-                        },
-                      ),
-                      const Expanded(child: Text("このカロートはAIで作成した内容を含む")),
-                    ],
-                  ),
-                  Row(
-                    crossAxisAlignment: CrossAxisAlignment.center,
-                    children: [
-                      Checkbox(
-                        value: isPromotional,
-                        onChanged: (bool? value) {
-                          setDialogState(() {
-                            isPromotional = value!;
-                          });
-                        },
-                      ),
-                      const Expanded(child: Text("このカロートはブランドまたはビジネスの宣伝である")),
-                    ],
-                  ),
-                  Row(
-                    crossAxisAlignment: CrossAxisAlignment.center,
-                    children: [
-                      Checkbox(
-                        value: isR18,
-                        onChanged: (bool? value) {
-                          setDialogState(() {
-                            isR18 = value!;
-                          });
-                        },
-                      ),
-                      const Expanded(child: Text("投稿全体をR18として扱う")),
-                    ],
-                  ),
-                  Row(
-                    crossAxisAlignment: CrossAxisAlignment.center,
-                    children: [
-                      Checkbox(
-                        value: hideFromMinors,
-                        onChanged: (bool? value) {
-                          setDialogState(() {
-                            hideFromMinors = value!;
-                          });
-                        },
-                      ),
-                      const Expanded(child: Text("未成年ユーザーにはこの投稿を表示しない")),
-                    ],
-                  ),
-                ],
-              ),
-              actions: <Widget>[
-                TextButton(
-                  child: Text('OK'),
-                  onPressed: () {
-                    Navigator.of(context).pop();
-                  },
-                ),
-              ],
-            );
-          },
-        );
-      },
-    );
-  }
+  // ---- 描画 ----
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      key: _pageKey,
       appBar: AppBar(
         leading: IconButton(
-          onPressed: () => {Navigator.pop(context)},
+          onPressed: () => Navigator.pop(context),
           icon: const Icon(Icons.close),
         ),
         actions: [
-          TextButton(onPressed: () => {}, child: const Text("下書き")),
+          TextButton(onPressed: () {}, child: const Text("下書き")),
           ValueListenableBuilder<bool>(
-            valueListenable: _isPostButtonEnabled,
-            builder: (context, isEnabled, child) {
-              return ElevatedButton(
-                onPressed: isEnabled
-                    ? () async {
-                        await _createPost();
-                      }
-                    : null,
-                child: const Text('カロート'),
-              );
-            },
+            valueListenable: _canPost,
+            builder: (context, canPost, _) => ElevatedButton(
+              onPressed: canPost ? _createPost : null,
+              child: const Text('カロート'),
+            ),
           ),
-          SizedBox(width: 4),
+          const SizedBox(width: 4),
         ],
       ),
       body: SingleChildScrollView(
@@ -368,316 +343,91 @@ class _PostPageState extends State<PostPage> {
           padding: const EdgeInsets.all(8),
           child: Column(
             children: [
-              if (widget.post != null && widget.type == InternalPostType.reply)
-                ListTile(
-                  titleAlignment: ListTileTitleAlignment.top,
-                  leading: postUserAvatarFactory(widget.post!.author.avatarUrl),
-                  title: postUserDetailFactory(widget.post!, context),
-                  subtitle: postContentFactory(
-                    widget.post!,
-                    context,
-                    hideActions: true,
-                    hideReplyTo: true,
-                  ),
-                ),
-              Row(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                spacing: 8,
-                children: [
-                  postUserAvatarFactory(_avatarUrl),
-                  Expanded(
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      spacing: 8,
-                      children: [
-                        TextField(
-                          controller: _postController,
-                          maxLines: null,
-                          decoration: const InputDecoration(
-                            hintText: '思いついたことを書き込んでみましょう…',
-                            border: InputBorder.none,
-                          ),
-                        ),
-                        if (_openPollSetting)
-                          PollSettings(
-                            onChanged: (options) {
-                              pollOptions = options;
-                            },
-                            onDurationChanged: (duration) {
-                              pollDurationHours = duration;
-                            },
-                          ),
-                        SingleChildScrollView(
-                          scrollDirection: Axis.horizontal,
-                          child: Row(
-                            spacing: 8,
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              for (var media in medias)
-                                SizedBox(
-                                  width: 200,
-                                  height: 200,
-                                  child: Stack(
-                                    children: [
-                                      (media.type == MediaType.video)
-                                          ? Image.memory(
-                                              media.thumbnail!,
-                                              width: 200,
-                                              height: 200,
-                                            )
-                                          : Image.file(
-                                              media.file,
-                                              width: 200,
-                                              height: 200,
-                                            ),
-                                      if (media.type == MediaType.video)
-                                        Align(
-                                          alignment: Alignment.center,
-                                          child: Container(
-                                            decoration: BoxDecoration(
-                                              shape: BoxShape.circle,
-                                              color: Colors.black,
-                                            ),
-                                            child: IconButton(
-                                              onPressed: null,
-                                              icon: const Icon(
-                                                Icons.play_arrow,
-                                                size: 16,
-                                              ),
-                                              color: Colors.white,
-                                            ),
-                                          ),
-                                        ),
-                                      Align(
-                                        alignment: Alignment.topRight,
-                                        child: Container(
-                                          decoration: BoxDecoration(
-                                            shape: BoxShape.circle,
-                                            color: Colors.black,
-                                          ),
-                                          child: IconButton(
-                                            onPressed: () {
-                                              setState(() {
-                                                medias.remove(media);
-                                              });
-                                            },
-                                            icon: const Icon(
-                                              Icons.close,
-                                              size: 16,
-                                            ),
-                                            color: Colors.white,
-                                          ),
-                                        ),
-                                      ),
-                                      Align(
-                                        alignment: Alignment.bottomLeft,
-                                        child: Container(
-                                          decoration: BoxDecoration(
-                                            shape: BoxShape.circle,
-                                            color: Theme.of(
-                                              context,
-                                            ).primaryColor,
-                                          ),
-                                          child: IconButton(
-                                            onPressed: () {
-                                              showMediaSettings(context, media);
-                                            },
-                                            icon: const Icon(
-                                              Symbols.stylus,
-                                              size: 16,
-                                            ),
-                                            color: Colors.white,
-                                          ),
-                                        ),
-                                      ),
-                                      Align(
-                                        alignment: Alignment.bottomRight,
-                                        child: Container(
-                                          decoration: BoxDecoration(
-                                            shape: BoxShape.circle,
-                                            color: Colors.black,
-                                          ),
-                                          child: IconButton(
-                                            onPressed: null,
-                                            icon: Icon(
-                                              (media.type == MediaType.image)
-                                                  ? Icons.image
-                                                  : Icons.movie,
-                                              size: 16,
-                                            ),
-                                            color: Colors.white,
-                                          ),
-                                        ),
-                                      ),
-                                    ],
-                                  ),
-                                ),
-                            ],
-                          ),
-                        ),
-                      ],
-                    ),
-                  ),
-                ],
-              ),
-              if (widget.post != null &&
-                  widget.type == InternalPostType.rekarot)
-                Container(
-                  decoration: BoxDecoration(
-                    border: Border.all(
-                      color: Theme.of(context).dividerColor,
-                      width: 1,
-                    ),
-                    borderRadius: BorderRadius.circular(8),
-                  ),
-                  child: ListTile(
-                    titleAlignment: ListTileTitleAlignment.top,
-                    leading: postUserAvatarFactory(
-                      widget.post!.author.avatarUrl,
-                    ),
-                    title: postUserDetailFactory(widget.post!, context),
-                    subtitle: postContentFactory(
-                      widget.post!,
-                      context,
-                      hideActions: true,
-                      hideReplyTo: true,
-                    ),
-                  ),
-                ),
+              if (_isReply) _ReferencedPost(post: widget.post!),
+              _buildComposer(),
+              if (_isQuote) _ReferencedPost(post: widget.post!, boxed: true),
             ],
           ),
         ),
       ),
-      bottomNavigationBar: Padding(
-        padding: MediaQuery.of(context).viewInsets,
-        child: BottomAppBar(
-          child: Row(
+      bottomNavigationBar: ComposerToolbar(
+        controller: _postController,
+        maxLength: _maxLength,
+        onVisibility: _openVisibilitySetting,
+        onReplyRestriction: _openReplyRestrictionSetting,
+        onPickImages: _pickImages,
+        onPickVideo: _pickVideo,
+        onTogglePoll: _togglePoll,
+        onSchedule: _openSchedule,
+        onContentDisclosure: _openContentDisclosure,
+        scheduled: _scheduledFor != null,
+        pollOpen: _pollOpen,
+        disclosed: _disclosure.hasAny,
+      ),
+    );
+  }
+
+  Widget _buildComposer() {
+    return Row(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      spacing: 8,
+      children: [
+        PostUserAvatar(avatarUrl: _avatarUrl),
+        Expanded(
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            spacing: 8,
             children: [
-              Flexible(
-                child: SingleChildScrollView(
-                  scrollDirection: Axis.horizontal,
-                  child: Row(
-                    children: [
-                      IconButton(
-                        onPressed: () {
-                          openVisibilitySetting();
-                        },
-                        tooltip: "公開範囲",
-                        icon: const Icon(Icons.visibility),
-                      ),
-                      IconButton(
-                        onPressed: () {
-                          openReplyRestrictionSetting();
-                        },
-                        tooltip: "返信可能なユーザーの範囲",
-                        icon: const Icon(Icons.comment),
-                      ),
-                      IconButton(
-                        onPressed: () async {
-                          final picker = ImagePicker();
-                          final results = await picker.pickMultiImage();
-
-                          for (var result in results) {
-                            File file = File(result.path);
-                            final state = MediaState(
-                              file: file,
-                              thumbnail: await file.readAsBytes(),
-                              type: MediaType.image,
-                            );
-                            setState(() {
-                              medias.add(state);
-                            });
-                          }
-                        },
-                        tooltip: "画像を添付",
-                        icon: const Icon(Icons.image_outlined),
-                      ),
-                      IconButton(
-                        onPressed: () async {
-                          final picker = ImagePicker();
-                          final result = await picker.pickVideo(
-                            source: ImageSource.gallery,
-                          );
-
-                          if (result != null) {
-                            File file = File(result.path);
-                            final thumbnail = await getVideoThumbnail(
-                              file.path,
-                            );
-                            if (thumbnail != null) {
-                              final state = MediaState(
-                                file: file,
-                                thumbnail: thumbnail,
-                                type: MediaType.video,
-                              );
-                              setState(() {
-                                medias.add(state);
-                              });
-                            }
-                          }
-                        },
-                        tooltip: "動画を添付",
-                        icon: const Icon(Icons.movie),
-                      ),
-                      IconButton(
-                        onPressed: () {
-                          setState(() {
-                            if (_openPollSetting == true) {
-                              pollOptions = null;
-                              pollDurationHours = null;
-                              _openPollSetting = false;
-                            } else {
-                              pollOptions = [];
-                              pollDurationHours = 1;
-                              _openPollSetting = true;
-                            }
-                          });
-                        },
-                        tooltip: "投票",
-                        icon: const Icon(Icons.how_to_vote),
-                      ),
-                      IconButton(
-                        onPressed: () {
-                          showModalBottomSheet(
-                            context: context,
-                            builder: (BuildContext context) {
-                              return DateTimeSelector(
-                                dateTime: scheduledFor,
-                                onConfirm: (dt) {
-                                  setState(() => scheduledFor = dt);
-                                },
-                                onDelete: () {
-                                  setState(() => scheduledFor = null);
-                                },
-                              );
-                            },
-                          );
-                        },
-                        tooltip: "予約投稿",
-                        icon: const Icon(Symbols.calendar_clock),
-                        color: (scheduledFor != null) ? Colors.lightBlue : null,
-                      ),
-                      IconButton(
-                        onPressed: () {
-                          openContentDisclosureSetting();
-                        },
-                        tooltip: "コンテンツ開示",
-                        icon: const Icon(Icons.verified),
-                      ),
-                    ],
-                  ),
+              TextField(
+                controller: _postController,
+                maxLines: null,
+                decoration: const InputDecoration(
+                  hintText: '思いついたことを書き込んでみましょう…',
+                  border: InputBorder.none,
                 ),
               ),
-              Text(
-                '${_postController.text.length} / 200',
-                style: Theme.of(context).textTheme.bodySmall?.copyWith(
-                  color: _postController.text.length > 200 ? Colors.red : null,
+              if (_pollOpen)
+                PollSettings(
+                  onChanged: (options) => _pollOptions = options,
+                  onDurationChanged: (duration) =>
+                      _pollDurationHours = duration,
                 ),
+              ComposerMediaStrip(
+                medias: _medias,
+                onRemove: (media) => setState(() => _medias.remove(media)),
               ),
             ],
           ),
         ),
+      ],
+    );
+  }
+}
+
+/// 返信元 / 引用元のカロート。引用のときだけ枠で囲む。
+class _ReferencedPost extends StatelessWidget {
+  const _ReferencedPost({required this.post, this.boxed = false});
+
+  final Post post;
+  final bool boxed;
+
+  @override
+  Widget build(BuildContext context) {
+    final tile = ListTile(
+      titleAlignment: ListTileTitleAlignment.top,
+      leading: PostUserAvatar(avatarUrl: post.author.avatarUrl),
+      title: PostUserDetail(post: post),
+      subtitle: PostContent(post: post, hideActions: true, hideReplyTo: true),
+    );
+
+    if (!boxed) return tile;
+
+    return Container(
+      decoration: BoxDecoration(
+        border: Border.all(color: Theme.of(context).dividerColor, width: 1),
+        borderRadius: BorderRadius.circular(8),
       ),
+      child: tile,
     );
   }
 }

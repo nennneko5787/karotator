@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:karotator/exceptions.dart';
-import 'package:karotator/http.dart';
+import 'package:karotator/api/exceptions.dart';
+import 'package:karotator/providers/api.dart';
 import 'package:karotator/objects/post.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 
@@ -32,19 +32,15 @@ class PostNotifier extends _$PostNotifier {
 
     try {
       if (!current.liked) {
-        await HTTPClient().like(current.id);
+        await ref.read(postsApiProvider).like(current.id);
       } else {
-        await HTTPClient().dislike(current.id);
+        await ref.read(postsApiProvider).unlike(current.id);
       }
     } catch (e, stackTrace) {
       debugPrint("$e\n$stackTrace");
       if ((e is! KarotterClientException) || (e.statusCode != 400)) {
-        state = current.copyWith(
-          liked: !current.liked,
-          likesCount: current.liked
-              ? current.likesCount - 1
-              : current.likesCount + 1,
-        );
+        // 楽観更新を捨てて、送信前の状態に戻す。
+        state = current;
         rethrow;
       }
     }
@@ -62,19 +58,14 @@ class PostNotifier extends _$PostNotifier {
 
     try {
       if (!current.rekaroted) {
-        await HTTPClient().rekarot(current.id);
+        await ref.read(postsApiProvider).rekarot(current.id);
       } else {
-        await HTTPClient().unrekarot(current.id);
+        await ref.read(postsApiProvider).unrekarot(current.id);
       }
     } catch (e, stackTrace) {
       debugPrint("$e\n$stackTrace");
       if ((e is! KarotterClientException) || (e.statusCode != 400)) {
-        state = current.copyWith(
-          rekaroted: !current.rekaroted,
-          rekarotsCount: current.rekaroted
-              ? current.rekarotsCount - 1
-              : current.rekarotsCount + 1,
-        );
+        state = current;
         rethrow;
       }
     }
@@ -92,19 +83,14 @@ class PostNotifier extends _$PostNotifier {
 
     try {
       if (!current.bookmarked) {
-        await HTTPClient().bookmark(current.id);
+        await ref.read(postsApiProvider).bookmark(current.id);
       } else {
-        await HTTPClient().unbookmark(current.id);
+        await ref.read(postsApiProvider).unbookmark(current.id);
       }
     } catch (e, stackTrace) {
       debugPrint("$e\n$stackTrace");
       if ((e is! KarotterClientException) || (e.statusCode != 400)) {
-        state = current.copyWith(
-          bookmarked: !current.bookmarked,
-          bookmarksCount: current.bookmarked
-              ? current.bookmarksCount - 1
-              : current.bookmarksCount + 1,
-        );
+        state = current;
         rethrow;
       }
     }
@@ -130,7 +116,7 @@ class PostNotifier extends _$PostNotifier {
     );
 
     try {
-      await HTTPClient().react(current.id, emoji: emoji);
+      await ref.read(postsApiProvider).react(current.id, emoji: emoji);
     } catch (e) {
       state = current; // ロールバック
       rethrow;
@@ -154,7 +140,7 @@ class PostNotifier extends _$PostNotifier {
     );
 
     try {
-      await HTTPClient().unreact(current.id, emoji: emoji);
+      await ref.read(postsApiProvider).unreact(current.id, emoji: emoji);
     } catch (e) {
       state = current; // ロールバック
       rethrow;
@@ -165,7 +151,7 @@ class PostNotifier extends _$PostNotifier {
     final current = state;
 
     try {
-      final poll = await HTTPClient().poll(current.id, optionId: optionId);
+      final poll = await ref.read(postsApiProvider).vote(current.id, optionId: optionId);
       state = current.copyWith(poll: poll);
     } catch (e, stackTrace) {
       debugPrint("$e\n$stackTrace");

@@ -1,5 +1,6 @@
+import "package:karotator/const.dart";
 import "package:flutter/material.dart";
-import "package:karotator/http.dart";
+import "package:karotator/api/karotter_api.dart";
 import "package:karotator/objects/response.dart";
 import "package:karotator/objects/user.dart";
 import "package:karotator/pages/boards.dart";
@@ -30,7 +31,7 @@ class _DrawerMenuState extends State<DrawerMenu> {
   void initState() {
     super.initState();
 
-    HTTPClient().loadLoginResponse().then(
+    KarotterApi().session.login().then(
       (response) => {
         setState(() {
           user = response?.user;
@@ -38,11 +39,11 @@ class _DrawerMenuState extends State<DrawerMenu> {
       },
     );
 
-    HTTPClient().getAccountIds().then((accountIds) async {
+    KarotterApi().session.accounts.ids().then((accountIds) async {
       final newAccounts = <UserMeta>[];
       for (var accountId in accountIds) {
-        if (accountId == HTTPClient().nowAccountId) continue;
-        final response = await HTTPClient().loadLoginResponse(id: accountId);
+        if (accountId == KarotterApi().session.accountId) continue;
+        final response = await KarotterApi().session.loginOf(accountId);
         if (response == null) continue;
 
         newAccounts.add(UserMeta(accountId: accountId, response: response));
@@ -67,9 +68,7 @@ class _DrawerMenuState extends State<DrawerMenu> {
                 ListTile(
                   leading: CircleAvatar(
                     backgroundImage: NetworkImage(
-                      user!.avatarUrl != null
-                          ? "https://karotter.com${user!.avatarUrl}"
-                          : "https://karotter.com/default-avatar.png",
+                      avatarUrlOf(user?.avatarUrl),
                     ),
                   ),
                   title: Text(user!.displayName),
@@ -81,15 +80,13 @@ class _DrawerMenuState extends State<DrawerMenu> {
                 ListTile(
                   leading: CircleAvatar(
                     backgroundImage: NetworkImage(
-                      account.response.user.avatarUrl != null
-                          ? "https://karotter.com${account.response.user.avatarUrl}"
-                          : "https://karotter.com/default-avatar.png",
+                      avatarUrlOf(account.response.user.avatarUrl),
                     ),
                   ),
                   title: Text(account.response.user.displayName),
                   subtitle: Text("@${account.response.user.username}"),
                   onTap: () {
-                    HTTPClient().setAccountId(account.accountId);
+                    KarotterApi().session.switchTo(account.accountId);
                     Navigator.pop(context);
                     Navigator.pushReplacement(
                       parentContext,
@@ -116,8 +113,8 @@ class _DrawerMenuState extends State<DrawerMenu> {
                   title: Text("@${user!.username} からログアウト"),
                   onTap: () async {
                     Navigator.of(bottomSheetContext).pop();
-                    await HTTPClient().removeAccountId(
-                      HTTPClient().nowAccountId!,
+                    await KarotterApi().session.removeAccount(
+                      KarotterApi().session.accountId!,
                     );
                     await Future.delayed(Duration.zero);
                     if (!parentContext.mounted) return;
@@ -252,9 +249,7 @@ class _DrawerMenuState extends State<DrawerMenu> {
                   ),
             currentAccountPicture: CircleAvatar(
               backgroundImage: NetworkImage(
-                user?.avatarUrl != null
-                    ? "https://karotter.com${user!.avatarUrl}"
-                    : "https://karotter.com/default-avatar.png",
+                avatarUrlOf(user?.avatarUrl),
               ),
             ),
             otherAccountsPictures: [
@@ -264,7 +259,7 @@ class _DrawerMenuState extends State<DrawerMenu> {
               ))
                 IconButton(
                   onPressed: () {
-                    HTTPClient().setAccountId(account.accountId);
+                    KarotterApi().session.switchTo(account.accountId);
                     Navigator.pushReplacement(
                       context,
                       MaterialPageRoute(builder: (context) => StartUpPage()),
@@ -278,9 +273,7 @@ class _DrawerMenuState extends State<DrawerMenu> {
                       image: DecorationImage(
                         fit: BoxFit.fill,
                         image: NetworkImage(
-                          account.response.user.avatarUrl != null
-                              ? "https://karotter.com${account.response.user.avatarUrl}"
-                              : "https://karotter.com/default-avatar.png",
+                          avatarUrlOf(account.response.user.avatarUrl),
                         ),
                       ),
                     ),

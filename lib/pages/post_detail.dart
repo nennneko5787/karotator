@@ -1,5 +1,5 @@
 import "package:flutter/material.dart";
-import "package:karotator/http.dart";
+import "package:karotator/api/karotter_api.dart";
 import "package:karotator/objects/post.dart";
 import "package:karotator/ui/dialog.dart";
 import "package:karotator/ui/post/post.dart";
@@ -46,7 +46,7 @@ class _PostDetailPageState extends State<PostDetailPage> {
       isLoadingMore = true;
       page++;
 
-      final response = await HTTPClient().getReplies(
+      final response = await KarotterApi().posts.replies(
         postId: widget.post.id,
         page: page,
         limit: 20,
@@ -74,13 +74,13 @@ class _PostDetailPageState extends State<PostDetailPage> {
       isLoadingMore = true;
 
       if (widget.post.parentId != null) {
-        final parent = await HTTPClient().getPostById(widget.post.parentId!);
+        final parent = await KarotterApi().posts.byId(widget.post.parentId!);
         setState(() {
           parentPost = parent;
         });
       }
 
-      final response = await HTTPClient().getReplies(
+      final response = await KarotterApi().posts.replies(
         postId: widget.post.id,
         page: 1,
         limit: 20,
@@ -191,7 +191,7 @@ class _ReplyInputState extends State<_ReplyInput> {
 
     setState(() => _isPosting = true);
     try {
-      await HTTPClient().createPost(text, parentId: widget.postId);
+      await KarotterApi().posts.create(text, parentId: widget.postId);
       _controller.clear();
       widget.onPosted();
     } catch (e, stackTrace) {

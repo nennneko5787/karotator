@@ -1,7 +1,8 @@
+import "package:karotator/const.dart";
 import "package:flutter/gestures.dart";
 import "package:flutter/material.dart" hide Notification;
 import "package:karotator/enum.dart";
-import "package:karotator/http.dart";
+import "package:karotator/api/karotter_api.dart";
 import "package:karotator/objects/notification.dart";
 import "package:karotator/pages/notification_posts.dart";
 import "package:karotator/pages/post_detail.dart";
@@ -50,12 +51,12 @@ class _NotificationsState extends State<NotificationsPage> {
     try {
       isLoadingMore = true;
 
-      final response = await HTTPClient().getNotifications(
+      final response = await KarotterApi().notifications.list(
         page: page,
         limit: 15,
       );
 
-      await HTTPClient().markUnReadNotificationsAsRead();
+      await KarotterApi().notifications.markAllAsRead();
 
       setState(() {
         hasMore = response.pagination.hasMore;
@@ -76,7 +77,7 @@ class _NotificationsState extends State<NotificationsPage> {
       isLoadingMore = true;
       page++;
 
-      final response = await HTTPClient().getNotifications(
+      final response = await KarotterApi().notifications.list(
         page: page,
         limit: 15,
       );
@@ -149,6 +150,43 @@ class _NotificationsState extends State<NotificationsPage> {
       case NotificationType.REACTION:
         spans.add(TextSpan(text: "が${numOfPosts ?? ""}あなたのカロートにリアクションしました"));
         break;
+      case NotificationType.MENTION:
+        spans.add(TextSpan(text: "が${numOfPosts ?? ""}あなたをメンションしました"));
+        break;
+      case NotificationType.FOLLOW_REQUEST:
+        spans.add(const TextSpan(text: "からフォローリクエストが届いています"));
+        break;
+      case NotificationType.FOLLOWED_POST:
+        spans.add(TextSpan(text: "が${numOfPosts ?? ""}カロートを投稿しました"));
+        break;
+      case NotificationType.DM:
+        spans.add(const TextSpan(text: "からメッセージが届いています"));
+        break;
+      case NotificationType.BOARD_NEW_THREAD:
+        spans.add(const TextSpan(text: "がスレッドを立てました"));
+        break;
+      case NotificationType.BOARD_THREAD_REPLY:
+        spans.add(const TextSpan(text: "がスレッドに返信しました"));
+        break;
+      case NotificationType.COMMUNITY_INVITE:
+        spans.add(const TextSpan(text: "からコミュニティに招待されました"));
+        break;
+      case NotificationType.COMMUNITY_JOIN:
+        spans.add(const TextSpan(text: "がコミュニティに参加しました"));
+        break;
+      case NotificationType.COMMUNITY_REMOVAL:
+        spans.add(const TextSpan(text: "がコミュニティから外されました"));
+        break;
+      case NotificationType.REPORT_UPDATE:
+        spans.add(const TextSpan(text: "通報の対応状況が更新されました"));
+        break;
+      case NotificationType.SYSTEM:
+        spans.add(const TextSpan(text: "お知らせがあります"));
+        break;
+      // karotator が知らない種類。通知自体は落とさず素っ気なく出す。
+      case NotificationType.UNKNOWN:
+        spans.add(const TextSpan(text: "から通知が届いています"));
+        break;
     }
 
     return Text.rich(TextSpan(children: spans));
@@ -215,7 +253,7 @@ class _NotificationsState extends State<NotificationsPage> {
                                       "assets/images/default-avatar.png",
                                     )
                                   : NetworkImage(
-                                      "https://karotter.com${notification.actor.avatarUrl!}",
+                                      avatarUrlOf(notification.actor.avatarUrl),
                                     ),
                             ),
                             Positioned(
@@ -240,6 +278,17 @@ class _NotificationsState extends State<NotificationsPage> {
                                     NotificationType.QUOTE =>
                                       Icons.format_quote,
                                     NotificationType.FOLLOW => Icons.person_add,
+                                    NotificationType.MENTION =>
+                                      Icons.alternate_email,
+                                    NotificationType.FOLLOW_REQUEST =>
+                                      Icons.person_search,
+                                    NotificationType.DM => Icons.mail,
+                                    NotificationType.BOARD_NEW_THREAD ||
+                                    NotificationType.BOARD_THREAD_REPLY =>
+                                      Icons.forum,
+                                    NotificationType.SYSTEM ||
+                                    NotificationType.REPORT_UPDATE =>
+                                      Icons.campaign,
                                     _ => Icons.auto_awesome,
                                   },
                                   color: switch (notification.type) {
@@ -248,6 +297,13 @@ class _NotificationsState extends State<NotificationsPage> {
                                     NotificationType.REKAROT => Colors.green,
                                     NotificationType.QUOTE => Colors.lightGreen,
                                     NotificationType.FOLLOW => Colors.blue,
+                                    NotificationType.MENTION => Colors.purple,
+                                    NotificationType.FOLLOW_REQUEST =>
+                                      Colors.blueGrey,
+                                    NotificationType.DM => Colors.teal,
+                                    NotificationType.BOARD_NEW_THREAD ||
+                                    NotificationType.BOARD_THREAD_REPLY =>
+                                      Colors.brown,
                                     _ => Colors.orange,
                                   },
                                   size: 20,
@@ -262,7 +318,7 @@ class _NotificationsState extends State<NotificationsPage> {
                       onTap: () async {
                         if (notification.type != NotificationType.FOLLOW) {
                           if (notification.postCount <= 1) {
-                            final post = await HTTPClient().getPostById(
+                            final post = await KarotterApi().posts.byId(
                               notification.post!.id,
                             );
 
@@ -293,7 +349,7 @@ class _NotificationsState extends State<NotificationsPage> {
                         : GestureDetector(
                             onTap: () async {
                               if (notification.postCount <= 1) {
-                                final post = await HTTPClient().getPostById(
+                                final post = await KarotterApi().posts.byId(
                                   notification.post!.id,
                                 );
 

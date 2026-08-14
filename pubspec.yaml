@@ -43,7 +43,7 @@ dependencies:
   uuid: ^4.5.3
   flutter_riverpod: ^3.3.1
   riverpod_annotation: ^4.0.2
-  material_symbols_icons: ^4.2906.0
+  material_symbols_icons: ^4.2960.0
   flutter_hooks: ^0.21.3+1
   path_provider: ^2.1.5
   image_picker: ^1.2.1

@@ -135,6 +135,15 @@ abstract class UserResponse with _$UserResponse {
     required bool hasPendingRequest,
     required List<Author> mutualFollowersPreview,
     required int mutualFollowersCount,
+
+    /// このユーザーの投稿通知を受け取る設定にしているか。
+    @Default(false) bool isPostNotificationsEnabled,
+
+    /// このユーザーのカロートをタイムラインから隠しているか。
+    @Default(false) bool isRekarotHidden,
+
+    /// ピン留めは複数対応。[pinnedPost] は 1 件目だけの互換フィールド。
+    @Default([]) List<QuotedPost> pinnedPosts,
   }) = _UserResponse;
 
   factory UserResponse.fromJson(Map<String, Object?> json) =>

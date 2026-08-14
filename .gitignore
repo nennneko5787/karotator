@@ -43,3 +43,6 @@ app.*.map.json
 /android/app/debug
 /android/app/profile
 /android/app/release
+
+# tool/capture_api_samples.dart --raw の出力。テストアカウントの実データが入る。
+/.karotter-samples/

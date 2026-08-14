@@ -177,6 +177,14 @@ _UserResponse _$UserResponseFromJson(Map<String, dynamic> json) =>
           .map((e) => Author.fromJson(e as Map<String, dynamic>))
           .toList(),
       mutualFollowersCount: (json['mutualFollowersCount'] as num).toInt(),
+      isPostNotificationsEnabled:
+          json['isPostNotificationsEnabled'] as bool? ?? false,
+      isRekarotHidden: json['isRekarotHidden'] as bool? ?? false,
+      pinnedPosts:
+          (json['pinnedPosts'] as List<dynamic>?)
+              ?.map((e) => QuotedPost.fromJson(e as Map<String, dynamic>))
+              .toList() ??
+          const [],
     );
 
 Map<String, dynamic> _$UserResponseToJson(_UserResponse instance) =>
@@ -192,6 +200,9 @@ Map<String, dynamic> _$UserResponseToJson(_UserResponse instance) =>
       'hasPendingRequest': instance.hasPendingRequest,
       'mutualFollowersPreview': instance.mutualFollowersPreview,
       'mutualFollowersCount': instance.mutualFollowersCount,
+      'isPostNotificationsEnabled': instance.isPostNotificationsEnabled,
+      'isRekarotHidden': instance.isRekarotHidden,
+      'pinnedPosts': instance.pinnedPosts,
     };
 
 _NotificationPagination _$NotificationPaginationFromJson(

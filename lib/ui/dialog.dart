@@ -1,5 +1,5 @@
 import "package:flutter/material.dart";
-import "package:karotator/exceptions.dart";
+import "package:karotator/api/exceptions.dart";
 
 Future<void> showAlert(
   BuildContext context, {

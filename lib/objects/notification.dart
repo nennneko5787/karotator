@@ -17,6 +17,7 @@ abstract class Notification with _$Notification {
     required String groupKey,
     required int id,
     required bool isRead,
+    @JsonKey(unknownEnumValue: NotificationContext.UNKNOWN)
     required NotificationContext likeContext,
     String? message,
     required List<int> notificationIds,
@@ -24,7 +25,9 @@ abstract class Notification with _$Notification {
     required int postCount,
     int? postId,
     required List<NotificationPost> posts,
+    @JsonKey(unknownEnumValue: NotificationContext.UNKNOWN)
     required NotificationContext rekarotContext,
+    @JsonKey(unknownEnumValue: NotificationType.UNKNOWN)
     required NotificationType type,
     required int userId,
   }) = _Notification;

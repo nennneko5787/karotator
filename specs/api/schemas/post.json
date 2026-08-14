@@ -1,0 +1,116 @@
+{
+  "id": 123,
+  "content": "投稿本文",
+  "authorId": 45,
+  "parentId": null,
+  "quotedPostId": null,
+  "mediaUrls": [
+    "https://.../1.jpg"
+  ],
+  "mediaTypes": [
+    "image"
+  ],
+  "mediaAlts": [
+    ""
+  ],
+  "mediaSpoilerFlags": [
+    false
+  ],
+  "mediaR18Flags": [
+    false
+  ],
+  "minimumAge": null,
+  "maximumAge": null,
+  "isR18": false,
+  "hideFromMinors": false,
+  "adminForceHidden": false,
+  "adminForceR18": false,
+  "embedUrl": null,
+  "embedTitle": null,
+  "embedDescription": null,
+  "embedImage": null,
+  "likesCount": 10,
+  "rekarotsCount": 2,
+  "repliesCount": 3,
+  "viewsCount": 100,
+  "bookmarksCount": 1,
+  "replyRestriction": "EVERYONE",
+  "replyCircleId": null,
+  "excludedMentions": [],
+  "isAiGenerated": false,
+  "isPromotional": false,
+  "editedAt": null,
+  "createdAt": "2026-04-12T12:34:56.789Z",
+  "updatedAt": "2026-04-12T12:34:56.789Z",
+  "author": {
+    "id": 45,
+    "username": "alice",
+    "displayName": "Alice",
+    "avatarUrl": "https://.../avatar.jpg",
+    "avatarFrameId": null,
+    "officialMark": "NONE",
+    "isParodyAccount": false,
+    "isBotAccount": false,
+    "adminForceParody": false,
+    "adminForceBot": false,
+    "isPrivate": false
+  },
+  "viewerCircle": null,
+  "viewerCircleId": null,
+  "replyCircle": null,
+  "mentions": [
+    {
+      "mentionedId": 12
+    }
+  ],
+  "replyTargets": [
+    {
+      "user": {
+        "id": 12,
+        "username": "bob",
+        "displayName": "Bob",
+        "avatarUrl": "https://.../bob.jpg",
+        "avatarFrameId": null,
+        "officialMark": "NONE",
+        "isPrivate": false
+      }
+    }
+  ],
+  "quotedPost": null,
+  "poll": null,
+  "reactions": [
+    {
+      "emoji": "👍",
+      "userId": 45
+    }
+  ],
+  "reactionSummary": [
+    {
+      "emoji": "👍",
+      "count": 1,
+      "reacted": false
+    }
+  ],
+  "likes": [
+    {
+      "id": 678
+    }
+  ],
+  "rekarots": [],
+  "bookmarks": [],
+  "hashtags": [
+    "tag1",
+    "tag2"
+  ],
+  "replyToUsers": [],
+  "_count": {
+    "likes": 10,
+    "rekarots": 2,
+    "replies": 3,
+    "reactions": 5,
+    "bookmarks": 1
+  },
+  "liked": false,
+  "rekaroted": false,
+  "bookmarked": false
+}

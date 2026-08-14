@@ -21,6 +21,7 @@ _Notification _$NotificationFromJson(Map<String, dynamic> json) =>
       likeContext: $enumDecode(
         _$NotificationContextEnumMap,
         json['likeContext'],
+        unknownValue: NotificationContext.UNKNOWN,
       ),
       message: json['message'] as String?,
       notificationIds: (json['notificationIds'] as List<dynamic>)
@@ -37,8 +38,13 @@ _Notification _$NotificationFromJson(Map<String, dynamic> json) =>
       rekarotContext: $enumDecode(
         _$NotificationContextEnumMap,
         json['rekarotContext'],
+        unknownValue: NotificationContext.UNKNOWN,
       ),
-      type: $enumDecode(_$NotificationTypeEnumMap, json['type']),
+      type: $enumDecode(
+        _$NotificationTypeEnumMap,
+        json['type'],
+        unknownValue: NotificationType.UNKNOWN,
+      ),
       userId: (json['userId'] as num).toInt(),
     );
 
@@ -67,13 +73,26 @@ Map<String, dynamic> _$NotificationToJson(_Notification instance) =>
 const _$NotificationContextEnumMap = {
   NotificationContext.OWN_POST: 'OWN_POST',
   NotificationContext.OTHER: 'OTHER',
+  NotificationContext.UNKNOWN: 'UNKNOWN',
 };
 
 const _$NotificationTypeEnumMap = {
   NotificationType.LIKE: 'LIKE',
-  NotificationType.FOLLOW: 'FOLLOW',
-  NotificationType.QUOTE: 'QUOTE',
   NotificationType.REPLY: 'REPLY',
-  NotificationType.REACTION: 'REACTION',
   NotificationType.REKAROT: 'REKAROT',
+  NotificationType.QUOTE: 'QUOTE',
+  NotificationType.MENTION: 'MENTION',
+  NotificationType.REACTION: 'REACTION',
+  NotificationType.FOLLOW: 'FOLLOW',
+  NotificationType.FOLLOW_REQUEST: 'FOLLOW_REQUEST',
+  NotificationType.FOLLOWED_POST: 'FOLLOWED_POST',
+  NotificationType.DM: 'DM',
+  NotificationType.BOARD_NEW_THREAD: 'BOARD_NEW_THREAD',
+  NotificationType.BOARD_THREAD_REPLY: 'BOARD_THREAD_REPLY',
+  NotificationType.COMMUNITY_INVITE: 'COMMUNITY_INVITE',
+  NotificationType.COMMUNITY_JOIN: 'COMMUNITY_JOIN',
+  NotificationType.COMMUNITY_REMOVAL: 'COMMUNITY_REMOVAL',
+  NotificationType.REPORT_UPDATE: 'REPORT_UPDATE',
+  NotificationType.SYSTEM: 'SYSTEM',
+  NotificationType.UNKNOWN: 'UNKNOWN',
 };

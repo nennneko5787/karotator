@@ -1,0 +1,7200 @@
+{
+  "generatedBy": "tool/capture_api_samples.dart",
+  "note": "実際のレスポンスから起こしたスキーマ。値は含まない。",
+  "observed": {
+    "auth.me": {
+      "type": [
+        "object"
+      ],
+      "nullable": false,
+      "seen": 1,
+      "fields": {
+        "user": {
+          "type": [
+            "object"
+          ],
+          "nullable": false,
+          "seen": 1,
+          "fields": {
+            "adminForceBot": {
+              "type": [
+                "boolean"
+              ],
+              "nullable": false,
+              "seen": 1
+            },
+            "adminForceHidden": {
+              "type": [
+                "boolean"
+              ],
+              "nullable": false,
+              "seen": 1
+            },
+            "adminForceParody": {
+              "type": [
+                "boolean"
+              ],
+              "nullable": false,
+              "seen": 1
+            },
+            "adminForceProfileMaximumAge": {
+              "type": [],
+              "nullable": true,
+              "seen": 1
+            },
+            "adminForceProfileMinimumAge": {
+              "type": [],
+              "nullable": true,
+              "seen": 1
+            },
+            "adminForceR18": {
+              "type": [
+                "boolean"
+              ],
+              "nullable": false,
+              "seen": 1
+            },
+            "avatarFrameId": {
+              "type": [],
+              "nullable": true,
+              "seen": 1
+            },
+            "avatarUrl": {
+              "type": [],
+              "nullable": true,
+              "seen": 1
+            },
+            "banReason": {
+              "type": [],
+              "nullable": true,
+              "seen": 1
+            },
+            "bannedUntil": {
+              "type": [],
+              "nullable": true,
+              "seen": 1
+            },
+            "bio": {
+              "type": [],
+              "nullable": true,
+              "seen": 1
+            },
+            "birthday": {
+              "type": [
+                "dateTime"
+              ],
+              "nullable": false,
+              "seen": 1
+            },
+            "birthdayBalloonsEnabled": {
+              "type": [
+                "boolean"
+              ],
+              "nullable": false,
+              "seen": 1
+            },
+            "birthdayVisibility": {
+              "type": [
+                "string"
+              ],
+              "nullable": false,
+              "seen": 1
+            },
+            "cardAccentColor": {
+              "type": [],
+              "nullable": true,
+              "seen": 1
+            },
+            "createdAt": {
+              "type": [
+                "dateTime"
+              ],
+              "nullable": false,
+              "seen": 1
+            },
+            "defaultExcludeReplyTargets": {
+              "type": [
+                "boolean"
+              ],
+              "nullable": false,
+              "seen": 1
+            },
+            "directMessagesEnabled": {
+              "type": [
+                "boolean"
+              ],
+              "nullable": false,
+              "seen": 1
+            },
+            "displayBirthday": {
+              "type": [],
+              "nullable": true,
+              "seen": 1
+            },
+            "displayName": {
+              "type": [
+                "string"
+              ],
+              "nullable": false,
+              "seen": 1
+            },
+            "dmRequestPolicy": {
+              "type": [
+                "string"
+              ],
+              "nullable": false,
+              "seen": 1
+            },
+            "email": {
+              "type": [
+                "string"
+              ],
+              "nullable": false,
+              "seen": 1
+            },
+            "emailHash": {
+              "type": [
+                "string"
+              ],
+              "nullable": false,
+              "seen": 1
+            },
+            "emailVerified": {
+              "type": [
+                "boolean"
+              ],
+              "nullable": false,
+              "seen": 1
+            },
+            "experience": {
+              "type": [
+                "integer"
+              ],
+              "nullable": false,
+              "seen": 1
+            },
+            "followersCount": {
+              "type": [
+                "integer"
+              ],
+              "nullable": false,
+              "seen": 1
+            },
+            "followingCount": {
+              "type": [
+                "integer"
+              ],
+              "nullable": false,
+              "seen": 1
+            },
+            "gender": {
+              "type": [
+                "string"
+              ],
+              "nullable": false,
+              "seen": 1
+            },
+            "giftsEnabled": {
+              "type": [
+                "boolean"
+              ],
+              "nullable": false,
+              "seen": 1
+            },
+            "hasPassword": {
+              "type": [
+                "boolean"
+              ],
+              "nullable": false,
+              "seen": 1
+            },
+            "headerUrl": {
+              "type": [],
+              "nullable": true,
+              "seen": 1
+            },
+            "hideProfileFromMinors": {
+              "type": [
+                "boolean"
+              ],
+              "nullable": false,
+              "seen": 1
+            },
+            "hideUnfollowedRekarotsInTimeline": {
+              "type": [
+                "boolean"
+              ],
+              "nullable": false,
+              "seen": 1
+            },
+            "id": {
+              "type": [
+                "integer"
+              ],
+              "nullable": false,
+              "seen": 1
+            },
+            "isAdmin": {
+              "type": [
+                "boolean"
+              ],
+              "nullable": false,
+              "seen": 1
+            },
+            "isBanned": {
+              "type": [
+                "boolean"
+              ],
+              "nullable": false,
+              "seen": 1
+            },
+            "isBotAccount": {
+              "type": [
+                "boolean"
+              ],
+              "nullable": false,
+              "seen": 1
+            },
+            "isParodyAccount": {
+              "type": [
+                "boolean"
+              ],
+              "nullable": false,
+              "seen": 1
+            },
+            "isPremium": {
+              "type": [
+                "boolean"
+              ],
+              "nullable": false,
+              "seen": 1
+            },
+            "isPrivate": {
+              "type": [
+                "boolean"
+              ],
+              "nullable": false,
+              "seen": 1
+            },
+            "isRestricted": {
+              "type": [
+                "boolean"
+              ],
+              "nullable": false,
+              "seen": 1
+            },
+            "legalNoticeSeenVersion": {
+              "type": [],
+              "nullable": true,
+              "seen": 1
+            },
+            "legalQuizPassed": {
+              "type": [
+                "boolean"
+              ],
+              "nullable": false,
+              "seen": 1
+            },
+            "levelEnabled": {
+              "type": [
+                "boolean"
+              ],
+              "nullable": false,
+              "seen": 1
+            },
+            "linkedOAuthProviders": {
+              "type": [
+                "list"
+              ],
+              "nullable": false,
+              "seen": 1,
+              "element": {
+                "type": [],
+                "nullable": false,
+                "seen": 0
+              }
+            },
+            "location": {
+              "type": [],
+              "nullable": true,
+              "seen": 1
+            },
+            "mutedKeywords": {
+              "type": [
+                "list"
+              ],
+              "nullable": false,
+              "seen": 1,
+              "element": {
+                "type": [],
+                "nullable": false,
+                "seen": 0
+              }
+            },
+            "notificationMuteNewAccounts": {
+              "type": [
+                "boolean"
+              ],
+              "nullable": false,
+              "seen": 1
+            },
+            "notificationMuteNoAvatar": {
+              "type": [
+                "boolean"
+              ],
+              "nullable": false,
+              "seen": 1
+            },
+            "notificationMuteNonFollowers": {
+              "type": [
+                "boolean"
+              ],
+              "nullable": false,
+              "seen": 1
+            },
+            "notificationMuteNonFollowing": {
+              "type": [
+                "boolean"
+              ],
+              "nullable": false,
+              "seen": 1
+            },
+            "notifyBoardActivity": {
+              "type": [
+                "boolean"
+              ],
+              "nullable": false,
+              "seen": 1
+            },
+            "notifyDMs": {
+              "type": [
+                "boolean"
+              ],
+              "nullable": false,
+              "seen": 1
+            },
+            "notifyFollows": {
+              "type": [
+                "boolean"
+              ],
+              "nullable": false,
+              "seen": 1
+            },
+            "notifyLikes": {
+              "type": [
+                "boolean"
+              ],
+              "nullable": false,
+              "seen": 1
+            },
+            "notifyMentions": {
+              "type": [
+                "boolean"
+              ],
+              "nullable": false,
+              "seen": 1
+            },
+            "notifyNewsOnLaunch": {
+              "type": [
+                "boolean"
+              ],
+              "nullable": false,
+              "seen": 1
+            },
+            "notifyQuotes": {
+              "type": [
+                "boolean"
+              ],
+              "nullable": false,
+              "seen": 1
+            },
+            "notifyReactions": {
+              "type": [
+                "boolean"
+              ],
+              "nullable": false,
+              "seen": 1
+            },
+            "notifyRekarots": {
+              "type": [
+                "boolean"
+              ],
+              "nullable": false,
+              "seen": 1
+            },
+            "notifyReplies": {
+              "type": [
+                "boolean"
+              ],
+              "nullable": false,
+              "seen": 1
+            },
+            "officialMark": {
+              "type": [
+                "list"
+              ],
+              "nullable": false,
+              "seen": 1,
+              "element": {
+                "type": [],
+                "nullable": false,
+                "seen": 0
+              }
+            },
+            "onlineStatus": {
+              "type": [
+                "string"
+              ],
+              "nullable": false,
+              "seen": 1
+            },
+            "onlineStatusVisibility": {
+              "type": [
+                "string"
+              ],
+              "nullable": false,
+              "seen": 1
+            },
+            "points": {
+              "type": [
+                "integer"
+              ],
+              "nullable": false,
+              "seen": 1
+            },
+            "postsCount": {
+              "type": [
+                "integer"
+              ],
+              "nullable": false,
+              "seen": 1
+            },
+            "premiumBadgeColor": {
+              "type": [
+                "string"
+              ],
+              "nullable": false,
+              "seen": 1
+            },
+            "premiumUntil": {
+              "type": [],
+              "nullable": true,
+              "seen": 1
+            },
+            "profileAccentColor": {
+              "type": [],
+              "nullable": true,
+              "seen": 1
+            },
+            "profileMaximumAge": {
+              "type": [],
+              "nullable": true,
+              "seen": 1
+            },
+            "profileMinimumAge": {
+              "type": [],
+              "nullable": true,
+              "seen": 1
+            },
+            "questionsEnabled": {
+              "type": [
+                "boolean"
+              ],
+              "nullable": false,
+              "seen": 1
+            },
+            "showBotAccounts": {
+              "type": [
+                "boolean"
+              ],
+              "nullable": false,
+              "seen": 1
+            },
+            "showCardDecoration": {
+              "type": [
+                "boolean"
+              ],
+              "nullable": false,
+              "seen": 1
+            },
+            "showGreenBadge": {
+              "type": [
+                "boolean"
+              ],
+              "nullable": false,
+              "seen": 1
+            },
+            "showHiddenPosts": {
+              "type": [
+                "boolean"
+              ],
+              "nullable": false,
+              "seen": 1
+            },
+            "showLikedPosts": {
+              "type": [
+                "boolean"
+              ],
+              "nullable": false,
+              "seen": 1
+            },
+            "showParodyAccounts": {
+              "type": [
+                "boolean"
+              ],
+              "nullable": false,
+              "seen": 1
+            },
+            "showPlusBadge": {
+              "type": [
+                "boolean"
+              ],
+              "nullable": false,
+              "seen": 1
+            },
+            "showProBadge": {
+              "type": [
+                "boolean"
+              ],
+              "nullable": false,
+              "seen": 1
+            },
+            "showProfileDecoration": {
+              "type": [
+                "boolean"
+              ],
+              "nullable": false,
+              "seen": 1
+            },
+            "showR18Content": {
+              "type": [
+                "boolean"
+              ],
+              "nullable": false,
+              "seen": 1
+            },
+            "showReactions": {
+              "type": [
+                "boolean"
+              ],
+              "nullable": false,
+              "seen": 1
+            },
+            "showReadReceipts": {
+              "type": [
+                "boolean"
+              ],
+              "nullable": false,
+              "seen": 1
+            },
+            "showRedBadge": {
+              "type": [
+                "boolean"
+              ],
+              "nullable": false,
+              "seen": 1
+            },
+            "showRekarotsInTimeline": {
+              "type": [
+                "boolean"
+              ],
+              "nullable": false,
+              "seen": 1
+            },
+            "showRepliesInTimeline": {
+              "type": [
+                "boolean"
+              ],
+              "nullable": false,
+              "seen": 1
+            },
+            "showSubscriptionBadges": {
+              "type": [
+                "boolean"
+              ],
+              "nullable": false,
+              "seen": 1
+            },
+            "statusMessage": {
+              "type": [],
+              "nullable": true,
+              "seen": 1
+            },
+            "subscriptionActiveUntil": {
+              "type": [],
+              "nullable": true,
+              "seen": 1
+            },
+            "subscriptionBadgeColors": {
+              "type": [
+                "list"
+              ],
+              "nullable": false,
+              "seen": 1,
+              "element": {
+                "type": [],
+                "nullable": false,
+                "seen": 0
+              }
+            },
+            "subscriptionCancelAtPeriodEnd": {
+              "type": [
+                "boolean"
+              ],
+              "nullable": false,
+              "seen": 1
+            },
+            "subscriptionPlan": {
+              "type": [
+                "string"
+              ],
+              "nullable": false,
+              "seen": 1
+            },
+            "subscriptionStatus": {
+              "type": [
+                "string"
+              ],
+              "nullable": false,
+              "seen": 1
+            },
+            "twoFactorEnabled": {
+              "type": [
+                "boolean"
+              ],
+              "nullable": false,
+              "seen": 1
+            },
+            "username": {
+              "type": [
+                "string"
+              ],
+              "nullable": false,
+              "seen": 1
+            },
+            "websiteUrl": {
+              "type": [],
+              "nullable": true,
+              "seen": 1
+            }
+          }
+        }
+      }
+    },
+    "posts.timeline": {
+      "type": [
+        "object"
+      ],
+      "nullable": false,
+      "seen": 1,
+      "fields": {
+        "pagination": {
+          "type": [
+            "object"
+          ],
+          "nullable": false,
+          "seen": 1,
+          "fields": {
+            "hasNext": {
+              "type": [
+                "boolean"
+              ],
+              "nullable": false,
+              "seen": 1
+            },
+            "limit": {
+              "type": [
+                "integer"
+              ],
+              "nullable": false,
+              "seen": 1
+            },
+            "mode": {
+              "type": [
+                "string"
+              ],
+              "nullable": false,
+              "seen": 1
+            },
+            "nextCursor": {
+              "type": [],
+              "nullable": true,
+              "seen": 1
+            },
+            "page": {
+              "type": [
+                "integer"
+              ],
+              "nullable": false,
+              "seen": 1
+            }
+          }
+        },
+        "posts": {
+          "type": [
+            "list"
+          ],
+          "nullable": false,
+          "seen": 1,
+          "element": {
+            "type": [],
+            "nullable": false,
+            "seen": 0
+          }
+        }
+      }
+    },
+    "posts.recommended": {
+      "type": [
+        "object"
+      ],
+      "nullable": false,
+      "seen": 1,
+      "fields": {
+        "pagination": {
+          "type": [
+            "object"
+          ],
+          "nullable": false,
+          "seen": 1,
+          "fields": {
+            "limit": {
+              "type": [
+                "integer"
+              ],
+              "nullable": false,
+              "seen": 1
+            },
+            "page": {
+              "type": [
+                "integer"
+              ],
+              "nullable": false,
+              "seen": 1
+            }
+          }
+        },
+        "posts": {
+          "type": [
+            "list"
+          ],
+          "nullable": false,
+          "seen": 1,
+          "element": {
+            "type": [
+              "object"
+            ],
+            "nullable": false,
+            "seen": 20,
+            "fields": {
+              "adminForceMaximumAge": {
+                "type": [],
+                "nullable": true,
+                "seen": 20
+              },
+              "adminForceMinimumAge": {
+                "type": [],
+                "nullable": true,
+                "seen": 20
+              },
+              "adminForceR18": {
+                "type": [
+                  "boolean"
+                ],
+                "nullable": false,
+                "seen": 20
+              },
+              "author": {
+                "type": [
+                  "object"
+                ],
+                "nullable": false,
+                "seen": 20,
+                "fields": {
+                  "avatarFrameId": {
+                    "type": [],
+                    "nullable": true,
+                    "seen": 20
+                  },
+                  "avatarUrl": {
+                    "type": [
+                      "string"
+                    ],
+                    "nullable": false,
+                    "seen": 20
+                  },
+                  "cardAccentColor": {
+                    "type": [
+                      "string"
+                    ],
+                    "nullable": true,
+                    "seen": 20
+                  },
+                  "displayName": {
+                    "type": [
+                      "string"
+                    ],
+                    "nullable": false,
+                    "seen": 20
+                  },
+                  "hideProfileFromMinors": {
+                    "type": [
+                      "boolean"
+                    ],
+                    "nullable": false,
+                    "seen": 20
+                  },
+                  "id": {
+                    "type": [
+                      "integer"
+                    ],
+                    "nullable": false,
+                    "seen": 20
+                  },
+                  "isBotAccount": {
+                    "type": [
+                      "boolean"
+                    ],
+                    "nullable": false,
+                    "seen": 20
+                  },
+                  "isFollowingByViewer": {
+                    "type": [
+                      "boolean"
+                    ],
+                    "nullable": false,
+                    "seen": 20
+                  },
+                  "isParodyAccount": {
+                    "type": [
+                      "boolean"
+                    ],
+                    "nullable": false,
+                    "seen": 20
+                  },
+                  "isPrivate": {
+                    "type": [
+                      "boolean"
+                    ],
+                    "nullable": false,
+                    "seen": 20
+                  },
+                  "officialMark": {
+                    "type": [
+                      "list"
+                    ],
+                    "nullable": false,
+                    "seen": 20,
+                    "element": {
+                      "type": [
+                        "string"
+                      ],
+                      "nullable": false,
+                      "seen": 10
+                    }
+                  },
+                  "premiumBadgeColor": {
+                    "type": [
+                      "string"
+                    ],
+                    "nullable": false,
+                    "seen": 20
+                  },
+                  "profileAccentColor": {
+                    "type": [
+                      "string"
+                    ],
+                    "nullable": true,
+                    "seen": 20
+                  },
+                  "profileMaximumAge": {
+                    "type": [],
+                    "nullable": true,
+                    "seen": 20
+                  },
+                  "profileMinimumAge": {
+                    "type": [
+                      "integer"
+                    ],
+                    "nullable": true,
+                    "seen": 20
+                  },
+                  "showCardDecoration": {
+                    "type": [
+                      "boolean"
+                    ],
+                    "nullable": false,
+                    "seen": 20
+                  },
+                  "showGreenBadge": {
+                    "type": [
+                      "boolean"
+                    ],
+                    "nullable": false,
+                    "seen": 20
+                  },
+                  "showPlusBadge": {
+                    "type": [
+                      "boolean"
+                    ],
+                    "nullable": false,
+                    "seen": 20
+                  },
+                  "showProBadge": {
+                    "type": [
+                      "boolean"
+                    ],
+                    "nullable": false,
+                    "seen": 20
+                  },
+                  "showProfileDecoration": {
+                    "type": [
+                      "boolean"
+                    ],
+                    "nullable": false,
+                    "seen": 20
+                  },
+                  "showRedBadge": {
+                    "type": [
+                      "boolean"
+                    ],
+                    "nullable": false,
+                    "seen": 20
+                  },
+                  "showSubscriptionBadges": {
+                    "type": [
+                      "boolean"
+                    ],
+                    "nullable": false,
+                    "seen": 20
+                  },
+                  "subscriptionActiveUntil": {
+                    "type": [
+                      "dateTime"
+                    ],
+                    "nullable": true,
+                    "seen": 20
+                  },
+                  "subscriptionBadgeColors": {
+                    "type": [
+                      "list"
+                    ],
+                    "nullable": false,
+                    "seen": 20,
+                    "element": {
+                      "type": [
+                        "string"
+                      ],
+                      "nullable": false,
+                      "seen": 5
+                    }
+                  },
+                  "subscriptionPlan": {
+                    "type": [
+                      "string"
+                    ],
+                    "nullable": false,
+                    "seen": 20
+                  },
+                  "subscriptionStatus": {
+                    "type": [
+                      "string"
+                    ],
+                    "nullable": false,
+                    "seen": 20
+                  },
+                  "username": {
+                    "type": [
+                      "string"
+                    ],
+                    "nullable": false,
+                    "seen": 20
+                  }
+                }
+              },
+              "authorId": {
+                "type": [
+                  "integer"
+                ],
+                "nullable": false,
+                "seen": 20
+              },
+              "bookmarked": {
+                "type": [
+                  "boolean"
+                ],
+                "nullable": false,
+                "seen": 20
+              },
+              "bookmarksCount": {
+                "type": [
+                  "integer"
+                ],
+                "nullable": false,
+                "seen": 20
+              },
+              "canInteract": {
+                "type": [
+                  "boolean"
+                ],
+                "nullable": false,
+                "seen": 20
+              },
+              "canQuote": {
+                "type": [
+                  "boolean"
+                ],
+                "nullable": false,
+                "seen": 20
+              },
+              "community": {
+                "type": [],
+                "nullable": true,
+                "seen": 20
+              },
+              "communityId": {
+                "type": [],
+                "nullable": true,
+                "seen": 20
+              },
+              "content": {
+                "type": [
+                  "string"
+                ],
+                "nullable": false,
+                "seen": 20
+              },
+              "createdAt": {
+                "type": [
+                  "dateTime"
+                ],
+                "nullable": false,
+                "seen": 20
+              },
+              "editedAt": {
+                "type": [
+                  "dateTime"
+                ],
+                "nullable": true,
+                "seen": 20
+              },
+              "effectiveMaximumAge": {
+                "type": [],
+                "nullable": true,
+                "seen": 20
+              },
+              "effectiveMinimumAge": {
+                "type": [
+                  "integer"
+                ],
+                "nullable": true,
+                "seen": 20
+              },
+              "expiresAt": {
+                "type": [],
+                "nullable": true,
+                "seen": 20
+              },
+              "hasBlockedAuthor": {
+                "type": [
+                  "boolean"
+                ],
+                "nullable": false,
+                "seen": 20
+              },
+              "hideFromMinors": {
+                "type": [
+                  "boolean"
+                ],
+                "nullable": false,
+                "seen": 20
+              },
+              "id": {
+                "type": [
+                  "integer"
+                ],
+                "nullable": false,
+                "seen": 20
+              },
+              "isAiGenerated": {
+                "type": [
+                  "boolean"
+                ],
+                "nullable": false,
+                "seen": 20
+              },
+              "isBlockedByAuthor": {
+                "type": [
+                  "boolean"
+                ],
+                "nullable": false,
+                "seen": 20
+              },
+              "isMutedByViewer": {
+                "type": [
+                  "boolean"
+                ],
+                "nullable": false,
+                "seen": 20
+              },
+              "isPromotional": {
+                "type": [
+                  "boolean"
+                ],
+                "nullable": false,
+                "seen": 20
+              },
+              "isR18": {
+                "type": [
+                  "boolean"
+                ],
+                "nullable": false,
+                "seen": 20
+              },
+              "liked": {
+                "type": [
+                  "boolean"
+                ],
+                "nullable": false,
+                "seen": 20
+              },
+              "likesCount": {
+                "type": [
+                  "integer"
+                ],
+                "nullable": false,
+                "seen": 20
+              },
+              "maximumAge": {
+                "type": [],
+                "nullable": true,
+                "seen": 20
+              },
+              "mediaAlts": {
+                "type": [
+                  "list"
+                ],
+                "nullable": false,
+                "seen": 20,
+                "element": {
+                  "type": [
+                    "string"
+                  ],
+                  "nullable": false,
+                  "seen": 3
+                }
+              },
+              "mediaR18Flags": {
+                "type": [
+                  "list"
+                ],
+                "nullable": false,
+                "seen": 20,
+                "element": {
+                  "type": [
+                    "boolean"
+                  ],
+                  "nullable": false,
+                  "seen": 3
+                }
+              },
+              "mediaSpoilerFlags": {
+                "type": [
+                  "list"
+                ],
+                "nullable": false,
+                "seen": 20,
+                "element": {
+                  "type": [
+                    "boolean"
+                  ],
+                  "nullable": false,
+                  "seen": 3
+                }
+              },
+              "mediaUrls": {
+                "type": [
+                  "list"
+                ],
+                "nullable": false,
+                "seen": 20,
+                "element": {
+                  "type": [
+                    "string"
+                  ],
+                  "nullable": false,
+                  "seen": 3
+                }
+              },
+              "minimumAge": {
+                "type": [],
+                "nullable": true,
+                "seen": 20
+              },
+              "parentId": {
+                "type": [],
+                "nullable": true,
+                "seen": 20
+              },
+              "poll": {
+                "type": [],
+                "nullable": true,
+                "seen": 20
+              },
+              "quoteUsersCount": {
+                "type": [
+                  "integer"
+                ],
+                "nullable": false,
+                "seen": 20
+              },
+              "quotedPost": {
+                "type": [
+                  "object"
+                ],
+                "nullable": true,
+                "seen": 20,
+                "fields": {
+                  "adminForceR18": {
+                    "type": [
+                      "boolean"
+                    ],
+                    "nullable": true,
+                    "seen": 5,
+                    "missing": 1
+                  },
+                  "author": {
+                    "type": [
+                      "object"
+                    ],
+                    "nullable": true,
+                    "seen": 5,
+                    "missing": 1,
+                    "fields": {
+                      "avatarUrl": {
+                        "type": [
+                          "string"
+                        ],
+                        "nullable": false,
+                        "seen": 5
+                      },
+                      "cardAccentColor": {
+                        "type": [],
+                        "nullable": true,
+                        "seen": 5
+                      },
+                      "displayName": {
+                        "type": [
+                          "string"
+                        ],
+                        "nullable": false,
+                        "seen": 5
+                      },
+                      "hideProfileFromMinors": {
+                        "type": [
+                          "boolean"
+                        ],
+                        "nullable": false,
+                        "seen": 5
+                      },
+                      "id": {
+                        "type": [
+                          "integer"
+                        ],
+                        "nullable": false,
+                        "seen": 5
+                      },
+                      "isBotAccount": {
+                        "type": [
+                          "boolean"
+                        ],
+                        "nullable": false,
+                        "seen": 5
+                      },
+                      "isFollowingByViewer": {
+                        "type": [
+                          "boolean"
+                        ],
+                        "nullable": false,
+                        "seen": 5
+                      },
+                      "isParodyAccount": {
+                        "type": [
+                          "boolean"
+                        ],
+                        "nullable": false,
+                        "seen": 5
+                      },
+                      "isPrivate": {
+                        "type": [
+                          "boolean"
+                        ],
+                        "nullable": false,
+                        "seen": 5
+                      },
+                      "officialMark": {
+                        "type": [
+                          "list"
+                        ],
+                        "nullable": false,
+                        "seen": 5,
+                        "element": {
+                          "type": [
+                            "string"
+                          ],
+                          "nullable": false,
+                          "seen": 9
+                        }
+                      },
+                      "premiumBadgeColor": {
+                        "type": [
+                          "string"
+                        ],
+                        "nullable": false,
+                        "seen": 5
+                      },
+                      "profileAccentColor": {
+                        "type": [],
+                        "nullable": true,
+                        "seen": 5
+                      },
+                      "profileMaximumAge": {
+                        "type": [],
+                        "nullable": true,
+                        "seen": 5
+                      },
+                      "profileMinimumAge": {
+                        "type": [
+                          "integer"
+                        ],
+                        "nullable": true,
+                        "seen": 5
+                      },
+                      "showCardDecoration": {
+                        "type": [
+                          "boolean"
+                        ],
+                        "nullable": false,
+                        "seen": 5
+                      },
+                      "showGreenBadge": {
+                        "type": [
+                          "boolean"
+                        ],
+                        "nullable": false,
+                        "seen": 5
+                      },
+                      "showPlusBadge": {
+                        "type": [
+                          "boolean"
+                        ],
+                        "nullable": false,
+                        "seen": 5
+                      },
+                      "showProBadge": {
+                        "type": [
+                          "boolean"
+                        ],
+                        "nullable": false,
+                        "seen": 5
+                      },
+                      "showProfileDecoration": {
+                        "type": [
+                          "boolean"
+                        ],
+                        "nullable": false,
+                        "seen": 5
+                      },
+                      "showRedBadge": {
+                        "type": [
+                          "boolean"
+                        ],
+                        "nullable": false,
+                        "seen": 5
+                      },
+                      "showSubscriptionBadges": {
+                        "type": [
+                          "boolean"
+                        ],
+                        "nullable": false,
+                        "seen": 5
+                      },
+                      "subscriptionActiveUntil": {
+                        "type": [
+                          "dateTime"
+                        ],
+                        "nullable": true,
+                        "seen": 5
+                      },
+                      "subscriptionBadgeColors": {
+                        "type": [
+                          "list"
+                        ],
+                        "nullable": false,
+                        "seen": 5,
+                        "element": {
+                          "type": [
+                            "string"
+                          ],
+                          "nullable": false,
+                          "seen": 5
+                        }
+                      },
+                      "subscriptionPlan": {
+                        "type": [
+                          "string"
+                        ],
+                        "nullable": false,
+                        "seen": 5
+                      },
+                      "subscriptionStatus": {
+                        "type": [
+                          "string"
+                        ],
+                        "nullable": false,
+                        "seen": 5
+                      },
+                      "username": {
+                        "type": [
+                          "string"
+                        ],
+                        "nullable": false,
+                        "seen": 5
+                      }
+                    }
+                  },
+                  "canView": {
+                    "type": [
+                      "boolean"
+                    ],
+                    "nullable": true,
+                    "seen": 5,
+                    "missing": 1
+                  },
+                  "community": {
+                    "type": [],
+                    "nullable": true,
+                    "seen": 5,
+                    "missing": 1
+                  },
+                  "communityId": {
+                    "type": [],
+                    "nullable": true,
+                    "seen": 5,
+                    "missing": 1
+                  },
+                  "content": {
+                    "type": [
+                      "string"
+                    ],
+                    "nullable": true,
+                    "seen": 5,
+                    "missing": 1
+                  },
+                  "createdAt": {
+                    "type": [
+                      "dateTime"
+                    ],
+                    "nullable": true,
+                    "seen": 5,
+                    "missing": 1
+                  },
+                  "editedAt": {
+                    "type": [],
+                    "nullable": true,
+                    "seen": 5,
+                    "missing": 1
+                  },
+                  "effectiveMaximumAge": {
+                    "type": [],
+                    "nullable": true,
+                    "seen": 5,
+                    "missing": 1
+                  },
+                  "effectiveMinimumAge": {
+                    "type": [
+                      "integer"
+                    ],
+                    "nullable": true,
+                    "seen": 5,
+                    "missing": 1
+                  },
+                  "expiresAt": {
+                    "type": [],
+                    "nullable": true,
+                    "seen": 5,
+                    "missing": 1
+                  },
+                  "hideFromMinors": {
+                    "type": [
+                      "boolean"
+                    ],
+                    "nullable": true,
+                    "seen": 5,
+                    "missing": 1
+                  },
+                  "id": {
+                    "type": [
+                      "integer"
+                    ],
+                    "nullable": true,
+                    "seen": 5,
+                    "missing": 1
+                  },
+                  "isAiGenerated": {
+                    "type": [
+                      "boolean"
+                    ],
+                    "nullable": true,
+                    "seen": 5,
+                    "missing": 1
+                  },
+                  "isPromotional": {
+                    "type": [
+                      "boolean"
+                    ],
+                    "nullable": true,
+                    "seen": 5,
+                    "missing": 1
+                  },
+                  "isR18": {
+                    "type": [
+                      "boolean"
+                    ],
+                    "nullable": true,
+                    "seen": 5,
+                    "missing": 1
+                  },
+                  "maximumAge": {
+                    "type": [],
+                    "nullable": true,
+                    "seen": 5,
+                    "missing": 1
+                  },
+                  "mediaAlts": {
+                    "type": [
+                      "list"
+                    ],
+                    "nullable": true,
+                    "seen": 5,
+                    "missing": 1,
+                    "element": {
+                      "type": [],
+                      "nullable": false,
+                      "seen": 0
+                    }
+                  },
+                  "mediaR18Flags": {
+                    "type": [
+                      "list"
+                    ],
+                    "nullable": true,
+                    "seen": 5,
+                    "missing": 1,
+                    "element": {
+                      "type": [],
+                      "nullable": false,
+                      "seen": 0
+                    }
+                  },
+                  "mediaSpoilerFlags": {
+                    "type": [
+                      "list"
+                    ],
+                    "nullable": true,
+                    "seen": 5,
+                    "missing": 1,
+                    "element": {
+                      "type": [],
+                      "nullable": false,
+                      "seen": 0
+                    }
+                  },
+                  "mediaUrls": {
+                    "type": [
+                      "list"
+                    ],
+                    "nullable": true,
+                    "seen": 5,
+                    "missing": 1,
+                    "element": {
+                      "type": [],
+                      "nullable": false,
+                      "seen": 0
+                    }
+                  },
+                  "minimumAge": {
+                    "type": [],
+                    "nullable": true,
+                    "seen": 5,
+                    "missing": 1
+                  },
+                  "parentId": {
+                    "type": [],
+                    "nullable": true,
+                    "seen": 5,
+                    "missing": 1
+                  },
+                  "poll": {
+                    "type": [],
+                    "nullable": true,
+                    "seen": 5,
+                    "missing": 1
+                  },
+                  "quotedPost": {
+                    "type": [],
+                    "nullable": true,
+                    "seen": 5,
+                    "missing": 1
+                  },
+                  "quotedPostId": {
+                    "type": [],
+                    "nullable": true,
+                    "seen": 5,
+                    "missing": 1
+                  },
+                  "replyCircle": {
+                    "type": [],
+                    "nullable": true,
+                    "seen": 5,
+                    "missing": 1
+                  },
+                  "replyCircleId": {
+                    "type": [],
+                    "nullable": true,
+                    "seen": 5,
+                    "missing": 1
+                  },
+                  "replyRestriction": {
+                    "type": [
+                      "string"
+                    ],
+                    "nullable": true,
+                    "seen": 5,
+                    "missing": 1
+                  },
+                  "replyToUsers": {
+                    "type": [
+                      "list"
+                    ],
+                    "nullable": true,
+                    "seen": 5,
+                    "missing": 1,
+                    "element": {
+                      "type": [
+                        "object"
+                      ],
+                      "nullable": false,
+                      "seen": 5,
+                      "fields": {
+                        "avatarFrameId": {
+                          "type": [],
+                          "nullable": true,
+                          "seen": 5
+                        },
+                        "avatarUrl": {
+                          "type": [
+                            "string"
+                          ],
+                          "nullable": false,
+                          "seen": 5
+                        },
+                        "displayName": {
+                          "type": [
+                            "string"
+                          ],
+                          "nullable": false,
+                          "seen": 5
+                        },
+                        "hideProfileFromMinors": {
+                          "type": [
+                            "boolean"
+                          ],
+                          "nullable": false,
+                          "seen": 5
+                        },
+                        "id": {
+                          "type": [
+                            "integer"
+                          ],
+                          "nullable": false,
+                          "seen": 5
+                        },
+                        "isBotAccount": {
+                          "type": [
+                            "boolean"
+                          ],
+                          "nullable": false,
+                          "seen": 5
+                        },
+                        "isFollowingByViewer": {
+                          "type": [
+                            "boolean"
+                          ],
+                          "nullable": false,
+                          "seen": 5
+                        },
+                        "isParodyAccount": {
+                          "type": [
+                            "boolean"
+                          ],
+                          "nullable": false,
+                          "seen": 5
+                        },
+                        "isPrivate": {
+                          "type": [
+                            "boolean"
+                          ],
+                          "nullable": false,
+                          "seen": 5
+                        },
+                        "officialMark": {
+                          "type": [
+                            "list"
+                          ],
+                          "nullable": false,
+                          "seen": 5,
+                          "element": {
+                            "type": [],
+                            "nullable": false,
+                            "seen": 0
+                          }
+                        },
+                        "profileMaximumAge": {
+                          "type": [],
+                          "nullable": true,
+                          "seen": 5
+                        },
+                        "profileMinimumAge": {
+                          "type": [],
+                          "nullable": true,
+                          "seen": 5
+                        },
+                        "username": {
+                          "type": [
+                            "string"
+                          ],
+                          "nullable": false,
+                          "seen": 5
+                        }
+                      }
+                    }
+                  },
+                  "viewerCircle": {
+                    "type": [],
+                    "nullable": true,
+                    "seen": 5,
+                    "missing": 1
+                  },
+                  "viewerCircleId": {
+                    "type": [],
+                    "nullable": true,
+                    "seen": 5,
+                    "missing": 1
+                  },
+                  "visibility": {
+                    "type": [
+                      "string"
+                    ],
+                    "nullable": true,
+                    "seen": 5,
+                    "missing": 1
+                  }
+                }
+              },
+              "quotedPostId": {
+                "type": [
+                  "integer"
+                ],
+                "nullable": true,
+                "seen": 20
+              },
+              "reactionSummary": {
+                "type": [
+                  "list"
+                ],
+                "nullable": false,
+                "seen": 20,
+                "element": {
+                  "type": [
+                    "object"
+                  ],
+                  "nullable": false,
+                  "seen": 13,
+                  "fields": {
+                    "count": {
+                      "type": [
+                        "integer"
+                      ],
+                      "nullable": false,
+                      "seen": 13
+                    },
+                    "emoji": {
+                      "type": [
+                        "string"
+                      ],
+                      "nullable": false,
+                      "seen": 13
+                    },
+                    "reacted": {
+                      "type": [
+                        "boolean"
+                      ],
+                      "nullable": false,
+                      "seen": 13
+                    }
+                  }
+                }
+              },
+              "rekaroted": {
+                "type": [
+                  "boolean"
+                ],
+                "nullable": false,
+                "seen": 20
+              },
+              "rekarotsCount": {
+                "type": [
+                  "integer"
+                ],
+                "nullable": false,
+                "seen": 20
+              },
+              "repliesCount": {
+                "type": [
+                  "integer"
+                ],
+                "nullable": false,
+                "seen": 20
+              },
+              "replyCircle": {
+                "type": [],
+                "nullable": true,
+                "seen": 20
+              },
+              "replyCircleId": {
+                "type": [],
+                "nullable": true,
+                "seen": 20
+              },
+              "replyRestriction": {
+                "type": [
+                  "string"
+                ],
+                "nullable": false,
+                "seen": 20
+              },
+              "replyToUsers": {
+                "type": [
+                  "list"
+                ],
+                "nullable": false,
+                "seen": 20,
+                "element": {
+                  "type": [
+                    "object"
+                  ],
+                  "nullable": false,
+                  "seen": 20,
+                  "fields": {
+                    "avatarFrameId": {
+                      "type": [],
+                      "nullable": true,
+                      "seen": 20
+                    },
+                    "avatarUrl": {
+                      "type": [
+                        "string"
+                      ],
+                      "nullable": false,
+                      "seen": 20
+                    },
+                    "displayName": {
+                      "type": [
+                        "string"
+                      ],
+                      "nullable": false,
+                      "seen": 20
+                    },
+                    "hideProfileFromMinors": {
+                      "type": [
+                        "boolean"
+                      ],
+                      "nullable": false,
+                      "seen": 20
+                    },
+                    "id": {
+                      "type": [
+                        "integer"
+                      ],
+                      "nullable": false,
+                      "seen": 20
+                    },
+                    "isBotAccount": {
+                      "type": [
+                        "boolean"
+                      ],
+                      "nullable": false,
+                      "seen": 20
+                    },
+                    "isFollowingByViewer": {
+                      "type": [
+                        "boolean"
+                      ],
+                      "nullable": false,
+                      "seen": 20
+                    },
+                    "isParodyAccount": {
+                      "type": [
+                        "boolean"
+                      ],
+                      "nullable": false,
+                      "seen": 20
+                    },
+                    "isPrivate": {
+                      "type": [
+                        "boolean"
+                      ],
+                      "nullable": false,
+                      "seen": 20
+                    },
+                    "officialMark": {
+                      "type": [
+                        "list"
+                      ],
+                      "nullable": false,
+                      "seen": 20,
+                      "element": {
+                        "type": [],
+                        "nullable": false,
+                        "seen": 0
+                      }
+                    },
+                    "profileMaximumAge": {
+                      "type": [],
+                      "nullable": true,
+                      "seen": 20
+                    },
+                    "profileMinimumAge": {
+                      "type": [],
+                      "nullable": true,
+                      "seen": 20
+                    },
+                    "username": {
+                      "type": [
+                        "string"
+                      ],
+                      "nullable": false,
+                      "seen": 20
+                    }
+                  }
+                }
+              },
+              "updatedAt": {
+                "type": [
+                  "dateTime"
+                ],
+                "nullable": false,
+                "seen": 20
+              },
+              "viewerCircle": {
+                "type": [],
+                "nullable": true,
+                "seen": 20
+              },
+              "viewerCircleId": {
+                "type": [],
+                "nullable": true,
+                "seen": 20
+              },
+              "viewsCount": {
+                "type": [
+                  "integer"
+                ],
+                "nullable": false,
+                "seen": 20
+              },
+              "visibility": {
+                "type": [
+                  "string"
+                ],
+                "nullable": false,
+                "seen": 20
+              }
+            }
+          }
+        }
+      }
+    },
+    "posts.recommended.latest": {
+      "type": [
+        "object"
+      ],
+      "nullable": false,
+      "seen": 1,
+      "fields": {
+        "pagination": {
+          "type": [
+            "object"
+          ],
+          "nullable": false,
+          "seen": 1,
+          "fields": {
+            "hasNext": {
+              "type": [
+                "boolean"
+              ],
+              "nullable": false,
+              "seen": 1
+            },
+            "limit": {
+              "type": [
+                "integer"
+              ],
+              "nullable": false,
+              "seen": 1
+            },
+            "mode": {
+              "type": [
+                "string"
+              ],
+              "nullable": false,
+              "seen": 1
+            },
+            "nextCursor": {
+              "type": [
+                "string"
+              ],
+              "nullable": false,
+              "seen": 1
+            },
+            "page": {
+              "type": [
+                "integer"
+              ],
+              "nullable": false,
+              "seen": 1
+            }
+          }
+        },
+        "posts": {
+          "type": [
+            "list"
+          ],
+          "nullable": false,
+          "seen": 1,
+          "element": {
+            "type": [
+              "object"
+            ],
+            "nullable": false,
+            "seen": 20,
+            "fields": {
+              "adminForceMaximumAge": {
+                "type": [],
+                "nullable": true,
+                "seen": 20
+              },
+              "adminForceMinimumAge": {
+                "type": [],
+                "nullable": true,
+                "seen": 20
+              },
+              "adminForceR18": {
+                "type": [
+                  "boolean"
+                ],
+                "nullable": false,
+                "seen": 20
+              },
+              "author": {
+                "type": [
+                  "object"
+                ],
+                "nullable": false,
+                "seen": 20,
+                "fields": {
+                  "avatarFrameId": {
+                    "type": [],
+                    "nullable": true,
+                    "seen": 20
+                  },
+                  "avatarUrl": {
+                    "type": [
+                      "string"
+                    ],
+                    "nullable": true,
+                    "seen": 20
+                  },
+                  "cardAccentColor": {
+                    "type": [
+                      "string"
+                    ],
+                    "nullable": true,
+                    "seen": 20
+                  },
+                  "displayName": {
+                    "type": [
+                      "string"
+                    ],
+                    "nullable": false,
+                    "seen": 20
+                  },
+                  "hideProfileFromMinors": {
+                    "type": [
+                      "boolean"
+                    ],
+                    "nullable": false,
+                    "seen": 20
+                  },
+                  "id": {
+                    "type": [
+                      "integer"
+                    ],
+                    "nullable": false,
+                    "seen": 20
+                  },
+                  "isBotAccount": {
+                    "type": [
+                      "boolean"
+                    ],
+                    "nullable": false,
+                    "seen": 20
+                  },
+                  "isFollowingByViewer": {
+                    "type": [
+                      "boolean"
+                    ],
+                    "nullable": false,
+                    "seen": 20
+                  },
+                  "isParodyAccount": {
+                    "type": [
+                      "boolean"
+                    ],
+                    "nullable": false,
+                    "seen": 20
+                  },
+                  "isPrivate": {
+                    "type": [
+                      "boolean"
+                    ],
+                    "nullable": false,
+                    "seen": 20
+                  },
+                  "officialMark": {
+                    "type": [
+                      "list"
+                    ],
+                    "nullable": false,
+                    "seen": 20,
+                    "element": {
+                      "type": [
+                        "string"
+                      ],
+                      "nullable": false,
+                      "seen": 13
+                    }
+                  },
+                  "premiumBadgeColor": {
+                    "type": [
+                      "string"
+                    ],
+                    "nullable": false,
+                    "seen": 20
+                  },
+                  "profileAccentColor": {
+                    "type": [
+                      "string"
+                    ],
+                    "nullable": true,
+                    "seen": 20
+                  },
+                  "profileMaximumAge": {
+                    "type": [],
+                    "nullable": true,
+                    "seen": 20
+                  },
+                  "profileMinimumAge": {
+                    "type": [
+                      "integer"
+                    ],
+                    "nullable": true,
+                    "seen": 20
+                  },
+                  "showCardDecoration": {
+                    "type": [
+                      "boolean"
+                    ],
+                    "nullable": false,
+                    "seen": 20
+                  },
+                  "showGreenBadge": {
+                    "type": [
+                      "boolean"
+                    ],
+                    "nullable": false,
+                    "seen": 20
+                  },
+                  "showPlusBadge": {
+                    "type": [
+                      "boolean"
+                    ],
+                    "nullable": false,
+                    "seen": 20
+                  },
+                  "showProBadge": {
+                    "type": [
+                      "boolean"
+                    ],
+                    "nullable": false,
+                    "seen": 20
+                  },
+                  "showProfileDecoration": {
+                    "type": [
+                      "boolean"
+                    ],
+                    "nullable": false,
+                    "seen": 20
+                  },
+                  "showRedBadge": {
+                    "type": [
+                      "boolean"
+                    ],
+                    "nullable": false,
+                    "seen": 20
+                  },
+                  "showSubscriptionBadges": {
+                    "type": [
+                      "boolean"
+                    ],
+                    "nullable": false,
+                    "seen": 20
+                  },
+                  "subscriptionActiveUntil": {
+                    "type": [
+                      "dateTime"
+                    ],
+                    "nullable": true,
+                    "seen": 20
+                  },
+                  "subscriptionBadgeColors": {
+                    "type": [
+                      "list"
+                    ],
+                    "nullable": false,
+                    "seen": 20,
+                    "element": {
+                      "type": [
+                        "string"
+                      ],
+                      "nullable": false,
+                      "seen": 3
+                    }
+                  },
+                  "subscriptionPlan": {
+                    "type": [
+                      "string"
+                    ],
+                    "nullable": false,
+                    "seen": 20
+                  },
+                  "subscriptionStatus": {
+                    "type": [
+                      "string"
+                    ],
+                    "nullable": false,
+                    "seen": 20
+                  },
+                  "username": {
+                    "type": [
+                      "string"
+                    ],
+                    "nullable": false,
+                    "seen": 20
+                  }
+                }
+              },
+              "authorId": {
+                "type": [
+                  "integer"
+                ],
+                "nullable": false,
+                "seen": 20
+              },
+              "bookmarked": {
+                "type": [
+                  "boolean"
+                ],
+                "nullable": false,
+                "seen": 20
+              },
+              "bookmarksCount": {
+                "type": [
+                  "integer"
+                ],
+                "nullable": false,
+                "seen": 20
+              },
+              "canInteract": {
+                "type": [
+                  "boolean"
+                ],
+                "nullable": false,
+                "seen": 20
+              },
+              "canQuote": {
+                "type": [
+                  "boolean"
+                ],
+                "nullable": false,
+                "seen": 20
+              },
+              "comment": {
+                "type": [],
+                "nullable": true,
+                "seen": 5,
+                "missing": 15
+              },
+              "community": {
+                "type": [],
+                "nullable": true,
+                "seen": 20
+              },
+              "communityId": {
+                "type": [],
+                "nullable": true,
+                "seen": 20
+              },
+              "content": {
+                "type": [
+                  "string"
+                ],
+                "nullable": false,
+                "seen": 20
+              },
+              "createdAt": {
+                "type": [
+                  "dateTime"
+                ],
+                "nullable": false,
+                "seen": 20
+              },
+              "editedAt": {
+                "type": [],
+                "nullable": true,
+                "seen": 20
+              },
+              "effectiveMaximumAge": {
+                "type": [],
+                "nullable": true,
+                "seen": 20
+              },
+              "effectiveMinimumAge": {
+                "type": [
+                  "integer"
+                ],
+                "nullable": true,
+                "seen": 20
+              },
+              "expiresAt": {
+                "type": [],
+                "nullable": true,
+                "seen": 20
+              },
+              "hasBlockedAuthor": {
+                "type": [
+                  "boolean"
+                ],
+                "nullable": false,
+                "seen": 20
+              },
+              "hideFromMinors": {
+                "type": [
+                  "boolean"
+                ],
+                "nullable": false,
+                "seen": 20
+              },
+              "id": {
+                "type": [
+                  "integer"
+                ],
+                "nullable": false,
+                "seen": 20
+              },
+              "isAiGenerated": {
+                "type": [
+                  "boolean"
+                ],
+                "nullable": false,
+                "seen": 20
+              },
+              "isBlockedByAuthor": {
+                "type": [
+                  "boolean"
+                ],
+                "nullable": false,
+                "seen": 20
+              },
+              "isMutedByViewer": {
+                "type": [
+                  "boolean"
+                ],
+                "nullable": false,
+                "seen": 20
+              },
+              "isPromotional": {
+                "type": [
+                  "boolean"
+                ],
+                "nullable": false,
+                "seen": 20
+              },
+              "isR18": {
+                "type": [
+                  "boolean"
+                ],
+                "nullable": false,
+                "seen": 20
+              },
+              "itemId": {
+                "type": [
+                  "string"
+                ],
+                "nullable": false,
+                "seen": 20
+              },
+              "liked": {
+                "type": [
+                  "boolean"
+                ],
+                "nullable": false,
+                "seen": 20
+              },
+              "likesCount": {
+                "type": [
+                  "integer"
+                ],
+                "nullable": false,
+                "seen": 20
+              },
+              "maximumAge": {
+                "type": [],
+                "nullable": true,
+                "seen": 20
+              },
+              "mediaAlts": {
+                "type": [
+                  "list"
+                ],
+                "nullable": false,
+                "seen": 20,
+                "element": {
+                  "type": [
+                    "string"
+                  ],
+                  "nullable": false,
+                  "seen": 2
+                }
+              },
+              "mediaR18Flags": {
+                "type": [
+                  "list"
+                ],
+                "nullable": false,
+                "seen": 20,
+                "element": {
+                  "type": [
+                    "boolean"
+                  ],
+                  "nullable": false,
+                  "seen": 2
+                }
+              },
+              "mediaSpoilerFlags": {
+                "type": [
+                  "list"
+                ],
+                "nullable": false,
+                "seen": 20,
+                "element": {
+                  "type": [
+                    "boolean"
+                  ],
+                  "nullable": false,
+                  "seen": 2
+                }
+              },
+              "mediaUrls": {
+                "type": [
+                  "list"
+                ],
+                "nullable": false,
+                "seen": 20,
+                "element": {
+                  "type": [
+                    "string"
+                  ],
+                  "nullable": false,
+                  "seen": 2
+                }
+              },
+              "minimumAge": {
+                "type": [
+                  "integer"
+                ],
+                "nullable": true,
+                "seen": 20
+              },
+              "parentId": {
+                "type": [],
+                "nullable": true,
+                "seen": 20
+              },
+              "poll": {
+                "type": [],
+                "nullable": true,
+                "seen": 20
+              },
+              "quoteUsersCount": {
+                "type": [
+                  "integer"
+                ],
+                "nullable": false,
+                "seen": 20
+              },
+              "quotedPost": {
+                "type": [
+                  "object"
+                ],
+                "nullable": true,
+                "seen": 20,
+                "fields": {
+                  "adminForceR18": {
+                    "type": [
+                      "boolean"
+                    ],
+                    "nullable": true,
+                    "seen": 3,
+                    "missing": 5
+                  },
+                  "author": {
+                    "type": [
+                      "object"
+                    ],
+                    "nullable": true,
+                    "seen": 3,
+                    "missing": 5,
+                    "fields": {
+                      "avatarUrl": {
+                        "type": [
+                          "string"
+                        ],
+                        "nullable": false,
+                        "seen": 3
+                      },
+                      "cardAccentColor": {
+                        "type": [],
+                        "nullable": true,
+                        "seen": 3
+                      },
+                      "displayName": {
+                        "type": [
+                          "string"
+                        ],
+                        "nullable": false,
+                        "seen": 3
+                      },
+                      "hideProfileFromMinors": {
+                        "type": [
+                          "boolean"
+                        ],
+                        "nullable": false,
+                        "seen": 3
+                      },
+                      "id": {
+                        "type": [
+                          "integer"
+                        ],
+                        "nullable": false,
+                        "seen": 3
+                      },
+                      "isBotAccount": {
+                        "type": [
+                          "boolean"
+                        ],
+                        "nullable": false,
+                        "seen": 3
+                      },
+                      "isFollowingByViewer": {
+                        "type": [
+                          "boolean"
+                        ],
+                        "nullable": false,
+                        "seen": 3
+                      },
+                      "isParodyAccount": {
+                        "type": [
+                          "boolean"
+                        ],
+                        "nullable": false,
+                        "seen": 3
+                      },
+                      "isPrivate": {
+                        "type": [
+                          "boolean"
+                        ],
+                        "nullable": false,
+                        "seen": 3
+                      },
+                      "officialMark": {
+                        "type": [
+                          "list"
+                        ],
+                        "nullable": false,
+                        "seen": 3,
+                        "element": {
+                          "type": [
+                            "string"
+                          ],
+                          "nullable": false,
+                          "seen": 4
+                        }
+                      },
+                      "premiumBadgeColor": {
+                        "type": [
+                          "string"
+                        ],
+                        "nullable": false,
+                        "seen": 3
+                      },
+                      "profileAccentColor": {
+                        "type": [],
+                        "nullable": true,
+                        "seen": 3
+                      },
+                      "profileMaximumAge": {
+                        "type": [],
+                        "nullable": true,
+                        "seen": 3
+                      },
+                      "profileMinimumAge": {
+                        "type": [
+                          "integer"
+                        ],
+                        "nullable": true,
+                        "seen": 3
+                      },
+                      "showCardDecoration": {
+                        "type": [
+                          "boolean"
+                        ],
+                        "nullable": false,
+                        "seen": 3
+                      },
+                      "showGreenBadge": {
+                        "type": [
+                          "boolean"
+                        ],
+                        "nullable": false,
+                        "seen": 3
+                      },
+                      "showPlusBadge": {
+                        "type": [
+                          "boolean"
+                        ],
+                        "nullable": false,
+                        "seen": 3
+                      },
+                      "showProBadge": {
+                        "type": [
+                          "boolean"
+                        ],
+                        "nullable": false,
+                        "seen": 3
+                      },
+                      "showProfileDecoration": {
+                        "type": [
+                          "boolean"
+                        ],
+                        "nullable": false,
+                        "seen": 3
+                      },
+                      "showRedBadge": {
+                        "type": [
+                          "boolean"
+                        ],
+                        "nullable": false,
+                        "seen": 3
+                      },
+                      "showSubscriptionBadges": {
+                        "type": [
+                          "boolean"
+                        ],
+                        "nullable": false,
+                        "seen": 3
+                      },
+                      "subscriptionActiveUntil": {
+                        "type": [
+                          "dateTime"
+                        ],
+                        "nullable": true,
+                        "seen": 3
+                      },
+                      "subscriptionBadgeColors": {
+                        "type": [
+                          "list"
+                        ],
+                        "nullable": false,
+                        "seen": 3,
+                        "element": {
+                          "type": [
+                            "string"
+                          ],
+                          "nullable": false,
+                          "seen": 2
+                        }
+                      },
+                      "subscriptionPlan": {
+                        "type": [
+                          "string"
+                        ],
+                        "nullable": false,
+                        "seen": 3
+                      },
+                      "subscriptionStatus": {
+                        "type": [
+                          "string"
+                        ],
+                        "nullable": false,
+                        "seen": 3
+                      },
+                      "username": {
+                        "type": [
+                          "string"
+                        ],
+                        "nullable": false,
+                        "seen": 3
+                      }
+                    }
+                  },
+                  "canView": {
+                    "type": [
+                      "boolean"
+                    ],
+                    "nullable": true,
+                    "seen": 3,
+                    "missing": 5
+                  },
+                  "community": {
+                    "type": [],
+                    "nullable": true,
+                    "seen": 3,
+                    "missing": 5
+                  },
+                  "communityId": {
+                    "type": [],
+                    "nullable": true,
+                    "seen": 3,
+                    "missing": 5
+                  },
+                  "content": {
+                    "type": [
+                      "string"
+                    ],
+                    "nullable": true,
+                    "seen": 3,
+                    "missing": 5
+                  },
+                  "createdAt": {
+                    "type": [
+                      "dateTime"
+                    ],
+                    "nullable": true,
+                    "seen": 3,
+                    "missing": 5
+                  },
+                  "editedAt": {
+                    "type": [],
+                    "nullable": true,
+                    "seen": 3,
+                    "missing": 5
+                  },
+                  "effectiveMaximumAge": {
+                    "type": [],
+                    "nullable": true,
+                    "seen": 3,
+                    "missing": 5
+                  },
+                  "effectiveMinimumAge": {
+                    "type": [
+                      "integer"
+                    ],
+                    "nullable": true,
+                    "seen": 3,
+                    "missing": 5
+                  },
+                  "expiresAt": {
+                    "type": [],
+                    "nullable": true,
+                    "seen": 3,
+                    "missing": 5
+                  },
+                  "hideFromMinors": {
+                    "type": [
+                      "boolean"
+                    ],
+                    "nullable": true,
+                    "seen": 3,
+                    "missing": 5
+                  },
+                  "id": {
+                    "type": [
+                      "integer"
+                    ],
+                    "nullable": true,
+                    "seen": 3,
+                    "missing": 5
+                  },
+                  "isAiGenerated": {
+                    "type": [
+                      "boolean"
+                    ],
+                    "nullable": true,
+                    "seen": 3,
+                    "missing": 5
+                  },
+                  "isPromotional": {
+                    "type": [
+                      "boolean"
+                    ],
+                    "nullable": true,
+                    "seen": 3,
+                    "missing": 5
+                  },
+                  "isR18": {
+                    "type": [
+                      "boolean"
+                    ],
+                    "nullable": true,
+                    "seen": 3,
+                    "missing": 5
+                  },
+                  "maximumAge": {
+                    "type": [],
+                    "nullable": true,
+                    "seen": 3,
+                    "missing": 5
+                  },
+                  "mediaAlts": {
+                    "type": [
+                      "list"
+                    ],
+                    "nullable": true,
+                    "seen": 3,
+                    "missing": 5,
+                    "element": {
+                      "type": [],
+                      "nullable": false,
+                      "seen": 0
+                    }
+                  },
+                  "mediaR18Flags": {
+                    "type": [
+                      "list"
+                    ],
+                    "nullable": true,
+                    "seen": 3,
+                    "missing": 5,
+                    "element": {
+                      "type": [],
+                      "nullable": false,
+                      "seen": 0
+                    }
+                  },
+                  "mediaSpoilerFlags": {
+                    "type": [
+                      "list"
+                    ],
+                    "nullable": true,
+                    "seen": 3,
+                    "missing": 5,
+                    "element": {
+                      "type": [],
+                      "nullable": false,
+                      "seen": 0
+                    }
+                  },
+                  "mediaUrls": {
+                    "type": [
+                      "list"
+                    ],
+                    "nullable": true,
+                    "seen": 3,
+                    "missing": 5,
+                    "element": {
+                      "type": [],
+                      "nullable": false,
+                      "seen": 0
+                    }
+                  },
+                  "minimumAge": {
+                    "type": [],
+                    "nullable": true,
+                    "seen": 3,
+                    "missing": 5
+                  },
+                  "parentId": {
+                    "type": [],
+                    "nullable": true,
+                    "seen": 3,
+                    "missing": 5
+                  },
+                  "poll": {
+                    "type": [],
+                    "nullable": true,
+                    "seen": 3,
+                    "missing": 5
+                  },
+                  "quotedPost": {
+                    "type": [],
+                    "nullable": true,
+                    "seen": 3,
+                    "missing": 5
+                  },
+                  "quotedPostId": {
+                    "type": [],
+                    "nullable": true,
+                    "seen": 3,
+                    "missing": 5
+                  },
+                  "replyCircle": {
+                    "type": [],
+                    "nullable": true,
+                    "seen": 3,
+                    "missing": 5
+                  },
+                  "replyCircleId": {
+                    "type": [],
+                    "nullable": true,
+                    "seen": 3,
+                    "missing": 5
+                  },
+                  "replyRestriction": {
+                    "type": [
+                      "string"
+                    ],
+                    "nullable": true,
+                    "seen": 3,
+                    "missing": 5
+                  },
+                  "replyToUsers": {
+                    "type": [
+                      "list"
+                    ],
+                    "nullable": true,
+                    "seen": 3,
+                    "missing": 5,
+                    "element": {
+                      "type": [
+                        "object"
+                      ],
+                      "nullable": false,
+                      "seen": 3,
+                      "fields": {
+                        "avatarFrameId": {
+                          "type": [],
+                          "nullable": true,
+                          "seen": 3
+                        },
+                        "avatarUrl": {
+                          "type": [
+                            "string"
+                          ],
+                          "nullable": false,
+                          "seen": 3
+                        },
+                        "displayName": {
+                          "type": [
+                            "string"
+                          ],
+                          "nullable": false,
+                          "seen": 3
+                        },
+                        "hideProfileFromMinors": {
+                          "type": [
+                            "boolean"
+                          ],
+                          "nullable": false,
+                          "seen": 3
+                        },
+                        "id": {
+                          "type": [
+                            "integer"
+                          ],
+                          "nullable": false,
+                          "seen": 3
+                        },
+                        "isBotAccount": {
+                          "type": [
+                            "boolean"
+                          ],
+                          "nullable": false,
+                          "seen": 3
+                        },
+                        "isFollowingByViewer": {
+                          "type": [
+                            "boolean"
+                          ],
+                          "nullable": false,
+                          "seen": 3
+                        },
+                        "isParodyAccount": {
+                          "type": [
+                            "boolean"
+                          ],
+                          "nullable": false,
+                          "seen": 3
+                        },
+                        "isPrivate": {
+                          "type": [
+                            "boolean"
+                          ],
+                          "nullable": false,
+                          "seen": 3
+                        },
+                        "officialMark": {
+                          "type": [
+                            "list"
+                          ],
+                          "nullable": false,
+                          "seen": 3,
+                          "element": {
+                            "type": [],
+                            "nullable": false,
+                            "seen": 0
+                          }
+                        },
+                        "profileMaximumAge": {
+                          "type": [],
+                          "nullable": true,
+                          "seen": 3
+                        },
+                        "profileMinimumAge": {
+                          "type": [],
+                          "nullable": true,
+                          "seen": 3
+                        },
+                        "username": {
+                          "type": [
+                            "string"
+                          ],
+                          "nullable": false,
+                          "seen": 3
+                        }
+                      }
+                    }
+                  },
+                  "viewerCircle": {
+                    "type": [],
+                    "nullable": true,
+                    "seen": 3,
+                    "missing": 5
+                  },
+                  "viewerCircleId": {
+                    "type": [],
+                    "nullable": true,
+                    "seen": 3,
+                    "missing": 5
+                  },
+                  "visibility": {
+                    "type": [
+                      "string"
+                    ],
+                    "nullable": true,
+                    "seen": 3,
+                    "missing": 5
+                  }
+                }
+              },
+              "quotedPostId": {
+                "type": [
+                  "integer"
+                ],
+                "nullable": true,
+                "seen": 20
+              },
+              "reactionSummary": {
+                "type": [
+                  "list"
+                ],
+                "nullable": false,
+                "seen": 20,
+                "element": {
+                  "type": [
+                    "object"
+                  ],
+                  "nullable": false,
+                  "seen": 9,
+                  "fields": {
+                    "count": {
+                      "type": [
+                        "integer"
+                      ],
+                      "nullable": false,
+                      "seen": 9
+                    },
+                    "emoji": {
+                      "type": [
+                        "string"
+                      ],
+                      "nullable": false,
+                      "seen": 9
+                    },
+                    "reacted": {
+                      "type": [
+                        "boolean"
+                      ],
+                      "nullable": false,
+                      "seen": 9
+                    }
+                  }
+                }
+              },
+              "rekaroted": {
+                "type": [
+                  "boolean"
+                ],
+                "nullable": false,
+                "seen": 20
+              },
+              "rekarotedBy": {
+                "type": [
+                  "object"
+                ],
+                "nullable": true,
+                "seen": 5,
+                "missing": 15,
+                "fields": {
+                  "avatarFrameId": {
+                    "type": [],
+                    "nullable": true,
+                    "seen": 5
+                  },
+                  "avatarUrl": {
+                    "type": [
+                      "string"
+                    ],
+                    "nullable": false,
+                    "seen": 5
+                  },
+                  "cardAccentColor": {
+                    "type": [],
+                    "nullable": true,
+                    "seen": 5
+                  },
+                  "displayName": {
+                    "type": [
+                      "string"
+                    ],
+                    "nullable": false,
+                    "seen": 5
+                  },
+                  "hideProfileFromMinors": {
+                    "type": [
+                      "boolean"
+                    ],
+                    "nullable": false,
+                    "seen": 5
+                  },
+                  "id": {
+                    "type": [
+                      "integer"
+                    ],
+                    "nullable": false,
+                    "seen": 5
+                  },
+                  "isBotAccount": {
+                    "type": [
+                      "boolean"
+                    ],
+                    "nullable": false,
+                    "seen": 5
+                  },
+                  "isFollowingByViewer": {
+                    "type": [
+                      "boolean"
+                    ],
+                    "nullable": false,
+                    "seen": 5
+                  },
+                  "isParodyAccount": {
+                    "type": [
+                      "boolean"
+                    ],
+                    "nullable": false,
+                    "seen": 5
+                  },
+                  "isPrivate": {
+                    "type": [
+                      "boolean"
+                    ],
+                    "nullable": false,
+                    "seen": 5
+                  },
+                  "officialMark": {
+                    "type": [
+                      "list"
+                    ],
+                    "nullable": false,
+                    "seen": 5,
+                    "element": {
+                      "type": [
+                        "string"
+                      ],
+                      "nullable": false,
+                      "seen": 9
+                    }
+                  },
+                  "premiumBadgeColor": {
+                    "type": [
+                      "string"
+                    ],
+                    "nullable": false,
+                    "seen": 5
+                  },
+                  "profileAccentColor": {
+                    "type": [],
+                    "nullable": true,
+                    "seen": 5
+                  },
+                  "profileMaximumAge": {
+                    "type": [],
+                    "nullable": true,
+                    "seen": 5
+                  },
+                  "profileMinimumAge": {
+                    "type": [
+                      "integer"
+                    ],
+                    "nullable": false,
+                    "seen": 5
+                  },
+                  "showCardDecoration": {
+                    "type": [
+                      "boolean"
+                    ],
+                    "nullable": false,
+                    "seen": 5
+                  },
+                  "showGreenBadge": {
+                    "type": [
+                      "boolean"
+                    ],
+                    "nullable": false,
+                    "seen": 5
+                  },
+                  "showPlusBadge": {
+                    "type": [
+                      "boolean"
+                    ],
+                    "nullable": false,
+                    "seen": 5
+                  },
+                  "showProBadge": {
+                    "type": [
+                      "boolean"
+                    ],
+                    "nullable": false,
+                    "seen": 5
+                  },
+                  "showProfileDecoration": {
+                    "type": [
+                      "boolean"
+                    ],
+                    "nullable": false,
+                    "seen": 5
+                  },
+                  "showRedBadge": {
+                    "type": [
+                      "boolean"
+                    ],
+                    "nullable": false,
+                    "seen": 5
+                  },
+                  "showSubscriptionBadges": {
+                    "type": [
+                      "boolean"
+                    ],
+                    "nullable": false,
+                    "seen": 5
+                  },
+                  "subscriptionActiveUntil": {
+                    "type": [
+                      "dateTime"
+                    ],
+                    "nullable": false,
+                    "seen": 5
+                  },
+                  "subscriptionBadgeColors": {
+                    "type": [
+                      "list"
+                    ],
+                    "nullable": false,
+                    "seen": 5,
+                    "element": {
+                      "type": [
+                        "string"
+                      ],
+                      "nullable": false,
+                      "seen": 4
+                    }
+                  },
+                  "subscriptionPlan": {
+                    "type": [
+                      "string"
+                    ],
+                    "nullable": false,
+                    "seen": 5
+                  },
+                  "subscriptionStatus": {
+                    "type": [
+                      "string"
+                    ],
+                    "nullable": false,
+                    "seen": 5
+                  },
+                  "username": {
+                    "type": [
+                      "string"
+                    ],
+                    "nullable": false,
+                    "seen": 5
+                  }
+                }
+              },
+              "rekarotsCount": {
+                "type": [
+                  "integer"
+                ],
+                "nullable": false,
+                "seen": 20
+              },
+              "repliesCount": {
+                "type": [
+                  "integer"
+                ],
+                "nullable": false,
+                "seen": 20
+              },
+              "replyCircle": {
+                "type": [],
+                "nullable": true,
+                "seen": 20
+              },
+              "replyCircleId": {
+                "type": [],
+                "nullable": true,
+                "seen": 20
+              },
+              "replyRestriction": {
+                "type": [
+                  "string"
+                ],
+                "nullable": false,
+                "seen": 20
+              },
+              "replyToUsers": {
+                "type": [
+                  "list"
+                ],
+                "nullable": false,
+                "seen": 20,
+                "element": {
+                  "type": [
+                    "object"
+                  ],
+                  "nullable": false,
+                  "seen": 18,
+                  "fields": {
+                    "avatarFrameId": {
+                      "type": [],
+                      "nullable": true,
+                      "seen": 18
+                    },
+                    "avatarUrl": {
+                      "type": [
+                        "string"
+                      ],
+                      "nullable": false,
+                      "seen": 18
+                    },
+                    "displayName": {
+                      "type": [
+                        "string"
+                      ],
+                      "nullable": false,
+                      "seen": 18
+                    },
+                    "hideProfileFromMinors": {
+                      "type": [
+                        "boolean"
+                      ],
+                      "nullable": false,
+                      "seen": 18
+                    },
+                    "id": {
+                      "type": [
+                        "integer"
+                      ],
+                      "nullable": false,
+                      "seen": 18
+                    },
+                    "isBotAccount": {
+                      "type": [
+                        "boolean"
+                      ],
+                      "nullable": false,
+                      "seen": 18
+                    },
+                    "isFollowingByViewer": {
+                      "type": [
+                        "boolean"
+                      ],
+                      "nullable": false,
+                      "seen": 18
+                    },
+                    "isParodyAccount": {
+                      "type": [
+                        "boolean"
+                      ],
+                      "nullable": false,
+                      "seen": 18
+                    },
+                    "isPrivate": {
+                      "type": [
+                        "boolean"
+                      ],
+                      "nullable": false,
+                      "seen": 18
+                    },
+                    "officialMark": {
+                      "type": [
+                        "list"
+                      ],
+                      "nullable": false,
+                      "seen": 18,
+                      "element": {
+                        "type": [],
+                        "nullable": false,
+                        "seen": 0
+                      }
+                    },
+                    "profileMaximumAge": {
+                      "type": [],
+                      "nullable": true,
+                      "seen": 18
+                    },
+                    "profileMinimumAge": {
+                      "type": [],
+                      "nullable": true,
+                      "seen": 18
+                    },
+                    "username": {
+                      "type": [
+                        "string"
+                      ],
+                      "nullable": false,
+                      "seen": 18
+                    }
+                  }
+                }
+              },
+              "time": {
+                "type": [
+                  "dateTime"
+                ],
+                "nullable": false,
+                "seen": 20
+              },
+              "type": {
+                "type": [
+                  "string"
+                ],
+                "nullable": false,
+                "seen": 20
+              },
+              "updatedAt": {
+                "type": [
+                  "dateTime"
+                ],
+                "nullable": false,
+                "seen": 20
+              },
+              "viewerCircle": {
+                "type": [],
+                "nullable": true,
+                "seen": 20
+              },
+              "viewerCircleId": {
+                "type": [],
+                "nullable": true,
+                "seen": 20
+              },
+              "viewsCount": {
+                "type": [
+                  "integer"
+                ],
+                "nullable": false,
+                "seen": 20
+              },
+              "visibility": {
+                "type": [
+                  "string"
+                ],
+                "nullable": false,
+                "seen": 20
+              }
+            }
+          }
+        }
+      }
+    },
+    "posts.byId": {
+      "type": [
+        "object"
+      ],
+      "nullable": false,
+      "seen": 1,
+      "fields": {
+        "post": {
+          "type": [
+            "object"
+          ],
+          "nullable": false,
+          "seen": 1,
+          "fields": {
+            "adminForceMaximumAge": {
+              "type": [],
+              "nullable": true,
+              "seen": 1
+            },
+            "adminForceMinimumAge": {
+              "type": [],
+              "nullable": true,
+              "seen": 1
+            },
+            "adminForceR18": {
+              "type": [
+                "boolean"
+              ],
+              "nullable": false,
+              "seen": 1
+            },
+            "author": {
+              "type": [
+                "object"
+              ],
+              "nullable": false,
+              "seen": 1,
+              "fields": {
+                "avatarFrameId": {
+                  "type": [],
+                  "nullable": true,
+                  "seen": 1
+                },
+                "avatarUrl": {
+                  "type": [
+                    "string"
+                  ],
+                  "nullable": false,
+                  "seen": 1
+                },
+                "cardAccentColor": {
+                  "type": [],
+                  "nullable": true,
+                  "seen": 1
+                },
+                "displayName": {
+                  "type": [
+                    "string"
+                  ],
+                  "nullable": false,
+                  "seen": 1
+                },
+                "hideProfileFromMinors": {
+                  "type": [
+                    "boolean"
+                  ],
+                  "nullable": false,
+                  "seen": 1
+                },
+                "id": {
+                  "type": [
+                    "integer"
+                  ],
+                  "nullable": false,
+                  "seen": 1
+                },
+                "isBotAccount": {
+                  "type": [
+                    "boolean"
+                  ],
+                  "nullable": false,
+                  "seen": 1
+                },
+                "isFollowingByViewer": {
+                  "type": [
+                    "boolean"
+                  ],
+                  "nullable": false,
+                  "seen": 1
+                },
+                "isParodyAccount": {
+                  "type": [
+                    "boolean"
+                  ],
+                  "nullable": false,
+                  "seen": 1
+                },
+                "isPrivate": {
+                  "type": [
+                    "boolean"
+                  ],
+                  "nullable": false,
+                  "seen": 1
+                },
+                "officialMark": {
+                  "type": [
+                    "list"
+                  ],
+                  "nullable": false,
+                  "seen": 1,
+                  "element": {
+                    "type": [
+                      "string"
+                    ],
+                    "nullable": false,
+                    "seen": 1
+                  }
+                },
+                "premiumBadgeColor": {
+                  "type": [
+                    "string"
+                  ],
+                  "nullable": false,
+                  "seen": 1
+                },
+                "profileAccentColor": {
+                  "type": [],
+                  "nullable": true,
+                  "seen": 1
+                },
+                "profileMaximumAge": {
+                  "type": [],
+                  "nullable": true,
+                  "seen": 1
+                },
+                "profileMinimumAge": {
+                  "type": [
+                    "integer"
+                  ],
+                  "nullable": false,
+                  "seen": 1
+                },
+                "showCardDecoration": {
+                  "type": [
+                    "boolean"
+                  ],
+                  "nullable": false,
+                  "seen": 1
+                },
+                "showGreenBadge": {
+                  "type": [
+                    "boolean"
+                  ],
+                  "nullable": false,
+                  "seen": 1
+                },
+                "showPlusBadge": {
+                  "type": [
+                    "boolean"
+                  ],
+                  "nullable": false,
+                  "seen": 1
+                },
+                "showProBadge": {
+                  "type": [
+                    "boolean"
+                  ],
+                  "nullable": false,
+                  "seen": 1
+                },
+                "showProfileDecoration": {
+                  "type": [
+                    "boolean"
+                  ],
+                  "nullable": false,
+                  "seen": 1
+                },
+                "showRedBadge": {
+                  "type": [
+                    "boolean"
+                  ],
+                  "nullable": false,
+                  "seen": 1
+                },
+                "showSubscriptionBadges": {
+                  "type": [
+                    "boolean"
+                  ],
+                  "nullable": false,
+                  "seen": 1
+                },
+                "subscriptionActiveUntil": {
+                  "type": [
+                    "dateTime"
+                  ],
+                  "nullable": false,
+                  "seen": 1
+                },
+                "subscriptionBadgeColors": {
+                  "type": [
+                    "list"
+                  ],
+                  "nullable": false,
+                  "seen": 1,
+                  "element": {
+                    "type": [],
+                    "nullable": false,
+                    "seen": 0
+                  }
+                },
+                "subscriptionPlan": {
+                  "type": [
+                    "string"
+                  ],
+                  "nullable": false,
+                  "seen": 1
+                },
+                "subscriptionStatus": {
+                  "type": [
+                    "string"
+                  ],
+                  "nullable": false,
+                  "seen": 1
+                },
+                "username": {
+                  "type": [
+                    "string"
+                  ],
+                  "nullable": false,
+                  "seen": 1
+                }
+              }
+            },
+            "authorId": {
+              "type": [
+                "integer"
+              ],
+              "nullable": false,
+              "seen": 1
+            },
+            "bookmarked": {
+              "type": [
+                "boolean"
+              ],
+              "nullable": false,
+              "seen": 1
+            },
+            "bookmarksCount": {
+              "type": [
+                "integer"
+              ],
+              "nullable": false,
+              "seen": 1
+            },
+            "canInteract": {
+              "type": [
+                "boolean"
+              ],
+              "nullable": false,
+              "seen": 1
+            },
+            "canQuote": {
+              "type": [
+                "boolean"
+              ],
+              "nullable": false,
+              "seen": 1
+            },
+            "community": {
+              "type": [],
+              "nullable": true,
+              "seen": 1
+            },
+            "communityId": {
+              "type": [],
+              "nullable": true,
+              "seen": 1
+            },
+            "content": {
+              "type": [
+                "string"
+              ],
+              "nullable": false,
+              "seen": 1
+            },
+            "createdAt": {
+              "type": [
+                "dateTime"
+              ],
+              "nullable": false,
+              "seen": 1
+            },
+            "editedAt": {
+              "type": [],
+              "nullable": true,
+              "seen": 1
+            },
+            "effectiveMaximumAge": {
+              "type": [],
+              "nullable": true,
+              "seen": 1
+            },
+            "effectiveMinimumAge": {
+              "type": [
+                "integer"
+              ],
+              "nullable": false,
+              "seen": 1
+            },
+            "expiresAt": {
+              "type": [],
+              "nullable": true,
+              "seen": 1
+            },
+            "hasBlockedAuthor": {
+              "type": [
+                "boolean"
+              ],
+              "nullable": false,
+              "seen": 1
+            },
+            "hideFromMinors": {
+              "type": [
+                "boolean"
+              ],
+              "nullable": false,
+              "seen": 1
+            },
+            "id": {
+              "type": [
+                "integer"
+              ],
+              "nullable": false,
+              "seen": 1
+            },
+            "isAiGenerated": {
+              "type": [
+                "boolean"
+              ],
+              "nullable": false,
+              "seen": 1
+            },
+            "isBlockedByAuthor": {
+              "type": [
+                "boolean"
+              ],
+              "nullable": false,
+              "seen": 1
+            },
+            "isMutedByViewer": {
+              "type": [
+                "boolean"
+              ],
+              "nullable": false,
+              "seen": 1
+            },
+            "isPromotional": {
+              "type": [
+                "boolean"
+              ],
+              "nullable": false,
+              "seen": 1
+            },
+            "isR18": {
+              "type": [
+                "boolean"
+              ],
+              "nullable": false,
+              "seen": 1
+            },
+            "liked": {
+              "type": [
+                "boolean"
+              ],
+              "nullable": false,
+              "seen": 1
+            },
+            "likesCount": {
+              "type": [
+                "integer"
+              ],
+              "nullable": false,
+              "seen": 1
+            },
+            "maximumAge": {
+              "type": [],
+              "nullable": true,
+              "seen": 1
+            },
+            "mediaAlts": {
+              "type": [
+                "list"
+              ],
+              "nullable": false,
+              "seen": 1,
+              "element": {
+                "type": [
+                  "string"
+                ],
+                "nullable": false,
+                "seen": 1
+              }
+            },
+            "mediaR18Flags": {
+              "type": [
+                "list"
+              ],
+              "nullable": false,
+              "seen": 1,
+              "element": {
+                "type": [
+                  "boolean"
+                ],
+                "nullable": false,
+                "seen": 1
+              }
+            },
+            "mediaSpoilerFlags": {
+              "type": [
+                "list"
+              ],
+              "nullable": false,
+              "seen": 1,
+              "element": {
+                "type": [
+                  "boolean"
+                ],
+                "nullable": false,
+                "seen": 1
+              }
+            },
+            "mediaUrls": {
+              "type": [
+                "list"
+              ],
+              "nullable": false,
+              "seen": 1,
+              "element": {
+                "type": [
+                  "string"
+                ],
+                "nullable": false,
+                "seen": 1
+              }
+            },
+            "minimumAge": {
+              "type": [],
+              "nullable": true,
+              "seen": 1
+            },
+            "parentId": {
+              "type": [],
+              "nullable": true,
+              "seen": 1
+            },
+            "poll": {
+              "type": [],
+              "nullable": true,
+              "seen": 1
+            },
+            "quotePostsCount": {
+              "type": [
+                "integer"
+              ],
+              "nullable": false,
+              "seen": 1
+            },
+            "quoteUsersCount": {
+              "type": [
+                "integer"
+              ],
+              "nullable": false,
+              "seen": 1
+            },
+            "quotedPost": {
+              "type": [],
+              "nullable": true,
+              "seen": 1
+            },
+            "quotedPostId": {
+              "type": [],
+              "nullable": true,
+              "seen": 1
+            },
+            "reactionSummary": {
+              "type": [
+                "list"
+              ],
+              "nullable": false,
+              "seen": 1,
+              "element": {
+                "type": [],
+                "nullable": false,
+                "seen": 0
+              }
+            },
+            "rekaroted": {
+              "type": [
+                "boolean"
+              ],
+              "nullable": false,
+              "seen": 1
+            },
+            "rekarotsCount": {
+              "type": [
+                "integer"
+              ],
+              "nullable": false,
+              "seen": 1
+            },
+            "repliesCount": {
+              "type": [
+                "integer"
+              ],
+              "nullable": false,
+              "seen": 1
+            },
+            "replyCircle": {
+              "type": [],
+              "nullable": true,
+              "seen": 1
+            },
+            "replyCircleId": {
+              "type": [],
+              "nullable": true,
+              "seen": 1
+            },
+            "replyRestriction": {
+              "type": [
+                "string"
+              ],
+              "nullable": false,
+              "seen": 1
+            },
+            "replyToUsers": {
+              "type": [
+                "list"
+              ],
+              "nullable": false,
+              "seen": 1,
+              "element": {
+                "type": [
+                  "object"
+                ],
+                "nullable": false,
+                "seen": 1,
+                "fields": {
+                  "avatarFrameId": {
+                    "type": [],
+                    "nullable": true,
+                    "seen": 1
+                  },
+                  "avatarUrl": {
+                    "type": [
+                      "string"
+                    ],
+                    "nullable": false,
+                    "seen": 1
+                  },
+                  "displayName": {
+                    "type": [
+                      "string"
+                    ],
+                    "nullable": false,
+                    "seen": 1
+                  },
+                  "hideProfileFromMinors": {
+                    "type": [
+                      "boolean"
+                    ],
+                    "nullable": false,
+                    "seen": 1
+                  },
+                  "id": {
+                    "type": [
+                      "integer"
+                    ],
+                    "nullable": false,
+                    "seen": 1
+                  },
+                  "isBotAccount": {
+                    "type": [
+                      "boolean"
+                    ],
+                    "nullable": false,
+                    "seen": 1
+                  },
+                  "isFollowingByViewer": {
+                    "type": [
+                      "boolean"
+                    ],
+                    "nullable": false,
+                    "seen": 1
+                  },
+                  "isParodyAccount": {
+                    "type": [
+                      "boolean"
+                    ],
+                    "nullable": false,
+                    "seen": 1
+                  },
+                  "isPrivate": {
+                    "type": [
+                      "boolean"
+                    ],
+                    "nullable": false,
+                    "seen": 1
+                  },
+                  "officialMark": {
+                    "type": [
+                      "list"
+                    ],
+                    "nullable": false,
+                    "seen": 1,
+                    "element": {
+                      "type": [],
+                      "nullable": false,
+                      "seen": 0
+                    }
+                  },
+                  "profileMaximumAge": {
+                    "type": [],
+                    "nullable": true,
+                    "seen": 1
+                  },
+                  "profileMinimumAge": {
+                    "type": [],
+                    "nullable": true,
+                    "seen": 1
+                  },
+                  "username": {
+                    "type": [
+                      "string"
+                    ],
+                    "nullable": false,
+                    "seen": 1
+                  }
+                }
+              }
+            },
+            "updatedAt": {
+              "type": [
+                "dateTime"
+              ],
+              "nullable": false,
+              "seen": 1
+            },
+            "viewerCircle": {
+              "type": [],
+              "nullable": true,
+              "seen": 1
+            },
+            "viewerCircleId": {
+              "type": [],
+              "nullable": true,
+              "seen": 1
+            },
+            "viewsCount": {
+              "type": [
+                "integer"
+              ],
+              "nullable": false,
+              "seen": 1
+            },
+            "visibility": {
+              "type": [
+                "string"
+              ],
+              "nullable": false,
+              "seen": 1
+            }
+          }
+        }
+      }
+    },
+    "posts.replies": {
+      "type": [
+        "object"
+      ],
+      "nullable": false,
+      "seen": 1,
+      "fields": {
+        "pagination": {
+          "type": [
+            "object"
+          ],
+          "nullable": false,
+          "seen": 1,
+          "fields": {
+            "limit": {
+              "type": [
+                "integer"
+              ],
+              "nullable": false,
+              "seen": 1
+            },
+            "page": {
+              "type": [
+                "integer"
+              ],
+              "nullable": false,
+              "seen": 1
+            },
+            "pages": {
+              "type": [
+                "integer"
+              ],
+              "nullable": false,
+              "seen": 1
+            },
+            "total": {
+              "type": [
+                "integer"
+              ],
+              "nullable": false,
+              "seen": 1
+            }
+          }
+        },
+        "replies": {
+          "type": [
+            "list"
+          ],
+          "nullable": false,
+          "seen": 1,
+          "element": {
+            "type": [],
+            "nullable": false,
+            "seen": 0
+          }
+        }
+      }
+    },
+    "posts.replyTargets": {
+      "type": [
+        "object"
+      ],
+      "nullable": false,
+      "seen": 1,
+      "fields": {
+        "candidates": {
+          "type": [
+            "list"
+          ],
+          "nullable": false,
+          "seen": 1,
+          "element": {
+            "type": [
+              "object"
+            ],
+            "nullable": false,
+            "seen": 2,
+            "fields": {
+              "adminForceBot": {
+                "type": [
+                  "boolean"
+                ],
+                "nullable": false,
+                "seen": 2
+              },
+              "adminForceParody": {
+                "type": [
+                  "boolean"
+                ],
+                "nullable": false,
+                "seen": 2
+              },
+              "avatarUrl": {
+                "type": [
+                  "string"
+                ],
+                "nullable": true,
+                "seen": 2
+              },
+              "displayName": {
+                "type": [
+                  "string"
+                ],
+                "nullable": false,
+                "seen": 2
+              },
+              "id": {
+                "type": [
+                  "integer"
+                ],
+                "nullable": false,
+                "seen": 2
+              },
+              "isBotAccount": {
+                "type": [
+                  "boolean"
+                ],
+                "nullable": false,
+                "seen": 2
+              },
+              "isParodyAccount": {
+                "type": [
+                  "boolean"
+                ],
+                "nullable": false,
+                "seen": 2
+              },
+              "isPrivate": {
+                "type": [
+                  "boolean"
+                ],
+                "nullable": false,
+                "seen": 2
+              },
+              "officialMark": {
+                "type": [
+                  "list"
+                ],
+                "nullable": false,
+                "seen": 2,
+                "element": {
+                  "type": [],
+                  "nullable": false,
+                  "seen": 0
+                }
+              },
+              "username": {
+                "type": [
+                  "string"
+                ],
+                "nullable": false,
+                "seen": 2
+              }
+            }
+          }
+        },
+        "excludedUserIds": {
+          "type": [
+            "list"
+          ],
+          "nullable": false,
+          "seen": 1,
+          "element": {
+            "type": [],
+            "nullable": false,
+            "seen": 0
+          }
+        },
+        "rootPostId": {
+          "type": [
+            "integer"
+          ],
+          "nullable": false,
+          "seen": 1
+        },
+        "selectedUserIds": {
+          "type": [
+            "list"
+          ],
+          "nullable": false,
+          "seen": 1,
+          "element": {
+            "type": [
+              "integer"
+            ],
+            "nullable": false,
+            "seen": 2
+          }
+        }
+      }
+    },
+    "posts.bookmarks": {
+      "type": [
+        "object"
+      ],
+      "nullable": false,
+      "seen": 1,
+      "fields": {
+        "pagination": {
+          "type": [
+            "object"
+          ],
+          "nullable": false,
+          "seen": 1,
+          "fields": {
+            "hasNext": {
+              "type": [
+                "boolean"
+              ],
+              "nullable": false,
+              "seen": 1
+            },
+            "limit": {
+              "type": [
+                "integer"
+              ],
+              "nullable": false,
+              "seen": 1
+            },
+            "page": {
+              "type": [
+                "integer"
+              ],
+              "nullable": false,
+              "seen": 1
+            }
+          }
+        },
+        "posts": {
+          "type": [
+            "list"
+          ],
+          "nullable": false,
+          "seen": 1,
+          "element": {
+            "type": [],
+            "nullable": false,
+            "seen": 0
+          }
+        }
+      }
+    },
+    "posts.scheduled": {
+      "type": [
+        "object"
+      ],
+      "nullable": false,
+      "seen": 1,
+      "fields": {
+        "scheduledPosts": {
+          "type": [
+            "list"
+          ],
+          "nullable": false,
+          "seen": 1,
+          "element": {
+            "type": [],
+            "nullable": false,
+            "seen": 0
+          }
+        }
+      }
+    },
+    "users.byUsername": {
+      "type": [
+        "object"
+      ],
+      "nullable": false,
+      "seen": 1,
+      "fields": {
+        "hasBlocked": {
+          "type": [
+            "boolean"
+          ],
+          "nullable": false,
+          "seen": 1
+        },
+        "hasPendingRequest": {
+          "type": [
+            "boolean"
+          ],
+          "nullable": false,
+          "seen": 1
+        },
+        "isBlocked": {
+          "type": [
+            "boolean"
+          ],
+          "nullable": false,
+          "seen": 1
+        },
+        "isBlockedBy": {
+          "type": [
+            "boolean"
+          ],
+          "nullable": false,
+          "seen": 1
+        },
+        "isFollowedBy": {
+          "type": [
+            "boolean"
+          ],
+          "nullable": false,
+          "seen": 1
+        },
+        "isFollowing": {
+          "type": [
+            "boolean"
+          ],
+          "nullable": false,
+          "seen": 1
+        },
+        "isMuted": {
+          "type": [
+            "boolean"
+          ],
+          "nullable": false,
+          "seen": 1
+        },
+        "isPostNotificationsEnabled": {
+          "type": [
+            "boolean"
+          ],
+          "nullable": false,
+          "seen": 1
+        },
+        "isRekarotHidden": {
+          "type": [
+            "boolean"
+          ],
+          "nullable": false,
+          "seen": 1
+        },
+        "mutualFollowersCount": {
+          "type": [
+            "integer"
+          ],
+          "nullable": false,
+          "seen": 1
+        },
+        "mutualFollowersPreview": {
+          "type": [
+            "list"
+          ],
+          "nullable": false,
+          "seen": 1,
+          "element": {
+            "type": [],
+            "nullable": false,
+            "seen": 0
+          }
+        },
+        "pinnedPost": {
+          "type": [],
+          "nullable": true,
+          "seen": 1
+        },
+        "pinnedPosts": {
+          "type": [
+            "list"
+          ],
+          "nullable": false,
+          "seen": 1,
+          "element": {
+            "type": [],
+            "nullable": false,
+            "seen": 0
+          }
+        },
+        "user": {
+          "type": [
+            "object"
+          ],
+          "nullable": false,
+          "seen": 1,
+          "fields": {
+            "age": {
+              "type": [],
+              "nullable": true,
+              "seen": 1
+            },
+            "avatarFrameId": {
+              "type": [],
+              "nullable": true,
+              "seen": 1
+            },
+            "avatarUrl": {
+              "type": [],
+              "nullable": true,
+              "seen": 1
+            },
+            "badges": {
+              "type": [
+                "list"
+              ],
+              "nullable": false,
+              "seen": 1,
+              "element": {
+                "type": [],
+                "nullable": false,
+                "seen": 0
+              }
+            },
+            "bio": {
+              "type": [],
+              "nullable": true,
+              "seen": 1
+            },
+            "birthday": {
+              "type": [],
+              "nullable": true,
+              "seen": 1
+            },
+            "birthdayBalloonsEnabled": {
+              "type": [
+                "boolean"
+              ],
+              "nullable": false,
+              "seen": 1
+            },
+            "birthdayVisibility": {
+              "type": [
+                "string"
+              ],
+              "nullable": false,
+              "seen": 1
+            },
+            "cardAccentColor": {
+              "type": [],
+              "nullable": true,
+              "seen": 1
+            },
+            "createdAt": {
+              "type": [
+                "dateTime"
+              ],
+              "nullable": false,
+              "seen": 1
+            },
+            "displayBirthday": {
+              "type": [],
+              "nullable": true,
+              "seen": 1
+            },
+            "displayName": {
+              "type": [
+                "string"
+              ],
+              "nullable": false,
+              "seen": 1
+            },
+            "experience": {
+              "type": [
+                "integer"
+              ],
+              "nullable": false,
+              "seen": 1
+            },
+            "experienceInLevel": {
+              "type": [
+                "integer"
+              ],
+              "nullable": false,
+              "seen": 1
+            },
+            "experienceRequiredForNextLevel": {
+              "type": [
+                "integer"
+              ],
+              "nullable": false,
+              "seen": 1
+            },
+            "experienceToNextLevel": {
+              "type": [
+                "integer"
+              ],
+              "nullable": false,
+              "seen": 1
+            },
+            "followersCount": {
+              "type": [
+                "integer"
+              ],
+              "nullable": false,
+              "seen": 1
+            },
+            "followingCount": {
+              "type": [
+                "integer"
+              ],
+              "nullable": false,
+              "seen": 1
+            },
+            "headerUrl": {
+              "type": [],
+              "nullable": true,
+              "seen": 1
+            },
+            "hideProfileFromMinors": {
+              "type": [
+                "boolean"
+              ],
+              "nullable": false,
+              "seen": 1
+            },
+            "id": {
+              "type": [
+                "integer"
+              ],
+              "nullable": false,
+              "seen": 1
+            },
+            "isBanned": {
+              "type": [
+                "boolean"
+              ],
+              "nullable": false,
+              "seen": 1
+            },
+            "isBotAccount": {
+              "type": [
+                "boolean"
+              ],
+              "nullable": false,
+              "seen": 1
+            },
+            "isParodyAccount": {
+              "type": [
+                "boolean"
+              ],
+              "nullable": false,
+              "seen": 1
+            },
+            "isPremium": {
+              "type": [
+                "boolean"
+              ],
+              "nullable": false,
+              "seen": 1
+            },
+            "isPrivate": {
+              "type": [
+                "boolean"
+              ],
+              "nullable": false,
+              "seen": 1
+            },
+            "level": {
+              "type": [
+                "integer"
+              ],
+              "nullable": false,
+              "seen": 1
+            },
+            "levelEnabled": {
+              "type": [
+                "boolean"
+              ],
+              "nullable": false,
+              "seen": 1
+            },
+            "levelProgress": {
+              "type": [
+                "integer"
+              ],
+              "nullable": false,
+              "seen": 1
+            },
+            "location": {
+              "type": [],
+              "nullable": true,
+              "seen": 1
+            },
+            "officialMark": {
+              "type": [
+                "list"
+              ],
+              "nullable": false,
+              "seen": 1,
+              "element": {
+                "type": [],
+                "nullable": false,
+                "seen": 0
+              }
+            },
+            "onlineStatus": {
+              "type": [
+                "string"
+              ],
+              "nullable": false,
+              "seen": 1
+            },
+            "onlineStatusVisibility": {
+              "type": [
+                "string"
+              ],
+              "nullable": false,
+              "seen": 1
+            },
+            "pinnedPostId": {
+              "type": [],
+              "nullable": true,
+              "seen": 1
+            },
+            "pinnedPostIds": {
+              "type": [
+                "list"
+              ],
+              "nullable": false,
+              "seen": 1,
+              "element": {
+                "type": [],
+                "nullable": false,
+                "seen": 0
+              }
+            },
+            "pinnedPostLimit": {
+              "type": [
+                "integer"
+              ],
+              "nullable": false,
+              "seen": 1
+            },
+            "postsCount": {
+              "type": [
+                "integer"
+              ],
+              "nullable": false,
+              "seen": 1
+            },
+            "premiumBadgeColor": {
+              "type": [
+                "string"
+              ],
+              "nullable": false,
+              "seen": 1
+            },
+            "profileAccentColor": {
+              "type": [],
+              "nullable": true,
+              "seen": 1
+            },
+            "profileMaximumAge": {
+              "type": [],
+              "nullable": true,
+              "seen": 1
+            },
+            "profileMinimumAge": {
+              "type": [],
+              "nullable": true,
+              "seen": 1
+            },
+            "questionsEnabled": {
+              "type": [
+                "boolean"
+              ],
+              "nullable": false,
+              "seen": 1
+            },
+            "showCardDecoration": {
+              "type": [
+                "boolean"
+              ],
+              "nullable": false,
+              "seen": 1
+            },
+            "showGreenBadge": {
+              "type": [
+                "boolean"
+              ],
+              "nullable": false,
+              "seen": 1
+            },
+            "showLikedPosts": {
+              "type": [
+                "boolean"
+              ],
+              "nullable": false,
+              "seen": 1
+            },
+            "showPlusBadge": {
+              "type": [
+                "boolean"
+              ],
+              "nullable": false,
+              "seen": 1
+            },
+            "showProBadge": {
+              "type": [
+                "boolean"
+              ],
+              "nullable": false,
+              "seen": 1
+            },
+            "showProfileDecoration": {
+              "type": [
+                "boolean"
+              ],
+              "nullable": false,
+              "seen": 1
+            },
+            "showReadReceipts": {
+              "type": [
+                "boolean"
+              ],
+              "nullable": false,
+              "seen": 1
+            },
+            "showRedBadge": {
+              "type": [
+                "boolean"
+              ],
+              "nullable": false,
+              "seen": 1
+            },
+            "showSubscriptionBadges": {
+              "type": [
+                "boolean"
+              ],
+              "nullable": false,
+              "seen": 1
+            },
+            "statusMessage": {
+              "type": [],
+              "nullable": true,
+              "seen": 1
+            },
+            "subscriptionActiveUntil": {
+              "type": [],
+              "nullable": true,
+              "seen": 1
+            },
+            "subscriptionBadgeColors": {
+              "type": [
+                "list"
+              ],
+              "nullable": false,
+              "seen": 1,
+              "element": {
+                "type": [],
+                "nullable": false,
+                "seen": 0
+              }
+            },
+            "subscriptionCancelAtPeriodEnd": {
+              "type": [
+                "boolean"
+              ],
+              "nullable": false,
+              "seen": 1
+            },
+            "subscriptionPlan": {
+              "type": [
+                "string"
+              ],
+              "nullable": false,
+              "seen": 1
+            },
+            "subscriptionStatus": {
+              "type": [
+                "string"
+              ],
+              "nullable": false,
+              "seen": 1
+            },
+            "userBadges": {
+              "type": [
+                "list"
+              ],
+              "nullable": false,
+              "seen": 1,
+              "element": {
+                "type": [],
+                "nullable": false,
+                "seen": 0
+              }
+            },
+            "username": {
+              "type": [
+                "string"
+              ],
+              "nullable": false,
+              "seen": 1
+            },
+            "websiteUrl": {
+              "type": [],
+              "nullable": true,
+              "seen": 1
+            }
+          }
+        }
+      }
+    },
+    "users.posts": {
+      "type": [
+        "object"
+      ],
+      "nullable": false,
+      "seen": 1,
+      "fields": {
+        "pagination": {
+          "type": [
+            "object"
+          ],
+          "nullable": false,
+          "seen": 1,
+          "fields": {
+            "hasNext": {
+              "type": [
+                "boolean"
+              ],
+              "nullable": false,
+              "seen": 1
+            },
+            "limit": {
+              "type": [
+                "integer"
+              ],
+              "nullable": false,
+              "seen": 1
+            },
+            "nextCursor": {
+              "type": [],
+              "nullable": true,
+              "seen": 1
+            },
+            "page": {
+              "type": [
+                "integer"
+              ],
+              "nullable": false,
+              "seen": 1
+            },
+            "pages": {
+              "type": [
+                "integer"
+              ],
+              "nullable": false,
+              "seen": 1
+            },
+            "total": {
+              "type": [
+                "integer"
+              ],
+              "nullable": false,
+              "seen": 1
+            }
+          }
+        },
+        "posts": {
+          "type": [
+            "list"
+          ],
+          "nullable": false,
+          "seen": 1,
+          "element": {
+            "type": [],
+            "nullable": false,
+            "seen": 0
+          }
+        }
+      }
+    },
+    "users.replies": {
+      "type": [
+        "object"
+      ],
+      "nullable": false,
+      "seen": 1,
+      "fields": {
+        "pagination": {
+          "type": [
+            "object"
+          ],
+          "nullable": false,
+          "seen": 1,
+          "fields": {
+            "hasNext": {
+              "type": [
+                "boolean"
+              ],
+              "nullable": false,
+              "seen": 1
+            },
+            "limit": {
+              "type": [
+                "integer"
+              ],
+              "nullable": false,
+              "seen": 1
+            },
+            "nextCursor": {
+              "type": [],
+              "nullable": true,
+              "seen": 1
+            },
+            "page": {
+              "type": [
+                "integer"
+              ],
+              "nullable": false,
+              "seen": 1
+            },
+            "pages": {
+              "type": [
+                "integer"
+              ],
+              "nullable": false,
+              "seen": 1
+            },
+            "total": {
+              "type": [
+                "integer"
+              ],
+              "nullable": false,
+              "seen": 1
+            }
+          }
+        },
+        "posts": {
+          "type": [
+            "list"
+          ],
+          "nullable": false,
+          "seen": 1,
+          "element": {
+            "type": [],
+            "nullable": false,
+            "seen": 0
+          }
+        }
+      }
+    },
+    "users.media": {
+      "type": [
+        "object"
+      ],
+      "nullable": false,
+      "seen": 1,
+      "fields": {
+        "pagination": {
+          "type": [
+            "object"
+          ],
+          "nullable": false,
+          "seen": 1,
+          "fields": {
+            "hasNext": {
+              "type": [
+                "boolean"
+              ],
+              "nullable": false,
+              "seen": 1
+            },
+            "limit": {
+              "type": [
+                "integer"
+              ],
+              "nullable": false,
+              "seen": 1
+            },
+            "page": {
+              "type": [
+                "integer"
+              ],
+              "nullable": false,
+              "seen": 1
+            },
+            "pages": {
+              "type": [
+                "integer"
+              ],
+              "nullable": false,
+              "seen": 1
+            },
+            "total": {
+              "type": [
+                "integer"
+              ],
+              "nullable": false,
+              "seen": 1
+            }
+          }
+        },
+        "posts": {
+          "type": [
+            "list"
+          ],
+          "nullable": false,
+          "seen": 1,
+          "element": {
+            "type": [],
+            "nullable": false,
+            "seen": 0
+          }
+        }
+      }
+    },
+    "users.likes": {
+      "type": [
+        "object"
+      ],
+      "nullable": false,
+      "seen": 1,
+      "fields": {
+        "pagination": {
+          "type": [
+            "object"
+          ],
+          "nullable": false,
+          "seen": 1,
+          "fields": {
+            "hasNext": {
+              "type": [
+                "boolean"
+              ],
+              "nullable": false,
+              "seen": 1
+            },
+            "limit": {
+              "type": [
+                "integer"
+              ],
+              "nullable": false,
+              "seen": 1
+            },
+            "page": {
+              "type": [
+                "integer"
+              ],
+              "nullable": false,
+              "seen": 1
+            },
+            "pages": {
+              "type": [
+                "integer"
+              ],
+              "nullable": false,
+              "seen": 1
+            },
+            "total": {
+              "type": [
+                "integer"
+              ],
+              "nullable": false,
+              "seen": 1
+            }
+          }
+        },
+        "posts": {
+          "type": [
+            "list"
+          ],
+          "nullable": false,
+          "seen": 1,
+          "element": {
+            "type": [],
+            "nullable": false,
+            "seen": 0
+          }
+        }
+      }
+    },
+    "users.recommended": {
+      "type": [
+        "object"
+      ],
+      "nullable": false,
+      "seen": 1,
+      "fields": {
+        "users": {
+          "type": [
+            "list"
+          ],
+          "nullable": false,
+          "seen": 1,
+          "element": {
+            "type": [
+              "object"
+            ],
+            "nullable": false,
+            "seen": 3,
+            "fields": {
+              "avatarUrl": {
+                "type": [
+                  "string"
+                ],
+                "nullable": false,
+                "seen": 3
+              },
+              "bio": {
+                "type": [
+                  "string"
+                ],
+                "nullable": false,
+                "seen": 3
+              },
+              "displayName": {
+                "type": [
+                  "string"
+                ],
+                "nullable": false,
+                "seen": 3
+              },
+              "followersCount": {
+                "type": [
+                  "integer"
+                ],
+                "nullable": false,
+                "seen": 3
+              },
+              "hideProfileFromMinors": {
+                "type": [
+                  "boolean"
+                ],
+                "nullable": false,
+                "seen": 3
+              },
+              "id": {
+                "type": [
+                  "integer"
+                ],
+                "nullable": false,
+                "seen": 3
+              },
+              "isBanned": {
+                "type": [
+                  "boolean"
+                ],
+                "nullable": false,
+                "seen": 3
+              },
+              "isBotAccount": {
+                "type": [
+                  "boolean"
+                ],
+                "nullable": false,
+                "seen": 3
+              },
+              "isParodyAccount": {
+                "type": [
+                  "boolean"
+                ],
+                "nullable": false,
+                "seen": 3
+              },
+              "isPrivate": {
+                "type": [
+                  "boolean"
+                ],
+                "nullable": false,
+                "seen": 3
+              },
+              "mutualFollowersCount": {
+                "type": [
+                  "integer"
+                ],
+                "nullable": false,
+                "seen": 3
+              },
+              "officialMark": {
+                "type": [
+                  "list"
+                ],
+                "nullable": false,
+                "seen": 3,
+                "element": {
+                  "type": [
+                    "string"
+                  ],
+                  "nullable": false,
+                  "seen": 2
+                }
+              },
+              "profileMaximumAge": {
+                "type": [],
+                "nullable": true,
+                "seen": 3
+              },
+              "profileMinimumAge": {
+                "type": [],
+                "nullable": true,
+                "seen": 3
+              },
+              "username": {
+                "type": [
+                  "string"
+                ],
+                "nullable": false,
+                "seen": 3
+              }
+            }
+          }
+        }
+      }
+    },
+    "social.circles": {
+      "type": [
+        "object"
+      ],
+      "nullable": false,
+      "seen": 1,
+      "fields": {
+        "circles": {
+          "type": [
+            "list"
+          ],
+          "nullable": false,
+          "seen": 1,
+          "element": {
+            "type": [],
+            "nullable": false,
+            "seen": 0
+          }
+        }
+      }
+    },
+    "social.lists": {
+      "type": [
+        "object"
+      ],
+      "nullable": false,
+      "seen": 1,
+      "fields": {
+        "lists": {
+          "type": [
+            "list"
+          ],
+          "nullable": false,
+          "seen": 1,
+          "element": {
+            "type": [],
+            "nullable": false,
+            "seen": 0
+          }
+        }
+      }
+    },
+    "boards.list": {
+      "type": [
+        "object"
+      ],
+      "nullable": false,
+      "seen": 1,
+      "fields": {
+        "boards": {
+          "type": [
+            "list"
+          ],
+          "nullable": false,
+          "seen": 1,
+          "element": {
+            "type": [
+              "object"
+            ],
+            "nullable": false,
+            "seen": 129,
+            "fields": {
+              "createdAt": {
+                "type": [
+                  "dateTime"
+                ],
+                "nullable": false,
+                "seen": 129
+              },
+              "creator": {
+                "type": [
+                  "object"
+                ],
+                "nullable": false,
+                "seen": 129,
+                "fields": {
+                  "displayName": {
+                    "type": [
+                      "string"
+                    ],
+                    "nullable": false,
+                    "seen": 129
+                  },
+                  "id": {
+                    "type": [
+                      "integer"
+                    ],
+                    "nullable": false,
+                    "seen": 129
+                  },
+                  "username": {
+                    "type": [
+                      "string"
+                    ],
+                    "nullable": false,
+                    "seen": 129
+                  }
+                }
+              },
+              "description": {
+                "type": [
+                  "string"
+                ],
+                "nullable": true,
+                "seen": 129
+              },
+              "followed": {
+                "type": [
+                  "boolean"
+                ],
+                "nullable": false,
+                "seen": 129
+              },
+              "id": {
+                "type": [
+                  "integer"
+                ],
+                "nullable": false,
+                "seen": 129
+              },
+              "lastPostAt": {
+                "type": [
+                  "dateTime"
+                ],
+                "nullable": false,
+                "seen": 129
+              },
+              "minimumAge": {
+                "type": [
+                  "integer"
+                ],
+                "nullable": false,
+                "seen": 129
+              },
+              "replyCount": {
+                "type": [
+                  "integer"
+                ],
+                "nullable": false,
+                "seen": 129
+              },
+              "slug": {
+                "type": [
+                  "string"
+                ],
+                "nullable": false,
+                "seen": 129
+              },
+              "threadCount": {
+                "type": [
+                  "integer"
+                ],
+                "nullable": false,
+                "seen": 129
+              },
+              "title": {
+                "type": [
+                  "string"
+                ],
+                "nullable": false,
+                "seen": 129
+              }
+            }
+          }
+        }
+      }
+    },
+    "boards.following": {
+      "type": [
+        "object"
+      ],
+      "nullable": false,
+      "seen": 1,
+      "fields": {
+        "boards": {
+          "type": [
+            "list"
+          ],
+          "nullable": false,
+          "seen": 1,
+          "element": {
+            "type": [],
+            "nullable": false,
+            "seen": 0
+          }
+        },
+        "threads": {
+          "type": [
+            "list"
+          ],
+          "nullable": false,
+          "seen": 1,
+          "element": {
+            "type": [],
+            "nullable": false,
+            "seen": 0
+          }
+        }
+      }
+    },
+    "boards.threads": {
+      "type": [
+        "object"
+      ],
+      "nullable": false,
+      "seen": 1,
+      "fields": {
+        "board": {
+          "type": [
+            "object"
+          ],
+          "nullable": false,
+          "seen": 1,
+          "fields": {
+            "createdAt": {
+              "type": [
+                "dateTime"
+              ],
+              "nullable": false,
+              "seen": 1
+            },
+            "creator": {
+              "type": [
+                "object"
+              ],
+              "nullable": false,
+              "seen": 1,
+              "fields": {
+                "displayName": {
+                  "type": [
+                    "string"
+                  ],
+                  "nullable": false,
+                  "seen": 1
+                },
+                "id": {
+                  "type": [
+                    "integer"
+                  ],
+                  "nullable": false,
+                  "seen": 1
+                },
+                "username": {
+                  "type": [
+                    "string"
+                  ],
+                  "nullable": false,
+                  "seen": 1
+                }
+              }
+            },
+            "description": {
+              "type": [
+                "string"
+              ],
+              "nullable": false,
+              "seen": 1
+            },
+            "followed": {
+              "type": [
+                "boolean"
+              ],
+              "nullable": false,
+              "seen": 1
+            },
+            "id": {
+              "type": [
+                "integer"
+              ],
+              "nullable": false,
+              "seen": 1
+            },
+            "lastPostAt": {
+              "type": [
+                "dateTime"
+              ],
+              "nullable": false,
+              "seen": 1
+            },
+            "minimumAge": {
+              "type": [
+                "integer"
+              ],
+              "nullable": false,
+              "seen": 1
+            },
+            "replyCount": {
+              "type": [
+                "integer"
+              ],
+              "nullable": false,
+              "seen": 1
+            },
+            "slug": {
+              "type": [
+                "string"
+              ],
+              "nullable": false,
+              "seen": 1
+            },
+            "threadCount": {
+              "type": [
+                "integer"
+              ],
+              "nullable": false,
+              "seen": 1
+            },
+            "title": {
+              "type": [
+                "string"
+              ],
+              "nullable": false,
+              "seen": 1
+            }
+          }
+        },
+        "threads": {
+          "type": [
+            "list"
+          ],
+          "nullable": false,
+          "seen": 1,
+          "element": {
+            "type": [
+              "object"
+            ],
+            "nullable": false,
+            "seen": 3,
+            "fields": {
+              "author": {
+                "type": [
+                  "object"
+                ],
+                "nullable": false,
+                "seen": 3,
+                "fields": {
+                  "avatarUrl": {
+                    "type": [
+                      "string"
+                    ],
+                    "nullable": false,
+                    "seen": 3
+                  },
+                  "cardAccentColor": {
+                    "type": [],
+                    "nullable": true,
+                    "seen": 3
+                  },
+                  "displayName": {
+                    "type": [
+                      "string"
+                    ],
+                    "nullable": false,
+                    "seen": 3
+                  },
+                  "id": {
+                    "type": [
+                      "integer"
+                    ],
+                    "nullable": false,
+                    "seen": 3
+                  },
+                  "officialMark": {
+                    "type": [
+                      "list"
+                    ],
+                    "nullable": false,
+                    "seen": 3,
+                    "element": {
+                      "type": [],
+                      "nullable": false,
+                      "seen": 0
+                    }
+                  },
+                  "premiumBadgeColor": {
+                    "type": [
+                      "string"
+                    ],
+                    "nullable": false,
+                    "seen": 3
+                  },
+                  "profileAccentColor": {
+                    "type": [],
+                    "nullable": true,
+                    "seen": 3
+                  },
+                  "showCardDecoration": {
+                    "type": [
+                      "boolean"
+                    ],
+                    "nullable": false,
+                    "seen": 3
+                  },
+                  "showGreenBadge": {
+                    "type": [
+                      "boolean"
+                    ],
+                    "nullable": false,
+                    "seen": 3
+                  },
+                  "showPlusBadge": {
+                    "type": [
+                      "boolean"
+                    ],
+                    "nullable": false,
+                    "seen": 3
+                  },
+                  "showProBadge": {
+                    "type": [
+                      "boolean"
+                    ],
+                    "nullable": false,
+                    "seen": 3
+                  },
+                  "showProfileDecoration": {
+                    "type": [
+                      "boolean"
+                    ],
+                    "nullable": false,
+                    "seen": 3
+                  },
+                  "showRedBadge": {
+                    "type": [
+                      "boolean"
+                    ],
+                    "nullable": false,
+                    "seen": 3
+                  },
+                  "showSubscriptionBadges": {
+                    "type": [
+                      "boolean"
+                    ],
+                    "nullable": false,
+                    "seen": 3
+                  },
+                  "subscriptionActiveUntil": {
+                    "type": [],
+                    "nullable": true,
+                    "seen": 3
+                  },
+                  "subscriptionBadgeColors": {
+                    "type": [
+                      "list"
+                    ],
+                    "nullable": false,
+                    "seen": 3,
+                    "element": {
+                      "type": [],
+                      "nullable": false,
+                      "seen": 0
+                    }
+                  },
+                  "subscriptionPlan": {
+                    "type": [
+                      "string"
+                    ],
+                    "nullable": false,
+                    "seen": 3
+                  },
+                  "subscriptionStatus": {
+                    "type": [
+                      "string"
+                    ],
+                    "nullable": false,
+                    "seen": 3
+                  },
+                  "username": {
+                    "type": [
+                      "string"
+                    ],
+                    "nullable": false,
+                    "seen": 3
+                  }
+                }
+              },
+              "authorId": {
+                "type": [
+                  "integer"
+                ],
+                "nullable": false,
+                "seen": 3
+              },
+              "boardId": {
+                "type": [
+                  "integer"
+                ],
+                "nullable": false,
+                "seen": 3
+              },
+              "content": {
+                "type": [
+                  "string"
+                ],
+                "nullable": false,
+                "seen": 3
+              },
+              "createdAt": {
+                "type": [
+                  "dateTime"
+                ],
+                "nullable": false,
+                "seen": 3
+              },
+              "followed": {
+                "type": [
+                  "boolean"
+                ],
+                "nullable": false,
+                "seen": 3
+              },
+              "id": {
+                "type": [
+                  "integer"
+                ],
+                "nullable": false,
+                "seen": 3
+              },
+              "imageTypes": {
+                "type": [
+                  "list"
+                ],
+                "nullable": false,
+                "seen": 3,
+                "element": {
+                  "type": [],
+                  "nullable": false,
+                  "seen": 0
+                }
+              },
+              "imageUrls": {
+                "type": [
+                  "list"
+                ],
+                "nullable": false,
+                "seen": 3,
+                "element": {
+                  "type": [],
+                  "nullable": false,
+                  "seen": 0
+                }
+              },
+              "lastReplyAt": {
+                "type": [
+                  "dateTime"
+                ],
+                "nullable": false,
+                "seen": 3
+              },
+              "reactionSummary": {
+                "type": [
+                  "list"
+                ],
+                "nullable": false,
+                "seen": 3,
+                "element": {
+                  "type": [],
+                  "nullable": false,
+                  "seen": 0
+                }
+              },
+              "replyCount": {
+                "type": [
+                  "integer"
+                ],
+                "nullable": false,
+                "seen": 3
+              },
+              "title": {
+                "type": [
+                  "string"
+                ],
+                "nullable": false,
+                "seen": 3
+              },
+              "updatedAt": {
+                "type": [
+                  "dateTime"
+                ],
+                "nullable": false,
+                "seen": 3
+              }
+            }
+          }
+        }
+      }
+    },
+    "boards.replies": {
+      "type": [
+        "object"
+      ],
+      "nullable": false,
+      "seen": 1,
+      "fields": {
+        "board": {
+          "type": [
+            "object"
+          ],
+          "nullable": false,
+          "seen": 1,
+          "fields": {
+            "createdAt": {
+              "type": [
+                "dateTime"
+              ],
+              "nullable": false,
+              "seen": 1
+            },
+            "creator": {
+              "type": [
+                "object"
+              ],
+              "nullable": false,
+              "seen": 1,
+              "fields": {
+                "displayName": {
+                  "type": [
+                    "string"
+                  ],
+                  "nullable": false,
+                  "seen": 1
+                },
+                "id": {
+                  "type": [
+                    "integer"
+                  ],
+                  "nullable": false,
+                  "seen": 1
+                },
+                "username": {
+                  "type": [
+                    "string"
+                  ],
+                  "nullable": false,
+                  "seen": 1
+                }
+              }
+            },
+            "description": {
+              "type": [
+                "string"
+              ],
+              "nullable": false,
+              "seen": 1
+            },
+            "followed": {
+              "type": [
+                "boolean"
+              ],
+              "nullable": false,
+              "seen": 1
+            },
+            "id": {
+              "type": [
+                "integer"
+              ],
+              "nullable": false,
+              "seen": 1
+            },
+            "lastPostAt": {
+              "type": [
+                "dateTime"
+              ],
+              "nullable": false,
+              "seen": 1
+            },
+            "minimumAge": {
+              "type": [
+                "integer"
+              ],
+              "nullable": false,
+              "seen": 1
+            },
+            "replyCount": {
+              "type": [
+                "integer"
+              ],
+              "nullable": false,
+              "seen": 1
+            },
+            "slug": {
+              "type": [
+                "string"
+              ],
+              "nullable": false,
+              "seen": 1
+            },
+            "threadCount": {
+              "type": [
+                "integer"
+              ],
+              "nullable": false,
+              "seen": 1
+            },
+            "title": {
+              "type": [
+                "string"
+              ],
+              "nullable": false,
+              "seen": 1
+            }
+          }
+        },
+        "replies": {
+          "type": [
+            "list"
+          ],
+          "nullable": false,
+          "seen": 1,
+          "element": {
+            "type": [
+              "object"
+            ],
+            "nullable": false,
+            "seen": 339,
+            "fields": {
+              "author": {
+                "type": [
+                  "object"
+                ],
+                "nullable": false,
+                "seen": 339,
+                "fields": {
+                  "avatarUrl": {
+                    "type": [
+                      "string"
+                    ],
+                    "nullable": true,
+                    "seen": 339
+                  },
+                  "cardAccentColor": {
+                    "type": [
+                      "string"
+                    ],
+                    "nullable": true,
+                    "seen": 339
+                  },
+                  "displayName": {
+                    "type": [
+                      "string"
+                    ],
+                    "nullable": false,
+                    "seen": 339
+                  },
+                  "id": {
+                    "type": [
+                      "integer"
+                    ],
+                    "nullable": false,
+                    "seen": 339
+                  },
+                  "officialMark": {
+                    "type": [
+                      "list"
+                    ],
+                    "nullable": false,
+                    "seen": 339,
+                    "element": {
+                      "type": [
+                        "string"
+                      ],
+                      "nullable": false,
+                      "seen": 23
+                    }
+                  },
+                  "premiumBadgeColor": {
+                    "type": [
+                      "string"
+                    ],
+                    "nullable": false,
+                    "seen": 339
+                  },
+                  "profileAccentColor": {
+                    "type": [
+                      "string"
+                    ],
+                    "nullable": true,
+                    "seen": 339
+                  },
+                  "showCardDecoration": {
+                    "type": [
+                      "boolean"
+                    ],
+                    "nullable": false,
+                    "seen": 339
+                  },
+                  "showGreenBadge": {
+                    "type": [
+                      "boolean"
+                    ],
+                    "nullable": false,
+                    "seen": 339
+                  },
+                  "showPlusBadge": {
+                    "type": [
+                      "boolean"
+                    ],
+                    "nullable": false,
+                    "seen": 339
+                  },
+                  "showProBadge": {
+                    "type": [
+                      "boolean"
+                    ],
+                    "nullable": false,
+                    "seen": 339
+                  },
+                  "showProfileDecoration": {
+                    "type": [
+                      "boolean"
+                    ],
+                    "nullable": false,
+                    "seen": 339
+                  },
+                  "showRedBadge": {
+                    "type": [
+                      "boolean"
+                    ],
+                    "nullable": false,
+                    "seen": 339
+                  },
+                  "showSubscriptionBadges": {
+                    "type": [
+                      "boolean"
+                    ],
+                    "nullable": false,
+                    "seen": 339
+                  },
+                  "subscriptionActiveUntil": {
+                    "type": [
+                      "dateTime"
+                    ],
+                    "nullable": true,
+                    "seen": 339
+                  },
+                  "subscriptionBadgeColors": {
+                    "type": [
+                      "list"
+                    ],
+                    "nullable": false,
+                    "seen": 339,
+                    "element": {
+                      "type": [],
+                      "nullable": false,
+                      "seen": 0
+                    }
+                  },
+                  "subscriptionPlan": {
+                    "type": [
+                      "string"
+                    ],
+                    "nullable": false,
+                    "seen": 339
+                  },
+                  "subscriptionStatus": {
+                    "type": [
+                      "string"
+                    ],
+                    "nullable": false,
+                    "seen": 339
+                  },
+                  "username": {
+                    "type": [
+                      "string"
+                    ],
+                    "nullable": false,
+                    "seen": 339
+                  }
+                }
+              },
+              "authorId": {
+                "type": [
+                  "integer"
+                ],
+                "nullable": false,
+                "seen": 339
+              },
+              "boardId": {
+                "type": [
+                  "integer"
+                ],
+                "nullable": false,
+                "seen": 339
+              },
+              "content": {
+                "type": [
+                  "string"
+                ],
+                "nullable": false,
+                "seen": 339
+              },
+              "createdAt": {
+                "type": [
+                  "dateTime"
+                ],
+                "nullable": false,
+                "seen": 339
+              },
+              "id": {
+                "type": [
+                  "integer"
+                ],
+                "nullable": false,
+                "seen": 339
+              },
+              "imageTypes": {
+                "type": [
+                  "list"
+                ],
+                "nullable": false,
+                "seen": 339,
+                "element": {
+                  "type": [],
+                  "nullable": false,
+                  "seen": 0
+                }
+              },
+              "imageUrls": {
+                "type": [
+                  "list"
+                ],
+                "nullable": false,
+                "seen": 339,
+                "element": {
+                  "type": [],
+                  "nullable": false,
+                  "seen": 0
+                }
+              },
+              "reactionSummary": {
+                "type": [
+                  "list"
+                ],
+                "nullable": false,
+                "seen": 339,
+                "element": {
+                  "type": [
+                    "object"
+                  ],
+                  "nullable": false,
+                  "seen": 3,
+                  "fields": {
+                    "count": {
+                      "type": [
+                        "integer"
+                      ],
+                      "nullable": false,
+                      "seen": 3
+                    },
+                    "emoji": {
+                      "type": [
+                        "string"
+                      ],
+                      "nullable": false,
+                      "seen": 3
+                    },
+                    "reacted": {
+                      "type": [
+                        "boolean"
+                      ],
+                      "nullable": false,
+                      "seen": 3
+                    }
+                  }
+                }
+              },
+              "replyNumber": {
+                "type": [
+                  "integer"
+                ],
+                "nullable": false,
+                "seen": 339
+              },
+              "threadId": {
+                "type": [
+                  "integer"
+                ],
+                "nullable": false,
+                "seen": 339
+              },
+              "updatedAt": {
+                "type": [
+                  "dateTime"
+                ],
+                "nullable": false,
+                "seen": 339
+              }
+            }
+          }
+        },
+        "thread": {
+          "type": [
+            "object"
+          ],
+          "nullable": false,
+          "seen": 1,
+          "fields": {
+            "author": {
+              "type": [
+                "object"
+              ],
+              "nullable": false,
+              "seen": 1,
+              "fields": {
+                "avatarUrl": {
+                  "type": [
+                    "string"
+                  ],
+                  "nullable": false,
+                  "seen": 1
+                },
+                "cardAccentColor": {
+                  "type": [],
+                  "nullable": true,
+                  "seen": 1
+                },
+                "displayName": {
+                  "type": [
+                    "string"
+                  ],
+                  "nullable": false,
+                  "seen": 1
+                },
+                "id": {
+                  "type": [
+                    "integer"
+                  ],
+                  "nullable": false,
+                  "seen": 1
+                },
+                "officialMark": {
+                  "type": [
+                    "list"
+                  ],
+                  "nullable": false,
+                  "seen": 1,
+                  "element": {
+                    "type": [],
+                    "nullable": false,
+                    "seen": 0
+                  }
+                },
+                "premiumBadgeColor": {
+                  "type": [
+                    "string"
+                  ],
+                  "nullable": false,
+                  "seen": 1
+                },
+                "profileAccentColor": {
+                  "type": [],
+                  "nullable": true,
+                  "seen": 1
+                },
+                "showCardDecoration": {
+                  "type": [
+                    "boolean"
+                  ],
+                  "nullable": false,
+                  "seen": 1
+                },
+                "showGreenBadge": {
+                  "type": [
+                    "boolean"
+                  ],
+                  "nullable": false,
+                  "seen": 1
+                },
+                "showPlusBadge": {
+                  "type": [
+                    "boolean"
+                  ],
+                  "nullable": false,
+                  "seen": 1
+                },
+                "showProBadge": {
+                  "type": [
+                    "boolean"
+                  ],
+                  "nullable": false,
+                  "seen": 1
+                },
+                "showProfileDecoration": {
+                  "type": [
+                    "boolean"
+                  ],
+                  "nullable": false,
+                  "seen": 1
+                },
+                "showRedBadge": {
+                  "type": [
+                    "boolean"
+                  ],
+                  "nullable": false,
+                  "seen": 1
+                },
+                "showSubscriptionBadges": {
+                  "type": [
+                    "boolean"
+                  ],
+                  "nullable": false,
+                  "seen": 1
+                },
+                "subscriptionActiveUntil": {
+                  "type": [],
+                  "nullable": true,
+                  "seen": 1
+                },
+                "subscriptionBadgeColors": {
+                  "type": [
+                    "list"
+                  ],
+                  "nullable": false,
+                  "seen": 1,
+                  "element": {
+                    "type": [],
+                    "nullable": false,
+                    "seen": 0
+                  }
+                },
+                "subscriptionPlan": {
+                  "type": [
+                    "string"
+                  ],
+                  "nullable": false,
+                  "seen": 1
+                },
+                "subscriptionStatus": {
+                  "type": [
+                    "string"
+                  ],
+                  "nullable": false,
+                  "seen": 1
+                },
+                "username": {
+                  "type": [
+                    "string"
+                  ],
+                  "nullable": false,
+                  "seen": 1
+                }
+              }
+            },
+            "authorId": {
+              "type": [
+                "integer"
+              ],
+              "nullable": false,
+              "seen": 1
+            },
+            "boardId": {
+              "type": [
+                "integer"
+              ],
+              "nullable": false,
+              "seen": 1
+            },
+            "content": {
+              "type": [
+                "string"
+              ],
+              "nullable": false,
+              "seen": 1
+            },
+            "createdAt": {
+              "type": [
+                "dateTime"
+              ],
+              "nullable": false,
+              "seen": 1
+            },
+            "followed": {
+              "type": [
+                "boolean"
+              ],
+              "nullable": false,
+              "seen": 1
+            },
+            "id": {
+              "type": [
+                "integer"
+              ],
+              "nullable": false,
+              "seen": 1
+            },
+            "imageTypes": {
+              "type": [
+                "list"
+              ],
+              "nullable": false,
+              "seen": 1,
+              "element": {
+                "type": [],
+                "nullable": false,
+                "seen": 0
+              }
+            },
+            "imageUrls": {
+              "type": [
+                "list"
+              ],
+              "nullable": false,
+              "seen": 1,
+              "element": {
+                "type": [],
+                "nullable": false,
+                "seen": 0
+              }
+            },
+            "lastReplyAt": {
+              "type": [
+                "dateTime"
+              ],
+              "nullable": false,
+              "seen": 1
+            },
+            "reactionSummary": {
+              "type": [
+                "list"
+              ],
+              "nullable": false,
+              "seen": 1,
+              "element": {
+                "type": [],
+                "nullable": false,
+                "seen": 0
+              }
+            },
+            "replyCount": {
+              "type": [
+                "integer"
+              ],
+              "nullable": false,
+              "seen": 1
+            },
+            "title": {
+              "type": [
+                "string"
+              ],
+              "nullable": false,
+              "seen": 1
+            },
+            "updatedAt": {
+              "type": [
+                "dateTime"
+              ],
+              "nullable": false,
+              "seen": 1
+            }
+          }
+        }
+      }
+    },
+    "notifications.list": {
+      "type": [
+        "object"
+      ],
+      "nullable": false,
+      "seen": 1,
+      "fields": {
+        "notifications": {
+          "type": [
+            "list"
+          ],
+          "nullable": false,
+          "seen": 1,
+          "element": {
+            "type": [],
+            "nullable": false,
+            "seen": 0
+          }
+        },
+        "pagination": {
+          "type": [
+            "object"
+          ],
+          "nullable": false,
+          "seen": 1,
+          "fields": {
+            "hasMore": {
+              "type": [
+                "boolean"
+              ],
+              "nullable": false,
+              "seen": 1
+            },
+            "limit": {
+              "type": [
+                "integer"
+              ],
+              "nullable": false,
+              "seen": 1
+            },
+            "nextPage": {
+              "type": [],
+              "nullable": true,
+              "seen": 1
+            },
+            "page": {
+              "type": [
+                "integer"
+              ],
+              "nullable": false,
+              "seen": 1
+            }
+          }
+        }
+      }
+    },
+    "notifications.unreadCount": {
+      "type": [
+        "object"
+      ],
+      "nullable": false,
+      "seen": 1,
+      "fields": {
+        "count": {
+          "type": [
+            "integer"
+          ],
+          "nullable": false,
+          "seen": 1
+        }
+      }
+    },
+    "dm.groups": {
+      "type": [
+        "object"
+      ],
+      "nullable": false,
+      "seen": 1,
+      "fields": {
+        "groups": {
+          "type": [
+            "list"
+          ],
+          "nullable": false,
+          "seen": 1,
+          "element": {
+            "type": [],
+            "nullable": false,
+            "seen": 0
+          }
+        },
+        "pagination": {
+          "type": [
+            "object"
+          ],
+          "nullable": false,
+          "seen": 1,
+          "fields": {
+            "hasNext": {
+              "type": [
+                "boolean"
+              ],
+              "nullable": false,
+              "seen": 1
+            },
+            "limit": {
+              "type": [
+                "integer"
+              ],
+              "nullable": false,
+              "seen": 1
+            },
+            "page": {
+              "type": [
+                "integer"
+              ],
+              "nullable": false,
+              "seen": 1
+            }
+          }
+        }
+      }
+    },
+    "dm.unreadCount": {
+      "type": [
+        "object"
+      ],
+      "nullable": false,
+      "seen": 1,
+      "fields": {
+        "count": {
+          "type": [
+            "integer"
+          ],
+          "nullable": false,
+          "seen": 1
+        }
+      }
+    },
+    "search.users": {
+      "type": [
+        "object"
+      ],
+      "nullable": false,
+      "seen": 1,
+      "fields": {
+        "pagination": {
+          "type": [
+            "object"
+          ],
+          "nullable": false,
+          "seen": 1,
+          "fields": {
+            "limit": {
+              "type": [
+                "integer"
+              ],
+              "nullable": false,
+              "seen": 1
+            },
+            "page": {
+              "type": [
+                "integer"
+              ],
+              "nullable": false,
+              "seen": 1
+            },
+            "pages": {
+              "type": [
+                "integer"
+              ],
+              "nullable": false,
+              "seen": 1
+            },
+            "total": {
+              "type": [
+                "integer"
+              ],
+              "nullable": false,
+              "seen": 1
+            }
+          }
+        },
+        "users": {
+          "type": [
+            "list"
+          ],
+          "nullable": false,
+          "seen": 1,
+          "element": {
+            "type": [
+              "object"
+            ],
+            "nullable": false,
+            "seen": 10,
+            "fields": {
+              "avatarFrameId": {
+                "type": [],
+                "nullable": true,
+                "seen": 10
+              },
+              "avatarUrl": {
+                "type": [
+                  "string"
+                ],
+                "nullable": false,
+                "seen": 10
+              },
+              "bio": {
+                "type": [
+                  "string"
+                ],
+                "nullable": false,
+                "seen": 10
+              },
+              "displayName": {
+                "type": [
+                  "string"
+                ],
+                "nullable": false,
+                "seen": 10
+              },
+              "follow_request_sent": {
+                "type": [
+                  "boolean"
+                ],
+                "nullable": false,
+                "seen": 10
+              },
+              "followersCount": {
+                "type": [
+                  "integer"
+                ],
+                "nullable": false,
+                "seen": 10
+              },
+              "followingCount": {
+                "type": [
+                  "integer"
+                ],
+                "nullable": false,
+                "seen": 10
+              },
+              "hideProfileFromMinors": {
+                "type": [
+                  "boolean"
+                ],
+                "nullable": false,
+                "seen": 10
+              },
+              "id": {
+                "type": [
+                  "integer"
+                ],
+                "nullable": false,
+                "seen": 10
+              },
+              "isBotAccount": {
+                "type": [
+                  "boolean"
+                ],
+                "nullable": false,
+                "seen": 10
+              },
+              "isParodyAccount": {
+                "type": [
+                  "boolean"
+                ],
+                "nullable": false,
+                "seen": 10
+              },
+              "isPrivate": {
+                "type": [
+                  "boolean"
+                ],
+                "nullable": false,
+                "seen": 10
+              },
+              "is_followed_by": {
+                "type": [
+                  "boolean"
+                ],
+                "nullable": false,
+                "seen": 10
+              },
+              "is_following": {
+                "type": [
+                  "boolean"
+                ],
+                "nullable": false,
+                "seen": 10
+              },
+              "officialMark": {
+                "type": [
+                  "list"
+                ],
+                "nullable": false,
+                "seen": 10,
+                "element": {
+                  "type": [
+                    "string"
+                  ],
+                  "nullable": false,
+                  "seen": 2
+                }
+              },
+              "profileMaximumAge": {
+                "type": [],
+                "nullable": true,
+                "seen": 10
+              },
+              "profileMinimumAge": {
+                "type": [
+                  "integer"
+                ],
+                "nullable": true,
+                "seen": 10
+              },
+              "username": {
+                "type": [
+                  "string"
+                ],
+                "nullable": false,
+                "seen": 10
+              }
+            }
+          }
+        }
+      }
+    },
+    "search.hashtags": {
+      "type": [
+        "object"
+      ],
+      "nullable": false,
+      "seen": 1,
+      "fields": {
+        "hashtags": {
+          "type": [
+            "list"
+          ],
+          "nullable": false,
+          "seen": 1,
+          "element": {
+            "type": [
+              "object"
+            ],
+            "nullable": false,
+            "seen": 10,
+            "fields": {
+              "createdAt": {
+                "type": [
+                  "dateTime"
+                ],
+                "nullable": false,
+                "seen": 10
+              },
+              "id": {
+                "type": [
+                  "integer"
+                ],
+                "nullable": false,
+                "seen": 10
+              },
+              "name": {
+                "type": [
+                  "string"
+                ],
+                "nullable": false,
+                "seen": 10
+              },
+              "trendScore": {
+                "type": [
+                  "integer"
+                ],
+                "nullable": false,
+                "seen": 10
+              },
+              "updatedAt": {
+                "type": [
+                  "dateTime"
+                ],
+                "nullable": false,
+                "seen": 10
+              },
+              "usageCount": {
+                "type": [
+                  "integer"
+                ],
+                "nullable": false,
+                "seen": 10
+              }
+            }
+          }
+        },
+        "pagination": {
+          "type": [
+            "object"
+          ],
+          "nullable": false,
+          "seen": 1,
+          "fields": {
+            "limit": {
+              "type": [
+                "integer"
+              ],
+              "nullable": false,
+              "seen": 1
+            },
+            "page": {
+              "type": [
+                "integer"
+              ],
+              "nullable": false,
+              "seen": 1
+            },
+            "pages": {
+              "type": [
+                "integer"
+              ],
+              "nullable": false,
+              "seen": 1
+            },
+            "total": {
+              "type": [
+                "integer"
+              ],
+              "nullable": false,
+              "seen": 1
+            }
+          }
+        }
+      }
+    },
+    "search.trending": {
+      "type": [
+        "object"
+      ],
+      "nullable": false,
+      "seen": 1,
+      "fields": {
+        "trends": {
+          "type": [
+            "list"
+          ],
+          "nullable": false,
+          "seen": 1,
+          "element": {
+            "type": [
+              "object"
+            ],
+            "nullable": false,
+            "seen": 5,
+            "fields": {
+              "authorCount": {
+                "type": [
+                  "integer"
+                ],
+                "nullable": false,
+                "seen": 5
+              },
+              "label": {
+                "type": [
+                  "string"
+                ],
+                "nullable": false,
+                "seen": 5
+              },
+              "postCount": {
+                "type": [
+                  "integer"
+                ],
+                "nullable": false,
+                "seen": 5
+              },
+              "token": {
+                "type": [
+                  "string"
+                ],
+                "nullable": false,
+                "seen": 5
+              },
+              "trendScore": {
+                "type": [
+                  "number"
+                ],
+                "nullable": false,
+                "seen": 5
+              },
+              "type": {
+                "type": [
+                  "string"
+                ],
+                "nullable": false,
+                "seen": 5
+              },
+              "usageCount": {
+                "type": [
+                  "integer"
+                ],
+                "nullable": false,
+                "seen": 5
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "failures": {
+    "dm.group": "この環境では埋められない値がある: dm/groups/{groupId}",
+    "dm.messages": "この環境では埋められない値がある: dm/groups/{groupId}/messages?page=1&limit=20"
+  }
+}

@@ -122,28 +122,28 @@ String getMimeType(String path) {
   return mimeTypes[ext] ?? 'application/octet-stream';
 }
 
-Color getOfficialMarkColor(OfficialMark color) {
-  switch (color) {
-    case OfficialMark.PURPLE:
-      return Color.fromARGB(255, 139, 92, 246);
-    case OfficialMark.BLACK:
-      return Color.fromARGB(255, 17, 24, 39);
-    case OfficialMark.RED:
-      return Color.fromARGB(255, 239, 68, 68);
-    case OfficialMark.ORANGE:
-      return Color.fromARGB(255, 255, 122, 0);
-    case OfficialMark.GREEN:
-      return Color.fromARGB(255, 34, 197, 94);
-    case OfficialMark.BLUE:
-      return Color.fromARGB(255, 29, 155, 240);
-    case OfficialMark.YELLOW:
-      return Color.fromARGB(255, 248, 197, 0);
-  }
-}
+/// 公式マークの色。出典は Karotter Web の `OfficialMarkBadge` チャンク。
+Color getOfficialMarkColor(OfficialMark mark) => switch (mark) {
+  OfficialMark.BLUE => const Color(0xFF1D9BF0),
+  OfficialMark.YELLOW => const Color(0xFFF8C500),
+  OfficialMark.ORANGE => const Color(0xFFFF7A00),
+  OfficialMark.PURPLE => const Color(0xFF8B5CF6),
+  OfficialMark.GRAY => const Color(0xFF9CA3AF),
+  OfficialMark.BLACK => const Color(0xFF111827),
+  OfficialMark.RED => const Color(0xFFFF0000),
+  OfficialMark.GREEN => const Color(0xFF22C55E),
+  OfficialMark.PINK => const Color(0xFFFB92BD),
+  OfficialMark.CORAL => const Color(0xFFFF7F6A),
+  OfficialMark.MAGENTA => const Color(0xFFD1007D),
+  OfficialMark.LIME => const Color(0xFF65A30D),
+  OfficialMark.BROWN => const Color(0xFF8B4513),
+  OfficialMark.NONE => const Color(0xFF9CA3AF),
+};
 
 List<Icon> getUserPrimaryMark(AbstractUser user, {double? size}) {
-  if (user.isBotAccount) return [Icon(Icons.smart_toy, size: size)];
-  if (user.isParodyAccount) return [Icon(Icons.theater_comedy, size: size)];
+  // 運営が強制的に付けた印は本人の設定より優先される。
+  if (user.effectiveBot) return [Icon(Icons.smart_toy, size: size)];
+  if (user.effectiveParody) return [Icon(Icons.theater_comedy, size: size)];
   return (user.officialMark.isNotEmpty)
       ? [
           Icon(

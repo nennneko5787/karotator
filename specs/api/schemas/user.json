@@ -1,0 +1,31 @@
+{
+  "user": {
+    "id": 45,
+    "username": "alice",
+    "displayName": "Alice",
+    "avatarUrl": "https://.../avatar.jpg",
+    "avatarFrameId": null,
+    "headerUrl": "https://.../header.jpg",
+    "bio": "自己紹介",
+    "websiteUrl": null,
+    "location": null,
+    "isPrivate": false,
+    "officialMark": "NONE",
+    "isBotAccount": false,
+    "isParodyAccount": false,
+    "followersCount": 123,
+    "followingCount": 45,
+    "postsCount": 78,
+    "createdAt": "2026-01-01T00:00:00.000Z",
+    "pinnedPostId": null
+  },
+  "relationship": {
+    "isFollowing": false,
+    "isFollowedBy": false,
+    "isBlocked": false,
+    "isBlockedBy": false,
+    "isMuted": false,
+    "hasPendingRequest": false
+  },
+  "pinnedPost": null
+}

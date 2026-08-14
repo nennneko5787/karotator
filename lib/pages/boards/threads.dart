@@ -1,5 +1,5 @@
 import "package:flutter/material.dart";
-import "package:karotator/http.dart";
+import "package:karotator/api/karotter_api.dart";
 import "package:karotator/objects/board.dart";
 import "package:karotator/pages/boards/post.dart";
 import "package:karotator/pages/boards/thread.dart";
@@ -28,7 +28,7 @@ class _ThreadsPageState extends State<ThreadsPage> {
 
   Future<void> refreshThreads() async {
     try {
-      final threadsList = await HTTPClient().getThreads(slug: board.slug);
+      final threadsList = await KarotterApi().boards.threads(slug: board.slug);
 
       setState(() {
         threads.addAll(threadsList);

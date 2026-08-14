@@ -1,5 +1,5 @@
 import "package:flutter/material.dart";
-import "package:karotator/http.dart";
+import "package:karotator/api/karotter_api.dart";
 import "package:karotator/ui/timeline_tab.dart";
 import "package:material_symbols_icons/symbols.dart";
 
@@ -101,7 +101,7 @@ class _TimeLineState extends State<TimeLine> {
 
   @override
   Widget build(BuildContext context) {
-    final isLoggedIn = HTTPClient().nowAccountId != null;
+    final isLoggedIn = KarotterApi().session.accountId != null;
 
     return DefaultTabController(
       length: isLoggedIn ? 2 : 1,
@@ -156,7 +156,7 @@ class _TimeLineState extends State<TimeLine> {
                 if (isLoggedIn)
                   TimeLineTab(
                     key: ValueKey(_followingMode),
-                    fetcher: (cursor, limit) => HTTPClient().getTimeLine(
+                    fetcher: (cursor, limit) => KarotterApi().posts.timeline(
                       page: cursor!,
                       limit: limit,
                       mode: _followingMode,
@@ -166,11 +166,11 @@ class _TimeLineState extends State<TimeLine> {
                   key: ValueKey(_recommendMode),
                   isRecLatest: (_recommendMode == "latest"),
                   fetcher: (page, limit) => _recommendMode == "latest"
-                      ? HTTPClient().getRecommendedLatest(
+                      ? KarotterApi().posts.recommendedLatest(
                           cursor: page,
                           limit: limit,
                         )
-                      : HTTPClient().getRecommended(
+                      : KarotterApi().posts.recommended(
                           page: page!,
                           limit: limit,
                           mode: _recommendMode,

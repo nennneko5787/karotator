@@ -1,0 +1,28 @@
+{
+  "id": 11,
+  "expiresAt": "2026-04-12T13:00:00.000Z",
+  "isExpired": false,
+  "isAnonymous": true,
+  "totalVotes": 42,
+  "ownVoteOptionId": null,
+  "options": [
+    {
+      "id": 1,
+      "text": "選択肢A",
+      "imageUrl": null,
+      "position": 0,
+      "votesCount": 30,
+      "percentage": 71,
+      "votedByMe": false
+    },
+    {
+      "id": 2,
+      "text": "選択肢B",
+      "imageUrl": null,
+      "position": 1,
+      "votesCount": 12,
+      "percentage": 29,
+      "votedByMe": false
+    }
+  ]
+}

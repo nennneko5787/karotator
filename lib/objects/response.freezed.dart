@@ -2810,7 +2810,10 @@ as String,
 /// @nodoc
 mixin _$UserResponse {
 
- User get user; QuotedPost? get pinnedPost; bool get isFollowing; bool get isFollowedBy; bool get isBlocked; bool get hasBlocked; bool get isBlockedBy; bool get isMuted; bool get hasPendingRequest; List<Author> get mutualFollowersPreview; int get mutualFollowersCount;
+ User get user; QuotedPost? get pinnedPost; bool get isFollowing; bool get isFollowedBy; bool get isBlocked; bool get hasBlocked; bool get isBlockedBy; bool get isMuted; bool get hasPendingRequest; List<Author> get mutualFollowersPreview; int get mutualFollowersCount;/// このユーザーの投稿通知を受け取る設定にしているか。
+ bool get isPostNotificationsEnabled;/// このユーザーのカロートをタイムラインから隠しているか。
+ bool get isRekarotHidden;/// ピン留めは複数対応。[pinnedPost] は 1 件目だけの互換フィールド。
+ List<QuotedPost> get pinnedPosts;
 /// Create a copy of UserResponse
 /// with the given fields replaced by the non-null parameter values.
 @JsonKey(includeFromJson: false, includeToJson: false)
@@ -2823,16 +2826,16 @@ $UserResponseCopyWith<UserResponse> get copyWith => _$UserResponseCopyWithImpl<U
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is UserResponse&&(identical(other.user, user) || other.user == user)&&(identical(other.pinnedPost, pinnedPost) || other.pinnedPost == pinnedPost)&&(identical(other.isFollowing, isFollowing) || other.isFollowing == isFollowing)&&(identical(other.isFollowedBy, isFollowedBy) || other.isFollowedBy == isFollowedBy)&&(identical(other.isBlocked, isBlocked) || other.isBlocked == isBlocked)&&(identical(other.hasBlocked, hasBlocked) || other.hasBlocked == hasBlocked)&&(identical(other.isBlockedBy, isBlockedBy) || other.isBlockedBy == isBlockedBy)&&(identical(other.isMuted, isMuted) || other.isMuted == isMuted)&&(identical(other.hasPendingRequest, hasPendingRequest) || other.hasPendingRequest == hasPendingRequest)&&const DeepCollectionEquality().equals(other.mutualFollowersPreview, mutualFollowersPreview)&&(identical(other.mutualFollowersCount, mutualFollowersCount) || other.mutualFollowersCount == mutualFollowersCount));
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is UserResponse&&(identical(other.user, user) || other.user == user)&&(identical(other.pinnedPost, pinnedPost) || other.pinnedPost == pinnedPost)&&(identical(other.isFollowing, isFollowing) || other.isFollowing == isFollowing)&&(identical(other.isFollowedBy, isFollowedBy) || other.isFollowedBy == isFollowedBy)&&(identical(other.isBlocked, isBlocked) || other.isBlocked == isBlocked)&&(identical(other.hasBlocked, hasBlocked) || other.hasBlocked == hasBlocked)&&(identical(other.isBlockedBy, isBlockedBy) || other.isBlockedBy == isBlockedBy)&&(identical(other.isMuted, isMuted) || other.isMuted == isMuted)&&(identical(other.hasPendingRequest, hasPendingRequest) || other.hasPendingRequest == hasPendingRequest)&&const DeepCollectionEquality().equals(other.mutualFollowersPreview, mutualFollowersPreview)&&(identical(other.mutualFollowersCount, mutualFollowersCount) || other.mutualFollowersCount == mutualFollowersCount)&&(identical(other.isPostNotificationsEnabled, isPostNotificationsEnabled) || other.isPostNotificationsEnabled == isPostNotificationsEnabled)&&(identical(other.isRekarotHidden, isRekarotHidden) || other.isRekarotHidden == isRekarotHidden)&&const DeepCollectionEquality().equals(other.pinnedPosts, pinnedPosts));
 }
 
 @JsonKey(includeFromJson: false, includeToJson: false)
 @override
-int get hashCode => Object.hash(runtimeType,user,pinnedPost,isFollowing,isFollowedBy,isBlocked,hasBlocked,isBlockedBy,isMuted,hasPendingRequest,const DeepCollectionEquality().hash(mutualFollowersPreview),mutualFollowersCount);
+int get hashCode => Object.hash(runtimeType,user,pinnedPost,isFollowing,isFollowedBy,isBlocked,hasBlocked,isBlockedBy,isMuted,hasPendingRequest,const DeepCollectionEquality().hash(mutualFollowersPreview),mutualFollowersCount,isPostNotificationsEnabled,isRekarotHidden,const DeepCollectionEquality().hash(pinnedPosts));
 
 @override
 String toString() {
-  return 'UserResponse(user: $user, pinnedPost: $pinnedPost, isFollowing: $isFollowing, isFollowedBy: $isFollowedBy, isBlocked: $isBlocked, hasBlocked: $hasBlocked, isBlockedBy: $isBlockedBy, isMuted: $isMuted, hasPendingRequest: $hasPendingRequest, mutualFollowersPreview: $mutualFollowersPreview, mutualFollowersCount: $mutualFollowersCount)';
+  return 'UserResponse(user: $user, pinnedPost: $pinnedPost, isFollowing: $isFollowing, isFollowedBy: $isFollowedBy, isBlocked: $isBlocked, hasBlocked: $hasBlocked, isBlockedBy: $isBlockedBy, isMuted: $isMuted, hasPendingRequest: $hasPendingRequest, mutualFollowersPreview: $mutualFollowersPreview, mutualFollowersCount: $mutualFollowersCount, isPostNotificationsEnabled: $isPostNotificationsEnabled, isRekarotHidden: $isRekarotHidden, pinnedPosts: $pinnedPosts)';
 }
 
 
@@ -2843,7 +2846,7 @@ abstract mixin class $UserResponseCopyWith<$Res>  {
   factory $UserResponseCopyWith(UserResponse value, $Res Function(UserResponse) _then) = _$UserResponseCopyWithImpl;
 @useResult
 $Res call({
- User user, QuotedPost? pinnedPost, bool isFollowing, bool isFollowedBy, bool isBlocked, bool hasBlocked, bool isBlockedBy, bool isMuted, bool hasPendingRequest, List<Author> mutualFollowersPreview, int mutualFollowersCount
+ User user, QuotedPost? pinnedPost, bool isFollowing, bool isFollowedBy, bool isBlocked, bool hasBlocked, bool isBlockedBy, bool isMuted, bool hasPendingRequest, List<Author> mutualFollowersPreview, int mutualFollowersCount, bool isPostNotificationsEnabled, bool isRekarotHidden, List<QuotedPost> pinnedPosts
 });
 
 
@@ -2860,7 +2863,7 @@ class _$UserResponseCopyWithImpl<$Res>
 
 /// Create a copy of UserResponse
 /// with the given fields replaced by the non-null parameter values.
-@pragma('vm:prefer-inline') @override $Res call({Object? user = null,Object? pinnedPost = freezed,Object? isFollowing = null,Object? isFollowedBy = null,Object? isBlocked = null,Object? hasBlocked = null,Object? isBlockedBy = null,Object? isMuted = null,Object? hasPendingRequest = null,Object? mutualFollowersPreview = null,Object? mutualFollowersCount = null,}) {
+@pragma('vm:prefer-inline') @override $Res call({Object? user = null,Object? pinnedPost = freezed,Object? isFollowing = null,Object? isFollowedBy = null,Object? isBlocked = null,Object? hasBlocked = null,Object? isBlockedBy = null,Object? isMuted = null,Object? hasPendingRequest = null,Object? mutualFollowersPreview = null,Object? mutualFollowersCount = null,Object? isPostNotificationsEnabled = null,Object? isRekarotHidden = null,Object? pinnedPosts = null,}) {
   return _then(_self.copyWith(
 user: null == user ? _self.user : user // ignore: cast_nullable_to_non_nullable
 as User,pinnedPost: freezed == pinnedPost ? _self.pinnedPost : pinnedPost // ignore: cast_nullable_to_non_nullable
@@ -2873,7 +2876,10 @@ as bool,isMuted: null == isMuted ? _self.isMuted : isMuted // ignore: cast_nulla
 as bool,hasPendingRequest: null == hasPendingRequest ? _self.hasPendingRequest : hasPendingRequest // ignore: cast_nullable_to_non_nullable
 as bool,mutualFollowersPreview: null == mutualFollowersPreview ? _self.mutualFollowersPreview : mutualFollowersPreview // ignore: cast_nullable_to_non_nullable
 as List<Author>,mutualFollowersCount: null == mutualFollowersCount ? _self.mutualFollowersCount : mutualFollowersCount // ignore: cast_nullable_to_non_nullable
-as int,
+as int,isPostNotificationsEnabled: null == isPostNotificationsEnabled ? _self.isPostNotificationsEnabled : isPostNotificationsEnabled // ignore: cast_nullable_to_non_nullable
+as bool,isRekarotHidden: null == isRekarotHidden ? _self.isRekarotHidden : isRekarotHidden // ignore: cast_nullable_to_non_nullable
+as bool,pinnedPosts: null == pinnedPosts ? _self.pinnedPosts : pinnedPosts // ignore: cast_nullable_to_non_nullable
+as List<QuotedPost>,
   ));
 }
 /// Create a copy of UserResponse
@@ -2979,10 +2985,10 @@ return $default(_that);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( User user,  QuotedPost? pinnedPost,  bool isFollowing,  bool isFollowedBy,  bool isBlocked,  bool hasBlocked,  bool isBlockedBy,  bool isMuted,  bool hasPendingRequest,  List<Author> mutualFollowersPreview,  int mutualFollowersCount)?  $default,{required TResult orElse(),}) {final _that = this;
+@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( User user,  QuotedPost? pinnedPost,  bool isFollowing,  bool isFollowedBy,  bool isBlocked,  bool hasBlocked,  bool isBlockedBy,  bool isMuted,  bool hasPendingRequest,  List<Author> mutualFollowersPreview,  int mutualFollowersCount,  bool isPostNotificationsEnabled,  bool isRekarotHidden,  List<QuotedPost> pinnedPosts)?  $default,{required TResult orElse(),}) {final _that = this;
 switch (_that) {
 case _UserResponse() when $default != null:
-return $default(_that.user,_that.pinnedPost,_that.isFollowing,_that.isFollowedBy,_that.isBlocked,_that.hasBlocked,_that.isBlockedBy,_that.isMuted,_that.hasPendingRequest,_that.mutualFollowersPreview,_that.mutualFollowersCount);case _:
+return $default(_that.user,_that.pinnedPost,_that.isFollowing,_that.isFollowedBy,_that.isBlocked,_that.hasBlocked,_that.isBlockedBy,_that.isMuted,_that.hasPendingRequest,_that.mutualFollowersPreview,_that.mutualFollowersCount,_that.isPostNotificationsEnabled,_that.isRekarotHidden,_that.pinnedPosts);case _:
   return orElse();
 
 }
@@ -3000,10 +3006,10 @@ return $default(_that.user,_that.pinnedPost,_that.isFollowing,_that.isFollowedBy
 /// }
 /// ```
 
-@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( User user,  QuotedPost? pinnedPost,  bool isFollowing,  bool isFollowedBy,  bool isBlocked,  bool hasBlocked,  bool isBlockedBy,  bool isMuted,  bool hasPendingRequest,  List<Author> mutualFollowersPreview,  int mutualFollowersCount)  $default,) {final _that = this;
+@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( User user,  QuotedPost? pinnedPost,  bool isFollowing,  bool isFollowedBy,  bool isBlocked,  bool hasBlocked,  bool isBlockedBy,  bool isMuted,  bool hasPendingRequest,  List<Author> mutualFollowersPreview,  int mutualFollowersCount,  bool isPostNotificationsEnabled,  bool isRekarotHidden,  List<QuotedPost> pinnedPosts)  $default,) {final _that = this;
 switch (_that) {
 case _UserResponse():
-return $default(_that.user,_that.pinnedPost,_that.isFollowing,_that.isFollowedBy,_that.isBlocked,_that.hasBlocked,_that.isBlockedBy,_that.isMuted,_that.hasPendingRequest,_that.mutualFollowersPreview,_that.mutualFollowersCount);case _:
+return $default(_that.user,_that.pinnedPost,_that.isFollowing,_that.isFollowedBy,_that.isBlocked,_that.hasBlocked,_that.isBlockedBy,_that.isMuted,_that.hasPendingRequest,_that.mutualFollowersPreview,_that.mutualFollowersCount,_that.isPostNotificationsEnabled,_that.isRekarotHidden,_that.pinnedPosts);case _:
   throw StateError('Unexpected subclass');
 
 }
@@ -3020,10 +3026,10 @@ return $default(_that.user,_that.pinnedPost,_that.isFollowing,_that.isFollowedBy
 /// }
 /// ```
 
-@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( User user,  QuotedPost? pinnedPost,  bool isFollowing,  bool isFollowedBy,  bool isBlocked,  bool hasBlocked,  bool isBlockedBy,  bool isMuted,  bool hasPendingRequest,  List<Author> mutualFollowersPreview,  int mutualFollowersCount)?  $default,) {final _that = this;
+@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( User user,  QuotedPost? pinnedPost,  bool isFollowing,  bool isFollowedBy,  bool isBlocked,  bool hasBlocked,  bool isBlockedBy,  bool isMuted,  bool hasPendingRequest,  List<Author> mutualFollowersPreview,  int mutualFollowersCount,  bool isPostNotificationsEnabled,  bool isRekarotHidden,  List<QuotedPost> pinnedPosts)?  $default,) {final _that = this;
 switch (_that) {
 case _UserResponse() when $default != null:
-return $default(_that.user,_that.pinnedPost,_that.isFollowing,_that.isFollowedBy,_that.isBlocked,_that.hasBlocked,_that.isBlockedBy,_that.isMuted,_that.hasPendingRequest,_that.mutualFollowersPreview,_that.mutualFollowersCount);case _:
+return $default(_that.user,_that.pinnedPost,_that.isFollowing,_that.isFollowedBy,_that.isBlocked,_that.hasBlocked,_that.isBlockedBy,_that.isMuted,_that.hasPendingRequest,_that.mutualFollowersPreview,_that.mutualFollowersCount,_that.isPostNotificationsEnabled,_that.isRekarotHidden,_that.pinnedPosts);case _:
   return null;
 
 }
@@ -3035,7 +3041,7 @@ return $default(_that.user,_that.pinnedPost,_that.isFollowing,_that.isFollowedBy
 @JsonSerializable()
 
 class _UserResponse implements UserResponse {
-  const _UserResponse({required this.user, this.pinnedPost, required this.isFollowing, required this.isFollowedBy, required this.isBlocked, required this.hasBlocked, required this.isBlockedBy, required this.isMuted, required this.hasPendingRequest, required final  List<Author> mutualFollowersPreview, required this.mutualFollowersCount}): _mutualFollowersPreview = mutualFollowersPreview;
+  const _UserResponse({required this.user, this.pinnedPost, required this.isFollowing, required this.isFollowedBy, required this.isBlocked, required this.hasBlocked, required this.isBlockedBy, required this.isMuted, required this.hasPendingRequest, required final  List<Author> mutualFollowersPreview, required this.mutualFollowersCount, this.isPostNotificationsEnabled = false, this.isRekarotHidden = false, final  List<QuotedPost> pinnedPosts = const []}): _mutualFollowersPreview = mutualFollowersPreview,_pinnedPosts = pinnedPosts;
   factory _UserResponse.fromJson(Map<String, dynamic> json) => _$UserResponseFromJson(json);
 
 @override final  User user;
@@ -3055,6 +3061,19 @@ class _UserResponse implements UserResponse {
 }
 
 @override final  int mutualFollowersCount;
+/// このユーザーの投稿通知を受け取る設定にしているか。
+@override@JsonKey() final  bool isPostNotificationsEnabled;
+/// このユーザーのカロートをタイムラインから隠しているか。
+@override@JsonKey() final  bool isRekarotHidden;
+/// ピン留めは複数対応。[pinnedPost] は 1 件目だけの互換フィールド。
+ final  List<QuotedPost> _pinnedPosts;
+/// ピン留めは複数対応。[pinnedPost] は 1 件目だけの互換フィールド。
+@override@JsonKey() List<QuotedPost> get pinnedPosts {
+  if (_pinnedPosts is EqualUnmodifiableListView) return _pinnedPosts;
+  // ignore: implicit_dynamic_type
+  return EqualUnmodifiableListView(_pinnedPosts);
+}
+
 
 /// Create a copy of UserResponse
 /// with the given fields replaced by the non-null parameter values.
@@ -3069,16 +3088,16 @@ Map<String, dynamic> toJson() {
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is _UserResponse&&(identical(other.user, user) || other.user == user)&&(identical(other.pinnedPost, pinnedPost) || other.pinnedPost == pinnedPost)&&(identical(other.isFollowing, isFollowing) || other.isFollowing == isFollowing)&&(identical(other.isFollowedBy, isFollowedBy) || other.isFollowedBy == isFollowedBy)&&(identical(other.isBlocked, isBlocked) || other.isBlocked == isBlocked)&&(identical(other.hasBlocked, hasBlocked) || other.hasBlocked == hasBlocked)&&(identical(other.isBlockedBy, isBlockedBy) || other.isBlockedBy == isBlockedBy)&&(identical(other.isMuted, isMuted) || other.isMuted == isMuted)&&(identical(other.hasPendingRequest, hasPendingRequest) || other.hasPendingRequest == hasPendingRequest)&&const DeepCollectionEquality().equals(other._mutualFollowersPreview, _mutualFollowersPreview)&&(identical(other.mutualFollowersCount, mutualFollowersCount) || other.mutualFollowersCount == mutualFollowersCount));
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is _UserResponse&&(identical(other.user, user) || other.user == user)&&(identical(other.pinnedPost, pinnedPost) || other.pinnedPost == pinnedPost)&&(identical(other.isFollowing, isFollowing) || other.isFollowing == isFollowing)&&(identical(other.isFollowedBy, isFollowedBy) || other.isFollowedBy == isFollowedBy)&&(identical(other.isBlocked, isBlocked) || other.isBlocked == isBlocked)&&(identical(other.hasBlocked, hasBlocked) || other.hasBlocked == hasBlocked)&&(identical(other.isBlockedBy, isBlockedBy) || other.isBlockedBy == isBlockedBy)&&(identical(other.isMuted, isMuted) || other.isMuted == isMuted)&&(identical(other.hasPendingRequest, hasPendingRequest) || other.hasPendingRequest == hasPendingRequest)&&const DeepCollectionEquality().equals(other._mutualFollowersPreview, _mutualFollowersPreview)&&(identical(other.mutualFollowersCount, mutualFollowersCount) || other.mutualFollowersCount == mutualFollowersCount)&&(identical(other.isPostNotificationsEnabled, isPostNotificationsEnabled) || other.isPostNotificationsEnabled == isPostNotificationsEnabled)&&(identical(other.isRekarotHidden, isRekarotHidden) || other.isRekarotHidden == isRekarotHidden)&&const DeepCollectionEquality().equals(other._pinnedPosts, _pinnedPosts));
 }
 
 @JsonKey(includeFromJson: false, includeToJson: false)
 @override
-int get hashCode => Object.hash(runtimeType,user,pinnedPost,isFollowing,isFollowedBy,isBlocked,hasBlocked,isBlockedBy,isMuted,hasPendingRequest,const DeepCollectionEquality().hash(_mutualFollowersPreview),mutualFollowersCount);
+int get hashCode => Object.hash(runtimeType,user,pinnedPost,isFollowing,isFollowedBy,isBlocked,hasBlocked,isBlockedBy,isMuted,hasPendingRequest,const DeepCollectionEquality().hash(_mutualFollowersPreview),mutualFollowersCount,isPostNotificationsEnabled,isRekarotHidden,const DeepCollectionEquality().hash(_pinnedPosts));
 
 @override
 String toString() {
-  return 'UserResponse(user: $user, pinnedPost: $pinnedPost, isFollowing: $isFollowing, isFollowedBy: $isFollowedBy, isBlocked: $isBlocked, hasBlocked: $hasBlocked, isBlockedBy: $isBlockedBy, isMuted: $isMuted, hasPendingRequest: $hasPendingRequest, mutualFollowersPreview: $mutualFollowersPreview, mutualFollowersCount: $mutualFollowersCount)';
+  return 'UserResponse(user: $user, pinnedPost: $pinnedPost, isFollowing: $isFollowing, isFollowedBy: $isFollowedBy, isBlocked: $isBlocked, hasBlocked: $hasBlocked, isBlockedBy: $isBlockedBy, isMuted: $isMuted, hasPendingRequest: $hasPendingRequest, mutualFollowersPreview: $mutualFollowersPreview, mutualFollowersCount: $mutualFollowersCount, isPostNotificationsEnabled: $isPostNotificationsEnabled, isRekarotHidden: $isRekarotHidden, pinnedPosts: $pinnedPosts)';
 }
 
 
@@ -3089,7 +3108,7 @@ abstract mixin class _$UserResponseCopyWith<$Res> implements $UserResponseCopyWi
   factory _$UserResponseCopyWith(_UserResponse value, $Res Function(_UserResponse) _then) = __$UserResponseCopyWithImpl;
 @override @useResult
 $Res call({
- User user, QuotedPost? pinnedPost, bool isFollowing, bool isFollowedBy, bool isBlocked, bool hasBlocked, bool isBlockedBy, bool isMuted, bool hasPendingRequest, List<Author> mutualFollowersPreview, int mutualFollowersCount
+ User user, QuotedPost? pinnedPost, bool isFollowing, bool isFollowedBy, bool isBlocked, bool hasBlocked, bool isBlockedBy, bool isMuted, bool hasPendingRequest, List<Author> mutualFollowersPreview, int mutualFollowersCount, bool isPostNotificationsEnabled, bool isRekarotHidden, List<QuotedPost> pinnedPosts
 });
 
 
@@ -3106,7 +3125,7 @@ class __$UserResponseCopyWithImpl<$Res>
 
 /// Create a copy of UserResponse
 /// with the given fields replaced by the non-null parameter values.
-@override @pragma('vm:prefer-inline') $Res call({Object? user = null,Object? pinnedPost = freezed,Object? isFollowing = null,Object? isFollowedBy = null,Object? isBlocked = null,Object? hasBlocked = null,Object? isBlockedBy = null,Object? isMuted = null,Object? hasPendingRequest = null,Object? mutualFollowersPreview = null,Object? mutualFollowersCount = null,}) {
+@override @pragma('vm:prefer-inline') $Res call({Object? user = null,Object? pinnedPost = freezed,Object? isFollowing = null,Object? isFollowedBy = null,Object? isBlocked = null,Object? hasBlocked = null,Object? isBlockedBy = null,Object? isMuted = null,Object? hasPendingRequest = null,Object? mutualFollowersPreview = null,Object? mutualFollowersCount = null,Object? isPostNotificationsEnabled = null,Object? isRekarotHidden = null,Object? pinnedPosts = null,}) {
   return _then(_UserResponse(
 user: null == user ? _self.user : user // ignore: cast_nullable_to_non_nullable
 as User,pinnedPost: freezed == pinnedPost ? _self.pinnedPost : pinnedPost // ignore: cast_nullable_to_non_nullable
@@ -3119,7 +3138,10 @@ as bool,isMuted: null == isMuted ? _self.isMuted : isMuted // ignore: cast_nulla
 as bool,hasPendingRequest: null == hasPendingRequest ? _self.hasPendingRequest : hasPendingRequest // ignore: cast_nullable_to_non_nullable
 as bool,mutualFollowersPreview: null == mutualFollowersPreview ? _self._mutualFollowersPreview : mutualFollowersPreview // ignore: cast_nullable_to_non_nullable
 as List<Author>,mutualFollowersCount: null == mutualFollowersCount ? _self.mutualFollowersCount : mutualFollowersCount // ignore: cast_nullable_to_non_nullable
-as int,
+as int,isPostNotificationsEnabled: null == isPostNotificationsEnabled ? _self.isPostNotificationsEnabled : isPostNotificationsEnabled // ignore: cast_nullable_to_non_nullable
+as bool,isRekarotHidden: null == isRekarotHidden ? _self.isRekarotHidden : isRekarotHidden // ignore: cast_nullable_to_non_nullable
+as bool,pinnedPosts: null == pinnedPosts ? _self._pinnedPosts : pinnedPosts // ignore: cast_nullable_to_non_nullable
+as List<QuotedPost>,
   ));
 }
 

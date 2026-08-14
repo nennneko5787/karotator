@@ -1,5 +1,6 @@
+import "package:karotator/const.dart";
 import "package:flutter/material.dart";
-import "package:karotator/http.dart";
+import "package:karotator/api/karotter_api.dart";
 import "package:karotator/pages/home/dm.dart";
 import "package:karotator/pages/home/notification.dart";
 import "package:karotator/pages/home/search.dart";
@@ -7,6 +8,7 @@ import "package:karotator/pages/home/timeline.dart";
 import "package:karotator/pages/login.dart";
 import "package:karotator/pages/post.dart";
 import "package:karotator/ui/drawer.dart";
+import "package:karotator/ui/legal_notice.dart";
 import 'package:badges/badges.dart' as badges;
 
 class HomePage extends StatefulWidget {
@@ -32,15 +34,15 @@ class _HomePageState extends State<HomePage> {
   @override
   void initState() {
     super.initState();
-    HTTPClient().loadLoginResponse().then(
+    KarotterApi().session.login().then(
       (response) => {
         setState(() {
           avatarUrl = response?.user.avatarUrl;
         }),
       },
     );
-    if (HTTPClient().nowAccountId != null) {
-      HTTPClient().getUnreadNotificationCount().then((count) {
+    if (KarotterApi().session.accountId != null) {
+      KarotterApi().notifications.unreadCount().then((count) {
         setState(() {
           unReadCount = count;
         });
@@ -61,22 +63,25 @@ class _HomePageState extends State<HomePage> {
           onPressed: () => {pageKey.currentState!.openDrawer()},
           icon: CircleAvatar(
             backgroundImage: NetworkImage(
-              avatarUrl != null
-                  ? "https://karotter.com$avatarUrl"
-                  : "https://karotter.com/default-avatar.png",
+              avatarUrlOf(avatarUrl),
             ),
           ),
         ),
       ),
       drawer: DrawerMenu(),
       drawerEnableOpenDragGesture: true,
-      body: _pages[_currentIndex],
+      body: Column(
+        children: [
+          const LegalNoticeBanner(),
+          Expanded(child: _pages[_currentIndex]),
+        ],
+      ),
       floatingActionButton: FloatingActionButton(
         onPressed: () => {
           Navigator.push(
             context,
             MaterialPageRoute(
-              builder: (context) => (HTTPClient().nowAccountId == null)
+              builder: (context) => (KarotterApi().session.accountId == null)
                   ? LoginPage()
                   : PostPage(),
             ),
@@ -88,7 +93,7 @@ class _HomePageState extends State<HomePage> {
       bottomNavigationBar: BottomNavigationBar(
         currentIndex: _currentIndex,
         onTap: (index) {
-          if (index != 0 && HTTPClient().nowAccountId == null) {
+          if (index != 0 && KarotterApi().session.accountId == null) {
             Navigator.push(
               context,
               MaterialPageRoute(builder: (context) => LoginPage()),
@@ -101,7 +106,7 @@ class _HomePageState extends State<HomePage> {
           });
 
           if (index == 2) {
-            HTTPClient().getUnreadNotificationCount().then((count) {
+            KarotterApi().notifications.unreadCount().then((count) {
               setState(() {
                 unReadCount = count;
               });

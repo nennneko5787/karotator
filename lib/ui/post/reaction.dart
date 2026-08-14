@@ -2,7 +2,7 @@ import "package:emoji_picker_flutter/emoji_picker_flutter.dart";
 import "package:flutter/foundation.dart" as foundation;
 import "package:flutter/material.dart";
 import "package:flutter_riverpod/flutter_riverpod.dart";
-import "package:karotator/http.dart";
+import "package:karotator/api/karotter_api.dart";
 import "package:karotator/objects/post.dart";
 import "package:karotator/pages/login.dart";
 import "package:karotator/providers/post.dart";
@@ -46,7 +46,7 @@ class _ReactionWidgetState extends ConsumerState<ReactionWidget> {
           onEmojiSelected: (category, emoji) async {
             Navigator.of(ctx).pop();
 
-            if (HTTPClient().nowAccountId == null) {
+            if (KarotterApi().session.accountId == null) {
               Navigator.push(
                 context,
                 MaterialPageRoute(builder: (context) => LoginPage()),
@@ -116,7 +116,7 @@ class _ReactionWidgetState extends ConsumerState<ReactionWidget> {
         for (var reaction in currentPost.reactionSummary)
           OutlinedButton(
             onPressed: () async {
-              if (HTTPClient().nowAccountId == null) {
+              if (KarotterApi().session.accountId == null) {
                 Navigator.push(
                   context,
                   MaterialPageRoute(builder: (context) => LoginPage()),

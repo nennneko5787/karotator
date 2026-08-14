@@ -1,30 +1,20 @@
-// This is a basic Flutter widget test.
+// アプリのルートが組み立てられることだけを見る煙感知器。
 //
-// To perform an interaction with a widget in your test, use the WidgetTester
-// utility in the flutter_test package. For example, you can send tap and scroll
-// gestures. You can also use WidgetTester to find child widgets in the widget
-// tree, read text, and verify that the values of widget properties are correct.
+// StartUpPage は起動時に SharedPreferences や安全なストレージを触るので、
+// ここでは最初の 1 フレームまでしか進めない。通信や画面遷移は対象外。
 
-// import 'package:flutter/material.dart';
+import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_test/flutter_test.dart';
 
 import 'package:karotator/main.dart';
 
 void main() {
-  testWidgets('Counter increments smoke test', (WidgetTester tester) async {
-    // Build our app and trigger a frame.
-    await tester.pumpWidget(const Karotator());
+  testWidgets('ルートウィジェットが例外なく組み立つ', (WidgetTester tester) async {
+    // main() と同じく ProviderScope で包む。これが無いと
+    // 「No ProviderScope found」で落ちる。
+    await tester.pumpWidget(const ProviderScope(child: Karotator()));
 
-    // Verify that our counter starts at 0.
-    // expect(find.text('0'), findsOneWidget);
-    // expect(find.text('1'), findsNothing);
-
-    // Tap the '+' icon and trigger a frame.
-    // await tester.tap(find.byIcon(Icons.add));
-    // await tester.pump();
-
-    // Verify that our counter has incremented.
-    // expect(find.text('0'), findsNothing);
-    // expect(find.text('1'), findsOneWidget);
+    expect(find.byType(MaterialApp), findsOneWidget);
   });
 }

@@ -1,0 +1,18 @@
+{
+  "type": "POST",
+  "time": "2026-04-12T12:34:56.789Z",
+  "itemId": "post-123",
+  "id": 123,
+  "content": "投稿本文",
+  "authorId": 45,
+  "likesCount": 10,
+  "repliesCount": 3,
+  "rekarotsCount": 2,
+  "createdAt": "2026-04-12T12:34:56.789Z",
+  "author": {
+    "id": 45,
+    "username": "alice",
+    "displayName": "Alice",
+    "avatarUrl": "https://.../avatar.jpg"
+  }
+}

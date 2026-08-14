@@ -1,7 +1,8 @@
+import "package:karotator/const.dart";
 import "package:flutter/gestures.dart";
 import "package:flutter/material.dart";
 import "package:flutter_riverpod/flutter_riverpod.dart";
-import "package:karotator/http.dart";
+import "package:karotator/api/karotter_api.dart";
 import "package:karotator/objects/response.dart";
 import "package:karotator/objects/user.dart";
 import "package:karotator/pages/login.dart";
@@ -34,7 +35,7 @@ class _ProfilePageState extends State<ProfilePage> {
 
   Future<void> refresh() async {
     try {
-      final response = await HTTPClient().getUserByUsername(widget.username);
+      final response = await KarotterApi().users.byUsername(widget.username);
       setState(() {
         this.response = response;
         user = response.user;
@@ -87,10 +88,10 @@ class _ProfilePageState extends State<ProfilePage> {
             Navigator.push(
               context,
               MaterialPageRoute(
-                builder: (context) => (HTTPClient().nowAccountId == null)
+                builder: (context) => (KarotterApi().session.accountId == null)
                     ? LoginPage()
                     : PostPage(
-                        content: (user?.id != HTTPClient().nowUserId)
+                        content: (user?.id != KarotterApi().session.userId)
                             ? "@${user!.username} "
                             : "",
                       ),
@@ -135,22 +136,22 @@ class _ProfileBodyState extends ConsumerState<_ProfileBody> {
 
   Future<Object> _fetcher(int page, int limit) {
     return switch (selectedTab) {
-      0 => HTTPClient().getPostsByUserId(
+      0 => KarotterApi().users.posts(
         userId: widget.user.id,
         page: page,
         limit: limit,
       ),
-      1 => HTTPClient().getUserRepliesByUserId(
+      1 => KarotterApi().users.replies(
         userId: widget.user.id,
         page: page,
         limit: limit,
       ),
-      2 => HTTPClient().getUserMediasByUserId(
+      2 => KarotterApi().users.media(
         userId: widget.user.id,
         page: page,
         limit: limit,
       ),
-      _ => HTTPClient().getUserLikesByUserId(
+      _ => KarotterApi().users.likes(
         userId: widget.user.id,
         page: page,
         limit: limit,
@@ -182,7 +183,7 @@ class _ProfileBodyState extends ConsumerState<_ProfileBody> {
               width: MediaQuery.of(context).size.width,
               child: (user.headerUrl != null)
                   ? Image.network(
-                      "https://karotter.com${user.headerUrl}",
+                      karotterUrl(user.headerUrl!),
                       width: MediaQuery.of(context).size.width,
                       height: MediaQuery.of(context).size.width * 0.33,
                       fit: BoxFit.cover,
@@ -207,7 +208,7 @@ class _ProfileBodyState extends ConsumerState<_ProfileBody> {
                 child: CircleAvatar(
                   radius: 40,
                   backgroundImage: (user.avatarUrl != null)
-                      ? NetworkImage("https://karotter.com${user.avatarUrl}")
+                      ? NetworkImage(karotterUrl(user.avatarUrl!))
                       : null,
                   child: (user.avatarUrl == null)
                       ? Image.asset("assets/images/default-avatar.png")
@@ -277,7 +278,7 @@ class _ProfileBodyState extends ConsumerState<_ProfileBody> {
                 ),
               ),
             ),
-            (HTTPClient().nowUserId == user.id)
+            (KarotterApi().session.userId == user.id)
                 ? OutlinedButton(
                     onPressed: () {},
                     style: OutlinedButton.styleFrom(
@@ -301,7 +302,7 @@ class _ProfileBodyState extends ConsumerState<_ProfileBody> {
                   )
                 : ElevatedButton(
                     onPressed: () async {
-                      if (HTTPClient().nowAccountId == null) {
+                      if (KarotterApi().session.accountId == null) {
                         Navigator.push(
                           context,
                           MaterialPageRoute(builder: (context) => LoginPage()),

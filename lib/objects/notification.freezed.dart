@@ -15,7 +15,7 @@ T _$identity<T>(T value) => value;
 /// @nodoc
 mixin _$Notification {
 
- Author get actor; set actor(Author value); int get actorCount; set actorCount(int value); int get actorId; set actorId(int value); List<Author> get actors; set actors(List<Author> value); DateTime get createdAt; set createdAt(DateTime value); String get groupKey; set groupKey(String value); int get id; set id(int value); bool get isRead; set isRead(bool value); NotificationContext get likeContext; set likeContext(NotificationContext value); String? get message; set message(String? value); List<int> get notificationIds; set notificationIds(List<int> value); NotificationPost? get post; set post(NotificationPost? value); int get postCount; set postCount(int value); int? get postId; set postId(int? value); List<NotificationPost> get posts; set posts(List<NotificationPost> value); NotificationContext get rekarotContext; set rekarotContext(NotificationContext value); NotificationType get type; set type(NotificationType value); int get userId; set userId(int value);
+ Author get actor; set actor(Author value); int get actorCount; set actorCount(int value); int get actorId; set actorId(int value); List<Author> get actors; set actors(List<Author> value); DateTime get createdAt; set createdAt(DateTime value); String get groupKey; set groupKey(String value); int get id; set id(int value); bool get isRead; set isRead(bool value);@JsonKey(unknownEnumValue: NotificationContext.UNKNOWN) NotificationContext get likeContext;@JsonKey(unknownEnumValue: NotificationContext.UNKNOWN) set likeContext(NotificationContext value); String? get message; set message(String? value); List<int> get notificationIds; set notificationIds(List<int> value); NotificationPost? get post; set post(NotificationPost? value); int get postCount; set postCount(int value); int? get postId; set postId(int? value); List<NotificationPost> get posts; set posts(List<NotificationPost> value);@JsonKey(unknownEnumValue: NotificationContext.UNKNOWN) NotificationContext get rekarotContext;@JsonKey(unknownEnumValue: NotificationContext.UNKNOWN) set rekarotContext(NotificationContext value);@JsonKey(unknownEnumValue: NotificationType.UNKNOWN) NotificationType get type;@JsonKey(unknownEnumValue: NotificationType.UNKNOWN) set type(NotificationType value); int get userId; set userId(int value);
 /// Create a copy of Notification
 /// with the given fields replaced by the non-null parameter values.
 @JsonKey(includeFromJson: false, includeToJson: false)
@@ -41,7 +41,7 @@ abstract mixin class $NotificationCopyWith<$Res>  {
   factory $NotificationCopyWith(Notification value, $Res Function(Notification) _then) = _$NotificationCopyWithImpl;
 @useResult
 $Res call({
- Author actor, int actorCount, int actorId, List<Author> actors, DateTime createdAt, String groupKey, int id, bool isRead, NotificationContext likeContext, String? message, List<int> notificationIds, NotificationPost? post, int postCount, int? postId, List<NotificationPost> posts, NotificationContext rekarotContext, NotificationType type, int userId
+ Author actor, int actorCount, int actorId, List<Author> actors, DateTime createdAt, String groupKey, int id, bool isRead,@JsonKey(unknownEnumValue: NotificationContext.UNKNOWN) NotificationContext likeContext, String? message, List<int> notificationIds, NotificationPost? post, int postCount, int? postId, List<NotificationPost> posts,@JsonKey(unknownEnumValue: NotificationContext.UNKNOWN) NotificationContext rekarotContext,@JsonKey(unknownEnumValue: NotificationType.UNKNOWN) NotificationType type, int userId
 });
 
 
@@ -184,7 +184,7 @@ return $default(_that);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( Author actor,  int actorCount,  int actorId,  List<Author> actors,  DateTime createdAt,  String groupKey,  int id,  bool isRead,  NotificationContext likeContext,  String? message,  List<int> notificationIds,  NotificationPost? post,  int postCount,  int? postId,  List<NotificationPost> posts,  NotificationContext rekarotContext,  NotificationType type,  int userId)?  $default,{required TResult orElse(),}) {final _that = this;
+@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( Author actor,  int actorCount,  int actorId,  List<Author> actors,  DateTime createdAt,  String groupKey,  int id,  bool isRead, @JsonKey(unknownEnumValue: NotificationContext.UNKNOWN)  NotificationContext likeContext,  String? message,  List<int> notificationIds,  NotificationPost? post,  int postCount,  int? postId,  List<NotificationPost> posts, @JsonKey(unknownEnumValue: NotificationContext.UNKNOWN)  NotificationContext rekarotContext, @JsonKey(unknownEnumValue: NotificationType.UNKNOWN)  NotificationType type,  int userId)?  $default,{required TResult orElse(),}) {final _that = this;
 switch (_that) {
 case _Notification() when $default != null:
 return $default(_that.actor,_that.actorCount,_that.actorId,_that.actors,_that.createdAt,_that.groupKey,_that.id,_that.isRead,_that.likeContext,_that.message,_that.notificationIds,_that.post,_that.postCount,_that.postId,_that.posts,_that.rekarotContext,_that.type,_that.userId);case _:
@@ -205,7 +205,7 @@ return $default(_that.actor,_that.actorCount,_that.actorId,_that.actors,_that.cr
 /// }
 /// ```
 
-@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( Author actor,  int actorCount,  int actorId,  List<Author> actors,  DateTime createdAt,  String groupKey,  int id,  bool isRead,  NotificationContext likeContext,  String? message,  List<int> notificationIds,  NotificationPost? post,  int postCount,  int? postId,  List<NotificationPost> posts,  NotificationContext rekarotContext,  NotificationType type,  int userId)  $default,) {final _that = this;
+@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( Author actor,  int actorCount,  int actorId,  List<Author> actors,  DateTime createdAt,  String groupKey,  int id,  bool isRead, @JsonKey(unknownEnumValue: NotificationContext.UNKNOWN)  NotificationContext likeContext,  String? message,  List<int> notificationIds,  NotificationPost? post,  int postCount,  int? postId,  List<NotificationPost> posts, @JsonKey(unknownEnumValue: NotificationContext.UNKNOWN)  NotificationContext rekarotContext, @JsonKey(unknownEnumValue: NotificationType.UNKNOWN)  NotificationType type,  int userId)  $default,) {final _that = this;
 switch (_that) {
 case _Notification():
 return $default(_that.actor,_that.actorCount,_that.actorId,_that.actors,_that.createdAt,_that.groupKey,_that.id,_that.isRead,_that.likeContext,_that.message,_that.notificationIds,_that.post,_that.postCount,_that.postId,_that.posts,_that.rekarotContext,_that.type,_that.userId);case _:
@@ -225,7 +225,7 @@ return $default(_that.actor,_that.actorCount,_that.actorId,_that.actors,_that.cr
 /// }
 /// ```
 
-@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( Author actor,  int actorCount,  int actorId,  List<Author> actors,  DateTime createdAt,  String groupKey,  int id,  bool isRead,  NotificationContext likeContext,  String? message,  List<int> notificationIds,  NotificationPost? post,  int postCount,  int? postId,  List<NotificationPost> posts,  NotificationContext rekarotContext,  NotificationType type,  int userId)?  $default,) {final _that = this;
+@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( Author actor,  int actorCount,  int actorId,  List<Author> actors,  DateTime createdAt,  String groupKey,  int id,  bool isRead, @JsonKey(unknownEnumValue: NotificationContext.UNKNOWN)  NotificationContext likeContext,  String? message,  List<int> notificationIds,  NotificationPost? post,  int postCount,  int? postId,  List<NotificationPost> posts, @JsonKey(unknownEnumValue: NotificationContext.UNKNOWN)  NotificationContext rekarotContext, @JsonKey(unknownEnumValue: NotificationType.UNKNOWN)  NotificationType type,  int userId)?  $default,) {final _that = this;
 switch (_that) {
 case _Notification() when $default != null:
 return $default(_that.actor,_that.actorCount,_that.actorId,_that.actors,_that.createdAt,_that.groupKey,_that.id,_that.isRead,_that.likeContext,_that.message,_that.notificationIds,_that.post,_that.postCount,_that.postId,_that.posts,_that.rekarotContext,_that.type,_that.userId);case _:
@@ -240,7 +240,7 @@ return $default(_that.actor,_that.actorCount,_that.actorId,_that.actors,_that.cr
 @JsonSerializable()
 
 class _Notification implements Notification {
-   _Notification({required this.actor, required this.actorCount, required this.actorId, required this.actors, required this.createdAt, required this.groupKey, required this.id, required this.isRead, required this.likeContext, this.message, required this.notificationIds, this.post, required this.postCount, this.postId, required this.posts, required this.rekarotContext, required this.type, required this.userId});
+   _Notification({required this.actor, required this.actorCount, required this.actorId, required this.actors, required this.createdAt, required this.groupKey, required this.id, required this.isRead, @JsonKey(unknownEnumValue: NotificationContext.UNKNOWN) required this.likeContext, this.message, required this.notificationIds, this.post, required this.postCount, this.postId, required this.posts, @JsonKey(unknownEnumValue: NotificationContext.UNKNOWN) required this.rekarotContext, @JsonKey(unknownEnumValue: NotificationType.UNKNOWN) required this.type, required this.userId});
   factory _Notification.fromJson(Map<String, dynamic> json) => _$NotificationFromJson(json);
 
 @override  Author actor;
@@ -251,15 +251,15 @@ class _Notification implements Notification {
 @override  String groupKey;
 @override  int id;
 @override  bool isRead;
-@override  NotificationContext likeContext;
+@override@JsonKey(unknownEnumValue: NotificationContext.UNKNOWN)  NotificationContext likeContext;
 @override  String? message;
 @override  List<int> notificationIds;
 @override  NotificationPost? post;
 @override  int postCount;
 @override  int? postId;
 @override  List<NotificationPost> posts;
-@override  NotificationContext rekarotContext;
-@override  NotificationType type;
+@override@JsonKey(unknownEnumValue: NotificationContext.UNKNOWN)  NotificationContext rekarotContext;
+@override@JsonKey(unknownEnumValue: NotificationType.UNKNOWN)  NotificationType type;
 @override  int userId;
 
 /// Create a copy of Notification
@@ -288,7 +288,7 @@ abstract mixin class _$NotificationCopyWith<$Res> implements $NotificationCopyWi
   factory _$NotificationCopyWith(_Notification value, $Res Function(_Notification) _then) = __$NotificationCopyWithImpl;
 @override @useResult
 $Res call({
- Author actor, int actorCount, int actorId, List<Author> actors, DateTime createdAt, String groupKey, int id, bool isRead, NotificationContext likeContext, String? message, List<int> notificationIds, NotificationPost? post, int postCount, int? postId, List<NotificationPost> posts, NotificationContext rekarotContext, NotificationType type, int userId
+ Author actor, int actorCount, int actorId, List<Author> actors, DateTime createdAt, String groupKey, int id, bool isRead,@JsonKey(unknownEnumValue: NotificationContext.UNKNOWN) NotificationContext likeContext, String? message, List<int> notificationIds, NotificationPost? post, int postCount, int? postId, List<NotificationPost> posts,@JsonKey(unknownEnumValue: NotificationContext.UNKNOWN) NotificationContext rekarotContext,@JsonKey(unknownEnumValue: NotificationType.UNKNOWN) NotificationType type, int userId
 });
 
 

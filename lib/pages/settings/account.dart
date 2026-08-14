@@ -1,5 +1,5 @@
 import "package:flutter/material.dart";
-import "package:karotator/http.dart";
+import "package:karotator/api/karotter_api.dart";
 import "package:karotator/objects/response.dart";
 import "package:karotator/ui/text_agent.dart";
 
@@ -22,7 +22,7 @@ class _AccountSettingsState extends State<AccountSettings> {
   @override
   void initState() {
     super.initState();
-    HTTPClient().loadLoginResponse().then((response) {
+    KarotterApi().session.login().then((response) {
       setState(() {
         this.response = response;
       });
@@ -42,7 +42,10 @@ class _AccountSettingsState extends State<AccountSettings> {
     }
 
     try {
-      await HTTPClient().changePassword(currentPassword, newPassword);
+      await KarotterApi().users.changePassword(
+        currentPassword: currentPassword,
+        newPassword: newPassword,
+      );
     } catch (e, stackTrace) {
       debugPrint("$e\n$stackTrace");
       if (!mounted) return;
