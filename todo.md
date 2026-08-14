@@ -5,9 +5,9 @@ READMEに書くと長ったらしくなるのでファイルを分けること�
 
 ## アプリ全体
 
-- テストを書く
-  - ~~https://pub.dev/packages/media_kit#permissions をやる~~
-- iOS用のPodfileを作る
+- [ ] テストを書く
+  - [ ] ~~https://pub.dev/packages/media_kit#permissions をやる~~
+- [ ] iOS用のPodfileを作る
 
 ## ホーム
 
