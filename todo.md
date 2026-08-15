@@ -40,7 +40,10 @@ READMEに書くと長ったらしくなるのでファイルを分けること�
 - [x] 年齢制限・制裁措置ガイドラインは Karotter が API で配っていないので、
       Web のバンドルに埋まっている本文を写して同梱する。
       表示時は「同梱した内容です」と断り、最新版はブラウザへ誘導する
-- [ ] 英語表示（`locale=en` も取れる。`titleEn` / `descriptionEn` も生成済み）
+- [ ] 英語表示（`locale=en` も取れる。`titleEn` / `descriptionEn` も生成済み。
+      規約クイズの `prompt` / `label` / `explanation` も `{ja, en}` で来る）
+- [x] 規約クイズ（`GET/POST auth/legal-quiz`）とメール認証の導線。
+      仕様は [specs/004-posting-restrictions](specs/004-posting-restrictions/requirements.md)
 
 ## 新規登録
 

@@ -1,28 +1,30 @@
-import 'package:flutter/material.dart';
 import 'package:flutter/gestures.dart';
+import 'package:flutter/material.dart';
+import 'package:karotator/objects/rich_text.dart';
 import 'package:karotator/pages/profile.dart';
+import 'package:karotator/ui/rich/ruby.dart';
+import 'package:karotator/ui/rich/spoiler.dart';
 import 'package:karotator/utils.dart';
 
+/// カロート本文を `InlineSpan` に組む。
+///
+/// 記法の解釈は [parseRichText] が担当し、ここは widget を当てるだけ。
+/// 対応するのは URL・メンション・ハッシュタグ・ルビ・伏せ字
+/// （仕様: specs/005-rich-text）。
 class TextAgent {
-  static RegExp get _urlRegExp => RegExp(
-    r"(http(s)?:\/\/[a-zA-Z0-9-.!'()*;/?:@&=+$,%_#]+)",
-    caseSensitive: false,
-  );
-
-  static RegExp get _mentionRegExp =>
-      RegExp(r"(@[a-zA-Z0-9_]+)", caseSensitive: false);
-
-  static TextSpan generateLinkTextSpan(String url, {required TextStyle style}) {
-    final recognizer = TapGestureRecognizer()
-      ..onTap = () async {
-        await openURL(url);
-      };
-    final textSpan = TextSpan(
-      text: url,
-      recognizer: recognizer,
+  /// [shown] を出して [url] を開く。
+  ///
+  /// `www.example.com` のように、本文の見た目と実際に開く URL が違うことがある。
+  static TextSpan generateLinkTextSpan(
+    String url, {
+    required TextStyle style,
+    String? shown,
+  }) {
+    return TextSpan(
+      text: shown ?? url,
+      recognizer: TapGestureRecognizer()..onTap = () => openURL(url),
       style: style.apply(color: Colors.lightBlue),
     );
-    return textSpan;
   }
 
   static TextSpan generateMentionTextSpan(
@@ -30,23 +32,17 @@ class TextAgent {
     BuildContext context, {
     required TextStyle style,
   }) {
-    final recognizer = TapGestureRecognizer()
-      ..onTap = () {
-        final username = mention.substring(1);
-        Navigator.push(
+    return TextSpan(
+      text: mention,
+      recognizer: TapGestureRecognizer()
+        ..onTap = () => Navigator.push(
           context,
           MaterialPageRoute(
-            builder: (context) => ProfilePage(username: username),
+            builder: (_) => ProfilePage(username: mention.substring(1)),
           ),
-        );
-      };
-
-    final textSpan = TextSpan(
-      text: mention,
-      recognizer: recognizer,
+        ),
       style: style.apply(color: Colors.blue),
     );
-    return textSpan;
   }
 
   static TextSpan generate(
@@ -54,40 +50,54 @@ class TextAgent {
     BuildContext context, {
     TextStyle? style,
   }) {
-    style ??= TextStyle();
-
-    final List<TextSpan> textSpans = [];
-    final splitRegExp = RegExp(
-      '(${_urlRegExp.pattern})|(${_mentionRegExp.pattern})',
+    final baseStyle = style ?? const TextStyle();
+    return TextSpan(
+      children: _spans(parseRichText(rawText), context, baseStyle),
     );
+  }
 
-    rawText.splitMapJoin(
-      splitRegExp,
-      onMatch: (Match match) {
-        final matchedText = match.group(0) ?? '';
-        if (_urlRegExp.hasMatch(matchedText)) {
-          final urlSpan = generateLinkTextSpan(matchedText, style: style!);
-          textSpans.add(urlSpan);
-        } else if (_mentionRegExp.hasMatch(matchedText)) {
-          final mentionSpan = generateMentionTextSpan(
-            matchedText,
+  static List<InlineSpan> _spans(
+    List<RichToken> tokens,
+    BuildContext context,
+    TextStyle style,
+  ) {
+    final plain = style.apply(color: Theme.of(context).colorScheme.onSurface);
+
+    return [
+      for (final token in tokens)
+        switch (token) {
+          TextToken(:final text) => TextSpan(text: text, style: plain),
+
+          // 表示は本文のまま、開くときだけ https:// を補う。
+          UrlToken(:final raw, :final url) => generateLinkTextSpan(
+            url,
+            shown: raw,
+            style: style,
+          ),
+
+          MentionToken(:final raw) => generateMentionTextSpan(
+            raw,
             context,
-            style: style!,
-          );
-          textSpans.add(mentionSpan);
-        }
-        return '';
-      },
-      onNonMatch: (String text) {
-        final commonSpan = TextSpan(
-          text: text,
-          style: style!.apply(color: Theme.of(context).colorScheme.onSurface),
-        );
-        textSpans.add(commonSpan);
-        return '';
-      },
-    );
+            style: style,
+          ),
 
-    return TextSpan(children: textSpans);
+          // 検索画面が無いのでリンクにはしない（005 の非目標）。
+          HashtagToken(:final raw) => TextSpan(text: raw, style: plain),
+
+          RubyToken(:final base, :final reading) => WidgetSpan(
+            alignment: PlaceholderAlignment.baseline,
+            baseline: TextBaseline.alphabetic,
+            child: RubyText(base: base, reading: reading, style: plain),
+          ),
+
+          SpoilerToken(:final children) => WidgetSpan(
+            alignment: PlaceholderAlignment.baseline,
+            baseline: TextBaseline.alphabetic,
+            child: SpoilerText(
+              child: TextSpan(children: _spans(children, context, style)),
+            ),
+          ),
+        },
+    ];
   }
 }

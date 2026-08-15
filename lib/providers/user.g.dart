@@ -93,7 +93,7 @@ abstract class _$UserResponseNotifier extends $Notifier<UserResponse> {
   UserResponse build(int userId);
   @$mustCallSuper
   @override
-  void runBuild() {
+  WhenComplete runBuild() {
     final ref = this.ref as $Ref<UserResponse, UserResponse>;
     final element =
         ref.element
@@ -103,6 +103,6 @@ abstract class _$UserResponseNotifier extends $Notifier<UserResponse> {
               Object?,
               Object?
             >;
-    element.handleCreate(ref, () => build(_$args));
+    return element.handleCreate(ref, () => build(_$args));
   }
 }

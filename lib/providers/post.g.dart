@@ -57,7 +57,7 @@ final class PostNotifierProvider extends $NotifierProvider<PostNotifier, Post> {
   }
 }
 
-String _$postNotifierHash() => r'0fcea09c00117b5d5c4bf972dc30bec997149c9b';
+String _$postNotifierHash() => r'271222664069fd0c4d4297af3c4e6049266bc2e1';
 
 final class PostNotifierFamily extends $Family
     with $ClassFamilyOverride<PostNotifier, Post, Post, Post, int> {
@@ -84,7 +84,7 @@ abstract class _$PostNotifier extends $Notifier<Post> {
   Post build(int postId);
   @$mustCallSuper
   @override
-  void runBuild() {
+  WhenComplete runBuild() {
     final ref = this.ref as $Ref<Post, Post>;
     final element =
         ref.element
@@ -94,6 +94,6 @@ abstract class _$PostNotifier extends $Notifier<Post> {
               Object?,
               Object?
             >;
-    element.handleCreate(ref, () => build(_$args));
+    return element.handleCreate(ref, () => build(_$args));
   }
 }

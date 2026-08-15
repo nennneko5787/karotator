@@ -55,9 +55,16 @@ class PostsApi extends KarotterEndpoints {
     return RecommendedResponseLatest.fromJson(res.json);
   }
 
-  Future<Post> byId(int postId) async {
-    final res = await http.get('posts/$postId');
-    return res.object('post', Post.fromJson);
+  /// カロート 1 件。**見えるとは限らない。**
+  ///
+  /// 閲覧者が隠したもの（ミュート・ブロック）は [includeMutedOrBlocked] を
+  /// 立てると開く。相手にブロックされている場合は立てても開かない。
+  Future<PostResult> byId(int postId, {bool includeMutedOrBlocked = false}) async {
+    final res = await http.get(
+      'posts/$postId',
+      query: {if (includeMutedOrBlocked) 'includeMutedOrBlocked': true},
+    );
+    return res.object('post', postResultFromJson);
   }
 
   Future<RepliesResponse> replies({

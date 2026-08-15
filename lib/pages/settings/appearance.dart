@@ -1,11 +1,15 @@
 import "package:flutter/material.dart";
 import "package:flutter_riverpod/flutter_riverpod.dart";
+import "package:karotator/enum.dart";
+import "package:karotator/providers/emoji_style.dart";
 import "package:karotator/providers/font.dart";
 import "package:karotator/providers/font_size.dart";
 import "package:karotator/providers/theme.dart";
+import "package:karotator/providers/ui_scale.dart";
 import "package:karotator/ui/settings/font_size.dart";
 import "package:karotator/ui/settings/settings_list.dart";
 import "package:karotator/ui/settings/settings_section.dart";
+import "package:karotator/ui/settings/ui_scale.dart";
 import "package:karotator/utils.dart";
 import "package:material_symbols_icons/symbols.dart";
 
@@ -117,6 +121,48 @@ class _AppearanceSettingsState extends ConsumerState<AppearanceSettings> {
     );
   }
 
+  void showEmojiStyleSettingMenu(
+    BuildContext context, {
+    required EmojiStyle style,
+    required EmojiStyleNotifier notifier,
+  }) {
+    showModalBottomSheet(
+      context: context,
+      builder: (context) {
+        return SafeArea(
+          child: Column(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              for (final choice in EmojiStyle.values)
+                ListTile(
+                  // 選択肢自体をその絵柄で描く。見比べて選べるように。
+                  leading: Text(
+                    "😀",
+                    style: TextStyle(
+                      fontSize: 24,
+                      fontFamilyFallback: [?choice.fontFamily],
+                    ),
+                  ),
+                  title: Text(choice.label),
+                  subtitle: Text(_emojiStyleDescription(choice)),
+                  trailing: style == choice ? const Icon(Icons.check) : null,
+                  onTap: () {
+                    notifier.setEmojiStyle(choice);
+                    Navigator.pop(context);
+                  },
+                ),
+            ],
+          ),
+        );
+      },
+    );
+  }
+
+  static String _emojiStyleDescription(EmojiStyle style) => switch (style) {
+    EmojiStyle.native => "端末が持っている絵文字をそのまま使う。",
+    EmojiStyle.twemoji => "Twitter と同じ絵柄。同梱しているのでどの端末でも同じに見える。",
+  };
+
   void showFontSizeSettingMenu(BuildContext context) {
     showModalBottomSheet(
       context: context,
@@ -133,6 +179,10 @@ class _AppearanceSettingsState extends ConsumerState<AppearanceSettings> {
     final fontNotifier = ref.watch(fontProvider.notifier);
 
     final fontSize = ref.watch(fontSizeProvider);
+    final uiScale = ref.watch(uiScaleProvider);
+
+    final emojiStyle = ref.watch(emojiStyleProvider);
+    final emojiStyleNotifier = ref.watch(emojiStyleProvider.notifier);
 
     return Scaffold(
       appBar: AppBar(title: const Text("表示設定")),
@@ -171,6 +221,32 @@ class _AppearanceSettingsState extends ConsumerState<AppearanceSettings> {
             trailing: Text("${(fontSize * 100).floor()}%"),
             onTap: () {
               showFontSizeSettingMenu(context);
+            },
+          ),
+          SettingsSection(
+            leading: const Icon(Symbols.zoom_out_map),
+            title: "UI サイズ",
+            subtitle: "文字も含めて、画面全体の大きさを変える。",
+            trailing: Text("${(uiScale * 100).round()}%"),
+            onTap: () => showModalBottomSheet(
+              context: context,
+              builder: (context) => const UiScaleBottomSheet(),
+            ),
+          ),
+          SettingsSection(
+            leading: const Icon(Symbols.mood),
+            title: "絵文字",
+            subtitle: "好きな絵柄で。本文もリアクションもまとめて変わる。",
+            trailing: Text(
+              emojiStyle.label,
+              style: TextStyle(fontFamilyFallback: [?emojiStyle.fontFamily]),
+            ),
+            onTap: () {
+              showEmojiStyleSettingMenu(
+                context,
+                style: emojiStyle,
+                notifier: emojiStyleNotifier,
+              );
             },
           ),
         ],

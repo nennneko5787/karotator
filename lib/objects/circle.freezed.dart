@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 // coverage:ignore-file
-// ignore_for_file: type=lint
+// ignore_for_file: type=lint, type=warning, deprecated_member_use, deprecated_member_use_from_same_package
 // ignore_for_file: unused_element, deprecated_member_use, deprecated_member_use_from_same_package, use_function_type_syntax_for_parameters, unnecessary_const, avoid_init_to_null, invalid_override_different_default_values_named, prefer_expression_function_bodies, annotate_overrides, invalid_annotation_target, unnecessary_question_mark
 
 part of 'circle.dart';
@@ -9,6 +9,7 @@ part of 'circle.dart';
 // FreezedGenerator
 // **************************************************************************
 
+// GENERATED CODE - DO NOT MODIFY BY HAND
 // dart format off
 T _$identity<T>(T value) => value;
 
@@ -66,7 +67,7 @@ class _$CircleCountMetaCopyWithImpl<$Res>
 /// Create a copy of CircleCountMeta
 /// with the given fields replaced by the non-null parameter values.
 @pragma('vm:prefer-inline') @override $Res call({Object? posts = null,Object? stories = null,}) {
-  return _then(_self.copyWith(
+  return _then(CircleCountMeta(
 posts: null == posts ? _self.posts : posts // ignore: cast_nullable_to_non_nullable
 as int,stories: null == stories ? _self.stories : stories // ignore: cast_nullable_to_non_nullable
 as int,
@@ -332,7 +333,7 @@ class _$CircleCopyWithImpl<$Res>
 /// Create a copy of Circle
 /// with the given fields replaced by the non-null parameter values.
 @pragma('vm:prefer-inline') @override $Res call({Object? id = null,Object? ownerId = null,Object? name = null,Object? createdAt = freezed,Object? updatedAt = freezed,Object? description = freezed,Object? members = freezed,Object? meta = null,}) {
-  return _then(_self.copyWith(
+  return _then(Circle(
 id: null == id ? _self.id : id // ignore: cast_nullable_to_non_nullable
 as int,ownerId: null == ownerId ? _self.ownerId : ownerId // ignore: cast_nullable_to_non_nullable
 as int,name: null == name ? _self.name : name // ignore: cast_nullable_to_non_nullable
@@ -491,7 +492,7 @@ return $default(_that.id,_that.ownerId,_that.name,_that.createdAt,_that.updatedA
 @JsonSerializable()
 
 class _Circle implements Circle {
-  const _Circle({required this.id, required this.ownerId, required this.name, this.createdAt, this.updatedAt, this.description, final  List<Author>? members, @JsonKey(name: '_count') required this.meta}): _members = members;
+  const _Circle({required this.id, required this.ownerId, required this.name, this.createdAt, this.updatedAt, this.description,  List<Author>? members, @JsonKey(name: '_count') required this.meta}): _members = members;
   factory _Circle.fromJson(Map<String, dynamic> json) => _$CircleFromJson(json);
 
 @override final  int id;

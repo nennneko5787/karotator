@@ -3,9 +3,12 @@ import "package:flutter_riverpod/flutter_riverpod.dart";
 import "package:karotator/api/karotter_api.dart";
 import "package:karotator/pages/home.dart";
 import "package:karotator/preferences.dart";
+import "package:karotator/providers/auth_user.dart";
+import "package:karotator/providers/emoji_style.dart";
 import "package:karotator/providers/font.dart";
 import "package:karotator/providers/font_size.dart";
 import "package:karotator/providers/theme.dart";
+import "package:karotator/providers/ui_scale.dart";
 import "package:karotator/ui/dialog.dart";
 import "package:karotator/utils.dart";
 
@@ -29,6 +32,8 @@ class _StartUpPageState extends ConsumerState<StartUpPage> {
     final themeNotifier = ref.read(themeModeProvider.notifier);
     final fontNotifier = ref.read(fontProvider.notifier);
     final fontSizeNotifier = ref.read(fontSizeProvider.notifier);
+    final emojiStyleNotifier = ref.read(emojiStyleProvider.notifier);
+    final uiScaleNotifier = ref.read(uiScaleProvider.notifier);
 
     try {
       await loadAllFonts();
@@ -38,11 +43,24 @@ class _StartUpPageState extends ConsumerState<StartUpPage> {
         themeNotifier.setThemeMode(Preferences().getThemeMode());
         fontNotifier.setFont(Preferences().getFont());
         fontSizeNotifier.setFontSize(Preferences().getFontSize());
+        emojiStyleNotifier.setEmojiStyle(Preferences().getEmojiStyle());
+        uiScaleNotifier.setUiScale(Preferences().getUiScale());
       }
 
       if (!KarotterApi().initialized) {
         await KarotterApi().initialize();
       }
+
+      // session が読んだ控えをプロバイダへ渡す。ここ以降、画面は
+      // session.login() を呼ばずに authUserProvider を見る。
+      //
+      // アカウント切り替え直後はこの画面に戻ってくるが、`switchTo` を待たずに
+      // 遷移するので控えが空のことがある。その場合だけ読み直す。
+      var user = KarotterApi().session.user;
+      if (user == null && KarotterApi().session.accountId != null) {
+        user = (await KarotterApi().session.login())?.user;
+      }
+      ref.read(authUserProvider.notifier).hydrate(user);
 
       if (KarotterApi().session.accountId != null) {
         await KarotterApi().auth.refresh();

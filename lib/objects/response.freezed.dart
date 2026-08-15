@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 // coverage:ignore-file
-// ignore_for_file: type=lint
+// ignore_for_file: type=lint, type=warning, deprecated_member_use, deprecated_member_use_from_same_package
 // ignore_for_file: unused_element, deprecated_member_use, deprecated_member_use_from_same_package, use_function_type_syntax_for_parameters, unnecessary_const, avoid_init_to_null, invalid_override_different_default_values_named, prefer_expression_function_bodies, annotate_overrides, invalid_annotation_target, unnecessary_question_mark
 
 part of 'response.dart';
@@ -9,6 +9,7 @@ part of 'response.dart';
 // FreezedGenerator
 // **************************************************************************
 
+// GENERATED CODE - DO NOT MODIFY BY HAND
 // dart format off
 T _$identity<T>(T value) => value;
 
@@ -66,7 +67,7 @@ class _$TimeLinePaginationCopyWithImpl<$Res>
 /// Create a copy of TimeLinePagination
 /// with the given fields replaced by the non-null parameter values.
 @pragma('vm:prefer-inline') @override $Res call({Object? limit = null,Object? page = null,Object? mode = null,}) {
-  return _then(_self.copyWith(
+  return _then(TimeLinePagination(
 limit: null == limit ? _self.limit : limit // ignore: cast_nullable_to_non_nullable
 as int,page: null == page ? _self.page : page // ignore: cast_nullable_to_non_nullable
 as int,mode: null == mode ? _self.mode : mode // ignore: cast_nullable_to_non_nullable
@@ -335,7 +336,7 @@ class _$RecommendedPaginationCopyWithImpl<$Res>
 /// Create a copy of RecommendedPagination
 /// with the given fields replaced by the non-null parameter values.
 @pragma('vm:prefer-inline') @override $Res call({Object? limit = null,Object? page = null,}) {
-  return _then(_self.copyWith(
+  return _then(RecommendedPagination(
 limit: null == limit ? _self.limit : limit // ignore: cast_nullable_to_non_nullable
 as int,page: null == page ? _self.page : page // ignore: cast_nullable_to_non_nullable
 as int,
@@ -601,7 +602,7 @@ class _$RecommendedPaginationLatestCopyWithImpl<$Res>
 /// Create a copy of RecommendedPaginationLatest
 /// with the given fields replaced by the non-null parameter values.
 @pragma('vm:prefer-inline') @override $Res call({Object? limit = null,Object? page = null,Object? hasNext = null,Object? nextCursor = null,}) {
-  return _then(_self.copyWith(
+  return _then(RecommendedPaginationLatest(
 limit: null == limit ? _self.limit : limit // ignore: cast_nullable_to_non_nullable
 as int,page: null == page ? _self.page : page // ignore: cast_nullable_to_non_nullable
 as int,hasNext: null == hasNext ? _self.hasNext : hasNext // ignore: cast_nullable_to_non_nullable
@@ -873,7 +874,7 @@ class _$RepliesPaginationCopyWithImpl<$Res>
 /// Create a copy of RepliesPagination
 /// with the given fields replaced by the non-null parameter values.
 @pragma('vm:prefer-inline') @override $Res call({Object? limit = null,Object? page = null,Object? total = null,Object? pages = null,}) {
-  return _then(_self.copyWith(
+  return _then(RepliesPagination(
 limit: null == limit ? _self.limit : limit // ignore: cast_nullable_to_non_nullable
 as int,page: null == page ? _self.page : page // ignore: cast_nullable_to_non_nullable
 as int,total: null == total ? _self.total : total // ignore: cast_nullable_to_non_nullable
@@ -1145,7 +1146,7 @@ class _$RecommendedResponseCopyWithImpl<$Res>
 /// Create a copy of RecommendedResponse
 /// with the given fields replaced by the non-null parameter values.
 @pragma('vm:prefer-inline') @override $Res call({Object? pagination = null,Object? posts = null,}) {
-  return _then(_self.copyWith(
+  return _then(RecommendedResponse(
 pagination: null == pagination ? _self.pagination : pagination // ignore: cast_nullable_to_non_nullable
 as RecommendedPagination,posts: null == posts ? _self.posts : posts // ignore: cast_nullable_to_non_nullable
 as List<Post>,
@@ -1298,7 +1299,7 @@ return $default(_that.pagination,_that.posts);case _:
 @JsonSerializable()
 
 class _RecommendedResponse implements RecommendedResponse {
-  const _RecommendedResponse({required this.pagination, required final  List<Post> posts}): _posts = posts;
+  const _RecommendedResponse({required this.pagination, required  List<Post> posts}): _posts = posts;
   factory _RecommendedResponse.fromJson(Map<String, dynamic> json) => _$RecommendedResponseFromJson(json);
 
 @override final  RecommendedPagination pagination;
@@ -1435,7 +1436,7 @@ class _$RecommendedResponseLatestCopyWithImpl<$Res>
 /// Create a copy of RecommendedResponseLatest
 /// with the given fields replaced by the non-null parameter values.
 @pragma('vm:prefer-inline') @override $Res call({Object? pagination = null,Object? posts = null,}) {
-  return _then(_self.copyWith(
+  return _then(RecommendedResponseLatest(
 pagination: null == pagination ? _self.pagination : pagination // ignore: cast_nullable_to_non_nullable
 as RecommendedPaginationLatest,posts: null == posts ? _self.posts : posts // ignore: cast_nullable_to_non_nullable
 as List<Post>,
@@ -1588,7 +1589,7 @@ return $default(_that.pagination,_that.posts);case _:
 @JsonSerializable()
 
 class _RecommendedResponseLatest implements RecommendedResponseLatest {
-  const _RecommendedResponseLatest({required this.pagination, required final  List<Post> posts}): _posts = posts;
+  const _RecommendedResponseLatest({required this.pagination, required  List<Post> posts}): _posts = posts;
   factory _RecommendedResponseLatest.fromJson(Map<String, dynamic> json) => _$RecommendedResponseLatestFromJson(json);
 
 @override final  RecommendedPaginationLatest pagination;
@@ -1725,7 +1726,7 @@ class _$TimeLineResponseCopyWithImpl<$Res>
 /// Create a copy of TimeLineResponse
 /// with the given fields replaced by the non-null parameter values.
 @pragma('vm:prefer-inline') @override $Res call({Object? pagination = null,Object? posts = null,}) {
-  return _then(_self.copyWith(
+  return _then(TimeLineResponse(
 pagination: null == pagination ? _self.pagination : pagination // ignore: cast_nullable_to_non_nullable
 as TimeLinePagination,posts: null == posts ? _self.posts : posts // ignore: cast_nullable_to_non_nullable
 as List<Post>,
@@ -1878,7 +1879,7 @@ return $default(_that.pagination,_that.posts);case _:
 @JsonSerializable()
 
 class _TimeLineResponse implements TimeLineResponse {
-  const _TimeLineResponse({required this.pagination, required final  List<Post> posts}): _posts = posts;
+  const _TimeLineResponse({required this.pagination, required  List<Post> posts}): _posts = posts;
   factory _TimeLineResponse.fromJson(Map<String, dynamic> json) => _$TimeLineResponseFromJson(json);
 
 @override final  TimeLinePagination pagination;
@@ -2015,7 +2016,7 @@ class _$RepliesResponseCopyWithImpl<$Res>
 /// Create a copy of RepliesResponse
 /// with the given fields replaced by the non-null parameter values.
 @pragma('vm:prefer-inline') @override $Res call({Object? pagination = null,Object? replies = null,}) {
-  return _then(_self.copyWith(
+  return _then(RepliesResponse(
 pagination: null == pagination ? _self.pagination : pagination // ignore: cast_nullable_to_non_nullable
 as RepliesPagination,replies: null == replies ? _self.replies : replies // ignore: cast_nullable_to_non_nullable
 as List<Post>,
@@ -2168,7 +2169,7 @@ return $default(_that.pagination,_that.replies);case _:
 @JsonSerializable()
 
 class _RepliesResponse implements RepliesResponse {
-  const _RepliesResponse({required this.pagination, required final  List<Post> replies}): _replies = replies;
+  const _RepliesResponse({required this.pagination, required  List<Post> replies}): _replies = replies;
   factory _RepliesResponse.fromJson(Map<String, dynamic> json) => _$RepliesResponseFromJson(json);
 
 @override final  RepliesPagination pagination;
@@ -2305,7 +2306,7 @@ class _$LoginResponseCopyWithImpl<$Res>
 /// Create a copy of LoginResponse
 /// with the given fields replaced by the non-null parameter values.
 @pragma('vm:prefer-inline') @override $Res call({Object? accessToken = null,Object? deviceId = null,Object? sessionId = null,Object? user = null,}) {
-  return _then(_self.copyWith(
+  return _then(LoginResponse(
 accessToken: null == accessToken ? _self.accessToken : accessToken // ignore: cast_nullable_to_non_nullable
 as String,deviceId: null == deviceId ? _self.deviceId : deviceId // ignore: cast_nullable_to_non_nullable
 as String,sessionId: null == sessionId ? _self.sessionId : sessionId // ignore: cast_nullable_to_non_nullable
@@ -2595,7 +2596,7 @@ class _$RefreshResponseCopyWithImpl<$Res>
 /// Create a copy of RefreshResponse
 /// with the given fields replaced by the non-null parameter values.
 @pragma('vm:prefer-inline') @override $Res call({Object? accessToken = null,Object? sessionId = null,}) {
-  return _then(_self.copyWith(
+  return _then(RefreshResponse(
 accessToken: null == accessToken ? _self.accessToken : accessToken // ignore: cast_nullable_to_non_nullable
 as String,sessionId: null == sessionId ? _self.sessionId : sessionId // ignore: cast_nullable_to_non_nullable
 as String,
@@ -2810,10 +2811,10 @@ as String,
 /// @nodoc
 mixin _$UserResponse {
 
- User get user; QuotedPost? get pinnedPost; bool get isFollowing; bool get isFollowedBy; bool get isBlocked; bool get hasBlocked; bool get isBlockedBy; bool get isMuted; bool get hasPendingRequest; List<Author> get mutualFollowersPreview; int get mutualFollowersCount;/// このユーザーの投稿通知を受け取る設定にしているか。
+ User get user;@QuoteConverter() Quote? get pinnedPost; bool get isFollowing; bool get isFollowedBy; bool get isBlocked; bool get hasBlocked; bool get isBlockedBy; bool get isMuted; bool get hasPendingRequest; List<Author> get mutualFollowersPreview; int get mutualFollowersCount;/// このユーザーの投稿通知を受け取る設定にしているか。
  bool get isPostNotificationsEnabled;/// このユーザーのカロートをタイムラインから隠しているか。
  bool get isRekarotHidden;/// ピン留めは複数対応。[pinnedPost] は 1 件目だけの互換フィールド。
- List<QuotedPost> get pinnedPosts;
+@QuoteListConverter() List<Quote> get pinnedPosts;
 /// Create a copy of UserResponse
 /// with the given fields replaced by the non-null parameter values.
 @JsonKey(includeFromJson: false, includeToJson: false)
@@ -2846,11 +2847,11 @@ abstract mixin class $UserResponseCopyWith<$Res>  {
   factory $UserResponseCopyWith(UserResponse value, $Res Function(UserResponse) _then) = _$UserResponseCopyWithImpl;
 @useResult
 $Res call({
- User user, QuotedPost? pinnedPost, bool isFollowing, bool isFollowedBy, bool isBlocked, bool hasBlocked, bool isBlockedBy, bool isMuted, bool hasPendingRequest, List<Author> mutualFollowersPreview, int mutualFollowersCount, bool isPostNotificationsEnabled, bool isRekarotHidden, List<QuotedPost> pinnedPosts
+ User user,@QuoteConverter() Quote? pinnedPost, bool isFollowing, bool isFollowedBy, bool isBlocked, bool hasBlocked, bool isBlockedBy, bool isMuted, bool hasPendingRequest, List<Author> mutualFollowersPreview, int mutualFollowersCount, bool isPostNotificationsEnabled, bool isRekarotHidden,@QuoteListConverter() List<Quote> pinnedPosts
 });
 
 
-$UserCopyWith<$Res> get user;$QuotedPostCopyWith<$Res>? get pinnedPost;
+$UserCopyWith<$Res> get user;
 
 }
 /// @nodoc
@@ -2864,10 +2865,10 @@ class _$UserResponseCopyWithImpl<$Res>
 /// Create a copy of UserResponse
 /// with the given fields replaced by the non-null parameter values.
 @pragma('vm:prefer-inline') @override $Res call({Object? user = null,Object? pinnedPost = freezed,Object? isFollowing = null,Object? isFollowedBy = null,Object? isBlocked = null,Object? hasBlocked = null,Object? isBlockedBy = null,Object? isMuted = null,Object? hasPendingRequest = null,Object? mutualFollowersPreview = null,Object? mutualFollowersCount = null,Object? isPostNotificationsEnabled = null,Object? isRekarotHidden = null,Object? pinnedPosts = null,}) {
-  return _then(_self.copyWith(
+  return _then(UserResponse(
 user: null == user ? _self.user : user // ignore: cast_nullable_to_non_nullable
 as User,pinnedPost: freezed == pinnedPost ? _self.pinnedPost : pinnedPost // ignore: cast_nullable_to_non_nullable
-as QuotedPost?,isFollowing: null == isFollowing ? _self.isFollowing : isFollowing // ignore: cast_nullable_to_non_nullable
+as Quote?,isFollowing: null == isFollowing ? _self.isFollowing : isFollowing // ignore: cast_nullable_to_non_nullable
 as bool,isFollowedBy: null == isFollowedBy ? _self.isFollowedBy : isFollowedBy // ignore: cast_nullable_to_non_nullable
 as bool,isBlocked: null == isBlocked ? _self.isBlocked : isBlocked // ignore: cast_nullable_to_non_nullable
 as bool,hasBlocked: null == hasBlocked ? _self.hasBlocked : hasBlocked // ignore: cast_nullable_to_non_nullable
@@ -2879,7 +2880,7 @@ as List<Author>,mutualFollowersCount: null == mutualFollowersCount ? _self.mutua
 as int,isPostNotificationsEnabled: null == isPostNotificationsEnabled ? _self.isPostNotificationsEnabled : isPostNotificationsEnabled // ignore: cast_nullable_to_non_nullable
 as bool,isRekarotHidden: null == isRekarotHidden ? _self.isRekarotHidden : isRekarotHidden // ignore: cast_nullable_to_non_nullable
 as bool,pinnedPosts: null == pinnedPosts ? _self.pinnedPosts : pinnedPosts // ignore: cast_nullable_to_non_nullable
-as List<QuotedPost>,
+as List<Quote>,
   ));
 }
 /// Create a copy of UserResponse
@@ -2890,18 +2891,6 @@ $UserCopyWith<$Res> get user {
   
   return $UserCopyWith<$Res>(_self.user, (value) {
     return _then(_self.copyWith(user: value));
-  });
-}/// Create a copy of UserResponse
-/// with the given fields replaced by the non-null parameter values.
-@override
-@pragma('vm:prefer-inline')
-$QuotedPostCopyWith<$Res>? get pinnedPost {
-    if (_self.pinnedPost == null) {
-    return null;
-  }
-
-  return $QuotedPostCopyWith<$Res>(_self.pinnedPost!, (value) {
-    return _then(_self.copyWith(pinnedPost: value));
   });
 }
 }
@@ -2985,7 +2974,7 @@ return $default(_that);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( User user,  QuotedPost? pinnedPost,  bool isFollowing,  bool isFollowedBy,  bool isBlocked,  bool hasBlocked,  bool isBlockedBy,  bool isMuted,  bool hasPendingRequest,  List<Author> mutualFollowersPreview,  int mutualFollowersCount,  bool isPostNotificationsEnabled,  bool isRekarotHidden,  List<QuotedPost> pinnedPosts)?  $default,{required TResult orElse(),}) {final _that = this;
+@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( User user, @QuoteConverter()  Quote? pinnedPost,  bool isFollowing,  bool isFollowedBy,  bool isBlocked,  bool hasBlocked,  bool isBlockedBy,  bool isMuted,  bool hasPendingRequest,  List<Author> mutualFollowersPreview,  int mutualFollowersCount,  bool isPostNotificationsEnabled,  bool isRekarotHidden, @QuoteListConverter()  List<Quote> pinnedPosts)?  $default,{required TResult orElse(),}) {final _that = this;
 switch (_that) {
 case _UserResponse() when $default != null:
 return $default(_that.user,_that.pinnedPost,_that.isFollowing,_that.isFollowedBy,_that.isBlocked,_that.hasBlocked,_that.isBlockedBy,_that.isMuted,_that.hasPendingRequest,_that.mutualFollowersPreview,_that.mutualFollowersCount,_that.isPostNotificationsEnabled,_that.isRekarotHidden,_that.pinnedPosts);case _:
@@ -3006,7 +2995,7 @@ return $default(_that.user,_that.pinnedPost,_that.isFollowing,_that.isFollowedBy
 /// }
 /// ```
 
-@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( User user,  QuotedPost? pinnedPost,  bool isFollowing,  bool isFollowedBy,  bool isBlocked,  bool hasBlocked,  bool isBlockedBy,  bool isMuted,  bool hasPendingRequest,  List<Author> mutualFollowersPreview,  int mutualFollowersCount,  bool isPostNotificationsEnabled,  bool isRekarotHidden,  List<QuotedPost> pinnedPosts)  $default,) {final _that = this;
+@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( User user, @QuoteConverter()  Quote? pinnedPost,  bool isFollowing,  bool isFollowedBy,  bool isBlocked,  bool hasBlocked,  bool isBlockedBy,  bool isMuted,  bool hasPendingRequest,  List<Author> mutualFollowersPreview,  int mutualFollowersCount,  bool isPostNotificationsEnabled,  bool isRekarotHidden, @QuoteListConverter()  List<Quote> pinnedPosts)  $default,) {final _that = this;
 switch (_that) {
 case _UserResponse():
 return $default(_that.user,_that.pinnedPost,_that.isFollowing,_that.isFollowedBy,_that.isBlocked,_that.hasBlocked,_that.isBlockedBy,_that.isMuted,_that.hasPendingRequest,_that.mutualFollowersPreview,_that.mutualFollowersCount,_that.isPostNotificationsEnabled,_that.isRekarotHidden,_that.pinnedPosts);case _:
@@ -3026,7 +3015,7 @@ return $default(_that.user,_that.pinnedPost,_that.isFollowing,_that.isFollowedBy
 /// }
 /// ```
 
-@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( User user,  QuotedPost? pinnedPost,  bool isFollowing,  bool isFollowedBy,  bool isBlocked,  bool hasBlocked,  bool isBlockedBy,  bool isMuted,  bool hasPendingRequest,  List<Author> mutualFollowersPreview,  int mutualFollowersCount,  bool isPostNotificationsEnabled,  bool isRekarotHidden,  List<QuotedPost> pinnedPosts)?  $default,) {final _that = this;
+@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( User user, @QuoteConverter()  Quote? pinnedPost,  bool isFollowing,  bool isFollowedBy,  bool isBlocked,  bool hasBlocked,  bool isBlockedBy,  bool isMuted,  bool hasPendingRequest,  List<Author> mutualFollowersPreview,  int mutualFollowersCount,  bool isPostNotificationsEnabled,  bool isRekarotHidden, @QuoteListConverter()  List<Quote> pinnedPosts)?  $default,) {final _that = this;
 switch (_that) {
 case _UserResponse() when $default != null:
 return $default(_that.user,_that.pinnedPost,_that.isFollowing,_that.isFollowedBy,_that.isBlocked,_that.hasBlocked,_that.isBlockedBy,_that.isMuted,_that.hasPendingRequest,_that.mutualFollowersPreview,_that.mutualFollowersCount,_that.isPostNotificationsEnabled,_that.isRekarotHidden,_that.pinnedPosts);case _:
@@ -3041,11 +3030,11 @@ return $default(_that.user,_that.pinnedPost,_that.isFollowing,_that.isFollowedBy
 @JsonSerializable()
 
 class _UserResponse implements UserResponse {
-  const _UserResponse({required this.user, this.pinnedPost, required this.isFollowing, required this.isFollowedBy, required this.isBlocked, required this.hasBlocked, required this.isBlockedBy, required this.isMuted, required this.hasPendingRequest, required final  List<Author> mutualFollowersPreview, required this.mutualFollowersCount, this.isPostNotificationsEnabled = false, this.isRekarotHidden = false, final  List<QuotedPost> pinnedPosts = const []}): _mutualFollowersPreview = mutualFollowersPreview,_pinnedPosts = pinnedPosts;
+  const _UserResponse({required this.user, @QuoteConverter() this.pinnedPost, required this.isFollowing, required this.isFollowedBy, required this.isBlocked, required this.hasBlocked, required this.isBlockedBy, required this.isMuted, required this.hasPendingRequest, required  List<Author> mutualFollowersPreview, required this.mutualFollowersCount, this.isPostNotificationsEnabled = false, this.isRekarotHidden = false, @QuoteListConverter()  List<Quote> pinnedPosts = const []}): _mutualFollowersPreview = mutualFollowersPreview,_pinnedPosts = pinnedPosts;
   factory _UserResponse.fromJson(Map<String, dynamic> json) => _$UserResponseFromJson(json);
 
 @override final  User user;
-@override final  QuotedPost? pinnedPost;
+@override@QuoteConverter() final  Quote? pinnedPost;
 @override final  bool isFollowing;
 @override final  bool isFollowedBy;
 @override final  bool isBlocked;
@@ -3066,9 +3055,9 @@ class _UserResponse implements UserResponse {
 /// このユーザーのカロートをタイムラインから隠しているか。
 @override@JsonKey() final  bool isRekarotHidden;
 /// ピン留めは複数対応。[pinnedPost] は 1 件目だけの互換フィールド。
- final  List<QuotedPost> _pinnedPosts;
+ final  List<Quote> _pinnedPosts;
 /// ピン留めは複数対応。[pinnedPost] は 1 件目だけの互換フィールド。
-@override@JsonKey() List<QuotedPost> get pinnedPosts {
+@override@JsonKey()@QuoteListConverter() List<Quote> get pinnedPosts {
   if (_pinnedPosts is EqualUnmodifiableListView) return _pinnedPosts;
   // ignore: implicit_dynamic_type
   return EqualUnmodifiableListView(_pinnedPosts);
@@ -3108,11 +3097,11 @@ abstract mixin class _$UserResponseCopyWith<$Res> implements $UserResponseCopyWi
   factory _$UserResponseCopyWith(_UserResponse value, $Res Function(_UserResponse) _then) = __$UserResponseCopyWithImpl;
 @override @useResult
 $Res call({
- User user, QuotedPost? pinnedPost, bool isFollowing, bool isFollowedBy, bool isBlocked, bool hasBlocked, bool isBlockedBy, bool isMuted, bool hasPendingRequest, List<Author> mutualFollowersPreview, int mutualFollowersCount, bool isPostNotificationsEnabled, bool isRekarotHidden, List<QuotedPost> pinnedPosts
+ User user,@QuoteConverter() Quote? pinnedPost, bool isFollowing, bool isFollowedBy, bool isBlocked, bool hasBlocked, bool isBlockedBy, bool isMuted, bool hasPendingRequest, List<Author> mutualFollowersPreview, int mutualFollowersCount, bool isPostNotificationsEnabled, bool isRekarotHidden,@QuoteListConverter() List<Quote> pinnedPosts
 });
 
 
-@override $UserCopyWith<$Res> get user;@override $QuotedPostCopyWith<$Res>? get pinnedPost;
+@override $UserCopyWith<$Res> get user;
 
 }
 /// @nodoc
@@ -3129,7 +3118,7 @@ class __$UserResponseCopyWithImpl<$Res>
   return _then(_UserResponse(
 user: null == user ? _self.user : user // ignore: cast_nullable_to_non_nullable
 as User,pinnedPost: freezed == pinnedPost ? _self.pinnedPost : pinnedPost // ignore: cast_nullable_to_non_nullable
-as QuotedPost?,isFollowing: null == isFollowing ? _self.isFollowing : isFollowing // ignore: cast_nullable_to_non_nullable
+as Quote?,isFollowing: null == isFollowing ? _self.isFollowing : isFollowing // ignore: cast_nullable_to_non_nullable
 as bool,isFollowedBy: null == isFollowedBy ? _self.isFollowedBy : isFollowedBy // ignore: cast_nullable_to_non_nullable
 as bool,isBlocked: null == isBlocked ? _self.isBlocked : isBlocked // ignore: cast_nullable_to_non_nullable
 as bool,hasBlocked: null == hasBlocked ? _self.hasBlocked : hasBlocked // ignore: cast_nullable_to_non_nullable
@@ -3141,7 +3130,7 @@ as List<Author>,mutualFollowersCount: null == mutualFollowersCount ? _self.mutua
 as int,isPostNotificationsEnabled: null == isPostNotificationsEnabled ? _self.isPostNotificationsEnabled : isPostNotificationsEnabled // ignore: cast_nullable_to_non_nullable
 as bool,isRekarotHidden: null == isRekarotHidden ? _self.isRekarotHidden : isRekarotHidden // ignore: cast_nullable_to_non_nullable
 as bool,pinnedPosts: null == pinnedPosts ? _self._pinnedPosts : pinnedPosts // ignore: cast_nullable_to_non_nullable
-as List<QuotedPost>,
+as List<Quote>,
   ));
 }
 
@@ -3154,18 +3143,6 @@ $UserCopyWith<$Res> get user {
   return $UserCopyWith<$Res>(_self.user, (value) {
     return _then(_self.copyWith(user: value));
   });
-}/// Create a copy of UserResponse
-/// with the given fields replaced by the non-null parameter values.
-@override
-@pragma('vm:prefer-inline')
-$QuotedPostCopyWith<$Res>? get pinnedPost {
-    if (_self.pinnedPost == null) {
-    return null;
-  }
-
-  return $QuotedPostCopyWith<$Res>(_self.pinnedPost!, (value) {
-    return _then(_self.copyWith(pinnedPost: value));
-  });
 }
 }
 
@@ -3173,7 +3150,7 @@ $QuotedPostCopyWith<$Res>? get pinnedPost {
 /// @nodoc
 mixin _$NotificationPagination {
 
- bool get hasMore; int get limit; int get nextPage; int get page;
+ bool get hasMore; int get limit; int? get nextPage; int get page;
 /// Create a copy of NotificationPagination
 /// with the given fields replaced by the non-null parameter values.
 @JsonKey(includeFromJson: false, includeToJson: false)
@@ -3206,7 +3183,7 @@ abstract mixin class $NotificationPaginationCopyWith<$Res>  {
   factory $NotificationPaginationCopyWith(NotificationPagination value, $Res Function(NotificationPagination) _then) = _$NotificationPaginationCopyWithImpl;
 @useResult
 $Res call({
- bool hasMore, int limit, int nextPage, int page
+ bool hasMore, int limit, int? nextPage, int page
 });
 
 
@@ -3223,12 +3200,12 @@ class _$NotificationPaginationCopyWithImpl<$Res>
 
 /// Create a copy of NotificationPagination
 /// with the given fields replaced by the non-null parameter values.
-@pragma('vm:prefer-inline') @override $Res call({Object? hasMore = null,Object? limit = null,Object? nextPage = null,Object? page = null,}) {
-  return _then(_self.copyWith(
+@pragma('vm:prefer-inline') @override $Res call({Object? hasMore = null,Object? limit = null,Object? nextPage = freezed,Object? page = null,}) {
+  return _then(NotificationPagination(
 hasMore: null == hasMore ? _self.hasMore : hasMore // ignore: cast_nullable_to_non_nullable
 as bool,limit: null == limit ? _self.limit : limit // ignore: cast_nullable_to_non_nullable
-as int,nextPage: null == nextPage ? _self.nextPage : nextPage // ignore: cast_nullable_to_non_nullable
-as int,page: null == page ? _self.page : page // ignore: cast_nullable_to_non_nullable
+as int,nextPage: freezed == nextPage ? _self.nextPage : nextPage // ignore: cast_nullable_to_non_nullable
+as int?,page: null == page ? _self.page : page // ignore: cast_nullable_to_non_nullable
 as int,
   ));
 }
@@ -3314,7 +3291,7 @@ return $default(_that);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( bool hasMore,  int limit,  int nextPage,  int page)?  $default,{required TResult orElse(),}) {final _that = this;
+@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( bool hasMore,  int limit,  int? nextPage,  int page)?  $default,{required TResult orElse(),}) {final _that = this;
 switch (_that) {
 case _NotificationPagination() when $default != null:
 return $default(_that.hasMore,_that.limit,_that.nextPage,_that.page);case _:
@@ -3335,7 +3312,7 @@ return $default(_that.hasMore,_that.limit,_that.nextPage,_that.page);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( bool hasMore,  int limit,  int nextPage,  int page)  $default,) {final _that = this;
+@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( bool hasMore,  int limit,  int? nextPage,  int page)  $default,) {final _that = this;
 switch (_that) {
 case _NotificationPagination():
 return $default(_that.hasMore,_that.limit,_that.nextPage,_that.page);case _:
@@ -3355,7 +3332,7 @@ return $default(_that.hasMore,_that.limit,_that.nextPage,_that.page);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( bool hasMore,  int limit,  int nextPage,  int page)?  $default,) {final _that = this;
+@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( bool hasMore,  int limit,  int? nextPage,  int page)?  $default,) {final _that = this;
 switch (_that) {
 case _NotificationPagination() when $default != null:
 return $default(_that.hasMore,_that.limit,_that.nextPage,_that.page);case _:
@@ -3370,12 +3347,12 @@ return $default(_that.hasMore,_that.limit,_that.nextPage,_that.page);case _:
 @JsonSerializable()
 
 class _NotificationPagination implements NotificationPagination {
-  const _NotificationPagination({required this.hasMore, required this.limit, required this.nextPage, required this.page});
+  const _NotificationPagination({required this.hasMore, required this.limit, this.nextPage, required this.page});
   factory _NotificationPagination.fromJson(Map<String, dynamic> json) => _$NotificationPaginationFromJson(json);
 
 @override final  bool hasMore;
 @override final  int limit;
-@override final  int nextPage;
+@override final  int? nextPage;
 @override final  int page;
 
 /// Create a copy of NotificationPagination
@@ -3411,7 +3388,7 @@ abstract mixin class _$NotificationPaginationCopyWith<$Res> implements $Notifica
   factory _$NotificationPaginationCopyWith(_NotificationPagination value, $Res Function(_NotificationPagination) _then) = __$NotificationPaginationCopyWithImpl;
 @override @useResult
 $Res call({
- bool hasMore, int limit, int nextPage, int page
+ bool hasMore, int limit, int? nextPage, int page
 });
 
 
@@ -3428,12 +3405,12 @@ class __$NotificationPaginationCopyWithImpl<$Res>
 
 /// Create a copy of NotificationPagination
 /// with the given fields replaced by the non-null parameter values.
-@override @pragma('vm:prefer-inline') $Res call({Object? hasMore = null,Object? limit = null,Object? nextPage = null,Object? page = null,}) {
+@override @pragma('vm:prefer-inline') $Res call({Object? hasMore = null,Object? limit = null,Object? nextPage = freezed,Object? page = null,}) {
   return _then(_NotificationPagination(
 hasMore: null == hasMore ? _self.hasMore : hasMore // ignore: cast_nullable_to_non_nullable
 as bool,limit: null == limit ? _self.limit : limit // ignore: cast_nullable_to_non_nullable
-as int,nextPage: null == nextPage ? _self.nextPage : nextPage // ignore: cast_nullable_to_non_nullable
-as int,page: null == page ? _self.page : page // ignore: cast_nullable_to_non_nullable
+as int,nextPage: freezed == nextPage ? _self.nextPage : nextPage // ignore: cast_nullable_to_non_nullable
+as int?,page: null == page ? _self.page : page // ignore: cast_nullable_to_non_nullable
 as int,
   ));
 }
@@ -3496,7 +3473,7 @@ class _$NotificationResponseCopyWithImpl<$Res>
 /// Create a copy of NotificationResponse
 /// with the given fields replaced by the non-null parameter values.
 @pragma('vm:prefer-inline') @override $Res call({Object? pagination = null,Object? notifications = null,}) {
-  return _then(_self.copyWith(
+  return _then(NotificationResponse(
 pagination: null == pagination ? _self.pagination : pagination // ignore: cast_nullable_to_non_nullable
 as NotificationPagination,notifications: null == notifications ? _self.notifications : notifications // ignore: cast_nullable_to_non_nullable
 as List<Notification>,
@@ -3649,7 +3626,7 @@ return $default(_that.pagination,_that.notifications);case _:
 @JsonSerializable()
 
 class _NotificationResponse implements NotificationResponse {
-  const _NotificationResponse({required this.pagination, required final  List<Notification> notifications}): _notifications = notifications;
+  const _NotificationResponse({required this.pagination, required  List<Notification> notifications}): _notifications = notifications;
   factory _NotificationResponse.fromJson(Map<String, dynamic> json) => _$NotificationResponseFromJson(json);
 
 @override final  NotificationPagination pagination;

@@ -416,7 +416,7 @@ class _ReferencedPost extends StatelessWidget {
     final tile = ListTile(
       titleAlignment: ListTileTitleAlignment.top,
       leading: PostUserAvatar(avatarUrl: post.author.avatarUrl),
-      title: PostUserDetail(post: post),
+      title: PostUserDetail(author: post.author, createdAt: post.createdAt),
       subtitle: PostContent(post: post, hideActions: true, hideReplyTo: true),
     );
 

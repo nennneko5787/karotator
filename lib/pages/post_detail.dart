@@ -1,13 +1,25 @@
 import "package:flutter/material.dart";
 import "package:karotator/api/karotter_api.dart";
+import "package:karotator/objects/permissions.dart";
 import "package:karotator/objects/post.dart";
 import "package:karotator/ui/dialog.dart";
+import "package:karotator/ui/post/focused.dart";
+import "package:karotator/ui/post/hidden.dart";
 import "package:karotator/ui/post/post.dart";
+import "package:karotator/ui/metrics.dart";
 
 class PostDetailPage extends StatefulWidget {
-  const PostDetailPage({super.key, required this.post});
+  const PostDetailPage({
+    super.key,
+    required this.post,
+    this.revealMutedOrBlocked = false,
+  });
 
   final Post post;
+
+  /// 閲覧者が「表示する」を押してここへ来た。親カロートや引用元にも引き継ぐ
+  /// (REQ-HIDE-015)。
+  final bool revealMutedOrBlocked;
 
   @override
   State<PostDetailPage> createState() => _PostDetailPageState();
@@ -15,7 +27,9 @@ class PostDetailPage extends StatefulWidget {
 
 class _PostDetailPageState extends State<PostDetailPage> {
   late List<Post> posts = [];
-  Post? parentPost;
+
+  /// 親カロート。閲覧者に見せられないこともある (REQ-HIDE-007)。
+  PostResult? parentPost;
   late Future<void> initPostsData;
   late ScrollController controller;
   int page = 1;
@@ -74,7 +88,10 @@ class _PostDetailPageState extends State<PostDetailPage> {
       isLoadingMore = true;
 
       if (widget.post.parentId != null) {
-        final parent = await KarotterApi().posts.byId(widget.post.parentId!);
+        final parent = await KarotterApi().posts.byId(
+          widget.post.parentId!,
+          includeMutedOrBlocked: widget.revealMutedOrBlocked,
+        );
         setState(() {
           parentPost = parent;
         });
@@ -100,11 +117,23 @@ class _PostDetailPageState extends State<PostDetailPage> {
 
   @override
   Widget build(BuildContext context) {
+    final permissions = PostPermissions.of(
+      widget.post,
+      viewerId: KarotterApi().session.userId,
+      viewerUsername: KarotterApi().session.username,
+    );
+
     return Scaffold(
       appBar: AppBar(title: const Text("カロート"), centerTitle: true),
+      // 返信できないカロートでは入力欄を出さず、理由を出す。Web も
+      // canInteract が false のときは入力欄ごと差し替えている。
       bottomNavigationBar: Padding(
         padding: MediaQuery.of(context).viewInsets,
-        child: _ReplyInput(postId: widget.post.id, onPosted: refreshPosts),
+        child: permissions.canReply
+            ? _ReplyInput(postId: widget.post.id, onPosted: refreshPosts)
+            : _ReplyBlocked(
+                reason: permissions.replyDisabledReason ?? "このカロートには返信できません",
+              ),
       ),
       body: RefreshIndicator(
         onRefresh: refreshPosts,
@@ -118,15 +147,36 @@ class _PostDetailPageState extends State<PostDetailPage> {
               return Center(child: Text('Error: ${snapshot.error}'));
             }
 
-            final allItems = [?parentPost, widget.post, ...posts];
+            // 親カロート → 主役 → 返信、の順に縦線で繋ぐ。
+            // 主役と返信の間は線を引かない（Twitter と同じ）。
+            final parent = parentPost;
+            final leading = parent == null ? 0 : 1;
 
             return ListView.builder(
               controller: controller,
-              padding: const EdgeInsets.all(8),
               physics: const AlwaysScrollableScrollPhysics(),
-              itemCount: allItems.length + 1,
+              itemCount: leading + 1 + posts.length + 1,
               itemBuilder: (context, index) {
-                if (index == allItems.length) {
+                if (parent != null && index == 0) {
+                  return _ParentPost(
+                    parent: parent,
+                    revealMutedOrBlocked: widget.revealMutedOrBlocked,
+                    onRevealed: (revealed) =>
+                        setState(() => parentPost = revealed),
+                  );
+                }
+
+                if (index == leading) {
+                  return FocusedPostWidget(
+                    key: ValueKey('focused_${widget.post.id}'),
+                    post: widget.post,
+                    connectorAbove: parent != null,
+                    revealMutedOrBlocked: widget.revealMutedOrBlocked,
+                  );
+                }
+
+                final replyIndex = index - leading - 1;
+                if (replyIndex >= posts.length) {
                   return hasMore
                       ? const Padding(
                           padding: EdgeInsets.all(16),
@@ -135,31 +185,92 @@ class _PostDetailPageState extends State<PostDetailPage> {
                       : const SizedBox.shrink();
                 }
 
-                final post = allItems[index];
-                final mainPostIndex = parentPost != null ? 1 : 0;
-                final isHeader = index == mainPostIndex;
-
-                final child = PostWidget(
-                  key: ValueKey('post_${post.id}_${allItems.length}'),
-                  post: post,
-                  isFirst: index == 0,
-                  isLast: index == allItems.length - 1,
-                  fontSize: isHeader ? 14 : 12,
-                  disablePageTransition: isHeader,
+                final reply = posts[replyIndex];
+                return PostWidget(
+                  key: ValueKey('reply_${reply.id}'),
+                  post: reply,
+                  revealMutedOrBlocked: widget.revealMutedOrBlocked,
                 );
-
-                if (index == mainPostIndex + 1) {
-                  return Column(
-                    mainAxisSize: MainAxisSize.min,
-                    children: [const Divider(height: 1, thickness: 1), child],
-                  );
-                }
-
-                return child;
               },
             );
           },
         ),
+      ),
+    );
+  }
+}
+
+/// スレッドの親。主役へ縦線を伸ばし、区切り線は引かない。
+///
+/// 親は伏せられていることがある (REQ-HIDE-007)。その場合は理由だけ出す。
+class _ParentPost extends StatelessWidget {
+  const _ParentPost({
+    required this.parent,
+    required this.revealMutedOrBlocked,
+    required this.onRevealed,
+  });
+
+  final PostResult parent;
+  final bool revealMutedOrBlocked;
+  final ValueChanged<Post> onRevealed;
+
+  @override
+  Widget build(BuildContext context) {
+    final metrics = PostMetrics.of(context);
+    return switch (parent) {
+      Post p => PostWidget(
+        key: ValueKey('parent_${p.id}'),
+        post: p,
+        connectorBelow: true,
+        showDivider: false,
+        revealMutedOrBlocked: revealMutedOrBlocked,
+      ),
+      HiddenPost h => Padding(
+        key: ValueKey('parent_hidden_${h.id}'),
+        padding: EdgeInsets.fromLTRB(
+          metrics.horizontalPadding,
+          metrics.verticalPadding,
+          metrics.horizontalPadding,
+          0,
+        ),
+        child: HiddenPostCard(
+          post: h,
+          surface: HiddenPostSurface.post,
+          onRevealed: onRevealed,
+        ),
+      ),
+    };
+  }
+}
+
+/// 返信できないときに入力欄の代わりに出す帯。
+class _ReplyBlocked extends StatelessWidget {
+  const _ReplyBlocked({required this.reason});
+
+  final String reason;
+
+  @override
+  Widget build(BuildContext context) {
+    final subColor = Theme.of(context).secondaryHeaderColor;
+
+    return Container(
+      decoration: BoxDecoration(
+        border: Border(
+          top: BorderSide(color: Theme.of(context).dividerColor, width: 1),
+        ),
+      ),
+      padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 14),
+      child: Row(
+        spacing: 8,
+        children: [
+          Icon(Icons.lock_outline, size: 16, color: subColor),
+          Expanded(
+            child: Text(
+              reason,
+              style: TextStyle(fontSize: 13, color: subColor),
+            ),
+          ),
+        ],
       ),
     );
   }

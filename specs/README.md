@@ -49,6 +49,10 @@ requirements.md を書く → 合意 → design.md を書く → 合意 → task
 | --- | --- | --- |
 | [001](001-api-client/requirements.md) | API クライアント刷新 | 実装済み（疎通確認とテストが残り） |
 | [002](002-response-models/requirements.md) | レスポンスモデルの整合 | 実装中（実データでの確認が残り） |
+| [003](003-hidden-posts/requirements.md) | 表示できないカロート | 実装済み（`RELATION` 系の実データ確認が残り） |
+| [004](004-posting-restrictions/requirements.md) | 投稿制限の解除導線 | 実装済み（実アカウントでの疎通確認が残り） |
+| [005](005-rich-text/requirements.md) | 本文とリアクションの装飾 | 実装済み（PRO アカウントでの確認が残り） |
+| [006](006-markdown/requirements.md) | 本文の Markdown | 実装済み（画像記法・脚注の実データ確認が残り） |
 
 ## `specs/api/` の中身
 

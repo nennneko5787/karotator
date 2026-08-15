@@ -1,21 +1,23 @@
 import "package:flutter/material.dart";
+import "package:flutter_riverpod/flutter_riverpod.dart";
 import "package:karotator/api/karotter_api.dart";
 import "package:karotator/const.dart";
 import "package:karotator/pages/home.dart";
 import "package:karotator/pages/legal.dart";
+import "package:karotator/providers/auth_user.dart";
 import "package:karotator/ui/dialog.dart";
 import "package:karotator/ui/gender_select.dart";
 import "package:karotator/ui/unfocus.dart";
 import "package:karotator/utils.dart";
 
-class LoginPage extends StatefulWidget {
+class LoginPage extends ConsumerStatefulWidget {
   const LoginPage({super.key});
 
   @override
-  State<LoginPage> createState() => _LoginPageState();
+  ConsumerState<LoginPage> createState() => _LoginPageState();
 }
 
-class _LoginPageState extends State<LoginPage> {
+class _LoginPageState extends ConsumerState<LoginPage> {
   final TextEditingController _usernameController = TextEditingController();
   final TextEditingController _passwordController = TextEditingController();
   String gender = "OTHER";
@@ -31,6 +33,10 @@ class _LoginPageState extends State<LoginPage> {
         password: password,
         gender: gender,
       );
+
+      // session の控えが入れ替わったので、プロバイダにも反映する。
+      // keepAlive なので、ここで入れ直さないと古い値のまま残る。
+      ref.read(authUserProvider.notifier).hydrate(KarotterApi().session.user);
 
       if (!mounted) return;
 

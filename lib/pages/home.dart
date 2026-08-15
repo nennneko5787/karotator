@@ -9,6 +9,7 @@ import "package:karotator/pages/login.dart";
 import "package:karotator/pages/post.dart";
 import "package:karotator/ui/drawer.dart";
 import "package:karotator/ui/legal_notice.dart";
+import "package:karotator/ui/posting_restriction.dart";
 import 'package:badges/badges.dart' as badges;
 
 class HomePage extends StatefulWidget {
@@ -62,9 +63,8 @@ class _HomePageState extends State<HomePage> {
         leading: IconButton(
           onPressed: () => {pageKey.currentState!.openDrawer()},
           icon: CircleAvatar(
-            backgroundImage: NetworkImage(
-              avatarUrlOf(avatarUrl),
-            ),
+            backgroundImage: avatarImageOf(avatarUrl),
+            onBackgroundImageError: (_, _) {},
           ),
         ),
       ),
@@ -73,6 +73,7 @@ class _HomePageState extends State<HomePage> {
       body: Column(
         children: [
           const LegalNoticeBanner(),
+          const PostingRestrictionBanner(),
           Expanded(child: _pages[_currentIndex]),
         ],
       ),

@@ -3,6 +3,7 @@ import "package:flutter/gestures.dart";
 import "package:flutter/material.dart";
 import "package:flutter_riverpod/flutter_riverpod.dart";
 import "package:karotator/api/karotter_api.dart";
+import "package:karotator/objects/media.dart";
 import "package:karotator/objects/response.dart";
 import "package:karotator/objects/user.dart";
 import "package:karotator/pages/login.dart";
@@ -167,6 +168,11 @@ class _ProfileBodyState extends ConsumerState<_ProfileBody> {
     return ProfileTab(
       fetcher: _fetcher,
       pinnedPost: selectedTab == 0 ? currentUserResponse.pinnedPost : null,
+      // メディア欄は画像か動画を持つものだけ。エンドポイントが絞りきらない。
+      filter: selectedTab == 2
+          ? (post) => hasVisualMedia(post.mediaUrls, post.mediaTypes)
+          : null,
+      asMediaGrid: selectedTab == 2,
       header: _buildHeader(currentUserResponse, notifier),
       selectedTab: selectedTab,
       onTabChanged: (index) => setState(() => selectedTab = index),
@@ -187,6 +193,13 @@ class _ProfileBodyState extends ConsumerState<_ProfileBody> {
                       width: MediaQuery.of(context).size.width,
                       height: MediaQuery.of(context).size.width * 0.33,
                       fit: BoxFit.cover,
+                      // 取得できなければ無地に落とす。errorBuilder が無いと
+                      // 画像サービスが例外として報告する。
+                      errorBuilder: (context, error, stackTrace) => Container(
+                        width: MediaQuery.of(context).size.width,
+                        height: MediaQuery.of(context).size.width * 0.33,
+                        color: const Color(0xFFDCE8F0),
+                      ),
                     )
                   : Container(
                       width: MediaQuery.of(context).size.width,
@@ -209,6 +222,9 @@ class _ProfileBodyState extends ConsumerState<_ProfileBody> {
                   radius: 40,
                   backgroundImage: (user.avatarUrl != null)
                       ? NetworkImage(karotterUrl(user.avatarUrl!))
+                      : null,
+                  onBackgroundImageError: (user.avatarUrl != null)
+                      ? (_, _) {}
                       : null,
                   child: (user.avatarUrl == null)
                       ? Image.asset("assets/images/default-avatar.png")

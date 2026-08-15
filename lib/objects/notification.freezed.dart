@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 // coverage:ignore-file
-// ignore_for_file: type=lint
+// ignore_for_file: type=lint, type=warning, deprecated_member_use, deprecated_member_use_from_same_package
 // ignore_for_file: unused_element, deprecated_member_use, deprecated_member_use_from_same_package, use_function_type_syntax_for_parameters, unnecessary_const, avoid_init_to_null, invalid_override_different_default_values_named, prefer_expression_function_bodies, annotate_overrides, invalid_annotation_target, unnecessary_question_mark
 
 part of 'notification.dart';
@@ -9,13 +9,32 @@ part of 'notification.dart';
 // FreezedGenerator
 // **************************************************************************
 
+// GENERATED CODE - DO NOT MODIFY BY HAND
 // dart format off
 T _$identity<T>(T value) => value;
 
 /// @nodoc
 mixin _$Notification {
 
- Author get actor; set actor(Author value); int get actorCount; set actorCount(int value); int get actorId; set actorId(int value); List<Author> get actors; set actors(List<Author> value); DateTime get createdAt; set createdAt(DateTime value); String get groupKey; set groupKey(String value); int get id; set id(int value); bool get isRead; set isRead(bool value);@JsonKey(unknownEnumValue: NotificationContext.UNKNOWN) NotificationContext get likeContext;@JsonKey(unknownEnumValue: NotificationContext.UNKNOWN) set likeContext(NotificationContext value); String? get message; set message(String? value); List<int> get notificationIds; set notificationIds(List<int> value); NotificationPost? get post; set post(NotificationPost? value); int get postCount; set postCount(int value); int? get postId; set postId(int? value); List<NotificationPost> get posts; set posts(List<NotificationPost> value);@JsonKey(unknownEnumValue: NotificationContext.UNKNOWN) NotificationContext get rekarotContext;@JsonKey(unknownEnumValue: NotificationContext.UNKNOWN) set rekarotContext(NotificationContext value);@JsonKey(unknownEnumValue: NotificationType.UNKNOWN) NotificationType get type;@JsonKey(unknownEnumValue: NotificationType.UNKNOWN) set type(NotificationType value); int get userId; set userId(int value);
+ int get id; set id(int value); DateTime get createdAt; set createdAt(DateTime value);@JsonKey(unknownEnumValue: NotificationType.UNKNOWN) NotificationType get type;@JsonKey(unknownEnumValue: NotificationType.UNKNOWN) set type(NotificationType value);/// 行為者。SYSTEM 通知では null。
+ Author? get actor;/// 行為者。SYSTEM 通知では null。
+ set actor(Author? value); int? get actorId; set actorId(int? value); int get actorCount; set actorCount(int value); List<Author> get actors; set actors(List<Author> value); String get groupKey; set groupKey(String value); bool get isRead; set isRead(bool value); String? get message; set message(String? value);/// サーバーが指定する遷移先。`/legal-quiz` のような Web のパス。
+///
+/// 観測した SYSTEM 通知には**含まれていなかった**。付く通知があるかは
+/// 未確認だが、Web が最初に見ているので受けられるようにしておく
+/// （[systemNotificationTarget] は無ければ本文の前方一致に落とす）。
+ String? get route;/// サーバーが指定する遷移先。`/legal-quiz` のような Web のパス。
+///
+/// 観測した SYSTEM 通知には**含まれていなかった**。付く通知があるかは
+/// 未確認だが、Web が最初に見ているので受けられるようにしておく
+/// （[systemNotificationTarget] は無ければ本文の前方一致に落とす）。
+ set route(String? value); List<int> get notificationIds; set notificationIds(List<int> value); NotificationPost? get post; set post(NotificationPost? value); int get postCount; set postCount(int value); int? get postId; set postId(int? value); List<NotificationPost> get posts; set posts(List<NotificationPost> value);@JsonKey(unknownEnumValue: NotificationContext.UNKNOWN) NotificationContext get likeContext;@JsonKey(unknownEnumValue: NotificationContext.UNKNOWN) set likeContext(NotificationContext value);@JsonKey(unknownEnumValue: NotificationContext.UNKNOWN) NotificationContext get rekarotContext;@JsonKey(unknownEnumValue: NotificationContext.UNKNOWN) set rekarotContext(NotificationContext value); int get userId; set userId(int value);/// リアクション通知で届いた絵文字。
+ List<String> get reactionEmojis;/// リアクション通知で届いた絵文字。
+ set reactionEmojis(List<String> value);/// サブスクリプションギフトの通知に載る。karotator はまだ画面を持たない。
+ String? get subscriptionGiftId;/// サブスクリプションギフトの通知に載る。karotator はまだ画面を持たない。
+ set subscriptionGiftId(String? value);/// コミュニティ関連の通知に載る。同上。
+ int? get communityId;/// コミュニティ関連の通知に載る。同上。
+ set communityId(int? value);
 /// Create a copy of Notification
 /// with the given fields replaced by the non-null parameter values.
 @JsonKey(includeFromJson: false, includeToJson: false)
@@ -30,7 +49,7 @@ $NotificationCopyWith<Notification> get copyWith => _$NotificationCopyWithImpl<N
 
 @override
 String toString() {
-  return 'Notification(actor: $actor, actorCount: $actorCount, actorId: $actorId, actors: $actors, createdAt: $createdAt, groupKey: $groupKey, id: $id, isRead: $isRead, likeContext: $likeContext, message: $message, notificationIds: $notificationIds, post: $post, postCount: $postCount, postId: $postId, posts: $posts, rekarotContext: $rekarotContext, type: $type, userId: $userId)';
+  return 'Notification(id: $id, createdAt: $createdAt, type: $type, actor: $actor, actorId: $actorId, actorCount: $actorCount, actors: $actors, groupKey: $groupKey, isRead: $isRead, message: $message, route: $route, notificationIds: $notificationIds, post: $post, postCount: $postCount, postId: $postId, posts: $posts, likeContext: $likeContext, rekarotContext: $rekarotContext, userId: $userId, reactionEmojis: $reactionEmojis, subscriptionGiftId: $subscriptionGiftId, communityId: $communityId)';
 }
 
 
@@ -41,11 +60,11 @@ abstract mixin class $NotificationCopyWith<$Res>  {
   factory $NotificationCopyWith(Notification value, $Res Function(Notification) _then) = _$NotificationCopyWithImpl;
 @useResult
 $Res call({
- Author actor, int actorCount, int actorId, List<Author> actors, DateTime createdAt, String groupKey, int id, bool isRead,@JsonKey(unknownEnumValue: NotificationContext.UNKNOWN) NotificationContext likeContext, String? message, List<int> notificationIds, NotificationPost? post, int postCount, int? postId, List<NotificationPost> posts,@JsonKey(unknownEnumValue: NotificationContext.UNKNOWN) NotificationContext rekarotContext,@JsonKey(unknownEnumValue: NotificationType.UNKNOWN) NotificationType type, int userId
+ int id, DateTime createdAt,@JsonKey(unknownEnumValue: NotificationType.UNKNOWN) NotificationType type, Author? actor, int? actorId, int actorCount, List<Author> actors, String groupKey, bool isRead, String? message, String? route, List<int> notificationIds, NotificationPost? post, int postCount, int? postId, List<NotificationPost> posts,@JsonKey(unknownEnumValue: NotificationContext.UNKNOWN) NotificationContext likeContext,@JsonKey(unknownEnumValue: NotificationContext.UNKNOWN) NotificationContext rekarotContext, int userId, List<String> reactionEmojis, String? subscriptionGiftId, int? communityId
 });
 
 
-$AuthorCopyWith<$Res> get actor;$NotificationPostCopyWith<$Res>? get post;
+$AuthorCopyWith<$Res>? get actor;$NotificationPostCopyWith<$Res>? get post;
 
 }
 /// @nodoc
@@ -58,36 +77,43 @@ class _$NotificationCopyWithImpl<$Res>
 
 /// Create a copy of Notification
 /// with the given fields replaced by the non-null parameter values.
-@pragma('vm:prefer-inline') @override $Res call({Object? actor = null,Object? actorCount = null,Object? actorId = null,Object? actors = null,Object? createdAt = null,Object? groupKey = null,Object? id = null,Object? isRead = null,Object? likeContext = null,Object? message = freezed,Object? notificationIds = null,Object? post = freezed,Object? postCount = null,Object? postId = freezed,Object? posts = null,Object? rekarotContext = null,Object? type = null,Object? userId = null,}) {
-  return _then(_self.copyWith(
-actor: null == actor ? _self.actor : actor // ignore: cast_nullable_to_non_nullable
-as Author,actorCount: null == actorCount ? _self.actorCount : actorCount // ignore: cast_nullable_to_non_nullable
-as int,actorId: null == actorId ? _self.actorId : actorId // ignore: cast_nullable_to_non_nullable
+@pragma('vm:prefer-inline') @override $Res call({Object? id = null,Object? createdAt = null,Object? type = null,Object? actor = freezed,Object? actorId = freezed,Object? actorCount = null,Object? actors = null,Object? groupKey = null,Object? isRead = null,Object? message = freezed,Object? route = freezed,Object? notificationIds = null,Object? post = freezed,Object? postCount = null,Object? postId = freezed,Object? posts = null,Object? likeContext = null,Object? rekarotContext = null,Object? userId = null,Object? reactionEmojis = null,Object? subscriptionGiftId = freezed,Object? communityId = freezed,}) {
+  return _then(Notification(
+id: null == id ? _self.id : id // ignore: cast_nullable_to_non_nullable
+as int,createdAt: null == createdAt ? _self.createdAt : createdAt // ignore: cast_nullable_to_non_nullable
+as DateTime,type: null == type ? _self.type : type // ignore: cast_nullable_to_non_nullable
+as NotificationType,actor: freezed == actor ? _self.actor : actor // ignore: cast_nullable_to_non_nullable
+as Author?,actorId: freezed == actorId ? _self.actorId : actorId // ignore: cast_nullable_to_non_nullable
+as int?,actorCount: null == actorCount ? _self.actorCount : actorCount // ignore: cast_nullable_to_non_nullable
 as int,actors: null == actors ? _self.actors : actors // ignore: cast_nullable_to_non_nullable
-as List<Author>,createdAt: null == createdAt ? _self.createdAt : createdAt // ignore: cast_nullable_to_non_nullable
-as DateTime,groupKey: null == groupKey ? _self.groupKey : groupKey // ignore: cast_nullable_to_non_nullable
-as String,id: null == id ? _self.id : id // ignore: cast_nullable_to_non_nullable
-as int,isRead: null == isRead ? _self.isRead : isRead // ignore: cast_nullable_to_non_nullable
-as bool,likeContext: null == likeContext ? _self.likeContext : likeContext // ignore: cast_nullable_to_non_nullable
-as NotificationContext,message: freezed == message ? _self.message : message // ignore: cast_nullable_to_non_nullable
+as List<Author>,groupKey: null == groupKey ? _self.groupKey : groupKey // ignore: cast_nullable_to_non_nullable
+as String,isRead: null == isRead ? _self.isRead : isRead // ignore: cast_nullable_to_non_nullable
+as bool,message: freezed == message ? _self.message : message // ignore: cast_nullable_to_non_nullable
+as String?,route: freezed == route ? _self.route : route // ignore: cast_nullable_to_non_nullable
 as String?,notificationIds: null == notificationIds ? _self.notificationIds : notificationIds // ignore: cast_nullable_to_non_nullable
 as List<int>,post: freezed == post ? _self.post : post // ignore: cast_nullable_to_non_nullable
 as NotificationPost?,postCount: null == postCount ? _self.postCount : postCount // ignore: cast_nullable_to_non_nullable
 as int,postId: freezed == postId ? _self.postId : postId // ignore: cast_nullable_to_non_nullable
 as int?,posts: null == posts ? _self.posts : posts // ignore: cast_nullable_to_non_nullable
-as List<NotificationPost>,rekarotContext: null == rekarotContext ? _self.rekarotContext : rekarotContext // ignore: cast_nullable_to_non_nullable
-as NotificationContext,type: null == type ? _self.type : type // ignore: cast_nullable_to_non_nullable
-as NotificationType,userId: null == userId ? _self.userId : userId // ignore: cast_nullable_to_non_nullable
-as int,
+as List<NotificationPost>,likeContext: null == likeContext ? _self.likeContext : likeContext // ignore: cast_nullable_to_non_nullable
+as NotificationContext,rekarotContext: null == rekarotContext ? _self.rekarotContext : rekarotContext // ignore: cast_nullable_to_non_nullable
+as NotificationContext,userId: null == userId ? _self.userId : userId // ignore: cast_nullable_to_non_nullable
+as int,reactionEmojis: null == reactionEmojis ? _self.reactionEmojis : reactionEmojis // ignore: cast_nullable_to_non_nullable
+as List<String>,subscriptionGiftId: freezed == subscriptionGiftId ? _self.subscriptionGiftId : subscriptionGiftId // ignore: cast_nullable_to_non_nullable
+as String?,communityId: freezed == communityId ? _self.communityId : communityId // ignore: cast_nullable_to_non_nullable
+as int?,
   ));
 }
 /// Create a copy of Notification
 /// with the given fields replaced by the non-null parameter values.
 @override
 @pragma('vm:prefer-inline')
-$AuthorCopyWith<$Res> get actor {
-  
-  return $AuthorCopyWith<$Res>(_self.actor, (value) {
+$AuthorCopyWith<$Res>? get actor {
+    if (_self.actor == null) {
+    return null;
+  }
+
+  return $AuthorCopyWith<$Res>(_self.actor!, (value) {
     return _then(_self.copyWith(actor: value));
   });
 }/// Create a copy of Notification
@@ -184,10 +210,10 @@ return $default(_that);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( Author actor,  int actorCount,  int actorId,  List<Author> actors,  DateTime createdAt,  String groupKey,  int id,  bool isRead, @JsonKey(unknownEnumValue: NotificationContext.UNKNOWN)  NotificationContext likeContext,  String? message,  List<int> notificationIds,  NotificationPost? post,  int postCount,  int? postId,  List<NotificationPost> posts, @JsonKey(unknownEnumValue: NotificationContext.UNKNOWN)  NotificationContext rekarotContext, @JsonKey(unknownEnumValue: NotificationType.UNKNOWN)  NotificationType type,  int userId)?  $default,{required TResult orElse(),}) {final _that = this;
+@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( int id,  DateTime createdAt, @JsonKey(unknownEnumValue: NotificationType.UNKNOWN)  NotificationType type,  Author? actor,  int? actorId,  int actorCount,  List<Author> actors,  String groupKey,  bool isRead,  String? message,  String? route,  List<int> notificationIds,  NotificationPost? post,  int postCount,  int? postId,  List<NotificationPost> posts, @JsonKey(unknownEnumValue: NotificationContext.UNKNOWN)  NotificationContext likeContext, @JsonKey(unknownEnumValue: NotificationContext.UNKNOWN)  NotificationContext rekarotContext,  int userId,  List<String> reactionEmojis,  String? subscriptionGiftId,  int? communityId)?  $default,{required TResult orElse(),}) {final _that = this;
 switch (_that) {
 case _Notification() when $default != null:
-return $default(_that.actor,_that.actorCount,_that.actorId,_that.actors,_that.createdAt,_that.groupKey,_that.id,_that.isRead,_that.likeContext,_that.message,_that.notificationIds,_that.post,_that.postCount,_that.postId,_that.posts,_that.rekarotContext,_that.type,_that.userId);case _:
+return $default(_that.id,_that.createdAt,_that.type,_that.actor,_that.actorId,_that.actorCount,_that.actors,_that.groupKey,_that.isRead,_that.message,_that.route,_that.notificationIds,_that.post,_that.postCount,_that.postId,_that.posts,_that.likeContext,_that.rekarotContext,_that.userId,_that.reactionEmojis,_that.subscriptionGiftId,_that.communityId);case _:
   return orElse();
 
 }
@@ -205,10 +231,10 @@ return $default(_that.actor,_that.actorCount,_that.actorId,_that.actors,_that.cr
 /// }
 /// ```
 
-@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( Author actor,  int actorCount,  int actorId,  List<Author> actors,  DateTime createdAt,  String groupKey,  int id,  bool isRead, @JsonKey(unknownEnumValue: NotificationContext.UNKNOWN)  NotificationContext likeContext,  String? message,  List<int> notificationIds,  NotificationPost? post,  int postCount,  int? postId,  List<NotificationPost> posts, @JsonKey(unknownEnumValue: NotificationContext.UNKNOWN)  NotificationContext rekarotContext, @JsonKey(unknownEnumValue: NotificationType.UNKNOWN)  NotificationType type,  int userId)  $default,) {final _that = this;
+@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( int id,  DateTime createdAt, @JsonKey(unknownEnumValue: NotificationType.UNKNOWN)  NotificationType type,  Author? actor,  int? actorId,  int actorCount,  List<Author> actors,  String groupKey,  bool isRead,  String? message,  String? route,  List<int> notificationIds,  NotificationPost? post,  int postCount,  int? postId,  List<NotificationPost> posts, @JsonKey(unknownEnumValue: NotificationContext.UNKNOWN)  NotificationContext likeContext, @JsonKey(unknownEnumValue: NotificationContext.UNKNOWN)  NotificationContext rekarotContext,  int userId,  List<String> reactionEmojis,  String? subscriptionGiftId,  int? communityId)  $default,) {final _that = this;
 switch (_that) {
 case _Notification():
-return $default(_that.actor,_that.actorCount,_that.actorId,_that.actors,_that.createdAt,_that.groupKey,_that.id,_that.isRead,_that.likeContext,_that.message,_that.notificationIds,_that.post,_that.postCount,_that.postId,_that.posts,_that.rekarotContext,_that.type,_that.userId);case _:
+return $default(_that.id,_that.createdAt,_that.type,_that.actor,_that.actorId,_that.actorCount,_that.actors,_that.groupKey,_that.isRead,_that.message,_that.route,_that.notificationIds,_that.post,_that.postCount,_that.postId,_that.posts,_that.likeContext,_that.rekarotContext,_that.userId,_that.reactionEmojis,_that.subscriptionGiftId,_that.communityId);case _:
   throw StateError('Unexpected subclass');
 
 }
@@ -225,10 +251,10 @@ return $default(_that.actor,_that.actorCount,_that.actorId,_that.actors,_that.cr
 /// }
 /// ```
 
-@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( Author actor,  int actorCount,  int actorId,  List<Author> actors,  DateTime createdAt,  String groupKey,  int id,  bool isRead, @JsonKey(unknownEnumValue: NotificationContext.UNKNOWN)  NotificationContext likeContext,  String? message,  List<int> notificationIds,  NotificationPost? post,  int postCount,  int? postId,  List<NotificationPost> posts, @JsonKey(unknownEnumValue: NotificationContext.UNKNOWN)  NotificationContext rekarotContext, @JsonKey(unknownEnumValue: NotificationType.UNKNOWN)  NotificationType type,  int userId)?  $default,) {final _that = this;
+@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( int id,  DateTime createdAt, @JsonKey(unknownEnumValue: NotificationType.UNKNOWN)  NotificationType type,  Author? actor,  int? actorId,  int actorCount,  List<Author> actors,  String groupKey,  bool isRead,  String? message,  String? route,  List<int> notificationIds,  NotificationPost? post,  int postCount,  int? postId,  List<NotificationPost> posts, @JsonKey(unknownEnumValue: NotificationContext.UNKNOWN)  NotificationContext likeContext, @JsonKey(unknownEnumValue: NotificationContext.UNKNOWN)  NotificationContext rekarotContext,  int userId,  List<String> reactionEmojis,  String? subscriptionGiftId,  int? communityId)?  $default,) {final _that = this;
 switch (_that) {
 case _Notification() when $default != null:
-return $default(_that.actor,_that.actorCount,_that.actorId,_that.actors,_that.createdAt,_that.groupKey,_that.id,_that.isRead,_that.likeContext,_that.message,_that.notificationIds,_that.post,_that.postCount,_that.postId,_that.posts,_that.rekarotContext,_that.type,_that.userId);case _:
+return $default(_that.id,_that.createdAt,_that.type,_that.actor,_that.actorId,_that.actorCount,_that.actors,_that.groupKey,_that.isRead,_that.message,_that.route,_that.notificationIds,_that.post,_that.postCount,_that.postId,_that.posts,_that.likeContext,_that.rekarotContext,_that.userId,_that.reactionEmojis,_that.subscriptionGiftId,_that.communityId);case _:
   return null;
 
 }
@@ -240,27 +266,40 @@ return $default(_that.actor,_that.actorCount,_that.actorId,_that.actors,_that.cr
 @JsonSerializable()
 
 class _Notification implements Notification {
-   _Notification({required this.actor, required this.actorCount, required this.actorId, required this.actors, required this.createdAt, required this.groupKey, required this.id, required this.isRead, @JsonKey(unknownEnumValue: NotificationContext.UNKNOWN) required this.likeContext, this.message, required this.notificationIds, this.post, required this.postCount, this.postId, required this.posts, @JsonKey(unknownEnumValue: NotificationContext.UNKNOWN) required this.rekarotContext, @JsonKey(unknownEnumValue: NotificationType.UNKNOWN) required this.type, required this.userId});
+   _Notification({required this.id, required this.createdAt, @JsonKey(unknownEnumValue: NotificationType.UNKNOWN) this.type = NotificationType.UNKNOWN, this.actor, this.actorId, this.actorCount = 0, this.actors = const [], this.groupKey = '', this.isRead = false, this.message, this.route, this.notificationIds = const [], this.post, this.postCount = 0, this.postId, this.posts = const [], @JsonKey(unknownEnumValue: NotificationContext.UNKNOWN) this.likeContext = NotificationContext.UNKNOWN, @JsonKey(unknownEnumValue: NotificationContext.UNKNOWN) this.rekarotContext = NotificationContext.UNKNOWN, this.userId = 0, this.reactionEmojis = const [], this.subscriptionGiftId, this.communityId});
   factory _Notification.fromJson(Map<String, dynamic> json) => _$NotificationFromJson(json);
 
-@override  Author actor;
-@override  int actorCount;
-@override  int actorId;
-@override  List<Author> actors;
-@override  DateTime createdAt;
-@override  String groupKey;
 @override  int id;
-@override  bool isRead;
-@override@JsonKey(unknownEnumValue: NotificationContext.UNKNOWN)  NotificationContext likeContext;
-@override  String? message;
-@override  List<int> notificationIds;
-@override  NotificationPost? post;
-@override  int postCount;
-@override  int? postId;
-@override  List<NotificationPost> posts;
-@override@JsonKey(unknownEnumValue: NotificationContext.UNKNOWN)  NotificationContext rekarotContext;
+@override  DateTime createdAt;
 @override@JsonKey(unknownEnumValue: NotificationType.UNKNOWN)  NotificationType type;
-@override  int userId;
+/// 行為者。SYSTEM 通知では null。
+@override  Author? actor;
+@override  int? actorId;
+@override@JsonKey()  int actorCount;
+@override@JsonKey()  List<Author> actors;
+@override@JsonKey()  String groupKey;
+@override@JsonKey()  bool isRead;
+@override  String? message;
+/// サーバーが指定する遷移先。`/legal-quiz` のような Web のパス。
+///
+/// 観測した SYSTEM 通知には**含まれていなかった**。付く通知があるかは
+/// 未確認だが、Web が最初に見ているので受けられるようにしておく
+/// （[systemNotificationTarget] は無ければ本文の前方一致に落とす）。
+@override  String? route;
+@override@JsonKey()  List<int> notificationIds;
+@override  NotificationPost? post;
+@override@JsonKey()  int postCount;
+@override  int? postId;
+@override@JsonKey()  List<NotificationPost> posts;
+@override@JsonKey(unknownEnumValue: NotificationContext.UNKNOWN)  NotificationContext likeContext;
+@override@JsonKey(unknownEnumValue: NotificationContext.UNKNOWN)  NotificationContext rekarotContext;
+@override@JsonKey()  int userId;
+/// リアクション通知で届いた絵文字。
+@override@JsonKey()  List<String> reactionEmojis;
+/// サブスクリプションギフトの通知に載る。karotator はまだ画面を持たない。
+@override  String? subscriptionGiftId;
+/// コミュニティ関連の通知に載る。同上。
+@override  int? communityId;
 
 /// Create a copy of Notification
 /// with the given fields replaced by the non-null parameter values.
@@ -277,7 +316,7 @@ Map<String, dynamic> toJson() {
 
 @override
 String toString() {
-  return 'Notification(actor: $actor, actorCount: $actorCount, actorId: $actorId, actors: $actors, createdAt: $createdAt, groupKey: $groupKey, id: $id, isRead: $isRead, likeContext: $likeContext, message: $message, notificationIds: $notificationIds, post: $post, postCount: $postCount, postId: $postId, posts: $posts, rekarotContext: $rekarotContext, type: $type, userId: $userId)';
+  return 'Notification(id: $id, createdAt: $createdAt, type: $type, actor: $actor, actorId: $actorId, actorCount: $actorCount, actors: $actors, groupKey: $groupKey, isRead: $isRead, message: $message, route: $route, notificationIds: $notificationIds, post: $post, postCount: $postCount, postId: $postId, posts: $posts, likeContext: $likeContext, rekarotContext: $rekarotContext, userId: $userId, reactionEmojis: $reactionEmojis, subscriptionGiftId: $subscriptionGiftId, communityId: $communityId)';
 }
 
 
@@ -288,11 +327,11 @@ abstract mixin class _$NotificationCopyWith<$Res> implements $NotificationCopyWi
   factory _$NotificationCopyWith(_Notification value, $Res Function(_Notification) _then) = __$NotificationCopyWithImpl;
 @override @useResult
 $Res call({
- Author actor, int actorCount, int actorId, List<Author> actors, DateTime createdAt, String groupKey, int id, bool isRead,@JsonKey(unknownEnumValue: NotificationContext.UNKNOWN) NotificationContext likeContext, String? message, List<int> notificationIds, NotificationPost? post, int postCount, int? postId, List<NotificationPost> posts,@JsonKey(unknownEnumValue: NotificationContext.UNKNOWN) NotificationContext rekarotContext,@JsonKey(unknownEnumValue: NotificationType.UNKNOWN) NotificationType type, int userId
+ int id, DateTime createdAt,@JsonKey(unknownEnumValue: NotificationType.UNKNOWN) NotificationType type, Author? actor, int? actorId, int actorCount, List<Author> actors, String groupKey, bool isRead, String? message, String? route, List<int> notificationIds, NotificationPost? post, int postCount, int? postId, List<NotificationPost> posts,@JsonKey(unknownEnumValue: NotificationContext.UNKNOWN) NotificationContext likeContext,@JsonKey(unknownEnumValue: NotificationContext.UNKNOWN) NotificationContext rekarotContext, int userId, List<String> reactionEmojis, String? subscriptionGiftId, int? communityId
 });
 
 
-@override $AuthorCopyWith<$Res> get actor;@override $NotificationPostCopyWith<$Res>? get post;
+@override $AuthorCopyWith<$Res>? get actor;@override $NotificationPostCopyWith<$Res>? get post;
 
 }
 /// @nodoc
@@ -305,27 +344,31 @@ class __$NotificationCopyWithImpl<$Res>
 
 /// Create a copy of Notification
 /// with the given fields replaced by the non-null parameter values.
-@override @pragma('vm:prefer-inline') $Res call({Object? actor = null,Object? actorCount = null,Object? actorId = null,Object? actors = null,Object? createdAt = null,Object? groupKey = null,Object? id = null,Object? isRead = null,Object? likeContext = null,Object? message = freezed,Object? notificationIds = null,Object? post = freezed,Object? postCount = null,Object? postId = freezed,Object? posts = null,Object? rekarotContext = null,Object? type = null,Object? userId = null,}) {
+@override @pragma('vm:prefer-inline') $Res call({Object? id = null,Object? createdAt = null,Object? type = null,Object? actor = freezed,Object? actorId = freezed,Object? actorCount = null,Object? actors = null,Object? groupKey = null,Object? isRead = null,Object? message = freezed,Object? route = freezed,Object? notificationIds = null,Object? post = freezed,Object? postCount = null,Object? postId = freezed,Object? posts = null,Object? likeContext = null,Object? rekarotContext = null,Object? userId = null,Object? reactionEmojis = null,Object? subscriptionGiftId = freezed,Object? communityId = freezed,}) {
   return _then(_Notification(
-actor: null == actor ? _self.actor : actor // ignore: cast_nullable_to_non_nullable
-as Author,actorCount: null == actorCount ? _self.actorCount : actorCount // ignore: cast_nullable_to_non_nullable
-as int,actorId: null == actorId ? _self.actorId : actorId // ignore: cast_nullable_to_non_nullable
+id: null == id ? _self.id : id // ignore: cast_nullable_to_non_nullable
+as int,createdAt: null == createdAt ? _self.createdAt : createdAt // ignore: cast_nullable_to_non_nullable
+as DateTime,type: null == type ? _self.type : type // ignore: cast_nullable_to_non_nullable
+as NotificationType,actor: freezed == actor ? _self.actor : actor // ignore: cast_nullable_to_non_nullable
+as Author?,actorId: freezed == actorId ? _self.actorId : actorId // ignore: cast_nullable_to_non_nullable
+as int?,actorCount: null == actorCount ? _self.actorCount : actorCount // ignore: cast_nullable_to_non_nullable
 as int,actors: null == actors ? _self.actors : actors // ignore: cast_nullable_to_non_nullable
-as List<Author>,createdAt: null == createdAt ? _self.createdAt : createdAt // ignore: cast_nullable_to_non_nullable
-as DateTime,groupKey: null == groupKey ? _self.groupKey : groupKey // ignore: cast_nullable_to_non_nullable
-as String,id: null == id ? _self.id : id // ignore: cast_nullable_to_non_nullable
-as int,isRead: null == isRead ? _self.isRead : isRead // ignore: cast_nullable_to_non_nullable
-as bool,likeContext: null == likeContext ? _self.likeContext : likeContext // ignore: cast_nullable_to_non_nullable
-as NotificationContext,message: freezed == message ? _self.message : message // ignore: cast_nullable_to_non_nullable
+as List<Author>,groupKey: null == groupKey ? _self.groupKey : groupKey // ignore: cast_nullable_to_non_nullable
+as String,isRead: null == isRead ? _self.isRead : isRead // ignore: cast_nullable_to_non_nullable
+as bool,message: freezed == message ? _self.message : message // ignore: cast_nullable_to_non_nullable
+as String?,route: freezed == route ? _self.route : route // ignore: cast_nullable_to_non_nullable
 as String?,notificationIds: null == notificationIds ? _self.notificationIds : notificationIds // ignore: cast_nullable_to_non_nullable
 as List<int>,post: freezed == post ? _self.post : post // ignore: cast_nullable_to_non_nullable
 as NotificationPost?,postCount: null == postCount ? _self.postCount : postCount // ignore: cast_nullable_to_non_nullable
 as int,postId: freezed == postId ? _self.postId : postId // ignore: cast_nullable_to_non_nullable
 as int?,posts: null == posts ? _self.posts : posts // ignore: cast_nullable_to_non_nullable
-as List<NotificationPost>,rekarotContext: null == rekarotContext ? _self.rekarotContext : rekarotContext // ignore: cast_nullable_to_non_nullable
-as NotificationContext,type: null == type ? _self.type : type // ignore: cast_nullable_to_non_nullable
-as NotificationType,userId: null == userId ? _self.userId : userId // ignore: cast_nullable_to_non_nullable
-as int,
+as List<NotificationPost>,likeContext: null == likeContext ? _self.likeContext : likeContext // ignore: cast_nullable_to_non_nullable
+as NotificationContext,rekarotContext: null == rekarotContext ? _self.rekarotContext : rekarotContext // ignore: cast_nullable_to_non_nullable
+as NotificationContext,userId: null == userId ? _self.userId : userId // ignore: cast_nullable_to_non_nullable
+as int,reactionEmojis: null == reactionEmojis ? _self.reactionEmojis : reactionEmojis // ignore: cast_nullable_to_non_nullable
+as List<String>,subscriptionGiftId: freezed == subscriptionGiftId ? _self.subscriptionGiftId : subscriptionGiftId // ignore: cast_nullable_to_non_nullable
+as String?,communityId: freezed == communityId ? _self.communityId : communityId // ignore: cast_nullable_to_non_nullable
+as int?,
   ));
 }
 
@@ -333,9 +376,12 @@ as int,
 /// with the given fields replaced by the non-null parameter values.
 @override
 @pragma('vm:prefer-inline')
-$AuthorCopyWith<$Res> get actor {
-  
-  return $AuthorCopyWith<$Res>(_self.actor, (value) {
+$AuthorCopyWith<$Res>? get actor {
+    if (_self.actor == null) {
+    return null;
+  }
+
+  return $AuthorCopyWith<$Res>(_self.actor!, (value) {
     return _then(_self.copyWith(actor: value));
   });
 }/// Create a copy of Notification

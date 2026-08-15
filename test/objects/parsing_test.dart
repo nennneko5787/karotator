@@ -165,6 +165,139 @@ void main() {
     });
   });
 
+  group('表示できないカロート', () {
+    // 実際に観測した引用元。author も createdAt も来ない。
+    // 仕様: specs/003-hidden-posts/requirements.md
+    const hiddenQuote = {
+      'id': 1764682,
+      'parentId': null,
+      'quotedPostId': null,
+      'authorId': 81,
+      'author': null,
+      'replyToUsers': <Object?>[],
+      'canView': false,
+      'hiddenReason': 'FILTERED',
+      'hiddenFilterDetail': 'MINOR_RESTRICTED',
+    };
+
+    test('非表示の引用元を含むカロートが読める', () {
+      // これが落ちるとタイムラインのレスポンス丸ごとが読めなくなる。
+      final post = Post.fromJson(
+        minimalPost(
+          overrides: {'quotedPostId': 1764682, 'quotedPost': hiddenQuote},
+        ),
+      );
+
+      final quote = post.quote;
+      expect(quote, isA<HiddenPost>());
+      quote as HiddenPost;
+      expect(quote.id, 1764682);
+      expect(quote.authorId, 81);
+      expect(quote.hiddenReason, HiddenReason.FILTERED);
+      expect(quote.hiddenFilterDetail, HiddenFilterDetail.MINOR_RESTRICTED);
+      expect(quote.hiddenRelationDetail, HiddenRelationDetail.UNKNOWN);
+    });
+
+    test('見える引用元は QuotedPost になる', () {
+      final post = Post.fromJson(
+        minimalPost(
+          overrides: {
+            'quotedPost': {
+              'id': 5,
+              'content': 'やあ',
+              'author': {'id': 2, 'username': 'bob', 'displayName': 'Bob'},
+              'createdAt': '2026-04-12T12:34:56.789Z',
+              'canView': true,
+            },
+          },
+        ),
+      );
+      expect(post.quote, isA<QuotedPost>());
+      expect((post.quote! as QuotedPost).content, 'やあ');
+    });
+
+    test('知らない理由コードは UNKNOWN になる', () {
+      final hidden = HiddenPost.fromJson({
+        'id': 1,
+        'canView': false,
+        'hiddenReason': 'SOMETHING_NEW',
+        'hiddenFilterDetail': 'ALSO_NEW',
+        'hiddenRelationDetail': 'ALSO_NEW',
+      });
+      expect(hidden.hiddenReason, HiddenReason.UNKNOWN);
+      expect(hidden.hiddenFilterDetail, HiddenFilterDetail.UNKNOWN);
+      expect(hidden.hiddenRelationDetail, HiddenRelationDetail.UNKNOWN);
+    });
+
+    test('理由コードのキーが無くても UNKNOWN になる', () {
+      // @Default はキーが無いときにしか効かない。unknownEnumValue と両方要る。
+      final hidden = HiddenPost.fromJson({'id': 1, 'canView': false});
+      expect(hidden.hiddenReason, HiddenReason.UNKNOWN);
+      expect(hidden.hiddenFilterDetail, HiddenFilterDetail.UNKNOWN);
+    });
+
+    test('author が null なだけでも非表示として読む', () {
+      // canView を返さない経路への保険。
+      final post = Post.fromJson(
+        minimalPost(
+          overrides: {
+            'quotedPost': {'id': 7, 'author': null},
+          },
+        ),
+      );
+      expect(post.quote, isA<HiddenPost>());
+    });
+
+    test('quotedPostId だけなら NOT_FOUND を合成する', () {
+      final post = Post.fromJson(
+        minimalPost(overrides: {'quotedPostId': 99, 'quotedPost': null}),
+      );
+      final quote = post.quote;
+      expect(quote, isA<HiddenPost>());
+      quote as HiddenPost;
+      expect(quote.id, 99);
+      expect(quote.hiddenFilterDetail, HiddenFilterDetail.NOT_FOUND);
+    });
+
+    test('引用がなければ quote は null', () {
+      expect(Post.fromJson(minimalPost()).quote, isNull);
+    });
+
+    test('単体取得も非表示スタブになりうる', () {
+      expect(postResultFromJson(hiddenQuote), isA<HiddenPost>());
+      expect(postResultFromJson(minimalPost()), isA<Post>());
+    });
+
+    group('canReveal', () {
+      HiddenPost relation(HiddenRelationDetail detail) => HiddenPost(
+        id: 1,
+        hiddenReason: HiddenReason.RELATION,
+        hiddenRelationDetail: detail,
+      );
+
+      test('自分でミュート / ブロックしたものは開ける', () {
+        expect(relation(HiddenRelationDetail.MUTED).canReveal, isTrue);
+        expect(relation(HiddenRelationDetail.BLOCKED).canReveal, isTrue);
+      });
+
+      test('相手にブロックされている場合は開けない', () {
+        expect(
+          relation(HiddenRelationDetail.BLOCKED_BY_AUTHOR).canReveal,
+          isFalse,
+        );
+      });
+
+      test('フィルタによる非表示は開けない', () {
+        final hidden = HiddenPost(
+          id: 1,
+          hiddenReason: HiddenReason.FILTERED,
+          hiddenFilterDetail: HiddenFilterDetail.MINOR_RESTRICTED,
+        );
+        expect(hidden.canReveal, isFalse);
+      });
+    });
+  });
+
   group('検索結果のスネークケース', () {
     test('is_following などを読める', () {
       final author = Author.fromJson({

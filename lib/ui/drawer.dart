@@ -67,9 +67,8 @@ class _DrawerMenuState extends State<DrawerMenu> {
               if (user != null)
                 ListTile(
                   leading: CircleAvatar(
-                    backgroundImage: NetworkImage(
-                      avatarUrlOf(user?.avatarUrl),
-                    ),
+                    backgroundImage: avatarImageOf(user?.avatarUrl),
+                    onBackgroundImageError: (_, _) {},
                   ),
                   title: Text(user!.displayName),
                   subtitle: Text("@${user!.username}"),
@@ -79,9 +78,10 @@ class _DrawerMenuState extends State<DrawerMenu> {
               for (final account in otherAccounts)
                 ListTile(
                   leading: CircleAvatar(
-                    backgroundImage: NetworkImage(
-                      avatarUrlOf(account.response.user.avatarUrl),
+                    backgroundImage: avatarImageOf(
+                      account.response.user.avatarUrl,
                     ),
+                    onBackgroundImageError: (_, _) {},
                   ),
                   title: Text(account.response.user.displayName),
                   subtitle: Text("@${account.response.user.username}"),
@@ -248,9 +248,8 @@ class _DrawerMenuState extends State<DrawerMenu> {
                     ),
                   ),
             currentAccountPicture: CircleAvatar(
-              backgroundImage: NetworkImage(
-                avatarUrlOf(user?.avatarUrl),
-              ),
+              backgroundImage: avatarImageOf(user?.avatarUrl),
+              onBackgroundImageError: (_, _) {},
             ),
             otherAccountsPictures: [
               for (final account in otherAccounts.sublist(
@@ -272,9 +271,8 @@ class _DrawerMenuState extends State<DrawerMenu> {
                       shape: BoxShape.circle,
                       image: DecorationImage(
                         fit: BoxFit.fill,
-                        image: NetworkImage(
-                          avatarUrlOf(account.response.user.avatarUrl),
-                        ),
+                        image: avatarImageOf(account.response.user.avatarUrl),
+                        onError: (_, _) {},
                       ),
                     ),
                   ),

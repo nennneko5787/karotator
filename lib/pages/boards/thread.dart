@@ -103,9 +103,11 @@ class _ThreadPageState extends State<ThreadPage> {
                         constraints: const BoxConstraints(),
                         icon: CircleAvatar(
                           radius: 10,
-                          backgroundImage: NetworkImage(
-                            avatarUrlOf(reply.author.avatarUrl),
+                          // 取得に失敗しても既定アイコンに落とす。
+                          backgroundImage: avatarImageOf(
+                            reply.author.avatarUrl,
                           ),
+                          onBackgroundImageError: (_, _) {},
                         ),
                       ),
                       Flexible(

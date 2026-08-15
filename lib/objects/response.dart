@@ -125,7 +125,7 @@ abstract class RefreshResponse with _$RefreshResponse {
 abstract class UserResponse with _$UserResponse {
   const factory UserResponse({
     required User user,
-    QuotedPost? pinnedPost,
+    @QuoteConverter() Quote? pinnedPost,
     required bool isFollowing,
     required bool isFollowedBy,
     required bool isBlocked,
@@ -143,7 +143,7 @@ abstract class UserResponse with _$UserResponse {
     @Default(false) bool isRekarotHidden,
 
     /// ピン留めは複数対応。[pinnedPost] は 1 件目だけの互換フィールド。
-    @Default([]) List<QuotedPost> pinnedPosts,
+    @QuoteListConverter() @Default([]) List<Quote> pinnedPosts,
   }) = _UserResponse;
 
   factory UserResponse.fromJson(Map<String, Object?> json) =>
@@ -169,7 +169,7 @@ abstract class NotificationPagination with _$NotificationPagination {
   const factory NotificationPagination({
     required bool hasMore,
     required int limit,
-    required int nextPage,
+    int? nextPage,
     required int page,
   }) = _NotificationPagination;
 

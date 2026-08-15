@@ -33,9 +33,11 @@ class _NotificationPostsPageState extends State<NotificationPostsPage> {
         notification.notificationIds,
       );
 
+      // 取り直した結果が非表示のことがある。完全なカロートとして扱わない
+      // (REQ-HIDE-008)。Karotter Web も見えないものはキャッシュに入れない。
       List<Post> posts = [
         for (var post in notificationPosts)
-          await KarotterApi().posts.byId(post.id),
+          if (await KarotterApi().posts.byId(post.id) case final Post p) p,
       ];
       setState(() {
         this.posts = posts;
@@ -69,14 +71,10 @@ class _NotificationPostsPageState extends State<NotificationPostsPage> {
             itemCount: posts.length,
             itemBuilder: (context, index) {
               final post = posts[index];
-              final isFirst = index == 0;
-              final isLast = index == posts.length - 1;
 
               return PostWidget(
                 key: ValueKey('post_${post.id}_${posts.length}'),
                 post: post,
-                isFirst: isFirst,
-                isLast: isLast,
               );
             },
           );

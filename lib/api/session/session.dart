@@ -4,6 +4,7 @@ import 'package:karotator/api/session/credentials.dart';
 import 'package:karotator/api/session/csrf.dart';
 import 'package:karotator/api/session/device.dart';
 import 'package:karotator/objects/response.dart';
+import 'package:karotator/objects/user.dart';
 
 export 'package:karotator/api/session/accounts.dart';
 export 'package:karotator/api/session/cookies.dart';
@@ -38,6 +39,8 @@ class KarotterSession {
 
   String? _accountId;
   int? _userId;
+  String? _username;
+  AuthUser? _user;
   String? _deviceId;
   bool _initialized = false;
 
@@ -46,6 +49,15 @@ class KarotterSession {
 
   /// Karotter の数値ユーザー ID。`x-active-account-id` に載る。
   int? get userId => _userId;
+
+  /// 閲覧者自身の `@ID`。メンション判定に使う。未ログインなら null。
+  String? get username => _username;
+
+  /// 閲覧者自身。保存済みのログイン応答に含まれていたもの。
+  ///
+  /// **画面からはここを直接見ず `authUserProvider` を watch すること。**
+  /// これは起動時の控えで、クイズ合格やメール登録では更新されない。
+  AuthUser? get user => _user;
 
   /// 端末 UUID。[initialize] 後は必ず値がある。
   String get deviceId => _deviceId ?? '';
@@ -58,7 +70,12 @@ class KarotterSession {
   Future<void> initialize() async {
     _deviceId = await _device.get();
     _accountId = await accounts.activeId();
-    _userId = (await login())?.user.id;
+    // 保存済みの資格情報を読むのはここ 1 回だけ。画面から呼ばないこと
+    // （flutter_secure_storage への往復と 97 フィールドのデコードが走る）。
+    final saved = await login();
+    _userId = saved?.user.id;
+    _username = saved?.user.username;
+    _user = saved?.user;
     _initialized = true;
   }
 
@@ -77,6 +94,8 @@ class KarotterSession {
     if (id == null) return;
     await credentials.save(id, res);
     _userId = res.user.id;
+    _username = res.user.username;
+    _user = res.user;
   }
 
   Future<void> applyRefresh(RefreshResponse res) async {
@@ -112,6 +131,8 @@ class KarotterSession {
     final id = await accounts.create();
     _accountId = id;
     _userId = null;
+    _username = null;
+    _user = null;
     csrf.clear();
     return id;
   }
@@ -123,11 +144,15 @@ class KarotterSession {
   Future<LoginResponse?> switchTo(String accountId) async {
     _accountId = accountId;
     _userId = null;
+    _username = null;
+    _user = null;
     csrf.clear();
 
     await accounts.activate(accountId);
     final res = await credentials.load(accountId);
     _userId = res?.user.id;
+    _username = res?.user.username;
+    _user = res?.user;
     return res;
   }
 
@@ -142,7 +167,10 @@ class KarotterSession {
 
     _accountId = next;
     csrf.clear();
-    _userId = next == null ? null : (await credentials.load(next))?.user.id;
+    final nextLogin = next == null ? null : await credentials.load(next);
+    _userId = nextLogin?.user.id;
+    _username = nextLogin?.user.username;
+    _user = nextLogin?.user;
   }
 
   /// トークンと Cookie を捨てる。アカウント枠自体は残す。
@@ -155,5 +183,7 @@ class KarotterSession {
     await cookies.clear(id);
     csrf.clear();
     _userId = null;
+    _username = null;
+    _user = null;
   }
 }

@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 // coverage:ignore-file
-// ignore_for_file: type=lint
+// ignore_for_file: type=lint, type=warning, deprecated_member_use, deprecated_member_use_from_same_package
 // ignore_for_file: unused_element, deprecated_member_use, deprecated_member_use_from_same_package, use_function_type_syntax_for_parameters, unnecessary_const, avoid_init_to_null, invalid_override_different_default_values_named, prefer_expression_function_bodies, annotate_overrides, invalid_annotation_target, unnecessary_question_mark
 
 part of 'board.dart';
@@ -9,6 +9,7 @@ part of 'board.dart';
 // FreezedGenerator
 // **************************************************************************
 
+// GENERATED CODE - DO NOT MODIFY BY HAND
 // dart format off
 T _$identity<T>(T value) => value;
 
@@ -66,7 +67,7 @@ class _$BoardCreatorCopyWithImpl<$Res>
 /// Create a copy of BoardCreator
 /// with the given fields replaced by the non-null parameter values.
 @pragma('vm:prefer-inline') @override $Res call({Object? id = null,Object? username = null,Object? displayName = null,}) {
-  return _then(_self.copyWith(
+  return _then(BoardCreator(
 id: null == id ? _self.id : id // ignore: cast_nullable_to_non_nullable
 as int,username: null == username ? _self.username : username // ignore: cast_nullable_to_non_nullable
 as String,displayName: null == displayName ? _self.displayName : displayName // ignore: cast_nullable_to_non_nullable
@@ -335,7 +336,7 @@ class _$BoardCopyWithImpl<$Res>
 /// Create a copy of Board
 /// with the given fields replaced by the non-null parameter values.
 @pragma('vm:prefer-inline') @override $Res call({Object? id = null,Object? slug = null,Object? title = null,Object? description = freezed,Object? minimumAge = null,Object? threadCount = null,Object? replyCount = null,Object? lastPostAt = null,Object? createdAt = null,Object? creator = null,Object? followed = null,}) {
-  return _then(_self.copyWith(
+  return _then(Board(
 id: null == id ? _self.id : id // ignore: cast_nullable_to_non_nullable
 as int,slug: null == slug ? _self.slug : slug // ignore: cast_nullable_to_non_nullable
 as String,title: null == title ? _self.title : title // ignore: cast_nullable_to_non_nullable
@@ -646,7 +647,7 @@ class _$ThreadAuthorCopyWithImpl<$Res>
 /// Create a copy of ThreadAuthor
 /// with the given fields replaced by the non-null parameter values.
 @pragma('vm:prefer-inline') @override $Res call({Object? id = null,Object? username = null,Object? displayName = null,}) {
-  return _then(_self.copyWith(
+  return _then(ThreadAuthor(
 id: null == id ? _self.id : id // ignore: cast_nullable_to_non_nullable
 as int,username: null == username ? _self.username : username // ignore: cast_nullable_to_non_nullable
 as String,displayName: null == displayName ? _self.displayName : displayName // ignore: cast_nullable_to_non_nullable
@@ -915,7 +916,7 @@ class _$ThreadCopyWithImpl<$Res>
 /// Create a copy of Thread
 /// with the given fields replaced by the non-null parameter values.
 @pragma('vm:prefer-inline') @override $Res call({Object? id = null,Object? boardId = null,Object? authorId = null,Object? title = null,Object? content = null,Object? imageUrls = null,Object? imageTypes = null,Object? replyCount = null,Object? lastReplyAt = null,Object? createdAt = null,Object? updatedAt = null,Object? author = null,Object? reactionSummary = null,Object? followed = null,}) {
-  return _then(_self.copyWith(
+  return _then(Thread(
 id: null == id ? _self.id : id // ignore: cast_nullable_to_non_nullable
 as int,boardId: null == boardId ? _self.boardId : boardId // ignore: cast_nullable_to_non_nullable
 as int,authorId: null == authorId ? _self.authorId : authorId // ignore: cast_nullable_to_non_nullable
@@ -1080,7 +1081,7 @@ return $default(_that.id,_that.boardId,_that.authorId,_that.title,_that.content,
 @JsonSerializable()
 
 class _Thread implements Thread {
-  const _Thread({required this.id, required this.boardId, required this.authorId, required this.title, required this.content, required final  List<String> imageUrls, required final  List<String> imageTypes, required this.replyCount, required this.lastReplyAt, required this.createdAt, required this.updatedAt, required this.author, required final  List<ReactionSummary> reactionSummary, required this.followed}): _imageUrls = imageUrls,_imageTypes = imageTypes,_reactionSummary = reactionSummary;
+  const _Thread({required this.id, required this.boardId, required this.authorId, required this.title, required this.content, required  List<String> imageUrls, required  List<String> imageTypes, required this.replyCount, required this.lastReplyAt, required this.createdAt, required this.updatedAt, required this.author, required  List<ReactionSummary> reactionSummary, required this.followed}): _imageUrls = imageUrls,_imageTypes = imageTypes,_reactionSummary = reactionSummary;
   factory _Thread.fromJson(Map<String, dynamic> json) => _$ThreadFromJson(json);
 
 @override final  int id;
@@ -1253,7 +1254,7 @@ class _$ReplyAuthorCopyWithImpl<$Res>
 /// Create a copy of ReplyAuthor
 /// with the given fields replaced by the non-null parameter values.
 @pragma('vm:prefer-inline') @override $Res call({Object? id = null,Object? username = null,Object? displayName = null,Object? avatarUrl = freezed,}) {
-  return _then(_self.copyWith(
+  return _then(ReplyAuthor(
 id: null == id ? _self.id : id // ignore: cast_nullable_to_non_nullable
 as int,username: null == username ? _self.username : username // ignore: cast_nullable_to_non_nullable
 as String,displayName: null == displayName ? _self.displayName : displayName // ignore: cast_nullable_to_non_nullable
@@ -1525,7 +1526,7 @@ class _$ThreadReplyCopyWithImpl<$Res>
 /// Create a copy of ThreadReply
 /// with the given fields replaced by the non-null parameter values.
 @pragma('vm:prefer-inline') @override $Res call({Object? id = null,Object? boardId = null,Object? threadId = null,Object? authorId = null,Object? replyNumber = null,Object? content = null,Object? imageUrls = null,Object? imageTypes = null,Object? replyCount = freezed,Object? lastReplyAt = freezed,Object? createdAt = null,Object? updatedAt = null,Object? author = null,Object? reactionSummary = null,}) {
-  return _then(_self.copyWith(
+  return _then(ThreadReply(
 id: null == id ? _self.id : id // ignore: cast_nullable_to_non_nullable
 as int,boardId: null == boardId ? _self.boardId : boardId // ignore: cast_nullable_to_non_nullable
 as int,threadId: null == threadId ? _self.threadId : threadId // ignore: cast_nullable_to_non_nullable
@@ -1690,7 +1691,7 @@ return $default(_that.id,_that.boardId,_that.threadId,_that.authorId,_that.reply
 @JsonSerializable()
 
 class _ThreadReply implements ThreadReply {
-  const _ThreadReply({required this.id, required this.boardId, required this.threadId, required this.authorId, required this.replyNumber, required this.content, required final  List<String> imageUrls, required final  List<String> imageTypes, this.replyCount, this.lastReplyAt, required this.createdAt, required this.updatedAt, required this.author, required final  List<ReactionSummary> reactionSummary}): _imageUrls = imageUrls,_imageTypes = imageTypes,_reactionSummary = reactionSummary;
+  const _ThreadReply({required this.id, required this.boardId, required this.threadId, required this.authorId, required this.replyNumber, required this.content, required  List<String> imageUrls, required  List<String> imageTypes, this.replyCount, this.lastReplyAt, required this.createdAt, required this.updatedAt, required this.author, required  List<ReactionSummary> reactionSummary}): _imageUrls = imageUrls,_imageTypes = imageTypes,_reactionSummary = reactionSummary;
   factory _ThreadReply.fromJson(Map<String, dynamic> json) => _$ThreadReplyFromJson(json);
 
 @override final  int id;

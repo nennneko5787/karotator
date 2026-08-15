@@ -154,104 +154,143 @@ abstract class NotificationPost with _$NotificationPost {
       _$NotificationPostFromJson(json);
 }
 
-abstract interface class AbstractPost {
+/// `GET posts/{id}` の結果。見えるとは限らない。
+///
+/// 仕様: [specs/003-hidden-posts](../../specs/003-hidden-posts/design.md) §2
+sealed class PostResult {
   int get id;
-  String get content;
-  Author get author;
-
-  int? get parentId;
-  int? get quotedPostId;
-
-  DateTime get createdAt;
-  DateTime? get updatedAt;
-  DateTime? get editedAt;
-
-  String? get embedUrl;
-  String? get embedTitle;
-  String? get embedDescription;
-  String? get embedImage;
-
-  List<String> get mediaUrls;
-  List<String> get mediaTypes;
-  List<String> get mediaAlts;
-  List<bool> get mediaSpoilerFlags;
-  List<bool> get mediaR18Flags;
-
-  List<int> get excludedMentions;
-  ReplyRestriction get replyRestriction;
-  PostVisibility get visibility;
-
-  /// 年齢・センシティブ関連。引用元も同じ判定が要るのでここに置く。
-  bool get isR18;
-  bool get hideFromMinors;
-  bool get adminForceR18;
-  bool get adminForceHidden;
-  int? get minimumAge;
-  int? get maximumAge;
 }
 
-extension AbstractPostX on AbstractPost {
-  /// 運営の強制設定を加味した最終的な R18 判定。表示前にこれで伏せる。
-  bool get effectiveR18 => isR18 || adminForceR18;
-
-  /// 運営に非表示にされている。
-  bool get effectiveHidden => adminForceHidden;
+/// 埋め込みの引用元、および固定ポスト。
+///
+/// タップ時に必ず [KarotterApi.posts.byId] で取り直すので、ここに来るのは
+/// カード 1 枚を描くのに要る分だけ。完全なカロートではない。
+sealed class Quote {
+  int get id;
 }
 
+/// 表示できないカロート。`canView: false` のとき本体の代わりに来る。
+///
+/// **[id] 以外は来ないことがある。** Karotter は伏せたカロートについて
+/// `author` すら `null` で返す。理由コードだけが確実に入っている。
+///
+/// 引用元にも単体取得にも同じ形で来るので [PostResult] と [Quote] の両方を実装する。
 @freezed
-abstract class QuotedPost with _$QuotedPost implements AbstractPost {
-  const factory QuotedPost({
+abstract class HiddenPost with _$HiddenPost implements PostResult, Quote {
+  const factory HiddenPost({
     required int id,
-    required String content,
-    required Author author,
-
-    required DateTime createdAt,
-    DateTime? updatedAt,
-    DateTime? editedAt,
-
+    int? authorId,
     int? parentId,
     int? quotedPostId,
 
+    @JsonKey(unknownEnumValue: HiddenReason.UNKNOWN)
+    @Default(HiddenReason.UNKNOWN)
+    HiddenReason hiddenReason,
+
+    @JsonKey(unknownEnumValue: HiddenRelationDetail.UNKNOWN)
+    @Default(HiddenRelationDetail.UNKNOWN)
+    HiddenRelationDetail hiddenRelationDetail,
+
+    @JsonKey(unknownEnumValue: HiddenFilterDetail.UNKNOWN)
+    @Default(HiddenFilterDetail.UNKNOWN)
+    HiddenFilterDetail hiddenFilterDetail,
+  }) = _HiddenPost;
+
+  factory HiddenPost.fromJson(Map<String, Object?> json) =>
+      _$HiddenPostFromJson(json);
+
+  /// 引用元を取得できなかった場合。
+  ///
+  /// `quotedPostId` があるのに `quotedPost` が無いときに立てる。Karotter は
+  /// この値を返さないが、Web クライアントが同じものを合成しているので倣う。
+  factory HiddenPost.notFound(int id) => HiddenPost(
+    id: id,
+    hiddenReason: HiddenReason.FILTERED,
+    hiddenFilterDetail: HiddenFilterDetail.NOT_FOUND,
+  );
+}
+
+extension HiddenPostX on HiddenPost {
+  /// 閲覧者自身が隠したものかどうか。真なら「表示する」で開ける。
+  ///
+  /// `BLOCKED_BY_AUTHOR`（相手が閲覧者をブロックしている）は**含めない**。
+  /// 相手が隠したものを閲覧者の操作で開けてはいけない。
+  bool get canReveal =>
+      hiddenReason == HiddenReason.RELATION &&
+      (hiddenRelationDetail == HiddenRelationDetail.MUTED ||
+          hiddenRelationDetail == HiddenRelationDetail.BLOCKED);
+}
+
+/// 引用元・固定ポストのプレビュー。
+///
+/// 画面が読む分だけを持つ。カウンタ・公開範囲・年齢制限などは持たない
+/// （年齢と R18 はサーバーが先に判定して [HiddenPost] にして返すため）。
+@freezed
+abstract class QuotedPost with _$QuotedPost implements Quote {
+  const factory QuotedPost({
+    required int id,
+
+    /// `canView` が false でない限り必ず来る。Web も
+    /// `canView !== false && author` を満たすときだけ作者行を描いている。
+    required Author author,
+    required DateTime createdAt,
+
+    @Default('') String content,
     @Default([]) List<String> mediaUrls,
     @Default([]) List<String> mediaTypes,
-    @Default([]) List<String> mediaAlts,
-    @Default([]) List<bool> mediaSpoilerFlags,
-    @Default([]) List<bool> mediaR18Flags,
-
-    String? embedUrl,
-    String? embedTitle,
-    String? embedDescription,
-    String? embedImage,
-
-    required int likesCount,
-    required int rekarotsCount,
-    required int repliesCount,
-    required int viewsCount,
-
-    @Default([]) List<int> excludedMentions,
-    @JsonKey(unknownEnumValue: ReplyRestriction.UNKNOWN)
-    @Default(ReplyRestriction.EVERYONE)
-    ReplyRestriction replyRestriction,
-    @JsonKey(unknownEnumValue: PostVisibility.UNKNOWN)
-    @Default(PostVisibility.PUBLIC)
-    PostVisibility visibility,
-
-    @Default(false) bool isR18,
-    @Default(false) bool hideFromMinors,
-    @Default(false) bool adminForceR18,
-    @Default(false) bool adminForceHidden,
-    int? minimumAge,
-    int? maximumAge,
-
-    @Default(true) bool canView,
   }) = _QuotedPost;
 
   factory QuotedPost.fromJson(Map<String, Object?> json) =>
       _$QuotedPostFromJson(json);
 }
 
+/// 非表示スタブかどうか。`canView` が本命で、`author` の有無は保険。
+bool isHiddenPostJson(Map<String, Object?> json) =>
+    json['canView'] == false || json['author'] == null;
+
+/// `GET posts/{id}` の `post` を読む。
+PostResult postResultFromJson(Map<String, Object?> json) =>
+    isHiddenPostJson(json) ? HiddenPost.fromJson(json) : Post.fromJson(json);
+
+/// 埋め込みの引用元を [QuotedPost] と [HiddenPost] に振り分ける。
+///
+/// json_serializable は sealed 型を扱えないので変換器を挟む。
+class QuoteConverter implements JsonConverter<Quote?, Object?> {
+  const QuoteConverter();
+
+  @override
+  Quote? fromJson(Object? json) {
+    if (json is! Map<String, Object?>) return null;
+    return isHiddenPostJson(json)
+        ? HiddenPost.fromJson(json)
+        : QuotedPost.fromJson(json);
+  }
+
+  @override
+  Object? toJson(Quote? value) => switch (value) {
+    QuotedPost q => q.toJson(),
+    HiddenPost h => h.toJson(),
+    null => null,
+  };
+}
+
+/// [QuoteConverter] の配列版。固定ポストの一覧に使う。
+class QuoteListConverter implements JsonConverter<List<Quote>, Object?> {
+  const QuoteListConverter();
+
+  @override
+  List<Quote> fromJson(Object? json) {
+    if (json is! List) return const [];
+    return [for (final e in json) ?const QuoteConverter().fromJson(e)];
+  }
+
+  @override
+  Object? toJson(List<Quote> value) =>
+      [for (final q in value) const QuoteConverter().toJson(q)];
+}
+
 @freezed
-abstract class Post with _$Post implements AbstractPost {
+abstract class Post with _$Post implements PostResult {
   const factory Post({
     /// 運営が強制的に非表示にした。作者本人の設定より優先される。
     @Default(false) bool adminForceHidden,
@@ -261,13 +300,14 @@ abstract class Post with _$Post implements AbstractPost {
 
     required Author author,
     int? authorId,
-    required bool bookmarked,
+    /// 一覧の種類によっては返らない。`/users/{id}/media` がそう。
+    @Default(false) bool bookmarked,
     //required List<Id> bookmarks,
-    required int bookmarksCount,
+    @Default(0) int bookmarksCount,
     @Default(true) bool canInteract,
     @Default(true) bool canQuote,
     String? comment,
-    required String content,
+    @Default("") String content,
     required DateTime createdAt,
     DateTime? editedAt,
     String? embedDescription,
@@ -282,10 +322,10 @@ abstract class Post with _$Post implements AbstractPost {
     @Default(false) bool hideFromMinors,
 
     required int id,
-    required bool isAiGenerated,
+    @Default(false) bool isAiGenerated,
     @Default(false) bool isBlockedByAuthor,
     @Default(false) bool isMutedByViewer,
-    required bool isPromotional,
+    @Default(false) bool isPromotional,
 
     /// 作者が R18 として投稿した。表示前に伏せること。
     @Default(false) bool isR18,
@@ -310,12 +350,12 @@ abstract class Post with _$Post implements AbstractPost {
     // required String itemId,
     @Default(false) bool liked,
     // required List<Id> likes,
-    required int likesCount,
-    required List<String> mediaAlts,
-    required List<bool> mediaR18Flags,
-    required List<bool> mediaSpoilerFlags,
-    required List<String> mediaTypes,
-    required List<String> mediaUrls,
+    @Default(0) int likesCount,
+    @Default([]) List<String> mediaAlts,
+    @Default([]) List<bool> mediaR18Flags,
+    @Default([]) List<bool> mediaSpoilerFlags,
+    @Default([]) List<String> mediaTypes,
+    @Default([]) List<String> mediaUrls,
     @Default([]) List<MentionId> mentions,
 
     /// 閲覧可能な年齢の下限。null なら制限無し。
@@ -326,7 +366,10 @@ abstract class Post with _$Post implements AbstractPost {
     /// 引用した人数。エンドポイントによっては [quotePostsCount] で返る。
     @Default(0) int quoteUsersCount,
     @Default(0) int quotePostsCount,
-    QuotedPost? quotedPost,
+
+    /// 引用元。**画面からは [PostX.quote] を読むこと。**
+    /// こちらを直接読むと `quotedPostId` だけがある場合の合成が効かない。
+    @QuoteConverter() Quote? quotedPost,
     int? quotedPostId,
     @Default([]) List<ReactionSummary> reactionSummary,
     @Default([]) List<Reaction> reactions,
@@ -334,7 +377,7 @@ abstract class Post with _$Post implements AbstractPost {
     Author? rekarotedBy,
     // required List<Id> rekarots,
     @Default(0) int rekarotsCount,
-    required int repliesCount,
+    @Default(0) int repliesCount,
     Circle? replyCircle,
     int? replyCircleId,
     @JsonKey(unknownEnumValue: ReplyRestriction.UNKNOWN)
@@ -347,7 +390,7 @@ abstract class Post with _$Post implements AbstractPost {
     DateTime? updatedAt,
     Circle? viewerCircle,
     int? viewerCircleId,
-    required int viewsCount,
+    @Default(0) int viewsCount,
     @JsonKey(unknownEnumValue: PostVisibility.UNKNOWN)
     @Default(PostVisibility.PUBLIC)
     PostVisibility visibility,
@@ -376,6 +419,20 @@ abstract class Post with _$Post implements AbstractPost {
 }
 
 extension PostX on Post {
+  /// 運営の強制設定を加味した最終的な R18 判定。表示前にこれで伏せる。
+  bool get effectiveR18 => isR18 || adminForceR18;
+
+  /// 運営に非表示にされている。
+  bool get effectiveHidden => adminForceHidden;
+
+  /// 引用元。`quotedPostId` だけがある場合は「取得できなかった」として扱う。
+  ///
+  /// Web クライアントも同じ合成をしている。[Post.quotedPost] を直接読むと
+  /// 引用の存在自体が画面から消えるので、必ずこちらを使う。
+  Quote? get quote =>
+      quotedPost ??
+      (quotedPostId != null ? HiddenPost.notFound(quotedPostId!) : null);
+
   Author? getThreadParentAuthor() {
     for (var target in replyTargets) {
       // PARENT_AUTHOR or THREAD_PARTICIPANT and more

@@ -32,6 +32,40 @@ String getLocalizedDateTime(DateTime dateTime) {
   }
 }
 
+/// 「14:32 · 2026年8月15日」。カロート詳細の主役だけ絶対時刻で出す。
+String getAbsoluteDateTime(DateTime dateTime) {
+  final local = dateTime.toLocal();
+  final hour = local.hour.toString().padLeft(2, '0');
+  final minute = local.minute.toString().padLeft(2, '0');
+  return "$hour:$minute · ${local.year}年${local.month}月${local.day}日";
+}
+
+/// 件数の丸め。1 万を超えたら「1.2万」、1 億を超えたら「1.2億」。
+///
+/// 1 万未満は 3 桁区切りでそのまま出す。
+String formatCount(int count) {
+  if (count < 0) return "0";
+  if (count < 10000) return _withThousandsSeparator(count);
+  if (count < 100000000) return "${_trimZero(count / 10000)}万";
+  return "${_trimZero(count / 100000000)}億";
+}
+
+String _withThousandsSeparator(int value) {
+  final digits = value.toString();
+  final buffer = StringBuffer();
+  for (var i = 0; i < digits.length; i++) {
+    if (i > 0 && (digits.length - i) % 3 == 0) buffer.write(',');
+    buffer.write(digits[i]);
+  }
+  return buffer.toString();
+}
+
+/// 小数第 1 位まで。ちょうど割り切れるなら小数点以下を落とす。
+String _trimZero(double value) {
+  final fixed = value.toStringAsFixed(1);
+  return fixed.endsWith('.0') ? fixed.substring(0, fixed.length - 2) : fixed;
+}
+
 String getRemainingTime(DateTime dateTime) {
   final now = DateTime.now();
   final difference = dateTime.difference(now);
@@ -161,4 +195,16 @@ Future<void> loadAllFonts() async {
   if (!Platform.isAndroid && !Platform.isIOS) {
     fonts = await SystemFonts().loadAllFonts();
   }
+}
+
+/// `1:23` / `1:02:03`。音声や動画の再生位置に使う。
+String formatDuration(Duration duration) {
+  final total = duration.isNegative ? Duration.zero : duration;
+  final hours = total.inHours;
+  final minutes = total.inMinutes % 60;
+  final seconds = total.inSeconds % 60;
+  final mm = hours > 0 ? minutes.toString().padLeft(2, '0') : '$minutes';
+  return hours > 0
+      ? '$hours:$mm:${seconds.toString().padLeft(2, '0')}'
+      : '$mm:${seconds.toString().padLeft(2, '0')}';
 }

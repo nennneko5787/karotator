@@ -152,7 +152,6 @@ class _TimeLineTabState extends State<TimeLineTab> {
           onRefresh: refreshPosts,
           child: ListView.builder(
             controller: controller,
-            padding: const EdgeInsets.all(8),
             physics: const AlwaysScrollableScrollPhysics(),
             itemCount: posts.length + 1,
             itemBuilder: (context, index) {
@@ -166,14 +165,10 @@ class _TimeLineTabState extends State<TimeLineTab> {
               }
 
               final post = posts[index];
-              final isFirst = index == 0;
-              final isLast = index == posts.length - 1;
 
               return PostWidget(
                 key: ValueKey('post_${post.id}_${posts.length}'),
                 post: post,
-                isFirst: isFirst,
-                isLast: isLast,
               );
             },
           ),

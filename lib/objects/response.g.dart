@@ -163,9 +163,7 @@ Map<String, dynamic> _$RefreshResponseToJson(_RefreshResponse instance) =>
 _UserResponse _$UserResponseFromJson(Map<String, dynamic> json) =>
     _UserResponse(
       user: User.fromJson(json['user'] as Map<String, dynamic>),
-      pinnedPost: json['pinnedPost'] == null
-          ? null
-          : QuotedPost.fromJson(json['pinnedPost'] as Map<String, dynamic>),
+      pinnedPost: const QuoteConverter().fromJson(json['pinnedPost']),
       isFollowing: json['isFollowing'] as bool,
       isFollowedBy: json['isFollowedBy'] as bool,
       isBlocked: json['isBlocked'] as bool,
@@ -180,17 +178,15 @@ _UserResponse _$UserResponseFromJson(Map<String, dynamic> json) =>
       isPostNotificationsEnabled:
           json['isPostNotificationsEnabled'] as bool? ?? false,
       isRekarotHidden: json['isRekarotHidden'] as bool? ?? false,
-      pinnedPosts:
-          (json['pinnedPosts'] as List<dynamic>?)
-              ?.map((e) => QuotedPost.fromJson(e as Map<String, dynamic>))
-              .toList() ??
-          const [],
+      pinnedPosts: json['pinnedPosts'] == null
+          ? const []
+          : const QuoteListConverter().fromJson(json['pinnedPosts']),
     );
 
 Map<String, dynamic> _$UserResponseToJson(_UserResponse instance) =>
     <String, dynamic>{
       'user': instance.user,
-      'pinnedPost': instance.pinnedPost,
+      'pinnedPost': const QuoteConverter().toJson(instance.pinnedPost),
       'isFollowing': instance.isFollowing,
       'isFollowedBy': instance.isFollowedBy,
       'isBlocked': instance.isBlocked,
@@ -202,7 +198,7 @@ Map<String, dynamic> _$UserResponseToJson(_UserResponse instance) =>
       'mutualFollowersCount': instance.mutualFollowersCount,
       'isPostNotificationsEnabled': instance.isPostNotificationsEnabled,
       'isRekarotHidden': instance.isRekarotHidden,
-      'pinnedPosts': instance.pinnedPosts,
+      'pinnedPosts': const QuoteListConverter().toJson(instance.pinnedPosts),
     };
 
 _NotificationPagination _$NotificationPaginationFromJson(
@@ -210,7 +206,7 @@ _NotificationPagination _$NotificationPaginationFromJson(
 ) => _NotificationPagination(
   hasMore: json['hasMore'] as bool,
   limit: (json['limit'] as num).toInt(),
-  nextPage: (json['nextPage'] as num).toInt(),
+  nextPage: (json['nextPage'] as num?)?.toInt(),
   page: (json['page'] as num).toInt(),
 );
 

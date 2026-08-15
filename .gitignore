@@ -46,3 +46,6 @@ app.*.map.json
 
 # tool/capture_api_samples.dart --raw の出力。テストアカウントの実データが入る。
 /.karotter-samples/
+
+# tool/grep_bundle.dart --cache の出力。Karotter Web の JS をそのまま落としたもの。
+/.karotter-bundle/

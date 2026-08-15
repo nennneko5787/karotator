@@ -1,22 +1,20 @@
 import "package:flutter/gestures.dart";
 import "package:flutter/material.dart";
-import "package:karotator/api/karotter_api.dart";
 import "package:karotator/objects/post.dart";
 import "package:karotator/objects/user.dart";
-import "package:karotator/pages/post_detail.dart";
 import "package:karotator/pages/profile.dart";
 import "package:karotator/ui/post/actions.dart";
-import "package:karotator/ui/post/avatar.dart";
-import "package:karotator/ui/post/header.dart";
+import "package:karotator/ui/post/body.dart";
 import "package:karotator/ui/post/media.dart";
 import "package:karotator/ui/post/poll.dart";
+import "package:karotator/ui/post/preview.dart";
 import "package:karotator/ui/post/reaction.dart";
-import "package:karotator/ui/text_agent.dart";
 
 /// カロートの中身。本文・メディア・投票・引用元・リアクション・操作列。
 ///
-/// 引用元の描画で自分自身を入れ子にする。その場合は [hideActions] と
-/// [hideReplyTo] を立てて、操作列と「返信先」を二重に出さないようにしている。
+/// 引用元は入れ子にせず [PostPreviewCard] が描く。以前は自分自身を入れ子に
+/// していたが、引用元は本体と同じ形をしていないので分けた
+/// （specs/003-hidden-posts/design.md §6）。
 class PostContent extends StatelessWidget {
   const PostContent({
     super.key,
@@ -24,18 +22,21 @@ class PostContent extends StatelessWidget {
     this.hideActions = false,
     this.hideReplyTo = false,
     this.fontSize = 12,
+    this.revealMutedOrBlocked = false,
   });
 
-  final AbstractPost post;
+  final Post post;
   final bool hideActions;
   final bool hideReplyTo;
   final double fontSize;
 
+  /// 閲覧者が「表示する」を押した後。引用元にも引き継ぐ (REQ-HIDE-015)。
+  final bool revealMutedOrBlocked;
+
   @override
   Widget build(BuildContext context) {
-    final threadParentAuthor = post is Post
-        ? (post as Post).getThreadParentAuthor()
-        : null;
+    final threadParentAuthor = post.getThreadParentAuthor();
+    final quote = post.quote;
 
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
@@ -47,20 +48,22 @@ class PostContent extends StatelessWidget {
             fontSize: fontSize,
             showPrefix: !hideReplyTo,
           ),
-        Text.rich(
-          TextAgent.generate(
-            post.content,
-            context,
+        if (post.content.isNotEmpty)
+          PostBody(
+            content: post.content,
             style: TextStyle(fontSize: fontSize),
           ),
-        ),
-        if (post.mediaUrls.isNotEmpty) PostMedia(post: post),
-        if (post case final Post p when p.poll != null) PollWidget(post: p),
-        if (post case final Post p when p.quotedPost != null)
-          _QuotedPostCard(quotedPost: p.quotedPost!),
-        if (post case final Post p) ReactionWidget(post: p),
-        if (post case final Post p when !hideActions)
-          PostActionsWidget(post: p),
+        if (post.mediaUrls.isNotEmpty)
+          PostMedia(mediaUrls: post.mediaUrls, mediaTypes: post.mediaTypes),
+        if (post.poll != null) PollWidget(post: post),
+        if (quote != null)
+          PostPreviewCard(
+            quote: quote,
+            fontSize: fontSize,
+            revealMutedOrBlocked: revealMutedOrBlocked,
+          ),
+        ReactionWidget(post: post),
+        if (!hideActions) PostActionsWidget(post: post),
       ],
     );
   }
@@ -102,44 +105,6 @@ class _ReplyToLabel extends StatelessWidget {
               ),
           ),
         ],
-      ),
-    );
-  }
-}
-
-/// 引用元のカロートを囲んで表示する。
-class _QuotedPostCard extends StatelessWidget {
-  const _QuotedPostCard({required this.quotedPost});
-
-  final QuotedPost quotedPost;
-
-  @override
-  Widget build(BuildContext context) {
-    return GestureDetector(
-      onTap: () async {
-        // 一覧に埋まっている引用元は情報が欠けているので取り直す。
-        final full = await KarotterApi().posts.byId(quotedPost.id);
-        if (!context.mounted) return;
-        Navigator.push(
-          context,
-          MaterialPageRoute(builder: (_) => PostDetailPage(post: full)),
-        );
-      },
-      child: Container(
-        decoration: BoxDecoration(
-          border: Border.all(color: Theme.of(context).dividerColor, width: 1),
-          borderRadius: BorderRadius.circular(8),
-        ),
-        child: ListTile(
-          titleAlignment: ListTileTitleAlignment.top,
-          leading: PostUserAvatar(avatarUrl: quotedPost.author.avatarUrl),
-          title: PostUserDetail(post: quotedPost),
-          subtitle: PostContent(
-            post: quotedPost,
-            hideActions: true,
-            hideReplyTo: true,
-          ),
-        ),
       ),
     );
   }

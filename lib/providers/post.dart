@@ -9,6 +9,7 @@ part 'post.g.dart';
 @riverpod
 class PostNotifier extends _$PostNotifier {
   bool _initialize = false;
+  bool _retained = false;
 
   @override
   Post build(int postId) => Post.empty();
@@ -20,7 +21,23 @@ class PostNotifier extends _$PostNotifier {
     state = post;
   }
 
+  /// 楽観更新した状態を画面外でも保持する。
+  ///
+  /// このプロバイダは autoDispose なので、カロートがスクロールで画面外へ
+  /// 出ると破棄される。戻ってくると [build] の `Post.empty()` から作り直され、
+  /// [initialize] に**一覧が持っている古い `Post`** が渡る。その結果、
+  /// 押したはずのいいねやリアクションが消えて見える。
+  ///
+  /// 触ったカロートだけを残す。全件 keepAlive にするとタイムラインを
+  /// 送るほど際限なく溜まる。
+  void _retain() {
+    if (_retained) return;
+    _retained = true;
+    ref.keepAlive();
+  }
+
   Future<void> toggleLike() async {
+    _retain();
     final current = state;
 
     state = current.copyWith(
@@ -47,6 +64,7 @@ class PostNotifier extends _$PostNotifier {
   }
 
   Future<void> toggleRekarot() async {
+    _retain();
     final current = state;
 
     state = current.copyWith(
@@ -72,6 +90,7 @@ class PostNotifier extends _$PostNotifier {
   }
 
   Future<void> toggleBookmark() async {
+    _retain();
     final current = state;
 
     state = current.copyWith(
@@ -97,6 +116,7 @@ class PostNotifier extends _$PostNotifier {
   }
 
   Future<void> addReaction(String emoji) async {
+    _retain();
     final current = state;
 
     state = current.copyWith(
@@ -124,6 +144,7 @@ class PostNotifier extends _$PostNotifier {
   }
 
   Future<void> removeReaction(String emoji) async {
+    _retain();
     final current = state;
 
     state = current.copyWith(
@@ -148,10 +169,13 @@ class PostNotifier extends _$PostNotifier {
   }
 
   Future<void> poll(int optionId) async {
+    _retain();
     final current = state;
 
     try {
-      final poll = await ref.read(postsApiProvider).vote(current.id, optionId: optionId);
+      final poll = await ref
+          .read(postsApiProvider)
+          .vote(current.id, optionId: optionId);
       state = current.copyWith(poll: poll);
     } catch (e, stackTrace) {
       debugPrint("$e\n$stackTrace");

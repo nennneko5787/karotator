@@ -1,54 +1,21 @@
 import "package:flutter/material.dart";
-import "package:karotator/objects/post.dart";
+import "package:karotator/objects/user.dart";
 import "package:karotator/utils.dart";
 
-/// 「固定されたポスト」の見出し。
-class PostPinnedLabel extends StatelessWidget {
-  const PostPinnedLabel({super.key});
-
-  @override
-  Widget build(BuildContext context) {
-    return const Row(
-      crossAxisAlignment: CrossAxisAlignment.center,
-      children: [
-        SizedBox(width: 12),
-        Icon(Icons.push_pin, size: 16),
-        Text("固定されたポスト", style: TextStyle(fontSize: 12)),
-      ],
-    );
-  }
-}
-
-/// 「〇〇さんがリカロート」の見出し。
-class PostRekarotedByLabel extends StatelessWidget {
-  const PostRekarotedByLabel({super.key, required this.rekarotedBy});
-
-  final String rekarotedBy;
-
-  @override
-  Widget build(BuildContext context) {
-    return Row(
-      crossAxisAlignment: CrossAxisAlignment.center,
-      children: [
-        const SizedBox(width: 12),
-        const Icon(Icons.repeat, size: 16),
-        TextButton(
-          onPressed: () {},
-          child: Text(
-            "$rekarotedBy さんがリカロート",
-            style: const TextStyle(fontSize: 12),
-          ),
-        ),
-      ],
-    );
-  }
-}
-
 /// 表示名・公式マーク・ID・投稿時刻の 1 行。
+///
+/// 表示名だけ太字にして、@ID と時刻は控えめな色で続ける。
+/// 幅が足りないときに削るのは @ID の方（表示名は最後まで残す）。
 class PostUserDetail extends StatelessWidget {
-  const PostUserDetail({super.key, required this.post, this.fontSize = 12});
+  const PostUserDetail({
+    super.key,
+    required this.author,
+    required this.createdAt,
+    this.fontSize = 12,
+  });
 
-  final AbstractPost post;
+  final Author author;
+  final DateTime createdAt;
   final double fontSize;
 
   @override
@@ -63,21 +30,24 @@ class PostUserDetail extends StatelessWidget {
       children: [
         Flexible(
           child: Text(
-            post.author.displayName,
+            author.displayName,
             overflow: TextOverflow.ellipsis,
-            style: TextStyle(fontSize: fontSize),
+            maxLines: 1,
+            style: TextStyle(fontSize: fontSize, fontWeight: FontWeight.w700),
           ),
         ),
-        ...getUserPrimaryMark(post.author, size: fontSize + 2),
+        ...getUserPrimaryMark(author, size: fontSize + 2),
+        // 幅が足りないときはここから削る。表示名と時刻は残す。
         Flexible(
           child: Text(
-            "@${post.author.username}",
+            "@${author.username}",
             style: subStyle,
             overflow: TextOverflow.ellipsis,
+            maxLines: 1,
           ),
         ),
         Text("·", style: subStyle),
-        Text(getLocalizedDateTime(post.createdAt), style: subStyle),
+        Text(getLocalizedDateTime(createdAt), style: subStyle, maxLines: 1),
       ],
     );
   }

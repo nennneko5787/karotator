@@ -177,19 +177,79 @@ Map<String, dynamic> _$NotificationPostToJson(_NotificationPost instance) =>
       'mediaTypes': instance.mediaTypes,
     };
 
-_QuotedPost _$QuotedPostFromJson(Map<String, dynamic> json) => _QuotedPost(
+_HiddenPost _$HiddenPostFromJson(Map<String, dynamic> json) => _HiddenPost(
   id: (json['id'] as num).toInt(),
-  content: json['content'] as String,
-  author: Author.fromJson(json['author'] as Map<String, dynamic>),
-  createdAt: DateTime.parse(json['createdAt'] as String),
-  updatedAt: json['updatedAt'] == null
-      ? null
-      : DateTime.parse(json['updatedAt'] as String),
-  editedAt: json['editedAt'] == null
-      ? null
-      : DateTime.parse(json['editedAt'] as String),
+  authorId: (json['authorId'] as num?)?.toInt(),
   parentId: (json['parentId'] as num?)?.toInt(),
   quotedPostId: (json['quotedPostId'] as num?)?.toInt(),
+  hiddenReason:
+      $enumDecodeNullable(
+        _$HiddenReasonEnumMap,
+        json['hiddenReason'],
+        unknownValue: HiddenReason.UNKNOWN,
+      ) ??
+      HiddenReason.UNKNOWN,
+  hiddenRelationDetail:
+      $enumDecodeNullable(
+        _$HiddenRelationDetailEnumMap,
+        json['hiddenRelationDetail'],
+        unknownValue: HiddenRelationDetail.UNKNOWN,
+      ) ??
+      HiddenRelationDetail.UNKNOWN,
+  hiddenFilterDetail:
+      $enumDecodeNullable(
+        _$HiddenFilterDetailEnumMap,
+        json['hiddenFilterDetail'],
+        unknownValue: HiddenFilterDetail.UNKNOWN,
+      ) ??
+      HiddenFilterDetail.UNKNOWN,
+);
+
+Map<String, dynamic> _$HiddenPostToJson(_HiddenPost instance) =>
+    <String, dynamic>{
+      'id': instance.id,
+      'authorId': instance.authorId,
+      'parentId': instance.parentId,
+      'quotedPostId': instance.quotedPostId,
+      'hiddenReason': _$HiddenReasonEnumMap[instance.hiddenReason]!,
+      'hiddenRelationDetail':
+          _$HiddenRelationDetailEnumMap[instance.hiddenRelationDetail]!,
+      'hiddenFilterDetail':
+          _$HiddenFilterDetailEnumMap[instance.hiddenFilterDetail]!,
+    };
+
+const _$HiddenReasonEnumMap = {
+  HiddenReason.RELATION: 'RELATION',
+  HiddenReason.FILTERED: 'FILTERED',
+  HiddenReason.UNKNOWN: 'UNKNOWN',
+};
+
+const _$HiddenRelationDetailEnumMap = {
+  HiddenRelationDetail.BLOCKED: 'BLOCKED',
+  HiddenRelationDetail.BLOCKED_BY_AUTHOR: 'BLOCKED_BY_AUTHOR',
+  HiddenRelationDetail.MUTED: 'MUTED',
+  HiddenRelationDetail.UNKNOWN: 'UNKNOWN',
+};
+
+const _$HiddenFilterDetailEnumMap = {
+  HiddenFilterDetail.PRIVATE_ACCOUNT: 'PRIVATE_ACCOUNT',
+  HiddenFilterDetail.LIMITED_VISIBILITY: 'LIMITED_VISIBILITY',
+  HiddenFilterDetail.EXPIRED: 'EXPIRED',
+  HiddenFilterDetail.ADMIN_HIDDEN: 'ADMIN_HIDDEN',
+  HiddenFilterDetail.MUTED_KEYWORD: 'MUTED_KEYWORD',
+  HiddenFilterDetail.MINOR_RESTRICTED: 'MINOR_RESTRICTED',
+  HiddenFilterDetail.R18_FILTERED: 'R18_FILTERED',
+  HiddenFilterDetail.BOT_FILTERED: 'BOT_FILTERED',
+  HiddenFilterDetail.PARODY_FILTERED: 'PARODY_FILTERED',
+  HiddenFilterDetail.NOT_FOUND: 'NOT_FOUND',
+  HiddenFilterDetail.UNKNOWN: 'UNKNOWN',
+};
+
+_QuotedPost _$QuotedPostFromJson(Map<String, dynamic> json) => _QuotedPost(
+  id: (json['id'] as num).toInt(),
+  author: Author.fromJson(json['author'] as Map<String, dynamic>),
+  createdAt: DateTime.parse(json['createdAt'] as String),
+  content: json['content'] as String? ?? '',
   mediaUrls:
       (json['mediaUrls'] as List<dynamic>?)?.map((e) => e as String).toList() ??
       const [],
@@ -198,117 +258,29 @@ _QuotedPost _$QuotedPostFromJson(Map<String, dynamic> json) => _QuotedPost(
           ?.map((e) => e as String)
           .toList() ??
       const [],
-  mediaAlts:
-      (json['mediaAlts'] as List<dynamic>?)?.map((e) => e as String).toList() ??
-      const [],
-  mediaSpoilerFlags:
-      (json['mediaSpoilerFlags'] as List<dynamic>?)
-          ?.map((e) => e as bool)
-          .toList() ??
-      const [],
-  mediaR18Flags:
-      (json['mediaR18Flags'] as List<dynamic>?)
-          ?.map((e) => e as bool)
-          .toList() ??
-      const [],
-  embedUrl: json['embedUrl'] as String?,
-  embedTitle: json['embedTitle'] as String?,
-  embedDescription: json['embedDescription'] as String?,
-  embedImage: json['embedImage'] as String?,
-  likesCount: (json['likesCount'] as num).toInt(),
-  rekarotsCount: (json['rekarotsCount'] as num).toInt(),
-  repliesCount: (json['repliesCount'] as num).toInt(),
-  viewsCount: (json['viewsCount'] as num).toInt(),
-  excludedMentions:
-      (json['excludedMentions'] as List<dynamic>?)
-          ?.map((e) => (e as num).toInt())
-          .toList() ??
-      const [],
-  replyRestriction:
-      $enumDecodeNullable(
-        _$ReplyRestrictionEnumMap,
-        json['replyRestriction'],
-        unknownValue: ReplyRestriction.UNKNOWN,
-      ) ??
-      ReplyRestriction.EVERYONE,
-  visibility:
-      $enumDecodeNullable(
-        _$PostVisibilityEnumMap,
-        json['visibility'],
-        unknownValue: PostVisibility.UNKNOWN,
-      ) ??
-      PostVisibility.PUBLIC,
-  isR18: json['isR18'] as bool? ?? false,
-  hideFromMinors: json['hideFromMinors'] as bool? ?? false,
-  adminForceR18: json['adminForceR18'] as bool? ?? false,
-  adminForceHidden: json['adminForceHidden'] as bool? ?? false,
-  minimumAge: (json['minimumAge'] as num?)?.toInt(),
-  maximumAge: (json['maximumAge'] as num?)?.toInt(),
-  canView: json['canView'] as bool? ?? true,
 );
 
 Map<String, dynamic> _$QuotedPostToJson(_QuotedPost instance) =>
     <String, dynamic>{
       'id': instance.id,
-      'content': instance.content,
       'author': instance.author,
       'createdAt': instance.createdAt.toIso8601String(),
-      'updatedAt': instance.updatedAt?.toIso8601String(),
-      'editedAt': instance.editedAt?.toIso8601String(),
-      'parentId': instance.parentId,
-      'quotedPostId': instance.quotedPostId,
+      'content': instance.content,
       'mediaUrls': instance.mediaUrls,
       'mediaTypes': instance.mediaTypes,
-      'mediaAlts': instance.mediaAlts,
-      'mediaSpoilerFlags': instance.mediaSpoilerFlags,
-      'mediaR18Flags': instance.mediaR18Flags,
-      'embedUrl': instance.embedUrl,
-      'embedTitle': instance.embedTitle,
-      'embedDescription': instance.embedDescription,
-      'embedImage': instance.embedImage,
-      'likesCount': instance.likesCount,
-      'rekarotsCount': instance.rekarotsCount,
-      'repliesCount': instance.repliesCount,
-      'viewsCount': instance.viewsCount,
-      'excludedMentions': instance.excludedMentions,
-      'replyRestriction': _$ReplyRestrictionEnumMap[instance.replyRestriction]!,
-      'visibility': _$PostVisibilityEnumMap[instance.visibility]!,
-      'isR18': instance.isR18,
-      'hideFromMinors': instance.hideFromMinors,
-      'adminForceR18': instance.adminForceR18,
-      'adminForceHidden': instance.adminForceHidden,
-      'minimumAge': instance.minimumAge,
-      'maximumAge': instance.maximumAge,
-      'canView': instance.canView,
     };
-
-const _$ReplyRestrictionEnumMap = {
-  ReplyRestriction.EVERYONE: 'EVERYONE',
-  ReplyRestriction.FOLLOWING: 'FOLLOWING',
-  ReplyRestriction.MENTIONED: 'MENTIONED',
-  ReplyRestriction.CIRCLE: 'CIRCLE',
-  ReplyRestriction.UNKNOWN: 'UNKNOWN',
-};
-
-const _$PostVisibilityEnumMap = {
-  PostVisibility.PUBLIC: 'PUBLIC',
-  PostVisibility.CIRCLE: 'CIRCLE',
-  PostVisibility.FOLLOWERS: 'FOLLOWERS',
-  PostVisibility.PRIVATE: 'PRIVATE',
-  PostVisibility.UNKNOWN: 'UNKNOWN',
-};
 
 _Post _$PostFromJson(Map<String, dynamic> json) => _Post(
   adminForceHidden: json['adminForceHidden'] as bool? ?? false,
   adminForceR18: json['adminForceR18'] as bool? ?? false,
   author: Author.fromJson(json['author'] as Map<String, dynamic>),
   authorId: (json['authorId'] as num?)?.toInt(),
-  bookmarked: json['bookmarked'] as bool,
-  bookmarksCount: (json['bookmarksCount'] as num).toInt(),
+  bookmarked: json['bookmarked'] as bool? ?? false,
+  bookmarksCount: (json['bookmarksCount'] as num?)?.toInt() ?? 0,
   canInteract: json['canInteract'] as bool? ?? true,
   canQuote: json['canQuote'] as bool? ?? true,
   comment: json['comment'] as String?,
-  content: json['content'] as String,
+  content: json['content'] as String? ?? "",
   createdAt: DateTime.parse(json['createdAt'] as String),
   editedAt: json['editedAt'] == null
       ? null
@@ -330,10 +302,10 @@ _Post _$PostFromJson(Map<String, dynamic> json) => _Post(
       const [],
   hideFromMinors: json['hideFromMinors'] as bool? ?? false,
   id: (json['id'] as num).toInt(),
-  isAiGenerated: json['isAiGenerated'] as bool,
+  isAiGenerated: json['isAiGenerated'] as bool? ?? false,
   isBlockedByAuthor: json['isBlockedByAuthor'] as bool? ?? false,
   isMutedByViewer: json['isMutedByViewer'] as bool? ?? false,
-  isPromotional: json['isPromotional'] as bool,
+  isPromotional: json['isPromotional'] as bool? ?? false,
   isR18: json['isR18'] as bool? ?? false,
   maximumAge: (json['maximumAge'] as num?)?.toInt(),
   adminForceMinimumAge: (json['adminForceMinimumAge'] as num?)?.toInt(),
@@ -345,22 +317,28 @@ _Post _$PostFromJson(Map<String, dynamic> json) => _Post(
       ? null
       : DateTime.parse(json['expiresAt'] as String),
   liked: json['liked'] as bool? ?? false,
-  likesCount: (json['likesCount'] as num).toInt(),
-  mediaAlts: (json['mediaAlts'] as List<dynamic>)
-      .map((e) => e as String)
-      .toList(),
-  mediaR18Flags: (json['mediaR18Flags'] as List<dynamic>)
-      .map((e) => e as bool)
-      .toList(),
-  mediaSpoilerFlags: (json['mediaSpoilerFlags'] as List<dynamic>)
-      .map((e) => e as bool)
-      .toList(),
-  mediaTypes: (json['mediaTypes'] as List<dynamic>)
-      .map((e) => e as String)
-      .toList(),
-  mediaUrls: (json['mediaUrls'] as List<dynamic>)
-      .map((e) => e as String)
-      .toList(),
+  likesCount: (json['likesCount'] as num?)?.toInt() ?? 0,
+  mediaAlts:
+      (json['mediaAlts'] as List<dynamic>?)?.map((e) => e as String).toList() ??
+      const [],
+  mediaR18Flags:
+      (json['mediaR18Flags'] as List<dynamic>?)
+          ?.map((e) => e as bool)
+          .toList() ??
+      const [],
+  mediaSpoilerFlags:
+      (json['mediaSpoilerFlags'] as List<dynamic>?)
+          ?.map((e) => e as bool)
+          .toList() ??
+      const [],
+  mediaTypes:
+      (json['mediaTypes'] as List<dynamic>?)
+          ?.map((e) => e as String)
+          .toList() ??
+      const [],
+  mediaUrls:
+      (json['mediaUrls'] as List<dynamic>?)?.map((e) => e as String).toList() ??
+      const [],
   mentions:
       (json['mentions'] as List<dynamic>?)
           ?.map((e) => MentionId.fromJson(e as Map<String, dynamic>))
@@ -373,9 +351,7 @@ _Post _$PostFromJson(Map<String, dynamic> json) => _Post(
       : Poll.fromJson(json['poll'] as Map<String, dynamic>),
   quoteUsersCount: (json['quoteUsersCount'] as num?)?.toInt() ?? 0,
   quotePostsCount: (json['quotePostsCount'] as num?)?.toInt() ?? 0,
-  quotedPost: json['quotedPost'] == null
-      ? null
-      : QuotedPost.fromJson(json['quotedPost'] as Map<String, dynamic>),
+  quotedPost: const QuoteConverter().fromJson(json['quotedPost']),
   quotedPostId: (json['quotedPostId'] as num?)?.toInt(),
   reactionSummary:
       (json['reactionSummary'] as List<dynamic>?)
@@ -392,7 +368,7 @@ _Post _$PostFromJson(Map<String, dynamic> json) => _Post(
       ? null
       : Author.fromJson(json['rekarotedBy'] as Map<String, dynamic>),
   rekarotsCount: (json['rekarotsCount'] as num?)?.toInt() ?? 0,
-  repliesCount: (json['repliesCount'] as num).toInt(),
+  repliesCount: (json['repliesCount'] as num?)?.toInt() ?? 0,
   replyCircle: json['replyCircle'] == null
       ? null
       : Circle.fromJson(json['replyCircle'] as Map<String, dynamic>),
@@ -421,7 +397,7 @@ _Post _$PostFromJson(Map<String, dynamic> json) => _Post(
       ? null
       : Circle.fromJson(json['viewerCircle'] as Map<String, dynamic>),
   viewerCircleId: (json['viewerCircleId'] as num?)?.toInt(),
-  viewsCount: (json['viewsCount'] as num).toInt(),
+  viewsCount: (json['viewsCount'] as num?)?.toInt() ?? 0,
   visibility:
       $enumDecodeNullable(
         _$PostVisibilityEnumMap,
@@ -478,7 +454,7 @@ Map<String, dynamic> _$PostToJson(_Post instance) => <String, dynamic>{
   'poll': instance.poll,
   'quoteUsersCount': instance.quoteUsersCount,
   'quotePostsCount': instance.quotePostsCount,
-  'quotedPost': instance.quotedPost,
+  'quotedPost': const QuoteConverter().toJson(instance.quotedPost),
   'quotedPostId': instance.quotedPostId,
   'reactionSummary': instance.reactionSummary,
   'reactions': instance.reactions,
@@ -496,4 +472,20 @@ Map<String, dynamic> _$PostToJson(_Post instance) => <String, dynamic>{
   'viewerCircleId': instance.viewerCircleId,
   'viewsCount': instance.viewsCount,
   'visibility': _$PostVisibilityEnumMap[instance.visibility]!,
+};
+
+const _$ReplyRestrictionEnumMap = {
+  ReplyRestriction.EVERYONE: 'EVERYONE',
+  ReplyRestriction.FOLLOWING: 'FOLLOWING',
+  ReplyRestriction.MENTIONED: 'MENTIONED',
+  ReplyRestriction.CIRCLE: 'CIRCLE',
+  ReplyRestriction.UNKNOWN: 'UNKNOWN',
+};
+
+const _$PostVisibilityEnumMap = {
+  PostVisibility.PUBLIC: 'PUBLIC',
+  PostVisibility.CIRCLE: 'CIRCLE',
+  PostVisibility.FOLLOWERS: 'FOLLOWERS',
+  PostVisibility.PRIVATE: 'PRIVATE',
+  PostVisibility.UNKNOWN: 'UNKNOWN',
 };

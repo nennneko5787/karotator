@@ -58,7 +58,11 @@ Karotter 側にあってこちらに無いフィールドが溜まっている�
 - **REQ-MODEL-005** システムは、カロートについて `isR18` / `hideFromMinors` / `minimumAge` / `maximumAge` / `adminForceR18` / `adminForceHidden` を保持すること。
 - **REQ-MODEL-006** システムは、作者の設定と運営の強制設定を合成した判定を 1 箇所で提供すること。
 - **REQ-MODEL-007** システムは、`OfficialMark` の全 13 値と `NONE` を、Karotter Web と同じ色・表示名で保持すること。
-- **REQ-MODEL-008** 引用元のカロートについても、システムは本体と同じ年齢・センシティブ判定を提供すること。
+- ~~**REQ-MODEL-008** 引用元のカロートについても、システムは本体と同じ年齢・センシティブ判定を提供すること。~~
+  **[003](../003-hidden-posts/design.md) で取り下げ。** 年齢制限や R18 に触れる引用元は
+  `MINOR_RESTRICTED` / `R18_FILTERED` として**サーバーが本体ごと伏せて**返すことが分かった。
+  クライアントが `isR18 || adminForceR18` を再計算する余地が無く、引用元に年齢フィールドを
+  持たせても値が来ないか、来る時は既に伏せられている。REQ-MODEL-006 は `Post` 側で維持する。
 
 ### 検証
 

@@ -1,6 +1,8 @@
 import "package:flutter/material.dart";
+import "package:flutter_riverpod/flutter_riverpod.dart";
 import "package:karotator/api/karotter_api.dart";
 import "package:karotator/pages/legal.dart";
+import "package:karotator/providers/auth_user.dart";
 
 /// 規約が更新されたことを知らせる帯。
 ///
@@ -10,14 +12,14 @@ import "package:karotator/pages/legal.dart";
 /// 未ログイン時や、まだ一度も確認していない（`legalNoticeSeenVersion` が
 /// null の）アカウントには出さない。初回ログイン直後に規約更新の帯が出ると
 /// 何のことか分からないため。
-class LegalNoticeBanner extends StatefulWidget {
+class LegalNoticeBanner extends ConsumerStatefulWidget {
   const LegalNoticeBanner({super.key});
 
   @override
-  State<LegalNoticeBanner> createState() => _LegalNoticeBannerState();
+  ConsumerState<LegalNoticeBanner> createState() => _LegalNoticeBannerState();
 }
 
-class _LegalNoticeBannerState extends State<LegalNoticeBanner> {
+class _LegalNoticeBannerState extends ConsumerState<LegalNoticeBanner> {
   String? _newVersion;
   bool _dismissed = false;
 
@@ -31,8 +33,7 @@ class _LegalNoticeBannerState extends State<LegalNoticeBanner> {
     if (KarotterApi().session.accountId == null) return;
 
     try {
-      final login = await KarotterApi().session.login();
-      final seen = login?.user.legalNoticeSeenVersion;
+      final seen = ref.read(authUserProvider)?.legalNoticeSeenVersion;
       if (seen == null || seen.isEmpty) return;
 
       final summary = await KarotterApi().legal.summary();
@@ -58,15 +59,11 @@ class _LegalNoticeBannerState extends State<LegalNoticeBanner> {
         'legalNoticeSeenVersion': version,
       });
 
-      // 手元の控えも直しておかないと、次の起動でまた出る。
-      final login = await KarotterApi().session.login();
-      if (login != null) {
-        await KarotterApi().session.saveLogin(
-          login.copyWith(
-            user: login.user.copyWith(legalNoticeSeenVersion: version),
-          ),
-        );
-      }
+      // patch が手元の控え（secure storage）まで直す。これをやらないと
+      // 次の起動でまた出る。
+      await ref
+          .read(authUserProvider.notifier)
+          .patch((user) => user.copyWith(legalNoticeSeenVersion: version));
     } catch (e) {
       debugPrint("規約の確認記録に失敗: $e");
     }

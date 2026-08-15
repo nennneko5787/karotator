@@ -3,9 +3,12 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:karotator/const.dart';
 
 import 'package:karotator/pages/startup.dart';
+import 'package:karotator/providers/emoji_style.dart';
 import 'package:karotator/providers/font.dart';
 import 'package:karotator/providers/font_size.dart';
 import 'package:karotator/providers/theme.dart';
+import 'package:karotator/providers/ui_scale.dart';
+import 'package:karotator/ui/metrics.dart';
 
 void main() {
   WidgetsFlutterBinding.ensureInitialized();
@@ -21,26 +24,42 @@ class Karotator extends ConsumerWidget {
     final themeMode = ref.watch(themeModeProvider);
     final fontFamily = ref.watch(fontProvider);
     final fontSize = ref.watch(fontSizeProvider);
+    final uiScale = ref.watch(uiScaleProvider);
+
+    // 絵文字は本文の字形に無いので、フォールバックに回せばアプリ全体に効く。
+    // 個々の Text に fontFamily を書かなくて済む。
+    final emojiFamily = ref.watch(emojiStyleProvider).fontFamily;
+    final fontFamilyFallback = [?emojiFamily];
 
     return MaterialApp(
       title: 'Karotator',
       scaffoldMessengerKey: messengerKey,
       navigatorKey: navigatorKey,
+      // フォントサイズは全ての文字に効く。UI サイズはカロートの部品だけに
+      // 効く（アプリバーや下タブは変えない）。別々の設定として掛ける。
       builder: (context, child) {
         return MediaQuery(
           data: MediaQuery.of(
             context,
           ).copyWith(textScaler: TextScaler.linear(fontSize)),
-          child: child!,
+          child: PostMetricsScope(
+            metrics: PostMetrics(scale: uiScale),
+            child: child!,
+          ),
         );
       },
       themeMode: themeMode,
       theme: ThemeData(
         fontFamily: fontFamily,
+        fontFamilyFallback: fontFamilyFallback,
         brightness: Brightness.light,
         secondaryHeaderColor: Color.fromARGB(255, 120, 153, 181),
-        scaffoldBackgroundColor: Color.fromARGB(255, 238, 243, 248),
-        appBarTheme: const AppBarTheme(backgroundColor: Colors.white),
+        // カロートはカードで囲わず全幅に敷くので、地はアプリバーと同じ白。
+        scaffoldBackgroundColor: Colors.white,
+        appBarTheme: const AppBarTheme(
+          backgroundColor: Colors.white,
+          scrolledUnderElevation: 0,
+        ),
         drawerTheme: DrawerThemeData(backgroundColor: Colors.white),
         bottomNavigationBarTheme: const BottomNavigationBarThemeData(
           backgroundColor: Colors.white,
@@ -78,11 +97,13 @@ class Karotator extends ConsumerWidget {
       ),
       darkTheme: ThemeData(
         fontFamily: fontFamily,
+        fontFamilyFallback: fontFamilyFallback,
         brightness: Brightness.dark,
         secondaryHeaderColor: Color.fromARGB(255, 120, 153, 181),
         scaffoldBackgroundColor: Color.fromARGB(255, 10, 23, 38),
         appBarTheme: const AppBarTheme(
-          backgroundColor: Color.fromARGB(255, 20, 36, 53),
+          backgroundColor: Color.fromARGB(255, 10, 23, 38),
+          scrolledUnderElevation: 0,
         ),
         drawerTheme: DrawerThemeData(
           backgroundColor: Color.fromARGB(255, 20, 36, 53),
@@ -117,7 +138,8 @@ class Karotator extends ConsumerWidget {
             foregroundColor: WidgetStateProperty.all(Colors.white),
           ),
         ),
-        dividerColor: Color.fromARGB(255, 229, 231, 235),
+        // 明色と同じ値だと暗い地の上で線が浮く。地の色に寄せた濃さにする。
+        dividerColor: Color.fromARGB(255, 32, 52, 74),
       ),
       home: const StartUpPage(),
     );

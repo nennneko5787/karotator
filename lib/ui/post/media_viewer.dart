@@ -51,7 +51,7 @@ class _MediaViewerState extends State<MediaViewer> {
               });
             },
             itemBuilder: (context, index) {
-              if (widget.isVideos[index]) {
+              if (widget.isVideos.elementAtOrNull(index) == true) {
                 return _VideoPlayerItem(url: widget.urls[index]);
               } else {
                 return InteractiveViewer(

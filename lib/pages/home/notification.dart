@@ -4,10 +4,13 @@ import "package:flutter/material.dart" hide Notification;
 import "package:karotator/enum.dart";
 import "package:karotator/api/karotter_api.dart";
 import "package:karotator/objects/notification.dart";
+import "package:karotator/objects/notification_target.dart";
+import "package:karotator/pages/legal_quiz.dart";
 import "package:karotator/pages/notification_posts.dart";
-import "package:karotator/pages/post_detail.dart";
+import "package:karotator/pages/settings/account.dart";
 import "package:karotator/pages/profile.dart";
 import "package:karotator/ui/dialog.dart";
+import "package:karotator/ui/post/hidden.dart";
 import "package:karotator/utils.dart";
 
 class NotificationsPage extends StatefulWidget {
@@ -94,6 +97,47 @@ class _NotificationsState extends State<NotificationsPage> {
       if (!mounted) return;
       showAlert(context, e: e);
     }
+  }
+
+  /// 通知を開く。
+  ///
+  /// 投稿制限の SYSTEM 通知はカロートを持たないので、まずそちらを見る
+  /// (REQ-GATE-006)。見ないと `notification.post!` で落ちる。
+  Future<void> _openNotification(Notification notification) async {
+    // ここでは await しない。await すると以降の context 参照が
+    // async gap をまたぐ扱いになる。遷移を待つ必要も無い。
+    switch (systemNotificationTarget(notification)) {
+      case SystemNotificationTarget.legalQuiz:
+        Navigator.push(
+          context,
+          MaterialPageRoute(builder: (_) => const LegalQuizPage()),
+        );
+        return;
+      case SystemNotificationTarget.accountSettings:
+        Navigator.push(
+          context,
+          MaterialPageRoute(builder: (_) => const AccountSettings()),
+        );
+        return;
+      case null:
+        break;
+    }
+
+    if (notification.type == NotificationType.FOLLOW) return;
+
+    if (notification.postCount > 1) {
+      Navigator.push(
+        context,
+        MaterialPageRoute(
+          builder: (_) => NotificationPostsPage(notification: notification),
+        ),
+      );
+      return;
+    }
+
+    final post = notification.post;
+    if (post == null) return;
+    await openPostDetail(context, post.id);
   }
 
   Widget buildNotificationTitle(Notification notification) {
@@ -229,33 +273,45 @@ class _NotificationsState extends State<NotificationsPage> {
                 children: [
                   ListTile(
                     leading: GestureDetector(
-                      onTap: () {
-                        Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                            builder: (context) => ProfilePage(
-                              username: notification.actor.username,
-                            ),
-                          ),
-                        );
-                      },
+                      // SYSTEM 通知には行為者がいない。プロフィールへは飛ばさない。
+                      onTap: notification.actor == null
+                          ? null
+                          : () {
+                              Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                  builder: (context) => ProfilePage(
+                                    username: notification.actor!.username,
+                                  ),
+                                ),
+                              );
+                            },
                       child: SizedBox(
                         width: 40,
                         height: 40,
                         child: Stack(
                           clipBehavior: Clip.none,
                           children: [
-                            CircleAvatar(
-                              radius: 20,
-                              backgroundImage:
-                                  (notification.actor.avatarUrl == null)
-                                  ? AssetImage(
-                                      "assets/images/default-avatar.png",
-                                    )
-                                  : NetworkImage(
-                                      avatarUrlOf(notification.actor.avatarUrl),
-                                    ),
-                            ),
+                            if (notification.actor case final actor?)
+                              CircleAvatar(
+                                radius: 20,
+                                backgroundImage: (actor.avatarUrl == null)
+                                    ? AssetImage(
+                                        "assets/images/default-avatar.png",
+                                      )
+                                    : NetworkImage(
+                                        avatarUrlOf(actor.avatarUrl),
+                                      ),
+                              )
+                            else
+                              // 行為者のいない通知は運営からのお知らせ。
+                              CircleAvatar(
+                                radius: 20,
+                                backgroundColor: Theme.of(
+                                  context,
+                                ).colorScheme.secondaryContainer,
+                                child: const Icon(Icons.campaign, size: 20),
+                              ),
                             Positioned(
                               right: -4,
                               bottom: -4,
@@ -315,63 +371,13 @@ class _NotificationsState extends State<NotificationsPage> {
                       ),
                     ),
                     title: GestureDetector(
-                      onTap: () async {
-                        if (notification.type != NotificationType.FOLLOW) {
-                          if (notification.postCount <= 1) {
-                            final post = await KarotterApi().posts.byId(
-                              notification.post!.id,
-                            );
-
-                            if (!context.mounted) return;
-                            Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                builder: (context) =>
-                                    PostDetailPage(post: post),
-                              ),
-                            );
-                          } else {
-                            Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                builder: (context) => NotificationPostsPage(
-                                  notification: notification,
-                                ),
-                              ),
-                            );
-                          }
-                        }
-                      },
+                      onTap: () => _openNotification(notification),
                       child: buildNotificationTitle(notification),
                     ),
                     subtitle: (notification.post == null)
                         ? null
                         : GestureDetector(
-                            onTap: () async {
-                              if (notification.postCount <= 1) {
-                                final post = await KarotterApi().posts.byId(
-                                  notification.post!.id,
-                                );
-
-                                if (!context.mounted) return;
-                                Navigator.push(
-                                  context,
-                                  MaterialPageRoute(
-                                    builder: (context) =>
-                                        PostDetailPage(post: post),
-                                  ),
-                                );
-                              } else {
-                                Navigator.push(
-                                  context,
-                                  MaterialPageRoute(
-                                    builder: (context) => NotificationPostsPage(
-                                      notification: notification,
-                                    ),
-                                  ),
-                                );
-                              }
-                            },
+                            onTap: () => _openNotification(notification),
                             child: Text(
                               notification.post!.content,
                               style: TextStyle(fontSize: fontSize - 1),

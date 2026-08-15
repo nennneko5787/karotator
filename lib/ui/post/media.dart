@@ -2,27 +2,50 @@ import "dart:typed_data";
 
 import "package:flutter/material.dart";
 import "package:karotator/const.dart";
-import "package:karotator/objects/post.dart";
+import "package:karotator/objects/media.dart";
+import "package:karotator/ui/post/audio.dart";
 import "package:karotator/ui/post/media_viewer.dart";
 import "package:karotator/utils.dart";
 
 /// カロートに添えられたメディア。枚数で並べ方が変わる。
+///
+/// カロートそのものではなく素の配列を受け取る。引用元のプレビューと本体で
+/// 共有するため（specs/003-hidden-posts/design.md §6）。
 class PostMedia extends StatelessWidget {
-  const PostMedia({super.key, required this.post});
+  const PostMedia({
+    super.key,
+    required this.mediaUrls,
+    required this.mediaTypes,
+  });
 
-  final AbstractPost post;
+  final List<String> mediaUrls;
+  final List<String> mediaTypes;
 
   @override
   Widget build(BuildContext context) {
-    final urls = post.mediaUrls.map(karotterUrl).toList();
-    final isVideos = post.mediaTypes.map((e) => e == "video").toList();
+    // 画像・動画はグリッドに、音声は下に並べる。混ぜるとグリッドが崩れる
+    // （Karotter Web も音声をグリッドから外している）。
+    final attachments = attachmentsOf(mediaUrls, mediaTypes);
+    final visuals = attachments.where((a) => !a.isAudio).toList();
+    final audios = attachments.where((a) => a.isAudio).toList();
 
-    return ClipRRect(
-      borderRadius: BorderRadius.circular(12),
-      child: AspectRatio(
-        aspectRatio: _aspectRatio(urls.length),
-        child: _MediaLayout(urls: urls, isVideos: isVideos),
-      ),
+    final urls = visuals.map((a) => karotterUrl(a.url)).toList();
+    final isVideos = visuals.map((a) => a.isVideo).toList();
+
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      spacing: 8,
+      children: [
+        if (urls.isNotEmpty)
+          ClipRRect(
+            borderRadius: BorderRadius.circular(12),
+            child: AspectRatio(
+              aspectRatio: _aspectRatio(urls.length),
+              child: _MediaLayout(urls: urls, isVideos: isVideos),
+            ),
+          ),
+        for (final audio in audios) PostAudio(url: karotterUrl(audio.url)),
+      ],
     );
   }
 
@@ -88,10 +111,7 @@ class _MediaLayout extends StatelessWidget {
                   child: Center(
                     child: Text(
                       "+${urls.length - 4}",
-                      style: const TextStyle(
-                        color: Colors.white,
-                        fontSize: 24,
-                      ),
+                      style: const TextStyle(color: Colors.white, fontSize: 24),
                     ),
                   ),
                 ),
@@ -123,9 +143,19 @@ class _MediaTile extends StatelessWidget {
               MediaViewer(urls: urls, isVideos: isVideos, initialIndex: index),
         ),
       ),
-      child: isVideos[index]
+      child: isVideos.elementAtOrNull(index) == true
           ? _VideoThumbnail(url: urls[index])
-          : Image.network(urls[index], fit: BoxFit.cover),
+          : Image.network(
+              urls[index],
+              fit: BoxFit.cover,
+              // 取得できなくても例外にしない。
+              errorBuilder: (context, error, stackTrace) => ColoredBox(
+                color: Theme.of(context).dividerColor,
+                child: const Center(
+                  child: Icon(Icons.broken_image_outlined, size: 24),
+                ),
+              ),
+            ),
     );
   }
 }
@@ -165,6 +195,46 @@ class _VideoThumbnailState extends State<_VideoThumbnail> {
         const Center(
           child: Icon(Icons.play_circle_outline, color: Colors.white, size: 48),
         ),
+      ],
+    );
+  }
+}
+
+/// メディア 1 つのサムネイル。プロフィールのメディア欄で並べる。
+///
+/// 動画は再生アイコンを重ねる。読み込めなければ枠だけ出す。
+class PostMediaThumbnail extends StatelessWidget {
+  const PostMediaThumbnail({
+    super.key,
+    required this.url,
+    required this.isVideo,
+  });
+
+  /// 絶対 URL。
+  final String url;
+  final bool isVideo;
+
+  @override
+  Widget build(BuildContext context) {
+    return Stack(
+      fit: StackFit.expand,
+      children: [
+        Image.network(
+          url,
+          fit: BoxFit.cover,
+          errorBuilder: (context, error, stackTrace) => ColoredBox(
+            color: Theme.of(context).dividerColor,
+            child: const Center(child: Icon(Icons.broken_image_outlined)),
+          ),
+        ),
+        if (isVideo)
+          const Center(
+            child: Icon(
+              Icons.play_circle_outline,
+              color: Colors.white,
+              size: 32,
+            ),
+          ),
       ],
     );
   }

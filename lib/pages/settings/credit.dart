@@ -67,6 +67,14 @@ class _CreditState extends State<Credit> {
                 Text(yjsnpi ? "謝らなければならない方々" : "★ Special thanks ★"),
                 Text.rich(TextAgent.generate("@karon", context)),
                 Text.rich(TextAgent.generate("@karotter", context)),
+                const SizedBox(height: 16.0),
+                const Text("同梱している絵文字"),
+                const Text(
+                  "Twemoji © Twitter, Inc and other contributors (CC-BY 4.0)\n"
+                  "COLR 版は mozilla/twemoji-colr",
+                  textAlign: TextAlign.center,
+                  style: TextStyle(fontSize: 12),
+                ),
                 if (yjsnpi) Text("そして、これを見てくださっている画面の前のあなた"),
               ],
             ),
